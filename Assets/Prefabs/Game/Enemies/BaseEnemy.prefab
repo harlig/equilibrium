@@ -269,3 +269,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3b68f329f5c478c8193dab1eb290cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpTextElement: {fileID: 3555654630889757491}

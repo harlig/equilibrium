@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -10,12 +11,24 @@ public class EnemyController : MonoBehaviour
         TOWARDS_PATROL_POSITION
     }
 
+    [SerializeField]
+    private TextMeshPro hpTextElement;
+
     private const float MOVEMENT_SPEED = 1.0f;
     private const int MAX_HP = 10;
+
+    private float hpRemaining;
 
     private Vector2 spawnPosition;
 
     private bool _isPatrolling;
+
+    void Awake()
+    {
+        Debug.Log("Starting enemy");
+        hpRemaining = MAX_HP;
+        hpTextElement.text = $"{hpRemaining}";
+    }
 
     public Vector2 GetPositionAsVector2()
     {
@@ -35,11 +48,16 @@ public class EnemyController : MonoBehaviour
 
         IEnumerator MoveObstacleOnPatrolCourse(MoveDirection moveDirection)
         {
+            // stop patrolling, bro is dead
+            if (hpRemaining <= 0)
+            {
+                yield break;
+            }
+
             Vector2 endPosition;
             if (moveDirection == MoveDirection.TOWARDS_START_POSITION)
             {
                 endPosition = spawnPosition;
-                Debug.Log("test");
             }
             else if (moveDirection == MoveDirection.TOWARDS_PATROL_POSITION)
             {
@@ -66,6 +84,10 @@ public class EnemyController : MonoBehaviour
                 MoveTowardsPosition(out xDiff, out yDiff, curPosition, endPosition);
             }
             _isPatrolling = false;
+
+            // lose hp at end of patrol
+            hpRemaining -= 1.0f;
+            hpTextElement.text = $"{hpRemaining}";
         }
 
         IEnumerator ChangePatrolDirectionWhenDonePatrolling(MoveDirection oldMoveDirection)
