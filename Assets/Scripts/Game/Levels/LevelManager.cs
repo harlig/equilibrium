@@ -9,10 +9,10 @@ public abstract class LevelManager : MonoBehaviour
 
     private List<EnemyController> enemyControllers;
 
-    protected void SetupLevel(List<Vector2Int> enemySpawnLocations)
+    protected void SetupLevel(List<Vector2> enemySpawnLocations)
     {
         enemyControllers = new List<EnemyController>();
-        foreach (Vector2Int enemySpawnLocation in enemySpawnLocations)
+        foreach (var enemySpawnLocation in enemySpawnLocations)
         {
             // create new enemy at location
             GameObject newEnemy = Instantiate(
@@ -20,7 +20,20 @@ public abstract class LevelManager : MonoBehaviour
                 new Vector3(enemySpawnLocation.x, enemySpawnLocation.y, 0),
                 Quaternion.identity
             );
-            enemyControllers.Add(newEnemy.GetComponent<EnemyController>());
+            var enemyController = newEnemy.GetComponent<EnemyController>();
+            if (enemySpawnLocation.y < 0)
+            {
+                enemyController.StartPatrolling(new Vector2Int(3, -3));
+            }
+            else if (enemySpawnLocation.x > 0)
+            {
+                enemyController.StartPatrolling(new Vector2Int(3, -2));
+            }
+            else
+            {
+                enemyController.StartPatrolling(new Vector2Int(-1, 2));
+            }
+            enemyControllers.Add(enemyController);
         }
     }
 }
