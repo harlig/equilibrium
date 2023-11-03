@@ -19,15 +19,15 @@ public abstract class LevelManager : MonoBehaviour
             var enemyController = newEnemy.GetComponent<EnemyController>();
             if (enemySpawnLocation.y < 0)
             {
-                enemyController.StartPatrolling(new Vector2Int(3, -3));
+                enemyController.StartPatrolling(new Vector2(3, -3));
             }
             else if (enemySpawnLocation.x > 0)
             {
-                enemyController.StartPatrolling(new Vector2Int(3, -2));
+                enemyController.StartPatrolling(new Vector2(5, -3.2f));
             }
             else
             {
-                enemyController.StartPatrolling(new Vector2Int(-1, 2));
+                enemyController.StartPatrolling(new Vector2(-1, 2));
             }
             enemyControllers.Add(enemyController);
         }

@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     }
 
     private const float MOVEMENT_SPEED = 1.0f;
+    private const int MAX_HP = 10;
 
     private Vector2 spawnPosition;
 
