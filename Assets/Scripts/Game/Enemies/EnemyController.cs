@@ -39,6 +39,7 @@ public class EnemyController : MonoBehaviour
             if (moveDirection == MoveDirection.TOWARDS_START_POSITION)
             {
                 endPosition = spawnPosition;
+                Debug.Log("test");
             }
             else if (moveDirection == MoveDirection.TOWARDS_PATROL_POSITION)
             {
