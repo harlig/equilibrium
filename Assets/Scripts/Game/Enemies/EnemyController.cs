@@ -14,6 +14,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private TextMeshPro hpTextElement;
 
+    [SerializeField]
+    private GameObject projectileGameObject;
+
     private const float MOVEMENT_SPEED = 1.0f;
     private const int MAX_HP = 10;
 
@@ -85,6 +88,19 @@ public class EnemyController : MonoBehaviour
             }
             _isPatrolling = false;
 
+            // end of patrol actions
+
+            // fire projectile
+            Debug.Log("Creating new projectil!");
+            var newProjectile = Instantiate(
+                projectileGameObject,
+                transform.localToWorldMatrix.GetPosition(),
+                Quaternion.identity
+            );
+            newProjectile.SetActive(true);
+            var projectileRb = newProjectile.GetComponent<Rigidbody2D>();
+            projectileRb.AddForce(Vector2.up);
+
             // lose hp at end of patrol
             hpRemaining -= 1.0f;
             hpTextElement.text = $"{hpRemaining}";
@@ -97,6 +113,7 @@ public class EnemyController : MonoBehaviour
                 // can modify to determine how long should rest at the final position before switching directions
                 yield return new WaitForSeconds(0.5f);
             }
+
             // I think this is okay because this execution of the method will end after the StartCoroutine call
             // and a new execution begins, but the old garbage is freed. if obstacle movement is slow this could be why though
             if (oldMoveDirection == MoveDirection.TOWARDS_START_POSITION)

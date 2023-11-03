@@ -270,3 +270,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpTextElement: {fileID: 3555654630889757491}
+  projectileGameObject: {fileID: 234184344447127454, guid: b81af1c99194f4d6e90e16f0e9e55433, type: 3}
