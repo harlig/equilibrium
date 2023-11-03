@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
         return new Vector2(transform.position.x, transform.position.y);
     }
 
+    // TODO when this method gets called, the enemies like sink below the map or something. if we increase their Z value they become visible, but need to figure out why they are going behind tiles
     public void StartPatrolling(Vector2 patrolPosition)
     {
         spawnPosition = GetPositionAsVector2();
