@@ -15,11 +15,7 @@ public abstract class LevelManager : MonoBehaviour
         foreach (var enemySpawnLocation in enemySpawnLocations)
         {
             // create new enemy at location
-            GameObject newEnemy = Instantiate(
-                enemyPrefab,
-                new Vector3(enemySpawnLocation.x, enemySpawnLocation.y, 0),
-                Quaternion.identity
-            );
+            GameObject newEnemy = Instantiate(enemyPrefab, enemySpawnLocation, Quaternion.identity);
             var enemyController = newEnemy.GetComponent<EnemyController>();
             if (enemySpawnLocation.y < 0)
             {
