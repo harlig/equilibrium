@@ -98,7 +98,6 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Creating new projectil!");
             var newProjectile = Instantiate(
                 projectile,
-                // launchOffset.transform
                 transform.localToWorldMatrix.GetPosition(),
                 Quaternion.identity
             );
