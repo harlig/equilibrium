@@ -183,8 +183,9 @@ GameObject:
   - component: {fileID: 5142500492340551556}
   - component: {fileID: 8014170812535174030}
   - component: {fileID: 3634178711203957011}
+  - component: {fileID: 5352518838595410912}
   m_Layer: 0
-  m_Name: BaseEnemy
+  m_Name: MeleeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,3 +331,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5352518838595410912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360347662859807920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83e0bc5a5be4454f9ab743f58ee7f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpTextElement: {fileID: 3555654630889757491}
+  projectile: {fileID: 0}
