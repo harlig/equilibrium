@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedEnemy : EnemyController
@@ -45,4 +43,3 @@ public class RangedEnemy : EnemyController
         newProjectile.MoveInDirection(launchDirection);
     }
 }
-// fire projectile
