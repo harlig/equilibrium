@@ -5,7 +5,7 @@ public class RangedEnemy : EnemyController
     [SerializeField]
     private ProjectileBehavior projectilePrefab;
 
-    public const float fireInterval = 100; // Number of FixedUpdate calls before firing
+    public const float fireInterval = 60; // Number of FixedUpdate calls before firing
 
     private int currentInterval = 0;
 

@@ -57,46 +57,65 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Something hit me!");
-        RegisterDamage(other);
+        RegisterDamage(other.gameObject);
     }
 
     void OnCollisionStay2D(Collision2D other)
     {
         Debug.Log("Something is constantly hitting me!");
-        RegisterDamage(other);
+        RegisterDamage(other.gameObject);
     }
 
-    void RegisterDamage(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (!canTakeDmg)
+        Debug.Log($"Some trigger hit me: {other.name}");
+        RegisterDamage(other.gameObject, true);
+    }
+
+    void RegisterDamage(GameObject other, bool forceDmg = false)
+    {
+        float dmgAmount;
+        if (!canTakeDmg && !forceDmg)
         {
             return;
         }
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            canTakeDmg = false;
-            Debug.Log("Something that hit me is dealing dmg");
-            // get amount of dmg dealt by this enemy, then apply it to the player
-
-            hpRemaining -= 5;
-            hpTextElement.text = $"{hpRemaining}";
-
-            if (IsDead())
-            {
-                // TODO game over
-                canMove = false;
-                hpTextElement.text = $"{hpRemaining}\nGame Over!";
-                // don't want to call WaitBeforeTakingDmg so we don't take more dmg
-                return;
-            }
-            StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
+            // melee dmg is fixed
+            dmgAmount = 5;
         }
+        else if (other.GetComponent<ProjectileBehavior>() != null)
+        {
+            var projectile = other.GetComponent<ProjectileBehavior>();
+            dmgAmount = projectile.DamageAmount;
+        }
+        else
+        {
+            return;
+        }
+
+        canTakeDmg = false;
+        Debug.Log("Something that hit me is dealing dmg");
+
+        hpRemaining -= dmgAmount;
+        hpTextElement.text = $"{hpRemaining}";
+
+        if (IsDead())
+        {
+            // TODO game over
+            canMove = false;
+            hpTextElement.text = $"{hpRemaining}\nGame Over!";
+            // don't want to call WaitBeforeTakingDmg so we don't take more dmg
+            GetComponent<BoxCollider2D>().enabled = false;
+            return;
+        }
+        StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL, forceDmg));
     }
 
-    private IEnumerator WaitBeforeTakingDmg(float waitTime)
+    private IEnumerator WaitBeforeTakingDmg(float waitTime, bool forceDmg)
     {
         // weird edge case?
-        if (canTakeDmg)
+        if (canTakeDmg && !forceDmg)
             yield break;
 
         yield return new WaitForSeconds(waitTime);
