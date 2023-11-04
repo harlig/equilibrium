@@ -10,28 +10,28 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        var movement = new Vector2(0, 0);
+        var Movement = new Vector2(0, 0);
 
         if (Input.GetKey(KeyCode.A))
         {
-            movement.x -= 1.0f;
+            Movement.x -= 1.0f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            movement.x += 1.0f;
+            Movement.x += 1.0f;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            movement.y += 1.0f;
+            Movement.y += 1.0f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            movement.y -= 1.0f;
+            Movement.y -= 1.0f;
         }
 
-        var rigid_body = gameObject.GetComponent<Rigidbody2D>();
-        var new_position = rigid_body.position + movement.normalized * MOVEMENT_SPEED;
+        var RigidBody = gameObject.GetComponent<Rigidbody2D>();
+        var NewPosition = RigidBody.position + Movement.normalized * MOVEMENT_SPEED;
 
-        rigid_body.MovePosition(new_position);
+        RigidBody.MovePosition(NewPosition);
     }
 }
