@@ -211,9 +211,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4ce0d262df77469ca7daaf51c4552eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5360347662859807920, guid: ca873d04bb8fb4c3798b2eedd8c41744, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  player: {fileID: 1074470874}
+  enemyPrefab: {fileID: 9148427884589187897, guid: ca873d04bb8fb4c3798b2eedd8c41744, type: 3}
 --- !u!1 &962650474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2314,17 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &1074470874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1932976131922833050, guid: a8d78a69fd46b46309b5369f1c705109, type: 3}
+  m_PrefabInstance: {fileID: 1099759781}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d15ad1e552a642328d33ad26e6ce36c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &1099759781
 PrefabInstance:
   m_ObjectHideFlags: 0

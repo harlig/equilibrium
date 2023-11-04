@@ -21,7 +21,7 @@ public class EnemyController : MonoBehaviour
     // [SerializeField]
     // private Transform launchOffset;
 
-    private const float MOVEMENT_SPEED = 1.0f;
+    private float movementSpeed = 0.05f;
     private const int MAX_HP = 10;
 
     private float hpRemaining;
@@ -30,11 +30,34 @@ public class EnemyController : MonoBehaviour
 
     private bool _isPatrolling;
 
+    private float movementX,
+        movementY;
+    private PlayerController player;
+
+    private bool startFollowing = false;
+
     void Awake()
     {
-        Debug.Log("Starting enemy");
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
+        Color randomColor = new Color(
+            UnityEngine.Random.value,
+            UnityEngine.Random.value,
+            UnityEngine.Random.value
+        );
+        GetComponent<SpriteRenderer>().color = randomColor;
+    }
+
+    // TODO
+    public static EnemyController Create(
+        EnemyController prefab,
+        Vector2 position,
+        PlayerController player
+    )
+    {
+        var createdEnemy = Instantiate(prefab, position, Quaternion.identity);
+
+        return null;
     }
 
     public Vector2 GetPositionAsVector2()
@@ -42,6 +65,30 @@ public class EnemyController : MonoBehaviour
         return new Vector2(transform.position.x, transform.position.y);
     }
 
+    void FixedUpdate()
+    {
+        if (startFollowing)
+        {
+            movementX = player.transform.position.x - transform.position.x;
+            movementY = player.transform.position.y - transform.position.y;
+            var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+
+            var newPosition =
+                rigidBody.position + new Vector2(movementX, movementY).normalized * movementSpeed;
+
+            rigidBody.MovePosition(newPosition);
+        }
+    }
+
+    public void FollowPlayer(PlayerController player)
+    {
+        this.player = player;
+        startFollowing = true;
+
+        movementSpeed = UnityEngine.Random.Range(0.03f, 0.08f);
+    }
+
+    // DEPRECATED lol
     public void StartPatrolling(Vector2 patrolPosition)
     {
         spawnPosition = GetPositionAsVector2();
@@ -161,8 +208,8 @@ public class EnemyController : MonoBehaviour
         float moveRatioX = xDiff / totalDistanceToMove;
         float moveRatioY = yDiff / totalDistanceToMove;
 
-        float moveDistanceX = moveRatioX * MOVEMENT_SPEED;
-        float moveDistanceY = moveRatioY * MOVEMENT_SPEED;
+        float moveDistanceX = moveRatioX * movementSpeed;
+        float moveDistanceY = moveRatioY * movementSpeed;
 
         // we want to ensure that we can get back to a diff of exactly 0, so if the diff is smaller let's just take that
         float movementX = Math.Abs(moveDistanceX) > Math.Abs(xDiff) ? xDiff : moveDistanceX;

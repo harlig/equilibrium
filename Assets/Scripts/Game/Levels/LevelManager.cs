@@ -5,7 +5,10 @@ using UnityEngine;
 public abstract class LevelManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject enemyPrefab;
+    private PlayerController player;
+
+    [SerializeField]
+    private EnemyController enemyPrefab;
 
     private List<EnemyController> enemyControllers;
 
@@ -15,20 +18,13 @@ public abstract class LevelManager : MonoBehaviour
         foreach (var enemySpawnLocation in enemySpawnLocations)
         {
             // create new enemy at location
-            GameObject newEnemy = Instantiate(enemyPrefab, enemySpawnLocation, Quaternion.identity);
+            GameObject newEnemy = Instantiate(
+                enemyPrefab.gameObject,
+                enemySpawnLocation,
+                Quaternion.identity
+            );
             var enemyController = newEnemy.GetComponent<EnemyController>();
-            if (enemySpawnLocation.y < 0)
-            {
-                enemyController.StartPatrolling(new Vector2(3, -3));
-            }
-            else if (enemySpawnLocation.x > 0)
-            {
-                enemyController.StartPatrolling(new Vector2(5, -3.2f));
-            }
-            else
-            {
-                enemyController.StartPatrolling(new Vector2(-1, 2));
-            }
+            enemyController.FollowPlayer(player);
             enemyControllers.Add(enemyController);
         }
     }
