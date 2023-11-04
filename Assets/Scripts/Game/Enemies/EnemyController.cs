@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
 
     private float movementX,
         movementY;
+
     private PlayerController player;
 
     private bool startFollowing = false;
