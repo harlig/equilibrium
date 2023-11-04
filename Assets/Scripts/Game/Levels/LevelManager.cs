@@ -7,7 +7,7 @@ public abstract class LevelManager : MonoBehaviour
     private PlayerController player;
 
     [SerializeField]
-    private EnemyController enemyPrefab;
+    private EnemyController meleeEnemyPrefab;
 
     private List<EnemyController> enemyControllers;
 
@@ -18,7 +18,7 @@ public abstract class LevelManager : MonoBehaviour
         {
             // create new enemy at location
             GameObject newEnemy = Instantiate(
-                enemyPrefab.gameObject,
+                meleeEnemyPrefab.gameObject,
                 enemySpawnLocation,
                 Quaternion.identity
             );
