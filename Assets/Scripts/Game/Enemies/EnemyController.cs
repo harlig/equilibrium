@@ -15,7 +15,11 @@ public class EnemyController : MonoBehaviour
     private TextMeshPro hpTextElement;
 
     [SerializeField]
-    private GameObject projectileGameObject;
+    private ProjectileBehavior projectile;
+
+    // TODO use this
+    // [SerializeField]
+    // private Transform launchOffset;
 
     private const float MOVEMENT_SPEED = 1.0f;
     private const int MAX_HP = 10;
@@ -93,13 +97,22 @@ public class EnemyController : MonoBehaviour
             // fire projectile
             Debug.Log("Creating new projectil!");
             var newProjectile = Instantiate(
-                projectileGameObject,
+                projectile,
+                // launchOffset.transform
                 transform.localToWorldMatrix.GetPosition(),
                 Quaternion.identity
             );
-            newProjectile.SetActive(true);
-            var projectileRb = newProjectile.GetComponent<Rigidbody2D>();
-            projectileRb.AddForce(Vector2.up);
+            var randomX = UnityEngine.Random.Range(-1.0f, 1.0f);
+            var randomY = UnityEngine.Random.Range(-1.0f, 1.0f);
+            Vector2 launchDirection = new Vector2(randomX, randomY);
+
+            // Calculate the rotation in 2D space to align with the launch direction and adjust by 90 degrees to handle long projectile
+            float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+            newProjectile.transform.rotation = rotation;
+
+            newProjectile.MoveInDirection(launchDirection);
 
             // lose hp at end of patrol
             hpRemaining -= 1.0f;
