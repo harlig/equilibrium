@@ -68,7 +68,7 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (startFollowing)
+        if (startFollowing && !player.IsDead())
         {
             movementX = player.transform.position.x - transform.position.x;
             movementY = player.transform.position.y - transform.position.y;
