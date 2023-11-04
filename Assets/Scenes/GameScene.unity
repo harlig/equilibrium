@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2093592336}
   meleeEnemyPrefab: {fileID: 5352518838595410912, guid: ca6f3de5263ca42f9b40d931e5fe0991, type: 3}
+  rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 9bd82abb793cf4868bd99ae15735a373, type: 3}
 --- !u!1 &962650474
 GameObject:
   m_ObjectHideFlags: 0

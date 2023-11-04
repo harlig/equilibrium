@@ -7,7 +7,10 @@ public abstract class LevelManager : MonoBehaviour
     private PlayerController player;
 
     [SerializeField]
-    private EnemyController meleeEnemyPrefab;
+    private MeleeEnemy meleeEnemyPrefab;
+
+    [SerializeField]
+    private RangedEnemy rangedEnemyPrefab;
 
     private List<EnemyController> enemyControllers;
 
@@ -17,14 +20,14 @@ public abstract class LevelManager : MonoBehaviour
         foreach (var enemySpawnLocation in enemySpawnLocations)
         {
             // create new enemy at location
-            GameObject newEnemy = Instantiate(
-                meleeEnemyPrefab.gameObject,
-                enemySpawnLocation,
-                Quaternion.identity
-            );
-            var enemyController = newEnemy.GetComponent<EnemyController>();
+            MeleeEnemy enemyController = (MeleeEnemy)
+                EnemyController.Create(meleeEnemyPrefab, enemySpawnLocation, player);
             enemyController.FollowPlayer(player);
             enemyControllers.Add(enemyController);
         }
+
+        RangedEnemy rangedEnemy = (RangedEnemy)
+            EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
+        enemyControllers.Add(rangedEnemy);
     }
 }

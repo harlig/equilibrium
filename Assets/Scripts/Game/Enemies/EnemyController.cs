@@ -14,9 +14,6 @@ public abstract class EnemyController : MonoBehaviour
     [SerializeField]
     private TextMeshPro hpTextElement;
 
-    // [SerializeField]
-    // private ProjectileBehavior projectile;
-
     // TODO use this
     // [SerializeField]
     // private Transform launchOffset;
@@ -33,7 +30,7 @@ public abstract class EnemyController : MonoBehaviour
     private float movementX,
         movementY;
 
-    private PlayerController player;
+    protected PlayerController player;
 
     private bool startFollowing = false;
 
@@ -49,7 +46,6 @@ public abstract class EnemyController : MonoBehaviour
         GetComponent<SpriteRenderer>().color = randomColor;
     }
 
-    // TODO
     public static EnemyController Create(
         EnemyController prefab,
         Vector2 position,
@@ -57,8 +53,8 @@ public abstract class EnemyController : MonoBehaviour
     )
     {
         var createdEnemy = Instantiate(prefab, position, Quaternion.identity);
-
-        return null;
+        createdEnemy.player = player;
+        return createdEnemy;
     }
 
     public Vector2 GetPositionAsVector2()
@@ -141,25 +137,6 @@ public abstract class EnemyController : MonoBehaviour
             _isPatrolling = false;
 
             // end of patrol actions
-
-            // fire projectile
-            // Debug.Log("Creating new projectil!");
-            // var newProjectile = Instantiate(
-            //     projectile,
-            //     transform.localToWorldMatrix.GetPosition(),
-            //     Quaternion.identity
-            // );
-            // var randomX = UnityEngine.Random.Range(-1.0f, 1.0f);
-            // var randomY = UnityEngine.Random.Range(-1.0f, 1.0f);
-            // Vector2 launchDirection = new Vector2(randomX, randomY).normalized;
-
-            // // Calculate the rotation in 2D space to align with the launch direction and adjust by 90 degrees to handle long projectile
-            // float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
-            // Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-            // newProjectile.transform.rotation = rotation;
-
-            // newProjectile.MoveInDirection(launchDirection);
 
             // lose hp at end of patrol
             hpRemaining -= 1.0f;
