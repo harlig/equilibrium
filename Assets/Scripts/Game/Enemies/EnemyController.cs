@@ -103,7 +103,7 @@ public class EnemyController : MonoBehaviour
             );
             var randomX = UnityEngine.Random.Range(-1.0f, 1.0f);
             var randomY = UnityEngine.Random.Range(-1.0f, 1.0f);
-            Vector2 launchDirection = new Vector2(randomX, randomY);
+            Vector2 launchDirection = new Vector2(randomX, randomY).normalized;
 
             // Calculate the rotation in 2D space to align with the launch direction and adjust by 90 degrees to handle long projectile
             float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
