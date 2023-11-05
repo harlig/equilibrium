@@ -21,10 +21,6 @@ public abstract class EnemyController : MonoBehaviour
 
     private float hpRemaining;
 
-    private Vector2 spawnPosition;
-
-    private bool _isPatrolling;
-
     private float movementX,
         movementY;
 
@@ -36,11 +32,7 @@ public abstract class EnemyController : MonoBehaviour
     {
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
-        Color randomColor = new Color(
-            UnityEngine.Random.value,
-            UnityEngine.Random.value,
-            UnityEngine.Random.value
-        );
+        Color randomColor = new(Random.value, Random.value, Random.value);
         GetComponent<SpriteRenderer>().color = randomColor;
     }
 
@@ -80,6 +72,6 @@ public abstract class EnemyController : MonoBehaviour
         this.player = player;
         startFollowing = true;
 
-        movementSpeed = UnityEngine.Random.Range(0.03f, 0.08f);
+        movementSpeed = Random.Range(0.03f, 0.08f);
     }
 }
