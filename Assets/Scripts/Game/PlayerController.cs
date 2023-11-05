@@ -69,7 +69,16 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"Some trigger hit me: {other.name}");
-        RegisterDamage(other.gameObject, true);
+        if (other.GetComponent<OrbController>() != null)
+        {
+            Debug.Log("Holy shit XP acquired!!");
+            var orb = other.GetComponent<OrbController>();
+            Debug.Log($"xp acquired: {orb.Xp}");
+        }
+        else
+        {
+            RegisterDamage(other.gameObject, true);
+        }
     }
 
     void RegisterDamage(GameObject other, bool forceDmg = false)
