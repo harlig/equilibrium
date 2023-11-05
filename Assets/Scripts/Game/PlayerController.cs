@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
         canTakeDmg = false;
         Debug.Log("Something that hit me is dealing dmg");
 
+        // TODO use damageTaken
         hpRemaining -= dmgAmount;
         hpTextElement.text = $"{hpRemaining}";
 
