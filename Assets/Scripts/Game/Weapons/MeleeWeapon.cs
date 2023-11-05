@@ -5,6 +5,8 @@ using UnityEngine.TextCore.Text;
 
 public class MeleeWeapon : WeaponController
 {
+    private bool isSwinging = false;
+
     public override DamageType damageType
     {
         get

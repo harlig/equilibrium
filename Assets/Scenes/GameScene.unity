@@ -3167,6 +3167,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4821851316521187843, guid: a8d78a69fd46b46309b5369f1c705109, type: 3}
+      propertyPath: m_fontSize
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821851316521187843, guid: a8d78a69fd46b46309b5369f1c705109, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8570681578330045225, guid: a8d78a69fd46b46309b5369f1c705109, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

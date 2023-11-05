@@ -42,7 +42,7 @@ public abstract class EnemyController : CharacterController
 
     public override float HpRemaining
     {
-        get { return hpRemaining; }
+        get { return MAX_HP - damageTaken.TotalDamage(); }
     }
 
     void Awake()
@@ -63,11 +63,6 @@ public abstract class EnemyController : CharacterController
         // instantiating this directly bc no need to pass additional data to it
         createdEnemy.orbDropper = Instantiate(prefab.orbDropper, createdEnemy.transform);
         return createdEnemy;
-    }
-
-    public Vector2 GetPositionAsVector2()
-    {
-        return new Vector2(transform.position.x, transform.position.y);
     }
 
     public const float takeDamageOnInterval = 80;
@@ -92,13 +87,13 @@ public abstract class EnemyController : CharacterController
             rigidBody.MovePosition(newPosition);
         }
 
-        // Increment the current interval count
-        currentTakeDamageInterval++;
-        if (currentTakeDamageInterval >= takeDamageOnInterval)
-        {
-            OnDamageTaken();
-            currentTakeDamageInterval = 0; // Reset the interval count
-        }
+        // // Increment the current interval count
+        // currentTakeDamageInterval++;
+        // if (currentTakeDamageInterval >= takeDamageOnInterval)
+        // {
+        //     OnDamageTaken();
+        //     currentTakeDamageInterval = 0; // Reset the interval count
+        // }
     }
 
     public void FollowPlayer(PlayerController player)
@@ -110,12 +105,18 @@ public abstract class EnemyController : CharacterController
     }
 
     // TODO this should go to character controller
-    void OnDamageTaken()
+    public override void OnDamageTaken(DamageType damageType, float damage)
     {
         // use DamageType enum here
         // maintain amount of damage dealt with certain types of orb
-        damageTaken.FireDamage += Random.Range(0.2f, 4f);
-        damageTaken.IceDamage += Random.Range(0.2f, 4f);
+        switch (damageType) {
+            case DamageType.FIRE:
+                damageTaken.FireDamage += damage;
+                break;
+            case DamageType.ICE:
+                damageTaken.IceDamage += damage;
+                break;
+        }
 
         // TODO this should be an instance method and then automatically set the text when FireDamage or IceDamage are modified
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
@@ -146,13 +147,8 @@ public abstract class EnemyController : CharacterController
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    public bool IsDead()
+    public override bool IsDead()
     {
         return damageTaken.TotalDamage() >= MAX_HP;
-    }
-    public override void OnDamageTaken(DamageType damageType, float damageAmount)
-    {
-        // TODO: implement different damage types
-        hpRemaining -= damageAmount;
     }
 }
