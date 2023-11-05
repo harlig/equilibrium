@@ -100,6 +100,7 @@ public abstract class EnemyController : MonoBehaviour
         // use DamageType enum here
         // maintain amount of damage dealt with certain types of orb
         damageTaken.FireDamage += 2;
+        damageTaken.IceDamage += 2;
 
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
 

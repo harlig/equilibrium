@@ -33,29 +33,27 @@ public class OrbDropper : MonoBehaviour
 
     public static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
-        float totalDamage = damageTaken.FireDamage + damageTaken.IceDamage;
-
-        float fireProbability = damageTaken.FireDamage / totalDamage;
+        float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
 
         // Ensure the probability is never higher than 75% or less than 25%
         float minProbability = 0.25f;
         float maxProbability = 0.75f;
 
         if (fireProbability > maxProbability)
-            return false;
+            fireProbability = maxProbability;
         else if (fireProbability < minProbability)
-            return true;
-        else
-            return Random.Range(0.0f, 1.0f) < fireProbability;
+            fireProbability = minProbability;
+
+        return Random.Range(0.0f, 1.0f) < fireProbability;
     }
 
     public void DropFireOrb(float xp)
     {
-        var iceOrb = OrbController.Create(iceOrbPrefab, this, xp);
+        OrbController.Create(fireOrbPrefab, this, xp);
     }
 
     public void DropIceOrb(float xp)
     {
-        var iceOrb = OrbController.Create(iceOrbPrefab, this, xp);
+        OrbController.Create(iceOrbPrefab, this, xp);
     }
 }
