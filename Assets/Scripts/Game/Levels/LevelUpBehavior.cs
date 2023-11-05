@@ -1,28 +1,31 @@
-using TMPro;
+using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LevelUpBehavior : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI levelUpText;
+    LevelUpUIElements levelUpUIElements;
 
-    [SerializeField]
-    private Button acknowledgeButton;
-
-    void Start()
+    public void LevelUp(int newPlayerLevel, Action afterLevelUpAction)
     {
-        acknowledgeButton.onClick.AddListener(() =>
-        {
-            gameObject.SetActive(false);
-            LevelManager.UnpauseGame();
-        });
+        levelUpUIElements.SetElements(newPlayerLevel, OnButtonClick(afterLevelUpAction));
+
+        LevelManager.PauseGame();
     }
 
-    public void LevelUp(int newPlayerLevel)
+    Action OnButtonClick(Action afterLevelUpAction)
     {
-        gameObject.SetActive(true);
-        levelUpText.text = $"Congratulations on reaching level {newPlayerLevel}";
-        LevelManager.PauseGame();
+        return () =>
+        {
+            LevelManager.UnpauseGame();
+            StartCoroutine(WaitForDelayThenAfterLevelUp(afterLevelUpAction));
+        };
+    }
+
+    IEnumerator WaitForDelayThenAfterLevelUp(Action afterLevelUpAction)
+    {
+        yield return new WaitForSeconds(0.07f);
+        afterLevelUpAction.Invoke();
     }
 }

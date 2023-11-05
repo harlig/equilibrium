@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,11 +51,11 @@ public abstract class LevelManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void OnPlayerLevelUp(int newLevel)
+    void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
         // pause game
         Debug.Log($"Player leveled up to {newLevel}");
-        levelUpBehavior.LevelUp(newLevel);
+        levelUpBehavior.LevelUp(newLevel, afterLevelUpAction);
     }
 
     bool spawningMoreEnemies = false;

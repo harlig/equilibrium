@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private TextMeshPro hpTextElement;
+
+    [SerializeField]
+    private TextMeshPro levelTextElement;
 
     // configure orbs types
     private OrbCollector orbCollector;
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////////////
     //////////////////////////events//////////////////////////
     //////////////////////////////////////////////////////////
-    public delegate void LevelUpAction(int newPlayerLevel);
+    public delegate void LevelUpAction(int newPlayerLevel, Action afterLevelUpAction);
     public event LevelUpAction OnLevelUp;
 
     //////////////////////////////////////////////////////////
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
+        levelTextElement.text = $"lvl {PlayerLevel}";
     }
 
     void FixedUpdate()
@@ -132,11 +137,10 @@ public class PlayerController : MonoBehaviour
             {
                 // TODO celebrate that player leveled up, offer reward!
                 PlayerLevel++;
-                OnLevelUp?.Invoke(PlayerLevel);
+                levelTextElement.text = $"lvl {PlayerLevel}";
 
-                // TODO probably need to wait until the game is unpaused in order to try to level up again
                 // recursively call in case we need to level up again!
-                TryLevelUp();
+                OnLevelUp?.Invoke(PlayerLevel, () => TryLevelUp());
             }
         }
     }
