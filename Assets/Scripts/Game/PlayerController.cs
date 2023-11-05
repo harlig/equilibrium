@@ -29,6 +29,16 @@ public class PlayerController : MonoBehaviour
     private const int MAX_HP = 30;
     private const float MOVEMENT_SPEED = 0.12f;
 
+    //////////////////////////////////////////////////////////
+    //////////////////////////events//////////////////////////
+    //////////////////////////////////////////////////////////
+    public delegate void LevelUpAction(int newPlayerLevel);
+    public event LevelUpAction OnLevelUp;
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+
     void Awake()
     {
         var orbsToSupport = new Dictionary<OrbController.OrbType, TextMeshProUGUI>
@@ -120,9 +130,9 @@ public class PlayerController : MonoBehaviour
             var xpForLevelUp = GameManager.XpNeededForLevelUpAtIndex[PlayerLevel];
             if (orbCollector.XpCollected >= xpForLevelUp)
             {
-                Debug.Log($"Leveled up from {PlayerLevel} to {PlayerLevel + 1}");
                 // TODO celebrate that player leveled up, offer reward!
                 PlayerLevel++;
+                OnLevelUp?.Invoke(PlayerLevel);
 
                 // recursively call in case we need to level up again!
                 TryLevelUp();

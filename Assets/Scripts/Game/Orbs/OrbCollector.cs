@@ -16,11 +16,11 @@ public class OrbCollector
     {
         this.xpTextElement = xpTextElement;
         orbTypeToTextElements = orbTypesAndTextElements;
-        setTextForXp();
+        SetTextForXp();
         foreach (OrbController.OrbType type in orbTypesAndTextElements.Keys)
         {
             OrbsCollected[type] = 0;
-            setTextForType(type);
+            SetTextForType(type);
         }
     }
 
@@ -35,23 +35,23 @@ public class OrbCollector
         }
         OrbsCollected[orb.Type] = OrbsCollected[orb.Type] + 1;
         XpCollected += orb.Xp;
-        setTextForXp();
+        SetTextForXp();
 
         foreach (OrbController.OrbType type in orbTypeToTextElements.Keys)
         {
-            setTextForType(type);
+            SetTextForType(type);
         }
 
         // destroy when we're done collecting
         Object.Destroy(orb.gameObject);
     }
 
-    private void setTextForXp()
+    private void SetTextForXp()
     {
         xpTextElement.text = $"{XpCollected} xp collected";
     }
 
-    private void setTextForType(OrbController.OrbType type)
+    private void SetTextForType(OrbController.OrbType type)
     {
         orbTypeToTextElements[type].text = $"{OrbsCollected[type]} {type} collected";
     }

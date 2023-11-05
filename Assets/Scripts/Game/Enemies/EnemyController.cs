@@ -102,6 +102,7 @@ public abstract class EnemyController : MonoBehaviour
         damageTaken.FireDamage += Random.Range(0.2f, 4f);
         damageTaken.IceDamage += Random.Range(0.2f, 4f);
 
+        // TODO this should be an instance method and then automatically set the text when FireDamage or IceDamage are modified
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
 
         if (IsDead())

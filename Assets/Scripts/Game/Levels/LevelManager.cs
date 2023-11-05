@@ -12,9 +12,12 @@ public abstract class LevelManager : MonoBehaviour
 
     [SerializeField]
     private RangedEnemy rangedEnemyPrefab;
+
+    [SerializeField]
+    private LevelUpBehavior levelUpBehavior;
     private List<Vector2> spawnLocations;
 
-    private List<EnemyController> enemies = new();
+    private readonly List<EnemyController> enemies = new();
 
     protected void SetupLevel(List<Vector2> enemySpawnLocations)
     {
@@ -28,9 +31,18 @@ public abstract class LevelManager : MonoBehaviour
             enemies.Add(enemyController);
         }
 
+        player.OnLevelUp += OnPlayerLevelUp;
+
         // RangedEnemy rangedEnemy = (RangedEnemy)
         //     EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
         // enemyControllers.Add(rangedEnemy);
+    }
+
+    void OnPlayerLevelUp(int newLevel)
+    {
+        // pause game
+        Debug.Log($"Player leveled up to {newLevel}");
+        levelUpBehavior.LevelUp(newLevel);
     }
 
     bool spawningMoreEnemies = false;
