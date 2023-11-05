@@ -49,11 +49,11 @@ public class OrbDropper : MonoBehaviour
 
     public void DropFireOrb(float xp)
     {
-        OrbController.Create(fireOrbPrefab, this, xp);
+        OrbController.Create(fireOrbPrefab, this, OrbController.OrbType.FIRE, xp);
     }
 
     public void DropIceOrb(float xp)
     {
-        OrbController.Create(iceOrbPrefab, this, xp);
+        OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp);
     }
 }

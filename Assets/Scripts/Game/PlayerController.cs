@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,18 +10,39 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private TextMeshPro hpTextElement;
+
+    // configure orbs types
+    private OrbCollector orbCollector;
+
+    [SerializeField]
+    private TextMeshProUGUI fireOrbsTextElement;
+
+    [SerializeField]
+    private TextMeshProUGUI iceOrbsTextElement;
+
     private float hpRemaining;
     private const int MAX_HP = 30;
     private const float MOVEMENT_SPEED = 0.1f;
     private bool canMove = true;
 
-    private float xp = 0;
-
     void Awake()
     {
+        var orbsToSupport = new Dictionary<OrbController.OrbType, TextMeshProUGUI>
+        {
+            [OrbController.OrbType.FIRE] = fireOrbsTextElement,
+            [OrbController.OrbType.ICE] = iceOrbsTextElement
+        };
+
+        orbCollector = new(orbsToSupport);
+
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
-        xpTextElement.text = $"{xp} xp collected";
+        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
+    }
+
+    void Update()
+    {
+        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
     }
 
     void FixedUpdate()
@@ -78,9 +100,7 @@ public class PlayerController : MonoBehaviour
         if (other.GetComponent<OrbController>() != null)
         {
             var orb = other.GetComponent<OrbController>();
-            xp += orb.Xp;
-            xpTextElement.text = $"{xp} xp collected";
-            Destroy(orb.gameObject);
+            orbCollector.Collect(orb);
         }
         else
         {
