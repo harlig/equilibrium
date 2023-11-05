@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameManager
 {
-    public List<int> XpLevelUpPoints { get; } = new() { 10, 40, 80, 150 };
+    // if you are at level 0, you need 1 xp to level up. if you are at level 1, you need 10, etc.
+    public static List<int> XpNeededForLevelUpAtIndex { get; } = new() { 1, 10, 40, 80, 150 };
 }

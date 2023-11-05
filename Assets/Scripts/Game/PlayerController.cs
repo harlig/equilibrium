@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public int Playerlevel { get; private set; } = 0;
+    public int PlayerLevel { get; private set; } = 0;
 
     [SerializeField]
     private TextMeshProUGUI xpTextElement;
@@ -98,11 +98,35 @@ public class PlayerController : MonoBehaviour
         if (other.GetComponent<OrbController>() != null)
         {
             var orb = other.GetComponent<OrbController>();
-            orbCollector.Collect(orb);
+            CollectOrb(orb);
         }
         else
         {
             RegisterDamage(other.gameObject, true);
+        }
+    }
+
+    void CollectOrb(OrbController orb)
+    {
+        orbCollector.Collect(orb);
+        TryLevelUp();
+    }
+
+    void TryLevelUp()
+    {
+        // you can only possibly level up if you aren't yet at the last level
+        if (PlayerLevel < GameManager.XpNeededForLevelUpAtIndex.Count)
+        {
+            var xpForLevelUp = GameManager.XpNeededForLevelUpAtIndex[PlayerLevel];
+            if (orbCollector.XpCollected >= xpForLevelUp)
+            {
+                Debug.Log($"Leveled up from {PlayerLevel} to {PlayerLevel + 1}");
+                // TODO celebrate that player leveled up, offer reward!
+                PlayerLevel++;
+
+                // recursively call in case we need to level up again!
+                TryLevelUp();
+            }
         }
     }
 
