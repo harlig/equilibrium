@@ -99,8 +99,8 @@ public abstract class EnemyController : MonoBehaviour
     {
         // use DamageType enum here
         // maintain amount of damage dealt with certain types of orb
-        damageTaken.FireDamage += 2;
-        damageTaken.IceDamage += 2;
+        damageTaken.FireDamage += Random.Range(0.2f, 4f);
+        damageTaken.IceDamage += Random.Range(0.2f, 4f);
 
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
 
@@ -118,12 +118,12 @@ public abstract class EnemyController : MonoBehaviour
         if (OrbDropper.ShouldDropFireOrb(damageTaken))
         {
             // TODO XP
-            orbDropper.DropFireOrb(10);
+            orbDropper.DropFireOrb(MAX_HP);
         }
         else
         {
             // TODO XP
-            orbDropper.DropIceOrb(10);
+            orbDropper.DropIceOrb(MAX_HP);
         }
 
         // no longer collide with it
