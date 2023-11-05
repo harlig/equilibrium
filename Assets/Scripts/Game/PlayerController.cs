@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterController
 {
     public int PlayerLevel { get; private set; } = 0;
 
@@ -26,7 +27,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI iceOrbsTextElement;
 
-    // TODO use damageTaken
+    [SerializeField]
+    private MeleeWeapon meleeWeapon;
     private float hpRemaining;
     private bool _canMove = true;
 
@@ -43,6 +45,25 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
+    private const float WEAPON_OFFSET = 0.75F;
+
+    public override float MaxHp
+    {
+        get { return MAX_HP; }
+    }
+
+    public override float MovementSpeed
+    {
+        get { return MOVEMENT_SPEED; }
+    }
+
+    public override float HpRemaining
+    {
+        get { return hpRemaining; }
+    }
+
+    private bool canMove = true;
+
     void Awake()
     {
         var orbsToSupport = new Dictionary<OrbController.OrbType, TextMeshProUGUI>
@@ -56,6 +77,19 @@ public class PlayerController : MonoBehaviour
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
         levelTextElement.text = $"lvl {PlayerLevel}";
+        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
+        InstantiateMeleeWeapon();
+    }
+
+    void Update()
+    {
+        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
+        // move weapon to left or right depending on where mouse is
+        MoveWeaponRelativeToMouse();
+
+        if (Input.GetMouseButtonDown(0)) {
+            meleeWeapon.AttackAtPosition(GetPositionAsVector2());
+        }
     }
 
     void FixedUpdate()
@@ -196,8 +230,56 @@ public class PlayerController : MonoBehaviour
         canTakeDmg = true;
     }
 
-    public bool IsDead()
+    public override bool IsDead()
     {
         return hpRemaining <= 0;
+    }
+
+    public override void OnDamageTaken(DamageType damageType, float damageTaken)
+    {
+        // TODO: add in effects for different damage types
+        hpRemaining -= damageTaken;
+    }
+
+    private void InstantiateMeleeWeapon()
+    {
+        Vector2 offset = new Vector2(WEAPON_OFFSET, WEAPON_OFFSET);
+
+        // calculate the position to the top right corner
+        Vector2 spawnPos = (Vector2)transform.position + offset;
+
+        var weapon = WeaponController.Create(meleeWeapon, spawnPos, this);
+        weapon.transform.parent = transform;
+        meleeWeapon = (MeleeWeapon)weapon;
+    }
+
+    private void MoveWeaponRelativeToMouse()
+    {
+        if (meleeWeapon == null)
+        {
+            return;
+        }
+
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 currentPos = transform.position;
+        if (mousePos == null)
+        {
+            return;
+        }
+
+        Camera camera = GetComponentInChildren<Camera>();
+
+        Vector2 worldMousePos = camera.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
+
+        Vector2 direction = worldMousePos - currentPos;
+
+        bool isMovingRight = direction.x > 0;
+
+        Vector2 topRight = new Vector2(WEAPON_OFFSET, WEAPON_OFFSET);
+        Vector2 topLeft = new Vector2(-WEAPON_OFFSET, WEAPON_OFFSET);
+
+        Vector2 offset = isMovingRight ? topRight : topLeft;
+
+        meleeWeapon.transform.position = currentPos + offset;
     }
 }

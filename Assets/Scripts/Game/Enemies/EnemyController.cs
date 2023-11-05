@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyController : CharacterController
 {
     private enum MoveDirection
     {
@@ -29,6 +29,21 @@ public abstract class EnemyController : MonoBehaviour
 
     private bool startFollowing = false;
     private readonly DamageTaken damageTaken = new();
+
+    public override float MaxHp
+    {
+        get { return MAX_HP; }
+    }
+
+    public override float MovementSpeed
+    {
+        get { return movementSpeed; }
+    }
+
+    public override float HpRemaining
+    {
+        get { return hpRemaining; }
+    }
 
     void Awake()
     {
@@ -134,5 +149,10 @@ public abstract class EnemyController : MonoBehaviour
     public bool IsDead()
     {
         return damageTaken.TotalDamage() >= MAX_HP;
+    }
+    public override void OnDamageTaken(DamageType damageType, float damageAmount)
+    {
+        // TODO: implement different damage types
+        hpRemaining -= damageAmount;
     }
 }
