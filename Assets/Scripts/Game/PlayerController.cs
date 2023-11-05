@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int Playerlevel { get; private set; } = 0;
+
     [SerializeField]
     private TextMeshProUGUI xpTextElement;
 
@@ -20,10 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI iceOrbsTextElement;
 
+    // TODO use damageTaken
     private float hpRemaining;
+    private bool _canMove = true;
+
     private const int MAX_HP = 30;
-    private const float MOVEMENT_SPEED = 0.1f;
-    private bool canMove = true;
+    private const float MOVEMENT_SPEED = 0.12f;
 
     void Awake()
     {
@@ -33,21 +37,15 @@ public class PlayerController : MonoBehaviour
             [OrbController.OrbType.ICE] = iceOrbsTextElement
         };
 
-        orbCollector = new(orbsToSupport);
+        orbCollector = new(xpTextElement, orbsToSupport);
 
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
-        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
-    }
-
-    void Update()
-    {
-        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
     }
 
     void FixedUpdate()
     {
-        if (!canMove)
+        if (!_canMove)
         {
             return;
         }
@@ -140,7 +138,7 @@ public class PlayerController : MonoBehaviour
         if (IsDead())
         {
             // TODO game over
-            canMove = false;
+            _canMove = false;
             hpTextElement.text = $"{hpRemaining}\nGame Over!";
             // don't want to call WaitBeforeTakingDmg so we don't take more dmg
             GetComponent<BoxCollider2D>().enabled = false;
