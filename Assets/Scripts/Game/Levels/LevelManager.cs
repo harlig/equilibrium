@@ -26,8 +26,8 @@ public abstract class LevelManager : MonoBehaviour
             enemyControllers.Add(enemyController);
         }
 
-        RangedEnemy rangedEnemy = (RangedEnemy)
-            EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
-        enemyControllers.Add(rangedEnemy);
+        // RangedEnemy rangedEnemy = (RangedEnemy)
+        //     EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
+        // enemyControllers.Add(rangedEnemy);
     }
 }

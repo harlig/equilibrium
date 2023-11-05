@@ -19,7 +19,7 @@ public class DamageTaken
     )
     {
         // format to two decimal places
-        textElement.text = string.Format("{0:N2}", maxHp - damageTaken.TotalDamage());
+        textElement.text = string.Format("{0:N1}", maxHp - damageTaken.TotalDamage());
     }
 }
 
@@ -51,11 +51,11 @@ public class OrbDropper : MonoBehaviour
 
     public void DropFireOrb(float xp)
     {
-        var iceOrb = OrbController.Create(iceOrbPrefab, transform.position, xp);
+        var iceOrb = OrbController.Create(iceOrbPrefab, this, xp);
     }
 
     public void DropIceOrb(float xp)
     {
-        var iceOrb = OrbController.Create(iceOrbPrefab, transform.position, xp);
+        var iceOrb = OrbController.Create(iceOrbPrefab, this, xp);
     }
 }

@@ -45,7 +45,8 @@ public abstract class EnemyController : MonoBehaviour
     {
         var createdEnemy = Instantiate(prefab, position, Quaternion.identity);
         createdEnemy.player = player;
-        // var orbDropper = Instantiate(orbDropper, createdEnemy.transform, Quaternion.identity);
+        // instantiating this directly bc no need to pass additional data to it
+        createdEnemy.orbDropper = Instantiate(prefab.orbDropper, createdEnemy.transform);
         return createdEnemy;
     }
 
@@ -54,8 +55,16 @@ public abstract class EnemyController : MonoBehaviour
         return new Vector2(transform.position.x, transform.position.y);
     }
 
+    public const float takeDamageOnInterval = 80;
+    private int currentInterval = 0;
+
     void FixedUpdate()
     {
+        if (IsDead())
+        {
+            return;
+        }
+
         if (startFollowing && !player.IsDead())
         {
             movementX = player.transform.position.x - transform.position.x;
@@ -66,6 +75,14 @@ public abstract class EnemyController : MonoBehaviour
                 rigidBody.position + new Vector2(movementX, movementY).normalized * movementSpeed;
 
             rigidBody.MovePosition(newPosition);
+        }
+
+        // Increment the current interval count
+        currentInterval++;
+        if (currentInterval >= takeDamageOnInterval)
+        {
+            OnDamageTaken();
+            currentInterval = 0; // Reset the interval count
         }
     }
 
@@ -85,6 +102,11 @@ public abstract class EnemyController : MonoBehaviour
         damageTaken.FireDamage += 2;
 
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
+
+        if (IsDead())
+        {
+            OnDeath();
+        }
     }
 
     void OnDeath()
@@ -102,5 +124,13 @@ public abstract class EnemyController : MonoBehaviour
             // TODO XP
             orbDropper.DropIceOrb(10);
         }
+
+        // no longer collide with it
+        GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public bool IsDead()
+    {
+        return damageTaken.TotalDamage() >= MAX_HP;
     }
 }
