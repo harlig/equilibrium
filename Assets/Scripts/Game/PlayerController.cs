@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (other.CompareTag("Enemy"))
+        if (other.GetComponent<EnemyController>() != null)
         {
             // melee dmg is fixed
             dmgAmount = 5;
