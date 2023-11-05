@@ -14,8 +14,8 @@ public class LevelUpBehavior : MonoBehaviour
     {
         acknowledgeButton.onClick.AddListener(() =>
         {
-            // unpause game
             gameObject.SetActive(false);
+            LevelManager.UnpauseGame();
         });
     }
 
@@ -23,5 +23,6 @@ public class LevelUpBehavior : MonoBehaviour
     {
         gameObject.SetActive(true);
         levelUpText.text = $"Congratulations on reaching level {newPlayerLevel}";
+        LevelManager.PauseGame();
     }
 }

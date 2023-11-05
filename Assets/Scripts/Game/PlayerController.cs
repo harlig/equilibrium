@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
                 PlayerLevel++;
                 OnLevelUp?.Invoke(PlayerLevel);
 
+                // TODO probably need to wait until the game is unpaused in order to try to level up again
                 // recursively call in case we need to level up again!
                 TryLevelUp();
             }

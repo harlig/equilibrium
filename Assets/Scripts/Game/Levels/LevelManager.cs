@@ -38,6 +38,18 @@ public abstract class LevelManager : MonoBehaviour
         // enemyControllers.Add(rangedEnemy);
     }
 
+    public static void PauseGame()
+    {
+        // feel free to change this if there's a better way to pause
+        // https://gamedevbeginner.com/the-right-way-to-pause-the-game-in-unity/
+        Time.timeScale = 0;
+    }
+
+    public static void UnpauseGame()
+    {
+        Time.timeScale = 1;
+    }
+
     void OnPlayerLevelUp(int newLevel)
     {
         // pause game
