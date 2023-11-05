@@ -46,7 +46,7 @@ public class MeleeWeapon : WeaponController
 
     private void RotateByDegrees(float degrees, Vector2 pivotPoint)
     {
-        Vector3 pivotPoint3d = new Vector3(pivotPoint.x, pivotPoint.y, 0f);
+        Vector3 pivotPoint3d = new(pivotPoint.x, pivotPoint.y, 0f);
         Vector3 objectPosition = transform.position;
 
         // calculate the rotated position of the object

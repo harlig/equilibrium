@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerController : CharacterController
 {
@@ -62,8 +61,6 @@ public class PlayerController : CharacterController
         get { return hpRemaining; }
     }
 
-    private bool canMove = true;
-
     void Awake()
     {
         var orbsToSupport = new Dictionary<OrbController.OrbType, TextMeshProUGUI>
@@ -78,7 +75,7 @@ public class PlayerController : CharacterController
         hpTextElement.text = $"{hpRemaining}";
         levelTextElement.text = $"lvl {PlayerLevel}";
         xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
-        InstantiateMeleeWeapon();
+        CreateMeleeWeapon();
     }
 
     void Update()
@@ -87,7 +84,8 @@ public class PlayerController : CharacterController
         // move weapon to left or right depending on where mouse is
         MoveWeaponRelativeToMouse();
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0))
+        {
             meleeWeapon.AttackAtPosition(GetPositionAsVector2());
         }
     }
@@ -241,9 +239,9 @@ public class PlayerController : CharacterController
         hpRemaining -= damageTaken;
     }
 
-    private void InstantiateMeleeWeapon()
+    private void CreateMeleeWeapon()
     {
-        Vector2 offset = new Vector2(WEAPON_OFFSET, WEAPON_OFFSET);
+        Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
 
         // calculate the position to the top right corner
         Vector2 spawnPos = (Vector2)transform.position + offset;
@@ -275,8 +273,8 @@ public class PlayerController : CharacterController
 
         bool isMovingRight = direction.x > 0;
 
-        Vector2 topRight = new Vector2(WEAPON_OFFSET, WEAPON_OFFSET);
-        Vector2 topLeft = new Vector2(-WEAPON_OFFSET, WEAPON_OFFSET);
+        Vector2 topRight = new(WEAPON_OFFSET, WEAPON_OFFSET);
+        Vector2 topLeft = new(-WEAPON_OFFSET, WEAPON_OFFSET);
 
         Vector2 offset = isMovingRight ? topRight : topLeft;
 

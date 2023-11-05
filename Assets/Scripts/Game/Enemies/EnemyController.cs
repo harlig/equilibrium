@@ -65,9 +65,6 @@ public abstract class EnemyController : CharacterController
         return createdEnemy;
     }
 
-    public const float takeDamageOnInterval = 80;
-    private int currentTakeDamageInterval = 0;
-
     void FixedUpdate()
     {
         if (IsDead())
@@ -86,14 +83,6 @@ public abstract class EnemyController : CharacterController
 
             rigidBody.MovePosition(newPosition);
         }
-
-        // // Increment the current interval count
-        // currentTakeDamageInterval++;
-        // if (currentTakeDamageInterval >= takeDamageOnInterval)
-        // {
-        //     OnDamageTaken();
-        //     currentTakeDamageInterval = 0; // Reset the interval count
-        // }
     }
 
     public void FollowPlayer(PlayerController player)
@@ -104,12 +93,12 @@ public abstract class EnemyController : CharacterController
         movementSpeed = Random.Range(0.03f, 0.08f);
     }
 
-    // TODO this should go to character controller
     public override void OnDamageTaken(DamageType damageType, float damage)
     {
         // use DamageType enum here
         // maintain amount of damage dealt with certain types of orb
-        switch (damageType) {
+        switch (damageType)
+        {
             case DamageType.FIRE:
                 damageTaken.FireDamage += damage;
                 break;
