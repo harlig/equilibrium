@@ -34,9 +34,9 @@ public abstract class LevelManager : MonoBehaviour
 
         player.OnLevelUp += OnPlayerLevelUp;
 
-        // RangedEnemy rangedEnemy = (RangedEnemy)
-        //     EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
-        // enemyControllers.Add(rangedEnemy);
+        RangedEnemy rangedEnemy = (RangedEnemy)
+            EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
+        enemies.Add(rangedEnemy);
     }
 
     public static void PauseGame()

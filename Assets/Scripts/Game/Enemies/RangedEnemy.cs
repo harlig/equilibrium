@@ -11,14 +11,17 @@ public class RangedEnemy : EnemyController
 
     void FixedUpdate()
     {
-        // Increment the current interval count
-        currentFireInterval++;
-
-        // Check if it's time to fire
-        if (currentFireInterval >= fireInterval)
+        if (!IsDead())
         {
-            FireProjectile();
-            currentFireInterval = 0; // Reset the interval count
+            // Increment the current interval count
+            currentFireInterval++;
+
+            // Check if it's time to fire
+            if (currentFireInterval >= fireInterval)
+            {
+                FireProjectile();
+                currentFireInterval = 0; // Reset the interval count
+            }
         }
     }
 
