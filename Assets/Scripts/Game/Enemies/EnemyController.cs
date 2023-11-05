@@ -56,7 +56,7 @@ public abstract class EnemyController : MonoBehaviour
     }
 
     public const float takeDamageOnInterval = 80;
-    private int currentInterval = 0;
+    private int currentTakeDamageInterval = 0;
 
     void FixedUpdate()
     {
@@ -78,11 +78,11 @@ public abstract class EnemyController : MonoBehaviour
         }
 
         // Increment the current interval count
-        currentInterval++;
-        if (currentInterval >= takeDamageOnInterval)
+        currentTakeDamageInterval++;
+        if (currentTakeDamageInterval >= takeDamageOnInterval)
         {
             OnDamageTaken();
-            currentInterval = 0; // Reset the interval count
+            currentTakeDamageInterval = 0; // Reset the interval count
         }
     }
 

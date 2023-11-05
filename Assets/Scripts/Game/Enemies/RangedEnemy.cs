@@ -7,18 +7,18 @@ public class RangedEnemy : EnemyController
 
     public const float fireInterval = 60; // Number of FixedUpdate calls before firing
 
-    private int currentInterval = 0;
+    private int currentFireInterval = 0;
 
     void FixedUpdate()
     {
         // Increment the current interval count
-        currentInterval++;
+        currentFireInterval++;
 
         // Check if it's time to fire
-        if (currentInterval >= fireInterval)
+        if (currentFireInterval >= fireInterval)
         {
             FireProjectile();
-            currentInterval = 0; // Reset the interval count
+            currentFireInterval = 0; // Reset the interval count
         }
     }
 

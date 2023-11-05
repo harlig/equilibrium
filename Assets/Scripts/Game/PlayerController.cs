@@ -5,16 +5,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    private TextMeshProUGUI xpTextElement;
+
+    [SerializeField]
     private TextMeshPro hpTextElement;
     private float hpRemaining;
     private const int MAX_HP = 30;
     private const float MOVEMENT_SPEED = 0.1f;
     private bool canMove = true;
 
+    private float xp = 0;
+
     void Awake()
     {
         hpRemaining = MAX_HP;
         hpTextElement.text = $"{hpRemaining}";
+        xpTextElement.text = $"{xp} xp collected";
     }
 
     void FixedUpdate()
@@ -71,9 +77,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Some trigger hit me: {other.name}");
         if (other.GetComponent<OrbController>() != null)
         {
-            Debug.Log("Holy shit XP acquired!!");
             var orb = other.GetComponent<OrbController>();
-            Debug.Log($"xp acquired: {orb.Xp}");
+            xp += orb.Xp;
+            xpTextElement.text = $"{xp} xp collected";
+            Destroy(orb.gameObject);
         }
         else
         {

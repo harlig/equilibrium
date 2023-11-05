@@ -10,7 +10,4 @@ public class BaseLevel : LevelManager
 
         SetupLevel(enemyLocations);
     }
-
-    // Update is called once per frame
-    void Update() { }
 }
