@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +33,9 @@ public abstract class LevelManager : MonoBehaviour
         // enemyControllers.Add(rangedEnemy);
     }
 
-    void Update()
+    bool spawningMoreEnemies = false;
+
+    void FixedUpdate()
     {
         foreach (var enemy in enemies)
         {
@@ -41,8 +44,20 @@ public abstract class LevelManager : MonoBehaviour
                 return;
             }
         }
+        if (spawningMoreEnemies)
+        {
+            return;
+        }
+        spawningMoreEnemies = true;
 
         // if all enemies are dead, spawn more
+        StartCoroutine(SpawnMoreEnemies());
+    }
+
+    IEnumerator SpawnMoreEnemies()
+    {
+        yield return new WaitForSeconds(2);
         SetupLevel(spawnLocations);
+        spawningMoreEnemies = false;
     }
 }
