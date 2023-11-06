@@ -30,22 +30,15 @@ public class OrbDropper : MonoBehaviour
 
     [SerializeField]
     private OrbController iceOrbPrefab;
+    const float MIN_PROBABILITY = 0.25f;
+    const float MAX_PROBABILITY = 0.75f;
 
     public static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
-        // TODO can replace this with Mathf.Clamp
         float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
 
-        // Ensure the probability is never higher than 75% or less than 25%
-        float minProbability = 0.25f;
-        float maxProbability = 0.75f;
-
-        if (fireProbability > maxProbability)
-            fireProbability = maxProbability;
-        else if (fireProbability < minProbability)
-            fireProbability = minProbability;
-
-        return Random.Range(0.0f, 1.0f) < fireProbability;
+        return Random.Range(0.0f, 1.0f)
+            < Mathf.Clamp(fireProbability, MIN_PROBABILITY, MAX_PROBABILITY);
     }
 
     public void DropFireOrb(float xp)
