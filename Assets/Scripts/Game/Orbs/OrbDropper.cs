@@ -33,6 +33,7 @@ public class OrbDropper : MonoBehaviour
 
     public static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
+        // TODO can replace this with Mathf.Clamp
         float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
 
         // Ensure the probability is never higher than 75% or less than 25%

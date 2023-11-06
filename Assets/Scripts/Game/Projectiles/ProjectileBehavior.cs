@@ -14,6 +14,7 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (canMove)
         {
+            // TODO use Time.fixedDeltaTime
             transform.position += Speed * Time.deltaTime * (Vector3)direction;
         }
     }

@@ -28,6 +28,7 @@ public class PlayerController : CharacterController
 
     [SerializeField]
     private MeleeWeapon meleeWeapon;
+    public Camera MainCamera { private get; set; }
     private float hpRemaining;
     private bool _canMove = true;
 
@@ -81,6 +82,7 @@ public class PlayerController : CharacterController
     void Update()
     {
         xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
+
         // move weapon to left or right depending on where mouse is
         MoveWeaponRelativeToMouse();
 
@@ -253,7 +255,7 @@ public class PlayerController : CharacterController
 
     private void MoveWeaponRelativeToMouse()
     {
-        if (meleeWeapon == null)
+        if (meleeWeapon == null || MainCamera == null)
         {
             return;
         }
@@ -265,11 +267,10 @@ public class PlayerController : CharacterController
             return;
         }
 
-        Camera camera = GetComponentInChildren<Camera>();
-
-        Vector2 worldMousePos = camera.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
+        Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
 
         Vector2 direction = worldMousePos - currentPos;
+        // Vector2 direction = new Vector2(0, 0);
 
         bool isMovingRight = direction.x > 0;
 

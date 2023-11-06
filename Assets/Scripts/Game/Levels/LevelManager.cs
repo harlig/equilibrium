@@ -23,9 +23,11 @@ public abstract class LevelManager : MonoBehaviour
 
     protected void SetupLevel(List<Vector2> enemySpawnLocations, bool spawnEnemies = true)
     {
-        GetComponentInChildren<CameraController>().FollowPlayer(player.transform); //, edgeTiles);
-        shouldSpawnEnemies = spawnEnemies;
+        var cameraController = GetComponentInChildren<CameraController>();
+        player.MainCamera = cameraController.GetComponent<Camera>();
+        cameraController.FollowPlayer(player.transform); //, edgeTiles);
 
+        shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
         if (shouldSpawnEnemies)
         {
