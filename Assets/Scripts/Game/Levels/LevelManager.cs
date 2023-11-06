@@ -49,6 +49,25 @@ public abstract class LevelManager : MonoBehaviour
                 EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
             enemies.Add(rangedEnemy);
         }
+
+        var interactables = GetComponentsInChildren<InteractableBehavior>();
+        foreach (InteractableBehavior interactableBehavior in interactables)
+        {
+            interactableBehavior.OnInteractableHitPlayer += OnInteractableHitPlayer;
+        }
+    }
+
+    private void OnInteractableHitPlayer(InteractableBehavior interactable)
+    {
+        if (interactable is AbstractDoor)
+        {
+            Debug.Log("Level observed player hitting a door");
+            // is level beat, if so move camera and player
+        }
+        else
+        {
+            Debug.LogErrorFormat("Unhandled interactable! {0}", interactable);
+        }
     }
 
     public static void PauseGame()
