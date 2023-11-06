@@ -29,7 +29,7 @@ public abstract class LevelManager : MonoBehaviour
         player.MainCamera = cameraController.GetComponent<Camera>();
         cameraController.FollowPlayer(player.transform); //, edgeTiles);
 
-        // TODO this should be dynamic based on edge tiles
+        // TODO: this should be dynamic based on edge tiles
         cameraController.SetCameraBounds(new Vector2(-22, -13), new Vector2(22, 13));
 
         shouldSpawnEnemies = spawnEnemies;
@@ -91,7 +91,7 @@ public abstract class LevelManager : MonoBehaviour
             // is level beat, if so move camera and player
             if (AllEnemiesDead())
             {
-                // TODO this should be based on grid?
+                // TODO: this should be based on grid?
                 door.MovePlayerAndCamera(cameraController, player, 40, 40, 2);
             }
         }

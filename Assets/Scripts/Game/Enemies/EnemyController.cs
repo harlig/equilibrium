@@ -15,7 +15,7 @@ public abstract class EnemyController : CharacterController
     [SerializeField]
     private OrbDropper orbDropper;
 
-    // TODO use this
+    // TODO: use this
     // [SerializeField]
     // private Transform launchOffset;
 
@@ -107,7 +107,7 @@ public abstract class EnemyController : CharacterController
                 break;
         }
 
-        // TODO this should be an instance method and then automatically set the text when FireDamage or IceDamage are modified
+        // TODO: this should be an instance method and then automatically set the text when FireDamage or IceDamage are modified
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
 
         if (IsDead())
@@ -123,12 +123,12 @@ public abstract class EnemyController : CharacterController
 
         if (OrbDropper.ShouldDropFireOrb(damageTaken))
         {
-            // TODO XP
+            // TODO: XP
             orbDropper.DropFireOrb(MAX_HP);
         }
         else
         {
-            // TODO XP
+            // TODO: XP
             orbDropper.DropIceOrb(MAX_HP);
         }
 

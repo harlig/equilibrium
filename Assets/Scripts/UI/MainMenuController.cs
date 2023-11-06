@@ -15,7 +15,7 @@ public class MainMenuController : MonoBehaviour
 
     public void SetActiveMenu()
     {
-        // TODO if we want level loading
+        // TODO: if we want level loading
         // if (GameManager.Instance.LastBuildIndex.HasValue)
         // {
         //     freshGameMenu.SetActive(false);

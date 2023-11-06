@@ -210,7 +210,7 @@ public class PlayerController : CharacterController
             var xpForLevelUp = GameManager.XpNeededForLevelUpAtIndex[PlayerLevel];
             if (orbCollector.XpCollected >= xpForLevelUp)
             {
-                // TODO celebrate that player leveled up, offer reward!
+                // TODO: celebrate that player leveled up, offer reward!
                 PlayerLevel++;
                 levelTextElement.text = $"lvl {PlayerLevel}";
 
@@ -245,13 +245,13 @@ public class PlayerController : CharacterController
         canTakeDmg = false;
         Debug.Log("Something that hit me is dealing dmg");
 
-        // TODO use damageTaken
+        // TODO: use damageTaken
         hpRemaining -= dmgAmount;
         hpTextElement.text = $"{hpRemaining}";
 
         if (IsDead())
         {
-            // TODO game over
+            // TODO: game over
             _canMove = false;
             hpTextElement.text = $"{hpRemaining}\nGame Over!";
             // don't want to call WaitBeforeTakingDmg so we don't take more dmg
