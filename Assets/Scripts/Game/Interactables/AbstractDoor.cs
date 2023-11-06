@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class AbstractDoor : InteractableBehavior
 {
-    protected enum DoorType
+    public enum DoorType
     {
         LEFT,
         UP,
@@ -10,7 +10,7 @@ public abstract class AbstractDoor : InteractableBehavior
         DOWN
     }
 
-    protected abstract DoorType GetDoorType();
+    public abstract DoorType GetDoorType();
 
     protected override void OnPlayerHit()
     {

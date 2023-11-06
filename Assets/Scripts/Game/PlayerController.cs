@@ -61,9 +61,12 @@ public class PlayerController : CharacterController
     {
         get { return hpRemaining; }
     }
+    private Vector2? AutomoveLocation = null;
+    private Rigidbody2D rigidBody;
 
     void Awake()
     {
+        rigidBody = gameObject.GetComponent<Rigidbody2D>();
         var orbsToSupport = new Dictionary<OrbController.OrbType, TextMeshProUGUI>
         {
             [OrbController.OrbType.FIRE] = fireOrbsTextElement,
@@ -79,6 +82,8 @@ public class PlayerController : CharacterController
         CreateMeleeWeapon();
     }
 
+    void Start() { }
+
     void Update()
     {
         xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
@@ -92,8 +97,37 @@ public class PlayerController : CharacterController
         }
     }
 
+    int automoveInterval = 1;
+
     void FixedUpdate()
     {
+        if (AutomoveLocation != null)
+        {
+            Debug.Log(
+                $"automove is set to go from {transform.position} to {AutomoveLocation.Value}"
+            );
+            GetComponent<BoxCollider2D>().enabled = false;
+            var x = transform.position.x;
+            var y = transform.position.y;
+
+            if (
+                Mathf.Approximately(x, AutomoveLocation.Value.x)
+                && Mathf.Approximately(y, AutomoveLocation.Value.y)
+            )
+            {
+                Debug.Log("Reached end of automove");
+                GetComponent<BoxCollider2D>().enabled = true;
+                AutomoveLocation = null;
+                automoveInterval = 0;
+                return;
+            }
+
+            x = Mathf.Lerp(x, AutomoveLocation.Value.x, automoveInterval * Time.fixedDeltaTime);
+            y = Mathf.Lerp(y, AutomoveLocation.Value.y, automoveInterval * Time.fixedDeltaTime);
+            rigidBody.MovePosition(new Vector2(x, y));
+            automoveInterval++;
+            return;
+        }
         if (!_canMove)
         {
             return;
@@ -118,10 +152,19 @@ public class PlayerController : CharacterController
             Movement.y -= 1.0f;
         }
 
-        var RigidBody = gameObject.GetComponent<Rigidbody2D>();
-        var NewPosition = RigidBody.position + Movement.normalized * MOVEMENT_SPEED;
+        var NewPosition = rigidBody.position + Movement.normalized * MOVEMENT_SPEED;
 
-        RigidBody.MovePosition(NewPosition);
+        rigidBody.MovePosition(NewPosition);
+    }
+
+    public Vector2 LocationAsVector2()
+    {
+        return new Vector2(transform.position.x, transform.position.y);
+    }
+
+    public void MovePlayerToLocation(Vector2 position)
+    {
+        AutomoveLocation = position;
     }
 
     // player can only take damage every DMG_FREQUENCY_INTERVAL seconds
@@ -131,13 +174,11 @@ public class PlayerController : CharacterController
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Something hit me!");
         RegisterDamage(other.gameObject);
     }
 
     void OnCollisionStay2D(Collision2D other)
     {
-        Debug.Log("Something is constantly hitting me!");
         RegisterDamage(other.gameObject);
     }
 

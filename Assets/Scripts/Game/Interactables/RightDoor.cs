@@ -1,6 +1,6 @@
 public class RightDoor : AbstractDoor
 {
-    protected override DoorType GetDoorType()
+    public override DoorType GetDoorType()
     {
         return DoorType.RIGHT;
     }
