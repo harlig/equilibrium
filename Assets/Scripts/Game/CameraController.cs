@@ -19,8 +19,8 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         mainCamera = GetComponent<Camera>();
-        min = new Vector2(-100, -100);
-        max = new Vector2(100, 100);
+        min = new Vector2(-10, -6);
+        max = new Vector2(10, 6);
     }
 
     public void FollowPlayer(Transform playerLocation)
@@ -48,18 +48,21 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        // TODO need to use camera size. until this is fixed, it's not gonna work if the map size changes
         // ortographicSize is the half of the height of the Camera.
-        var cameraHalfWidth = mainCamera.orthographicSize * ((float)Screen.width / Screen.height);
-        Debug.Log(
-            $"Camera half width is {cameraHalfWidth}; screen width {Screen.width}; screen height {Screen.height}"
-        );
+        // var cameraHalfWidth = mainCamera.orthographicSize * ((float)Screen.width / Screen.height);
+        // Debug.Log(
+        //     $"Camera half width is {cameraHalfWidth}; screen width {Screen.width}; screen height {Screen.height}"
+        // );
 
-        x = Mathf.Clamp(x, min.x + cameraHalfWidth, max.x - cameraHalfWidth);
-        y = Mathf.Clamp(
-            y,
-            min.y + mainCamera.orthographicSize,
-            max.y - mainCamera.orthographicSize
-        );
+        // x = Mathf.Clamp(x, min.x + cameraHalfWidth, max.x - cameraHalfWidth);
+        // y = Mathf.Clamp(
+        //     y,
+        //     min.y + mainCamera.orthographicSize,
+        //     max.y - mainCamera.orthographicSize
+        // );
+        x = Mathf.Clamp(x, min.x, max.x);
+        y = Mathf.Clamp(y, min.y, max.y);
 
         transform.position = new Vector3(x, y, transform.position.z);
     }
