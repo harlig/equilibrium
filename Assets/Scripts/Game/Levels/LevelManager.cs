@@ -19,24 +19,31 @@ public abstract class LevelManager : MonoBehaviour
     private List<Vector2> spawnLocations;
 
     private readonly List<EnemyController> enemies = new();
+    private bool shouldSpawnEnemies = true;
 
-    protected void SetupLevel(List<Vector2> enemySpawnLocations)
+    protected void SetupLevel(List<Vector2> enemySpawnLocations, bool spawnEnemies = true)
     {
+        GetComponentInChildren<CameraController>().FollowPlayer(player.transform); //, edgeTiles);
+        shouldSpawnEnemies = spawnEnemies;
+
         spawnLocations = enemySpawnLocations;
-        foreach (var enemySpawnLocation in enemySpawnLocations)
+        if (shouldSpawnEnemies)
         {
-            // create new enemy at location
-            MeleeEnemy enemyController = (MeleeEnemy)
-                EnemyController.Create(meleeEnemyPrefab, enemySpawnLocation, player);
-            enemyController.FollowPlayer(player);
-            enemies.Add(enemyController);
+            foreach (var enemySpawnLocation in enemySpawnLocations)
+            {
+                // create new enemy at location
+                MeleeEnemy enemyController = (MeleeEnemy)
+                    EnemyController.Create(meleeEnemyPrefab, enemySpawnLocation, player);
+                enemyController.FollowPlayer(player);
+                enemies.Add(enemyController);
+            }
+
+            player.OnLevelUp += OnPlayerLevelUp;
+
+            RangedEnemy rangedEnemy = (RangedEnemy)
+                EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
+            enemies.Add(rangedEnemy);
         }
-
-        player.OnLevelUp += OnPlayerLevelUp;
-
-        RangedEnemy rangedEnemy = (RangedEnemy)
-            EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
-        enemies.Add(rangedEnemy);
     }
 
     public static void PauseGame()
@@ -69,7 +76,7 @@ public abstract class LevelManager : MonoBehaviour
                 return;
             }
         }
-        if (spawningMoreEnemies)
+        if (spawningMoreEnemies || !shouldSpawnEnemies)
         {
             return;
         }
