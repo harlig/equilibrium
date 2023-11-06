@@ -27,6 +27,9 @@ public abstract class LevelManager : MonoBehaviour
         player.MainCamera = cameraController.GetComponent<Camera>();
         cameraController.FollowPlayer(player.transform); //, edgeTiles);
 
+        // TODO this should be dynamic based on edge tiles
+        cameraController.SetCameraBounds(new Vector2(-22, -13), new Vector2(22, 13));
+
         shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
         if (shouldSpawnEnemies)
