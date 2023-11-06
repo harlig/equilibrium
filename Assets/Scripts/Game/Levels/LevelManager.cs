@@ -65,10 +65,10 @@ public abstract class LevelManager : MonoBehaviour
         {
             return;
         }
-        spawningMoreEnemies = true;
+        // spawningMoreEnemies = true;
 
         // if all enemies are dead, spawn more
-        StartCoroutine(SpawnMoreEnemies());
+        // StartCoroutine(SpawnMoreEnemies());
     }
 
     private bool AllEnemiesDead()
@@ -91,37 +91,8 @@ public abstract class LevelManager : MonoBehaviour
             // is level beat, if so move camera and player
             if (AllEnemiesDead())
             {
-                switch (door.GetDoorType())
-                {
-                    case AbstractDoor.DoorType.RIGHT:
-                        Debug.Log("Hit right door, let's get to business");
-                        // TODO this should be dynamic based on edge tiles
-                        Debug.LogFormat(
-                            "old min {0}; old max {1}",
-                            cameraController.MinCoordinatesVisible,
-                            cameraController.MaxCoordinatesVisible
-                        );
-                        var newMin = new Vector2(
-                            cameraController.MinCoordinatesVisible.x + 30,
-                            cameraController.MinCoordinatesVisible.y
-                        );
-                        var newMax = new Vector2(
-                            cameraController.MaxCoordinatesVisible.x + 40,
-                            cameraController.MaxCoordinatesVisible.y
-                        );
-                        Debug.LogFormat("New min {0}; new max {1}", newMin, newMax);
-                        cameraController.SetCameraBounds(newMin, newMax);
-                        player.MovePlayerToLocation(
-                            new(player.LocationAsVector2().x + 7, player.LocationAsVector2().y)
-                        );
-                        return;
-                    default:
-                        Debug.LogErrorFormat(
-                            "Unhandled door type for level manager {0}",
-                            door.GetDoorType()
-                        );
-                        break;
-                }
+                // TODO this should be based on grid?
+                door.MovePlayerAndCamera(cameraController, player, 40, 40, 2);
             }
         }
         else
