@@ -19,7 +19,7 @@ public abstract class EnemyController : CharacterController
     // [SerializeField]
     // private Transform launchOffset;
 
-    private float movementSpeed = 0.03f;
+    protected float movementSpeed = 0.03f;
     private const int MAX_HP = 10;
 
     private float movementX,

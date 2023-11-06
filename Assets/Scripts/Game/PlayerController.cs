@@ -270,7 +270,6 @@ public class PlayerController : CharacterController
         Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
 
         Vector2 direction = worldMousePos - currentPos;
-        // Vector2 direction = new Vector2(0, 0);
 
         bool isMovingRight = direction.x > 0;
 

@@ -8,6 +8,12 @@ public class RangedEnemy : EnemyController
     public const float fireInterval = 60; // Number of FixedUpdate calls before firing
 
     private int currentFireInterval = 0;
+    private Vector3 spawnPosition;
+
+    void Start()
+    {
+        spawnPosition = transform.position;
+    }
 
     void FixedUpdate()
     {
@@ -22,6 +28,15 @@ public class RangedEnemy : EnemyController
                 FireProjectile();
                 currentFireInterval = 0; // Reset the interval count
             }
+
+            var movementX = spawnPosition.x - transform.position.x;
+            var movementY = spawnPosition.y - transform.position.y;
+            var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+
+            var newPosition =
+                rigidBody.position + new Vector2(movementX, movementY).normalized * movementSpeed;
+
+            rigidBody.MovePosition(newPosition);
         }
     }
 
