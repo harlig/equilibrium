@@ -24,8 +24,4 @@ public abstract class InteractableBehavior : MonoBehaviour
             OnPlayerHit();
         }
     }
-
-    void Start() { }
-
-    void OnDestroy() { }
 }

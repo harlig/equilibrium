@@ -13,7 +13,7 @@ public abstract class AbstractDoor : InteractableBehavior
     public RoomManager RoomTo;
 
     public abstract DoorType GetDoorType();
-    private Vector2 newRoomStartingBuffer = new(3.5f, 4f);
+    private Vector2 newRoomStartingBuffer = new(5f, 5f);
 
     public void MovePlayerAndCamera(
         CameraController cameraController,
@@ -21,34 +21,34 @@ public abstract class AbstractDoor : InteractableBehavior
         RoomManager newRoom
     )
     {
-        Vector2 newMin,
-            newMax;
+        var newMin = new Vector2(
+            newRoom.minX - newRoomStartingBuffer.x,
+            newRoom.minY - newRoomStartingBuffer.y
+        );
+        var newMax = new Vector2(
+            newRoom.maxX + newRoomStartingBuffer.x,
+            newRoom.maxY + newRoomStartingBuffer.y
+        );
         switch (GetDoorType())
         {
+            case DoorType.LEFT:
+                player.MovePlayerToLocation(
+                    new(newRoom.maxX - newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                );
+                break;
+            case DoorType.UP:
+                player.MovePlayerToLocation(
+                    new(player.LocationAsVector2().x, newRoom.minY + newRoomStartingBuffer.y)
+                );
+                break;
             case DoorType.RIGHT:
-                newMin = new Vector2(
-                    newRoom.minX - newRoomStartingBuffer.x,
-                    newRoom.minY - newRoomStartingBuffer.y
-                );
-                newMax = new Vector2(
-                    newRoom.maxX + newRoomStartingBuffer.x,
-                    newRoom.maxY + newRoomStartingBuffer.y
-                );
                 player.MovePlayerToLocation(
                     new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
                 );
                 break;
-            case DoorType.UP:
-                newMin = new Vector2(
-                    newRoom.minX - newRoomStartingBuffer.x,
-                    newRoom.minY - newRoomStartingBuffer.y
-                );
-                newMax = new Vector2(
-                    newRoom.maxX + newRoomStartingBuffer.x,
-                    newRoom.maxY + newRoomStartingBuffer.y
-                );
+            case DoorType.DOWN:
                 player.MovePlayerToLocation(
-                    new(player.LocationAsVector2().x, newRoom.minY + newRoomStartingBuffer.y)
+                    new(player.LocationAsVector2().x, newRoom.maxY - newRoomStartingBuffer.y)
                 );
                 break;
             default:

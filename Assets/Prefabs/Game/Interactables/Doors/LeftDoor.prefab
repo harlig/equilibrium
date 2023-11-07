@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3288174084181806298}
   - component: {fileID: 7097886490453961851}
   - component: {fileID: 363101425430911285}
-  - component: {fileID: 8013344754562292241}
+  - component: {fileID: 5592216156033592526}
   m_Layer: 0
-  m_Name: UpDoor
+  m_Name: LeftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7160372401725485689}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -19.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &7097886490453961851
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2.0152595}
   m_EdgeRadius: 0
---- !u!114 &8013344754562292241
+--- !u!114 &5592216156033592526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7160372401725485689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6b41bac7e6a74587b8addccadca85f2, type: 3}
+  m_Script: {fileID: 11500000, guid: adda011d8a0e24fc7980b170f4d4bb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RoomTo: {fileID: 0}
