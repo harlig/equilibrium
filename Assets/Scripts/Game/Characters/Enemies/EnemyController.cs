@@ -48,8 +48,6 @@ public abstract class EnemyController : CharacterController
     void Awake()
     {
         DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
-        Color randomColor = new(Random.value, Random.value, Random.value);
-        GetComponent<SpriteRenderer>().color = randomColor;
     }
 
     public static EnemyController Create(
