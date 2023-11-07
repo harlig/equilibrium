@@ -90,8 +90,12 @@ public abstract class LevelManager : MonoBehaviour
             // is level beat, if so move camera and player
             if (AllEnemiesDead())
             {
-                // TODO: this should be based on grid?
-                door.MovePlayerAndCamera(cameraController, player, 40, 40, 2);
+                if (door.RoomTo == null)
+                {
+                    Debug.LogError("Door was interacted with which had no RoomTo set!");
+                    return;
+                }
+                door.MovePlayerAndCamera(cameraController, player, door.RoomTo, 2);
             }
         }
         else

@@ -8462,6 +8462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5768995437793860011}
   - component: {fileID: 4515149024341721989}
+  - component: {fileID: 7830483970819132229}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -8499,6 +8500,20 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 2
+--- !u!114 &7830483970819132229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954600177727171350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e682a20548ac44d478bce4ca944e4f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorTilemap: {fileID: 3773598632785419303}
+  wallTilemap: {fileID: 2138139058818445940}
 --- !u!1 &4566168433944532559
 GameObject:
   m_ObjectHideFlags: 0
@@ -10054,6 +10069,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RightDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
+      propertyPath: roomFrom
+      value: 
+      objectReference: {fileID: 7830483970819132229}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -10,13 +10,18 @@ public abstract class AbstractDoor : InteractableBehavior
         DOWN
     }
 
+    [SerializeField]
+    private RoomManager roomFrom;
+
+    public RoomManager RoomTo;
+
     public abstract DoorType GetDoorType();
+    private Vector2 newRoomStartingBuffer = new(3.5f, 2);
 
     public void MovePlayerAndCamera(
         CameraController cameraController,
         PlayerController player,
-        int oldRoomWidth,
-        int newRoomWidth,
+        RoomManager newRoom,
         int gapBetweenRooms
     )
     {
@@ -25,28 +30,17 @@ public abstract class AbstractDoor : InteractableBehavior
             case DoorType.RIGHT:
                 // TODO: this should be dynamic based on edge tiles
                 var newMin = new Vector2(
-                    cameraController.MinCoordinatesVisible.x + oldRoomWidth,
-                    cameraController.MinCoordinatesVisible.y
+                    newRoom.minX - newRoomStartingBuffer.x,
+                    newRoom.minY - newRoomStartingBuffer.y
                 );
                 var newMax = new Vector2(
-                    cameraController.MaxCoordinatesVisible.x + newRoomWidth + gapBetweenRooms,
-                    cameraController.MaxCoordinatesVisible.y
+                    newRoom.maxX + newRoomStartingBuffer.x,
+                    newRoom.maxY + newRoomStartingBuffer.y
                 );
                 cameraController.SetCameraBounds(newMin, newMax);
 
-                // TODO: a lot of values in here are hardcoded and bad
-                var doorBoxColliderWidthHardcoded = 2;
-                var playerBoxColliderWidthHardcoded = 2;
-                var newRoomStartingBuffer = 2;
                 player.MovePlayerToLocation(
-                    new(
-                        player.LocationAsVector2().x
-                            + doorBoxColliderWidthHardcoded
-                            + playerBoxColliderWidthHardcoded
-                            + gapBetweenRooms
-                            + newRoomStartingBuffer,
-                        player.LocationAsVector2().y
-                    )
+                    new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
                 );
                 return;
             default:
