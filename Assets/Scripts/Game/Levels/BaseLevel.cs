@@ -8,6 +8,7 @@ public class BaseLevel : LevelManager
     {
         var enemyLocations = new List<Vector2> { new(1, 2.3f), new(-4, -2) };
 
-        SetupLevel(enemyLocations, true);
+        var spawnEnemies = false;
+        SetupLevel(enemyLocations, spawnEnemies);
     }
 }

@@ -42,12 +42,14 @@ public abstract class AbstractDoor : InteractableBehavior
                 cameraController.SetCameraBounds(newMin, newMax);
 
                 // TODO: a lot of values in here are hardcoded and bad
-                var boxColliderWidthHardcoded = 2;
+                var doorBoxColliderWidthHardcoded = 2;
+                var playerBoxColliderWidthHardcoded = 2;
                 var newRoomStartingBuffer = 2;
                 player.MovePlayerToLocation(
                     new(
                         player.LocationAsVector2().x
-                            + boxColliderWidthHardcoded
+                            + doorBoxColliderWidthHardcoded
+                            + playerBoxColliderWidthHardcoded
                             + gapBetweenRooms
                             + newRoomStartingBuffer,
                         player.LocationAsVector2().y

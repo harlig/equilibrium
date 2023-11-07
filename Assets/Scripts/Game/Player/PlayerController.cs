@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : CharacterController
 {
-    public int PlayerLevel { get; private set; } = 0;
+    // prefabs
 
     [SerializeField]
     private TextMeshProUGUI xpTextElement;
@@ -17,8 +17,8 @@ public class PlayerController : CharacterController
     [SerializeField]
     private TextMeshPro levelTextElement;
 
-    // configure orbs types
-    private OrbCollector orbCollector;
+    [SerializeField]
+    private PlayerAnimator animatorPrefab;
 
     [SerializeField]
     private TextMeshProUGUI fireOrbsTextElement;
@@ -28,7 +28,15 @@ public class PlayerController : CharacterController
 
     [SerializeField]
     private MeleeWeapon meleeWeapon;
+
+    // non-prefabs
+    public int PlayerLevel { get; private set; } = 0;
     public Camera MainCamera { private get; set; }
+
+    private PlayerAnimator playerAnimator;
+
+    // configure orbs types
+    private OrbCollector orbCollector;
     private float hpRemaining;
     private bool _canMove = true;
 
@@ -73,6 +81,7 @@ public class PlayerController : CharacterController
             [OrbController.OrbType.ICE] = iceOrbsTextElement
         };
 
+        playerAnimator = PlayerAnimator.Create(animatorPrefab, this);
         orbCollector = new(xpTextElement, orbsToSupport);
 
         hpRemaining = MAX_HP;
@@ -132,29 +141,38 @@ public class PlayerController : CharacterController
         {
             return;
         }
+        var movement = SetMoveDirection();
+        var newPosition = rigidBody.position + movement.normalized * MOVEMENT_SPEED;
 
-        var Movement = new Vector2(0, 0);
+        rigidBody.MovePosition(newPosition);
+    }
+
+    private Vector2 SetMoveDirection()
+    {
+        var movement = new Vector2(0, 0);
 
         if (Input.GetKey(KeyCode.A))
         {
-            Movement.x -= 1.0f;
+            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Left);
+            movement.x -= 1.0f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            Movement.x += 1.0f;
+            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Right);
+            movement.x += 1.0f;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            Movement.y += 1.0f;
+            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Up);
+            movement.y += 1.0f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            Movement.y -= 1.0f;
+            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Down);
+            movement.y -= 1.0f;
         }
 
-        var NewPosition = rigidBody.position + Movement.normalized * MOVEMENT_SPEED;
-
-        rigidBody.MovePosition(NewPosition);
+        return movement;
     }
 
     public Vector2 LocationAsVector2()
