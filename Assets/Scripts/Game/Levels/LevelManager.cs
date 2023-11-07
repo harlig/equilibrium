@@ -19,6 +19,9 @@ public abstract class LevelManager : MonoBehaviour
 
     [SerializeField]
     private HeadsUpDisplayController hudController;
+
+    [SerializeField]
+    private RoomManager startingRoom;
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
 
@@ -31,8 +34,7 @@ public abstract class LevelManager : MonoBehaviour
         player.MainCamera = cameraController.GetComponent<Camera>();
         cameraController.FollowPlayer(player.transform); //, edgeTiles);
 
-        // TODO: this should be dynamic based on edge tiles
-        cameraController.SetCameraBounds(new Vector2(-22, -13), new Vector2(22, 13));
+        cameraController.SetCameraBounds(startingRoom.Min, startingRoom.Max);
 
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;

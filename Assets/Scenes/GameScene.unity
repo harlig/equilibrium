@@ -591,6 +591,7 @@ MonoBehaviour:
   rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 9bd82abb793cf4868bd99ae15735a373, type: 3}
   levelUpBehavior: {fileID: 1217699821}
   hudController: {fileID: 1714415047}
+  startingRoom: {fileID: 1611848589}
 --- !u!1 &774836117
 GameObject:
   m_ObjectHideFlags: 0

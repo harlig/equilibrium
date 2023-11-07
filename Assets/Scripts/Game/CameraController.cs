@@ -29,11 +29,13 @@ public class CameraController : MonoBehaviour
         this.playerLocation = playerLocation;
     }
 
+    private Vector2 cameraEdgeBuffer = new(5f, 5f);
+
     // if these aren't set properly, the camera may not move properly with weird bugs
     public void SetCameraBounds(Vector2 min, Vector2 max)
     {
-        MinCoordinatesVisible = min;
-        MaxCoordinatesVisible = max;
+        MinCoordinatesVisible = new Vector2(min.x - cameraEdgeBuffer.x, min.y - cameraEdgeBuffer.y);
+        MaxCoordinatesVisible = new Vector2(max.x + cameraEdgeBuffer.x, max.y + cameraEdgeBuffer.y);
     }
 
     // Update is called once per frame

@@ -6,10 +6,8 @@ public class RoomManager : MonoBehaviour
     public Tilemap floorTilemap;
     public Tilemap wallTilemap;
 
-    public int minX,
-        minY,
-        maxX,
-        maxY;
+    public Vector2 Min,
+        Max;
 
     void Start()
     {
@@ -23,9 +21,12 @@ public class RoomManager : MonoBehaviour
         Vector3 minWorld = wallTilemap.GetCellCenterWorld(bounds.min);
         Vector3 maxWorld = wallTilemap.GetCellCenterWorld(bounds.max);
 
-        minX = Mathf.FloorToInt(minWorld.x);
-        minY = Mathf.FloorToInt(minWorld.y);
-        maxX = Mathf.CeilToInt(maxWorld.x);
-        maxY = Mathf.CeilToInt(maxWorld.y);
+        var minX = Mathf.FloorToInt(minWorld.x);
+        var minY = Mathf.FloorToInt(minWorld.y);
+        var maxX = Mathf.CeilToInt(maxWorld.x);
+        var maxY = Mathf.CeilToInt(maxWorld.y);
+
+        Min = new(minX, minY);
+        Max = new(maxX, maxY);
     }
 }

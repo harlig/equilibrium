@@ -13,6 +13,8 @@ public abstract class AbstractDoor : InteractableBehavior
     public RoomManager RoomTo;
 
     public abstract DoorType GetDoorType();
+
+    // how many grid units into the room the unit should be moved
     private Vector2 newRoomStartingBuffer = new(5f, 5f);
 
     public void MovePlayerAndCamera(
@@ -21,34 +23,26 @@ public abstract class AbstractDoor : InteractableBehavior
         RoomManager newRoom
     )
     {
-        var newMin = new Vector2(
-            newRoom.minX - newRoomStartingBuffer.x,
-            newRoom.minY - newRoomStartingBuffer.y
-        );
-        var newMax = new Vector2(
-            newRoom.maxX + newRoomStartingBuffer.x,
-            newRoom.maxY + newRoomStartingBuffer.y
-        );
         switch (GetDoorType())
         {
             case DoorType.LEFT:
                 player.MovePlayerToLocation(
-                    new(newRoom.maxX - newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                    new(newRoom.Max.x - newRoomStartingBuffer.x, player.LocationAsVector2().y)
                 );
                 break;
             case DoorType.UP:
                 player.MovePlayerToLocation(
-                    new(player.LocationAsVector2().x, newRoom.minY + newRoomStartingBuffer.y)
+                    new(player.LocationAsVector2().x, newRoom.Min.y + newRoomStartingBuffer.y)
                 );
                 break;
             case DoorType.RIGHT:
                 player.MovePlayerToLocation(
-                    new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                    new(newRoom.Min.x + newRoomStartingBuffer.x, player.LocationAsVector2().y)
                 );
                 break;
             case DoorType.DOWN:
                 player.MovePlayerToLocation(
-                    new(player.LocationAsVector2().x, newRoom.maxY - newRoomStartingBuffer.y)
+                    new(player.LocationAsVector2().x, newRoom.Max.y - newRoomStartingBuffer.y)
                 );
                 break;
             default:
@@ -56,7 +50,7 @@ public abstract class AbstractDoor : InteractableBehavior
                 return;
         }
 
-        cameraController.SetCameraBounds(newMin, newMax);
+        cameraController.SetCameraBounds(newRoom.Min, newRoom.Max);
     }
 
     protected override void OnPlayerHit()
