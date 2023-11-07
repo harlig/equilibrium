@@ -11,7 +11,7 @@ public class DamageTaken
         return FireDamage + IceDamage;
     }
 
-    // TODO: should this be static?
+    // TODO: this shouldn't be static I think
     public static void SetDamageTakenTextOnTextElement(
         float maxHp,
         DamageTaken damageTaken,

@@ -10,10 +10,6 @@ public class PlayerController : CharacterController
 
     // TODO: move to HUDController
     [SerializeField]
-    private TextMeshProUGUI xpTextElement;
-
-    // TODO: move to HUDController
-    [SerializeField]
     private TextMeshProUGUI fireOrbsTextElement;
 
     // TODO: move to HUDController
@@ -80,10 +76,9 @@ public class PlayerController : CharacterController
             [OrbController.OrbType.ICE] = iceOrbsTextElement
         };
         characterAnimator = GetComponent<CharacterAnimator>();
-        orbCollector = new(xpTextElement, orbsToSupport);
+        orbCollector = new(orbsToSupport);
 
         hpRemaining = MAX_HP;
-        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
         CreateMeleeWeapon();
     }
 
@@ -94,8 +89,6 @@ public class PlayerController : CharacterController
 
     void Update()
     {
-        xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
-
         // move weapon to left or right depending on where mouse is
         MoveWeaponRelativeToMouse();
 
