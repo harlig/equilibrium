@@ -276,7 +276,7 @@ MonoBehaviour:
   xpTextElement: {fileID: 4821851316521187843}
   hpTextElement: {fileID: 3253494893941816094}
   levelTextElement: {fileID: 3559954902746631215}
-  animatorPrefab: {fileID: 5671027790019608651, guid: cf78d83be5f024eabbddaa2ee4d52371, type: 3}
+  animatorPrefab: {fileID: 7983535887539796962, guid: cf78d83be5f024eabbddaa2ee4d52371, type: 3}
   fireOrbsTextElement: {fileID: 5296237497628682773}
   iceOrbsTextElement: {fileID: 8506307151576350384}
   meleeWeapon: {fileID: 0}

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerAnimator : MonoBehaviour
+public class CharacterAnimator : MonoBehaviour
 // TODO we should have an AbstractAnimator
 {
     [SerializeField]
@@ -23,11 +23,14 @@ public class PlayerAnimator : MonoBehaviour
     private MoveDirection? moveDirection = null;
     private int currentSpriteIndex = 0;
 
-    public static PlayerAnimator Create(PlayerAnimator animatorPrefab, PlayerController player)
+    public static CharacterAnimator Create(
+        CharacterAnimator animatorPrefab,
+        CharacterController character
+    )
     {
-        var newAnimator = Instantiate(animatorPrefab, player.transform);
-        newAnimator.spriteRenderer = player.GetComponent<SpriteRenderer>();
-        newAnimator.lastPosition = player.transform.position;
+        var newAnimator = Instantiate(animatorPrefab, character.transform);
+        newAnimator.spriteRenderer = character.GetComponent<SpriteRenderer>();
+        newAnimator.lastPosition = character.transform.position;
         return newAnimator;
     }
 
@@ -36,14 +39,14 @@ public class PlayerAnimator : MonoBehaviour
     {
         Vector2 currentPosition = transform.position;
 
-        // Check if the player is moving
+        // Check if the character is moving
         if (currentPosition != lastPosition)
         {
             AnimateWalk();
         }
         else
         {
-            // If the player is not moving, set a default sprite (e.g., standing still)
+            // If the character is not moving, set a default sprite (e.g., standing still)
             switch (moveDirection)
             {
                 case MoveDirection.Down:

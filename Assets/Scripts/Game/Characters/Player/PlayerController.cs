@@ -18,7 +18,7 @@ public class PlayerController : CharacterController
     private TextMeshPro levelTextElement;
 
     [SerializeField]
-    private PlayerAnimator animatorPrefab;
+    private CharacterAnimator animatorPrefab;
 
     [SerializeField]
     private TextMeshProUGUI fireOrbsTextElement;
@@ -33,7 +33,7 @@ public class PlayerController : CharacterController
     public int PlayerLevel { get; private set; } = 0;
     public Camera MainCamera { private get; set; }
 
-    private PlayerAnimator playerAnimator;
+    private CharacterAnimator characterAnimator;
 
     // configure orbs types
     private OrbCollector orbCollector;
@@ -81,7 +81,7 @@ public class PlayerController : CharacterController
             [OrbController.OrbType.ICE] = iceOrbsTextElement
         };
 
-        playerAnimator = PlayerAnimator.Create(animatorPrefab, this);
+        characterAnimator = CharacterAnimator.Create(animatorPrefab, this);
         orbCollector = new(xpTextElement, orbsToSupport);
 
         hpRemaining = MAX_HP;
@@ -149,22 +149,22 @@ public class PlayerController : CharacterController
 
         if (Input.GetKey(KeyCode.A))
         {
-            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Left);
+            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Left);
             movement.x -= 1.0f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Right);
+            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Right);
             movement.x += 1.0f;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Up);
+            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Up);
             movement.y += 1.0f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Down);
+            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Down);
             movement.y -= 1.0f;
         }
         Debug.LogFormat("movement {0}", movement);
