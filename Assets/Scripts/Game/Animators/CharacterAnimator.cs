@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CharacterAnimator : MonoBehaviour
-// TODO we should have an AbstractAnimator
 {
+    // TODO we probably need to define generic sets of sprite "groups" like "idle group", "moving group", "attacking group", and then each of those should have directional aspects (E/N/S/W)
     [SerializeField]
     private Sprite idleSpriteEast;
 
