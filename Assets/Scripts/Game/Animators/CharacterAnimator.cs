@@ -40,11 +40,15 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField]
     private Sprite[] idleAnimationSpritesWest;
 
+    [SerializeField]
+    private Sprite deathSprite;
+
     private int updatesSinceLastSpriteChange = 0;
 
     // TODO: this should be based on CharacterController.MovementSpeed
     [SerializeField]
     private float animationSpeed = 3;
+    private CharacterController character;
     private SpriteRenderer spriteRenderer;
     private Vector2 lastPosition;
     private MoveDirection? moveDirection = null;
@@ -52,6 +56,7 @@ public class CharacterAnimator : MonoBehaviour
 
     void Awake()
     {
+        character = GetComponent<CharacterController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         lastPosition = transform.position;
     }
@@ -59,6 +64,12 @@ public class CharacterAnimator : MonoBehaviour
     // TODO: I think this should be `Update` but it won't work for some reason
     void FixedUpdate()
     {
+        if (character.IsDead())
+        {
+            spriteRenderer.sprite = deathSprite;
+            return;
+        }
+
         Vector2 currentPosition = transform.position;
 
         // Check if the character is moving
@@ -92,6 +103,10 @@ public class CharacterAnimator : MonoBehaviour
                 break;
             case MoveDirection.Right:
                 walkAnimationArray = walkAnimationSpritesEast;
+                break;
+            // unset, just use south
+            case null:
+                walkAnimationArray = walkAnimationSpritesSouth;
                 break;
             default:
                 Debug.LogErrorFormat(

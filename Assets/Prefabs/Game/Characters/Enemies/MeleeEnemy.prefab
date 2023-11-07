@@ -410,4 +410,5 @@ MonoBehaviour:
   - {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
   - {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
   - {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  deathSprite: {fileID: 2074668058, guid: 2975cff0e55eb44dbbb2dc4a7c3e8d50, type: 3}
   animationSpeed: 4

@@ -102,8 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xpTextElement: {fileID: 4821851316521187843}
-  hpTextElement: {fileID: 0}
-  levelTextElement: {fileID: 0}
   fireOrbsTextElement: {fileID: 5296237497628682773}
   iceOrbsTextElement: {fileID: 8506307151576350384}
   meleeWeapon: {fileID: 0}
@@ -271,6 +269,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 10d03d97cea084d5e987c637df216216, type: 3}
   - {fileID: 21300000, guid: 8e31a4e7589d24b358cf8244548a7ac2, type: 3}
   - {fileID: 21300000, guid: 2f1417cef45c947419d4a477652a29e8, type: 3}
+  deathSprite: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
   animationSpeed: 3
 --- !u!1 &1306468511535389940
 GameObject:
