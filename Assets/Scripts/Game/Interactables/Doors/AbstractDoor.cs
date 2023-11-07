@@ -10,17 +10,10 @@ public abstract class AbstractDoor : InteractableBehavior
         DOWN
     }
 
-    private RoomManager roomFrom;
-
     public RoomManager RoomTo;
 
     public abstract DoorType GetDoorType();
-    private Vector2 newRoomStartingBuffer = new(3.5f, 2);
-
-    void Awake()
-    {
-        roomFrom = GetComponentInParent<RoomManager>();
-    }
+    private Vector2 newRoomStartingBuffer = new(3.5f, 4f);
 
     public void MovePlayerAndCamera(
         CameraController cameraController,
@@ -41,6 +34,9 @@ public abstract class AbstractDoor : InteractableBehavior
                     newRoom.maxX + newRoomStartingBuffer.x,
                     newRoom.maxY + newRoomStartingBuffer.y
                 );
+                player.MovePlayerToLocation(
+                    new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                );
                 break;
             case DoorType.UP:
                 newMin = new Vector2(
@@ -51,6 +47,9 @@ public abstract class AbstractDoor : InteractableBehavior
                     newRoom.maxX + newRoomStartingBuffer.x,
                     newRoom.maxY + newRoomStartingBuffer.y
                 );
+                player.MovePlayerToLocation(
+                    new(player.LocationAsVector2().x, newRoom.minY + newRoomStartingBuffer.y)
+                );
                 break;
             default:
                 Debug.LogErrorFormat("Unhandled door type {0}", GetDoorType());
@@ -58,10 +57,6 @@ public abstract class AbstractDoor : InteractableBehavior
         }
 
         cameraController.SetCameraBounds(newMin, newMax);
-
-        player.MovePlayerToLocation(
-            new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
-        );
     }
 
     protected override void OnPlayerHit()
