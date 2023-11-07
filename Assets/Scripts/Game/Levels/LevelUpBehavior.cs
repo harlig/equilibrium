@@ -7,10 +7,14 @@ public class LevelUpBehavior : MonoBehaviour
     [SerializeField]
     LevelUpUIElements levelUpUIElements;
 
-    public void LevelUp(int newPlayerLevel, Action afterLevelUpAction)
+    public void LevelUp(
+        int newPlayerLevel,
+        Action afterLevelUpAction,
+        HeadsUpDisplayController hudController
+    )
     {
         levelUpUIElements.SetElements(newPlayerLevel, OnButtonClick(afterLevelUpAction));
-
+        hudController.SetPlayerLevel(newPlayerLevel);
         LevelManager.PauseGame();
     }
 

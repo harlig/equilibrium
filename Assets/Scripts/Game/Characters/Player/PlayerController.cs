@@ -8,18 +8,15 @@ public class PlayerController : CharacterController
 {
     // prefabs
 
+    // TODO: move to HUDController
     [SerializeField]
     private TextMeshProUGUI xpTextElement;
 
-    [SerializeField]
-    private TextMeshPro hpTextElement;
-
-    [SerializeField]
-    private TextMeshPro levelTextElement;
-
+    // TODO: move to HUDController
     [SerializeField]
     private TextMeshProUGUI fireOrbsTextElement;
 
+    // TODO: move to HUDController
     [SerializeField]
     private TextMeshProUGUI iceOrbsTextElement;
 
@@ -37,14 +34,19 @@ public class PlayerController : CharacterController
     private float hpRemaining;
     private bool _canMove = true;
 
-    private const int MAX_HP = 3000;
+    public const int MAX_HP = 3000;
     private const float MOVEMENT_SPEED = 0.22f;
 
     //////////////////////////////////////////////////////////
     //////////////////////////events//////////////////////////
     //////////////////////////////////////////////////////////
     public delegate void LevelUpAction(int newPlayerLevel, Action afterLevelUpAction);
-    public event LevelUpAction OnLevelUp;
+    public event LevelUpAction OnLevelUpAction;
+
+    public delegate void DamageTakenAction(float newPlayerHp);
+    public event DamageTakenAction OnDamageTakenAction;
+    public delegate void OrbCollectedAction(OrbController orbCollected, float newXp);
+    public event OrbCollectedAction OnOrbCollectedAction;
 
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
@@ -81,13 +83,14 @@ public class PlayerController : CharacterController
         orbCollector = new(xpTextElement, orbsToSupport);
 
         hpRemaining = MAX_HP;
-        hpTextElement.text = $"{hpRemaining}";
-        levelTextElement.text = $"lvl {PlayerLevel}";
         xpTextElement.text = $"{orbCollector.XpCollected} xp collected";
         CreateMeleeWeapon();
     }
 
-    void Start() { }
+    public float XpCollected()
+    {
+        return orbCollector.XpCollected;
+    }
 
     void Update()
     {
@@ -210,6 +213,7 @@ public class PlayerController : CharacterController
     void CollectOrb(OrbController orb)
     {
         orbCollector.Collect(orb);
+        OnOrbCollectedAction?.Invoke(orb, orbCollector.XpCollected);
         TryLevelUp();
     }
 
@@ -223,10 +227,9 @@ public class PlayerController : CharacterController
             {
                 // TODO: celebrate that player leveled up, offer reward!
                 PlayerLevel++;
-                levelTextElement.text = $"lvl {PlayerLevel}";
 
                 // recursively call in case we need to level up again!
-                OnLevelUp?.Invoke(PlayerLevel, () => TryLevelUp());
+                OnLevelUpAction?.Invoke(PlayerLevel, () => TryLevelUp());
             }
         }
     }
@@ -257,13 +260,16 @@ public class PlayerController : CharacterController
 
         // TODO: use damageTaken
         hpRemaining -= dmgAmount;
-        hpTextElement.text = $"{hpRemaining}";
+        // TODO: use HUD controller
+        // TODO: level should subscribe to player damage?
+        // hpTextElement.text = $"{hpRemaining}";
 
         if (IsDead())
         {
             // TODO: game over
+            // TODO: level should subscribe to player damage?
+            // hpTextElement.text = $"{hpRemaining}\nGame Over!";
             _canMove = false;
-            hpTextElement.text = $"{hpRemaining}\nGame Over!";
             // don't want to call WaitBeforeTakingDmg so we don't take more dmg
             GetComponent<BoxCollider2D>().enabled = false;
             return;
@@ -290,6 +296,7 @@ public class PlayerController : CharacterController
     {
         // TODO: add in effects for different damage types
         hpRemaining -= damageTaken;
+        OnDamageTakenAction?.Invoke(hpRemaining);
     }
 
     private void CreateMeleeWeapon()

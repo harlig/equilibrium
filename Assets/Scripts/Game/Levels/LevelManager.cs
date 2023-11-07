@@ -16,12 +16,14 @@ public abstract class LevelManager : MonoBehaviour
 
     [SerializeField]
     private LevelUpBehavior levelUpBehavior;
+
+    [SerializeField]
+    private HeadsUpDisplayController hudController;
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
 
     private readonly List<EnemyController> enemies = new();
     private bool shouldSpawnEnemies = true;
-    bool spawningMoreEnemies = false;
 
     protected void SetupLevel(List<Vector2> enemySpawnLocations, bool spawnEnemies = true)
     {
@@ -31,6 +33,10 @@ public abstract class LevelManager : MonoBehaviour
 
         // TODO: this should be dynamic based on edge tiles
         cameraController.SetCameraBounds(new Vector2(-22, -13), new Vector2(22, 13));
+
+        player.OnLevelUpAction += OnPlayerLevelUp;
+        player.OnDamageTakenAction += OnPlayerDamageTaken;
+        player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
         shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
@@ -45,8 +51,6 @@ public abstract class LevelManager : MonoBehaviour
                 enemies.Add(enemyController);
             }
 
-            player.OnLevelUp += OnPlayerLevelUp;
-
             RangedEnemy rangedEnemy = (RangedEnemy)
                 EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
             enemies.Add(rangedEnemy);
@@ -57,18 +61,16 @@ public abstract class LevelManager : MonoBehaviour
         {
             interactableBehavior.OnInteractableHitPlayer += OnInteractableHitPlayer;
         }
+
+        hudController.Setup(player);
     }
 
     void FixedUpdate()
     {
-        if (!AllEnemiesDead() || spawningMoreEnemies || !shouldSpawnEnemies)
+        if (!AllEnemiesDead() || !shouldSpawnEnemies)
         {
             return;
         }
-        // spawningMoreEnemies = true;
-
-        // if all enemies are dead, spawn more
-        // StartCoroutine(SpawnMoreEnemies());
     }
 
     private bool AllEnemiesDead()
@@ -118,13 +120,16 @@ public abstract class LevelManager : MonoBehaviour
 
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
-        levelUpBehavior.LevelUp(newLevel, afterLevelUpAction);
+        levelUpBehavior.LevelUp(newLevel, afterLevelUpAction, hudController);
     }
 
-    IEnumerator SpawnMoreEnemies()
+    void OnPlayerDamageTaken(float newPlayerHp)
     {
-        yield return new WaitForSeconds(2);
-        SetupLevel(spawnLocations);
-        spawningMoreEnemies = false;
+        hudController.SetPlayerHp(newPlayerHp);
+    }
+
+    void OnPlayerOrbCollected(OrbController orbCollected, float newPlayerXp)
+    {
+        hudController.SetPlayerXp(newPlayerXp);
     }
 }
