@@ -277,7 +277,6 @@ MonoBehaviour:
   xpTextElement: {fileID: 4821851316521187843}
   hpTextElement: {fileID: 3253494893941816094}
   levelTextElement: {fileID: 3559954902746631215}
-  animatorPrefab: {fileID: 7983535887539796962, guid: cf78d83be5f024eabbddaa2ee4d52371, type: 3}
   fireOrbsTextElement: {fileID: 5296237497628682773}
   iceOrbsTextElement: {fileID: 8506307151576350384}
   meleeWeapon: {fileID: 0}
@@ -365,11 +364,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6be5d5cefd14261b4c21870ae05d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSouthFacingSprite: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
-  idleWestFacingSprite: {fileID: 21300000, guid: 5f71246596d754a2b86b70a0c44dbb67, type: 3}
-  idleNorthFacingSprite: {fileID: 21300000, guid: b40feb00018e141b199a8e921c569e85, type: 3}
-  idleEastFacingSprite: {fileID: 21300000, guid: 3810daa6218904f938ed92000b78f46f, type: 3}
-  walkSprites:
+  idleSpriteEast: {fileID: 21300000, guid: 3810daa6218904f938ed92000b78f46f, type: 3}
+  idleSpriteNorth: {fileID: 21300000, guid: b40feb00018e141b199a8e921c569e85, type: 3}
+  idleSpriteSouth: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
+  idleSpriteWest: {fileID: 21300000, guid: 5f71246596d754a2b86b70a0c44dbb67, type: 3}
+  walkAnimationSpritesEast:
+  - {fileID: 21300000, guid: 570d4ec3bd84a49588153b0eb748ccdd, type: 3}
+  - {fileID: 21300000, guid: 7effe3f4af9934d8986f4f2dc1d4095d, type: 3}
+  - {fileID: 21300000, guid: b6202a48f199a42699475d5da141042a, type: 3}
+  - {fileID: 21300000, guid: c60e0a16d3fd2491abc58f5a4f647901, type: 3}
+  - {fileID: 21300000, guid: 95cf666eb9b3944d59df74d62f5d6b2f, type: 3}
+  - {fileID: 21300000, guid: 4177fc36c0f08436d809871173a0dc7b, type: 3}
+  - {fileID: 21300000, guid: bed78b02d55944166ada76149a31ac0a, type: 3}
+  walkAnimationSpritesNorth:
+  - {fileID: 21300000, guid: 96cf1782fd43742df9994d068afc35c8, type: 3}
+  - {fileID: 21300000, guid: 9f9c82551b2a449b085b27bc790b9822, type: 3}
+  - {fileID: 21300000, guid: 174e4926392194a82a2be142ed3aa443, type: 3}
+  - {fileID: 21300000, guid: 30b2d9833e68b448c96b31e294befe87, type: 3}
+  - {fileID: 21300000, guid: 6dd82de03d4234a4aa57bc07e1fce401, type: 3}
+  - {fileID: 21300000, guid: 53b5d33cd00784f00810a9250b59a149, type: 3}
+  - {fileID: 21300000, guid: 549487ac38a374afaa289425c6235416, type: 3}
+  walkAnimationSpritesSouth:
   - {fileID: 21300000, guid: eb95c2f5431cf489f9fd4413f9942a83, type: 3}
   - {fileID: 21300000, guid: 1cf95586f24424d32bfff46e552fa143, type: 3}
   - {fileID: 21300000, guid: b9eae3420825849bf94a57c583dcab52, type: 3}
@@ -377,6 +392,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dd1340a68730b46d2b05552ecd1bd70e, type: 3}
   - {fileID: 21300000, guid: 6558ca77ab3a143258f8a5fac42528e6, type: 3}
   - {fileID: 21300000, guid: 875c6c6e7eea942e5aca1116137f3e09, type: 3}
+  walkAnimationSpritesWest:
+  - {fileID: 21300000, guid: 7bc2d3ea950314b0798a963a71c38a37, type: 3}
+  - {fileID: 21300000, guid: eade6bbcd3f7a499396f163be8cdfcf3, type: 3}
+  - {fileID: 21300000, guid: 84e719a2bd1b949ed9f9cf34174aee5e, type: 3}
+  - {fileID: 21300000, guid: abef0851898aa498b8a0c2c171ffc3d8, type: 3}
+  - {fileID: 21300000, guid: 440f6865f50674cdca114410f885814e, type: 3}
+  - {fileID: 21300000, guid: e95c36b2dd0ad4a4e9af122f26ac27c6, type: 3}
+  - {fileID: 21300000, guid: 1e7689501d58b4c8fba30bedbcca952a, type: 3}
+  animationSpeed: 3
 --- !u!1 &1306468511535389940
 GameObject:
   m_ObjectHideFlags: 0

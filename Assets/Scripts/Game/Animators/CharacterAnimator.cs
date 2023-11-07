@@ -5,17 +5,28 @@ public class CharacterAnimator : MonoBehaviour
 // TODO we should have an AbstractAnimator
 {
     [SerializeField]
-    private Sprite idleSouthFacingSprite;
+    private Sprite idleSpriteEast;
 
     [SerializeField]
-    private Sprite idleWestFacingSprite;
+    private Sprite idleSpriteNorth;
 
     [SerializeField]
-    private Sprite idleNorthFacingSprite;
+    private Sprite idleSpriteSouth;
 
     [SerializeField]
-    private Sprite idleEastFacingSprite;
-    public Sprite[] walkSprites; // Array of sprites for walking animation
+    private Sprite idleSpriteWest;
+
+    [SerializeField]
+    private Sprite[] walkAnimationSpritesEast; // Array of sprites for walking animation
+
+    [SerializeField]
+    private Sprite[] walkAnimationSpritesNorth; // Array of sprites for walking animation
+
+    [SerializeField]
+    private Sprite[] walkAnimationSpritesSouth; // Array of sprites for walking animation
+
+    [SerializeField]
+    private Sprite[] walkAnimationSpritesWest; // Array of sprites for walking animation
     private int updatesSinceLastSpriteChange = 0;
 
     // TODO: this should be based on CharacterController.MovementSpeed
@@ -48,25 +59,25 @@ public class CharacterAnimator : MonoBehaviour
             switch (moveDirection)
             {
                 case MoveDirection.Down:
-                    spriteRenderer.sprite = idleSouthFacingSprite;
+                    spriteRenderer.sprite = idleSpriteSouth;
                     break;
                 case MoveDirection.Left:
-                    spriteRenderer.sprite = idleWestFacingSprite;
+                    spriteRenderer.sprite = idleSpriteWest;
                     break;
                 case MoveDirection.Up:
-                    spriteRenderer.sprite = idleNorthFacingSprite;
+                    spriteRenderer.sprite = idleSpriteNorth;
                     break;
                 case MoveDirection.Right:
-                    spriteRenderer.sprite = idleEastFacingSprite;
+                    spriteRenderer.sprite = idleSpriteEast;
                     break;
                 // unset, just use south
                 case null:
-                    spriteRenderer.sprite = idleSouthFacingSprite;
+                    spriteRenderer.sprite = idleSpriteSouth;
                     break;
 
                 default:
                     Debug.LogErrorFormat("Unhandled move direction {0}", moveDirection);
-                    spriteRenderer.sprite = idleSouthFacingSprite;
+                    spriteRenderer.sprite = idleSpriteSouth;
                     break;
             }
         }
@@ -78,10 +89,33 @@ public class CharacterAnimator : MonoBehaviour
     {
         updatesSinceLastSpriteChange++;
 
+        Sprite[] walkAnimationArray = null;
+        switch (moveDirection)
+        {
+            case MoveDirection.Down:
+                walkAnimationArray = walkAnimationSpritesSouth;
+                break;
+            case MoveDirection.Left:
+                walkAnimationArray = walkAnimationSpritesWest;
+                break;
+            case MoveDirection.Up:
+                walkAnimationArray = walkAnimationSpritesNorth;
+                break;
+            case MoveDirection.Right:
+                walkAnimationArray = walkAnimationSpritesEast;
+                break;
+            default:
+                Debug.LogErrorFormat(
+                    "Unhandled move direction for walk animation {0}",
+                    moveDirection
+                );
+                break;
+        }
+
         if (updatesSinceLastSpriteChange >= animationSpeed)
         {
-            currentSpriteIndex = (currentSpriteIndex + 1) % walkSprites.Length;
-            spriteRenderer.sprite = walkSprites[currentSpriteIndex];
+            currentSpriteIndex = (currentSpriteIndex + 1) % walkAnimationArray.Length;
+            spriteRenderer.sprite = walkAnimationArray[currentSpriteIndex];
             updatesSinceLastSpriteChange = 0;
         }
     }
