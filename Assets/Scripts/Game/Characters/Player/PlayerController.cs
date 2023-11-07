@@ -37,7 +37,7 @@ public class PlayerController : CharacterController
     private float hpRemaining;
     private bool _canMove = true;
 
-    private const int MAX_HP = 30;
+    private const int MAX_HP = 3000;
     private const float MOVEMENT_SPEED = 0.12f;
 
     //////////////////////////////////////////////////////////

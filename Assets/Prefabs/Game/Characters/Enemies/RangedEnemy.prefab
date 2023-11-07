@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 8014170812535174030}
   - component: {fileID: 3634178711203957011}
   - component: {fileID: 1805855582052065654}
+  - component: {fileID: 8103361762652731389}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -346,3 +347,27 @@ MonoBehaviour:
   hpTextElement: {fileID: 3555654630889757491}
   orbDropper: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}
   projectilePrefab: {fileID: 3850049155645364791, guid: b81af1c99194f4d6e90e16f0e9e55433, type: 3}
+--- !u!114 &8103361762652731389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360347662859807920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6be5d5cefd14261b4c21870ae05d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleSouthFacingSprite: {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleWestFacingSprite: {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleNorthFacingSprite: {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleEastFacingSprite: {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  walkSprites:
+  - {fileID: 1044696775, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 290469193, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -98151058, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 803319434, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -1899396077, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 1072352161, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  animationSpeed: 3

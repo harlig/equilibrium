@@ -17,7 +17,10 @@ public class CharacterAnimator : MonoBehaviour
     private Sprite idleEastFacingSprite;
     public Sprite[] walkSprites; // Array of sprites for walking animation
     private int updatesSinceLastSpriteChange = 0;
-    private readonly float animationSpeed = 3;
+
+    // TODO: this should be based on CharacterController.MovementSpeed
+    [SerializeField]
+    private float animationSpeed = 3;
     private SpriteRenderer spriteRenderer;
     private Vector2 lastPosition;
     private MoveDirection? moveDirection = null;
@@ -35,7 +38,7 @@ public class CharacterAnimator : MonoBehaviour
         Vector2 currentPosition = transform.position;
 
         // Check if the character is moving
-        if (currentPosition != lastPosition)
+        if (!currentPosition.Equals(lastPosition))
         {
             AnimateWalk();
         }
