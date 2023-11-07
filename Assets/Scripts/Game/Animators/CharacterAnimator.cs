@@ -17,16 +17,29 @@ public class CharacterAnimator : MonoBehaviour
     private Sprite idleSpriteWest;
 
     [SerializeField]
-    private Sprite[] walkAnimationSpritesEast; // Array of sprites for walking animation
+    private Sprite[] walkAnimationSpritesEast;
 
     [SerializeField]
-    private Sprite[] walkAnimationSpritesNorth; // Array of sprites for walking animation
+    private Sprite[] walkAnimationSpritesNorth;
 
     [SerializeField]
-    private Sprite[] walkAnimationSpritesSouth; // Array of sprites for walking animation
+    private Sprite[] walkAnimationSpritesSouth;
 
     [SerializeField]
-    private Sprite[] walkAnimationSpritesWest; // Array of sprites for walking animation
+    private Sprite[] walkAnimationSpritesWest;
+
+    [SerializeField]
+    private Sprite[] idleAnimationSpritesEast;
+
+    [SerializeField]
+    private Sprite[] idleAnimationSpritesNorth;
+
+    [SerializeField]
+    private Sprite[] idleAnimationSpritesSouth;
+
+    [SerializeField]
+    private Sprite[] idleAnimationSpritesWest;
+
     private int updatesSinceLastSpriteChange = 0;
 
     // TODO: this should be based on CharacterController.MovementSpeed
@@ -55,31 +68,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {
-            // If the character is not moving, set a default sprite (e.g., standing still)
-            switch (moveDirection)
-            {
-                case MoveDirection.Down:
-                    spriteRenderer.sprite = idleSpriteSouth;
-                    break;
-                case MoveDirection.Left:
-                    spriteRenderer.sprite = idleSpriteWest;
-                    break;
-                case MoveDirection.Up:
-                    spriteRenderer.sprite = idleSpriteNorth;
-                    break;
-                case MoveDirection.Right:
-                    spriteRenderer.sprite = idleSpriteEast;
-                    break;
-                // unset, just use south
-                case null:
-                    spriteRenderer.sprite = idleSpriteSouth;
-                    break;
-
-                default:
-                    Debug.LogErrorFormat("Unhandled move direction {0}", moveDirection);
-                    spriteRenderer.sprite = idleSpriteSouth;
-                    break;
-            }
+            AnimateIdle();
         }
 
         lastPosition = currentPosition;
@@ -116,6 +105,45 @@ public class CharacterAnimator : MonoBehaviour
         {
             currentSpriteIndex = (currentSpriteIndex + 1) % walkAnimationArray.Length;
             spriteRenderer.sprite = walkAnimationArray[currentSpriteIndex];
+            updatesSinceLastSpriteChange = 0;
+        }
+    }
+
+    void AnimateIdle()
+    {
+        updatesSinceLastSpriteChange++;
+
+        Sprite[] idleAnimationArray = null;
+        switch (moveDirection)
+        {
+            case MoveDirection.Down:
+                idleAnimationArray = idleAnimationSpritesSouth;
+                break;
+            case MoveDirection.Left:
+                idleAnimationArray = idleAnimationSpritesWest;
+                break;
+            case MoveDirection.Up:
+                idleAnimationArray = idleAnimationSpritesNorth;
+                break;
+            case MoveDirection.Right:
+                idleAnimationArray = idleAnimationSpritesEast;
+                break;
+            // unset, just use south
+            case null:
+                idleAnimationArray = idleAnimationSpritesSouth;
+                break;
+            default:
+                Debug.LogErrorFormat(
+                    "Unhandled move direction for idle animation {0}",
+                    moveDirection
+                );
+                break;
+        }
+
+        if (updatesSinceLastSpriteChange >= animationSpeed)
+        {
+            currentSpriteIndex = (currentSpriteIndex + 1) % idleAnimationArray.Length;
+            spriteRenderer.sprite = idleAnimationArray[currentSpriteIndex];
             updatesSinceLastSpriteChange = 0;
         }
     }

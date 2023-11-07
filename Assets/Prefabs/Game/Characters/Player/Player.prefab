@@ -400,6 +400,50 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 440f6865f50674cdca114410f885814e, type: 3}
   - {fileID: 21300000, guid: e95c36b2dd0ad4a4e9af122f26ac27c6, type: 3}
   - {fileID: 21300000, guid: 1e7689501d58b4c8fba30bedbcca952a, type: 3}
+  idleAnimationSpritesEast:
+  - {fileID: 21300000, guid: 55224ff89af8d4ea9b1ceed4ad573cc5, type: 3}
+  - {fileID: 21300000, guid: a74c44e28dd6c4f729110afd78530ec7, type: 3}
+  - {fileID: 21300000, guid: aa6292ed7ccda4b04990ce0d343ebc0a, type: 3}
+  - {fileID: 21300000, guid: a6e9194779de3435694cec332558f5cf, type: 3}
+  - {fileID: 21300000, guid: 329296de55722445d9a66e95943f6324, type: 3}
+  - {fileID: 21300000, guid: 9481dcf5c69f84cd9a54b5319fcf12cc, type: 3}
+  - {fileID: 21300000, guid: b47190597eb2a4f1d8974af2f5b2b705, type: 3}
+  - {fileID: 21300000, guid: f5dd1679326604a779d53d5a56426a13, type: 3}
+  - {fileID: 21300000, guid: 69d40e6c829c7406daab1eb9e0e85fb2, type: 3}
+  - {fileID: 21300000, guid: 63b5819bec27a45bda51535700f9b4a5, type: 3}
+  idleAnimationSpritesNorth:
+  - {fileID: 21300000, guid: 144dfb5925987473293b05769b40b334, type: 3}
+  - {fileID: 21300000, guid: 968a7aef4ab0641fbb5e75bc986b053a, type: 3}
+  - {fileID: 21300000, guid: e9e141c2c8e7a4f288195965b6615c6f, type: 3}
+  - {fileID: 21300000, guid: 6e911494a9cb44d128d1ec5ef4dccf3e, type: 3}
+  - {fileID: 21300000, guid: d5ef215304eb2455f935a465b423ab91, type: 3}
+  - {fileID: 21300000, guid: 4ddd8ccc914424b35b8915833e144564, type: 3}
+  - {fileID: 21300000, guid: 7a2720dd78ecb48c18a7ffca21db1ea2, type: 3}
+  - {fileID: 21300000, guid: 3568e7a3e37364837bf231d0d09d3751, type: 3}
+  - {fileID: 21300000, guid: 1aad0009b6e7c426aa21b7c2ba8c9735, type: 3}
+  - {fileID: 21300000, guid: 045b5464df15548f0b7e099a57abe8e1, type: 3}
+  idleAnimationSpritesSouth:
+  - {fileID: 21300000, guid: b23e097e0271f49ebb26cd7ea0f6205c, type: 3}
+  - {fileID: 21300000, guid: 86a4f557b35114df69c0c532310d085f, type: 3}
+  - {fileID: 21300000, guid: f7d4736ec172a43a3bb9115e4e1c3984, type: 3}
+  - {fileID: 21300000, guid: ab3dd92b3a555495e994a1307004f6b3, type: 3}
+  - {fileID: 21300000, guid: 8e85fa17dc8f44a729fff20389d97c7d, type: 3}
+  - {fileID: 21300000, guid: 28f86efa379f941efa024ed8eb5effae, type: 3}
+  - {fileID: 21300000, guid: 66424d60884bc4dc29c6e5b8d611a7a9, type: 3}
+  - {fileID: 21300000, guid: ad72a3fe785ac491289300ac6d950e35, type: 3}
+  - {fileID: 21300000, guid: 117368632edfe4eb3ba917bac2be0264, type: 3}
+  - {fileID: 21300000, guid: daa437038fd8c4fd5a502e5835b4ccd3, type: 3}
+  idleAnimationSpritesWest:
+  - {fileID: 21300000, guid: 5592c06eebf3c4833b6c236101d90714, type: 3}
+  - {fileID: 21300000, guid: a1b35cd6aa4644b4ba197c67226bdbd0, type: 3}
+  - {fileID: 21300000, guid: 4ac4c4bb93cbb424ab0f31ff2e58666f, type: 3}
+  - {fileID: 21300000, guid: 91f460338b6264e6c8abcaf79fb9bf77, type: 3}
+  - {fileID: 21300000, guid: 6813c0d52349c44be8e5e2c88c334ff7, type: 3}
+  - {fileID: 21300000, guid: 6eb8d7cf3afdf45a190e0cda1549c57e, type: 3}
+  - {fileID: 21300000, guid: 8da243ab80d4643fdb7ff80caea856c7, type: 3}
+  - {fileID: 21300000, guid: 10d03d97cea084d5e987c637df216216, type: 3}
+  - {fileID: 21300000, guid: 8e31a4e7589d24b358cf8244548a7ac2, type: 3}
+  - {fileID: 21300000, guid: 2f1417cef45c947419d4a477652a29e8, type: 3}
   animationSpeed: 3
 --- !u!1 &1306468511535389940
 GameObject:
