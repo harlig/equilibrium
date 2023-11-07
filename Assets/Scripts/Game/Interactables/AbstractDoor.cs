@@ -23,13 +23,7 @@ public abstract class AbstractDoor : InteractableBehavior
         switch (GetDoorType())
         {
             case DoorType.RIGHT:
-                Debug.Log("Hit right door, let's get to business");
                 // TODO: this should be dynamic based on edge tiles
-                Debug.LogFormat(
-                    "old min {0}; old max {1}",
-                    cameraController.MinCoordinatesVisible,
-                    cameraController.MaxCoordinatesVisible
-                );
                 var newMin = new Vector2(
                     cameraController.MinCoordinatesVisible.x + oldRoomWidth,
                     cameraController.MinCoordinatesVisible.y
@@ -38,7 +32,6 @@ public abstract class AbstractDoor : InteractableBehavior
                     cameraController.MaxCoordinatesVisible.x + newRoomWidth + gapBetweenRooms,
                     cameraController.MaxCoordinatesVisible.y
                 );
-                Debug.LogFormat("New min {0}; new max {1}", newMin, newMax);
                 cameraController.SetCameraBounds(newMin, newMax);
 
                 // TODO: a lot of values in here are hardcoded and bad

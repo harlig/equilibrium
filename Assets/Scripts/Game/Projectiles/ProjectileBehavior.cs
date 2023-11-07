@@ -22,7 +22,6 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Destrorying projectile bc I hit player");
             Destroy(gameObject);
         }
         else if (other.GetComponent<TilemapCollider2D>() != null)

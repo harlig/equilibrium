@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d615187b8e6e840e1aa4ac99b3438f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleSouthFacingSprite: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
+  idleWestFacingSprite: {fileID: 21300000, guid: 5f71246596d754a2b86b70a0c44dbb67, type: 3}
+  idleNorthFacingSprite: {fileID: 21300000, guid: b40feb00018e141b199a8e921c569e85, type: 3}
+  idleEastFacingSprite: {fileID: 21300000, guid: 3810daa6218904f938ed92000b78f46f, type: 3}
   walkSprites:
   - {fileID: 21300000, guid: eb95c2f5431cf489f9fd4413f9942a83, type: 3}
   - {fileID: 21300000, guid: 1cf95586f24424d32bfff46e552fa143, type: 3}
@@ -52,4 +56,3 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dd1340a68730b46d2b05552ecd1bd70e, type: 3}
   - {fileID: 21300000, guid: 6558ca77ab3a143258f8a5fac42528e6, type: 3}
   - {fileID: 21300000, guid: 875c6c6e7eea942e5aca1116137f3e09, type: 3}
-  animationSpeed: 0.2

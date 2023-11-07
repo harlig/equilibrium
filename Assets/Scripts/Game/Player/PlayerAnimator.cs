@@ -2,14 +2,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PlayerAnimator : MonoBehaviour
+// TODO we should have an AbstractAnimator
 {
+    [SerializeField]
+    private Sprite idleSouthFacingSprite;
+
+    [SerializeField]
+    private Sprite idleWestFacingSprite;
+
+    [SerializeField]
+    private Sprite idleNorthFacingSprite;
+
+    [SerializeField]
+    private Sprite idleEastFacingSprite;
     public Sprite[] walkSprites; // Array of sprites for walking animation
     private int updatesSinceLastSpriteChange = 0;
     private readonly float animationSpeed = 3;
     private SpriteRenderer spriteRenderer;
     private Vector2 lastPosition;
-    private Sprite originalSprite;
-    private MoveDirection moveDirection;
+    private MoveDirection? moveDirection = null;
     private int currentSpriteIndex = 0;
 
     public static PlayerAnimator Create(PlayerAnimator animatorPrefab, PlayerController player)
@@ -17,26 +28,46 @@ public class PlayerAnimator : MonoBehaviour
         var newAnimator = Instantiate(animatorPrefab, player.transform);
         newAnimator.spriteRenderer = player.GetComponent<SpriteRenderer>();
         newAnimator.lastPosition = player.transform.position;
-        newAnimator.originalSprite = newAnimator.spriteRenderer.sprite;
         return newAnimator;
     }
 
-    // TODO: this should be `Update` but it won't work for some reason
+    // TODO: I think this should be `Update` but it won't work for some reason
     void FixedUpdate()
     {
-        Debug.Log("update getting called");
         Vector2 currentPosition = transform.position;
 
         // Check if the player is moving
         if (currentPosition != lastPosition)
         {
-            Debug.Log("new location");
             AnimateWalk();
         }
         else
         {
             // If the player is not moving, set a default sprite (e.g., standing still)
-            spriteRenderer.sprite = originalSprite;
+            switch (moveDirection)
+            {
+                case MoveDirection.Down:
+                    spriteRenderer.sprite = idleSouthFacingSprite;
+                    break;
+                case MoveDirection.Left:
+                    spriteRenderer.sprite = idleWestFacingSprite;
+                    break;
+                case MoveDirection.Up:
+                    spriteRenderer.sprite = idleNorthFacingSprite;
+                    break;
+                case MoveDirection.Right:
+                    spriteRenderer.sprite = idleEastFacingSprite;
+                    break;
+                // unset, just use south
+                case null:
+                    spriteRenderer.sprite = idleSouthFacingSprite;
+                    break;
+
+                default:
+                    Debug.LogErrorFormat("Unhandled move direction {0}", moveDirection);
+                    spriteRenderer.sprite = idleSouthFacingSprite;
+                    break;
+            }
         }
 
         lastPosition = currentPosition;

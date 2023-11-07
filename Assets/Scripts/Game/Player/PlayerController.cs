@@ -112,9 +112,6 @@ public class PlayerController : CharacterController
     {
         if (AutomoveLocation != null)
         {
-            Debug.Log(
-                $"automove is set to go from {transform.position} to {AutomoveLocation.Value}"
-            );
             GetComponent<BoxCollider2D>().enabled = false;
             var x = transform.position.x;
             var y = transform.position.y;
@@ -124,7 +121,6 @@ public class PlayerController : CharacterController
                 && Mathf.Approximately(y, AutomoveLocation.Value.y)
             )
             {
-                Debug.Log("Reached end of automove");
                 GetComponent<BoxCollider2D>().enabled = true;
                 AutomoveLocation = null;
                 automoveInterval = 0;
@@ -171,6 +167,7 @@ public class PlayerController : CharacterController
             playerAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Down);
             movement.y -= 1.0f;
         }
+        Debug.LogFormat("movement {0}", movement);
 
         return movement;
     }
@@ -261,7 +258,6 @@ public class PlayerController : CharacterController
         }
 
         canTakeDmg = false;
-        Debug.Log("Something that hit me is dealing dmg");
 
         // TODO: use damageTaken
         hpRemaining -= dmgAmount;

@@ -87,7 +87,6 @@ public abstract class LevelManager : MonoBehaviour
     {
         if (interactable is AbstractDoor door)
         {
-            Debug.Log("Level observed player hitting a door");
             // is level beat, if so move camera and player
             if (AllEnemiesDead())
             {
@@ -115,8 +114,6 @@ public abstract class LevelManager : MonoBehaviour
 
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
-        // pause game
-        Debug.Log($"Player leveled up to {newLevel}");
         levelUpBehavior.LevelUp(newLevel, afterLevelUpAction);
     }
 

@@ -20,8 +20,6 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("a player hit me, an interactable object!");
-
             OnInteractableHitPlayer?.Invoke(this);
             OnPlayerHit();
         }
