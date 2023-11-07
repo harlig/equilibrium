@@ -23,15 +23,10 @@ public class CharacterAnimator : MonoBehaviour
     private MoveDirection? moveDirection = null;
     private int currentSpriteIndex = 0;
 
-    public static CharacterAnimator Create(
-        CharacterAnimator animatorPrefab,
-        CharacterController character
-    )
+    void Awake()
     {
-        var newAnimator = Instantiate(animatorPrefab, character.transform);
-        newAnimator.spriteRenderer = character.GetComponent<SpriteRenderer>();
-        newAnimator.lastPosition = character.transform.position;
-        return newAnimator;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        lastPosition = transform.position;
     }
 
     // TODO: I think this should be `Update` but it won't work for some reason

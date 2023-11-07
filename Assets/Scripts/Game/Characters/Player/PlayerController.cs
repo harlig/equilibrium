@@ -18,9 +18,6 @@ public class PlayerController : CharacterController
     private TextMeshPro levelTextElement;
 
     [SerializeField]
-    private CharacterAnimator animatorPrefab;
-
-    [SerializeField]
     private TextMeshProUGUI fireOrbsTextElement;
 
     [SerializeField]
@@ -80,8 +77,7 @@ public class PlayerController : CharacterController
             [OrbController.OrbType.FIRE] = fireOrbsTextElement,
             [OrbController.OrbType.ICE] = iceOrbsTextElement
         };
-
-        characterAnimator = CharacterAnimator.Create(animatorPrefab, this);
+        characterAnimator = GetComponent<CharacterAnimator>();
         orbCollector = new(xpTextElement, orbsToSupport);
 
         hpRemaining = MAX_HP;
