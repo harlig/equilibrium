@@ -95,7 +95,7 @@ public class CharacterAnimator : MonoBehaviour
                 break;
             default:
                 Debug.LogErrorFormat(
-                    "Unhandled move direction for walk animation {0}",
+                    "Unhandled move direction for walk animation: {0}",
                     moveDirection
                 );
                 break;

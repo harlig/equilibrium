@@ -125,6 +125,7 @@ public abstract class LevelManager : MonoBehaviour
 
     void OnPlayerDamageTaken(float newPlayerHp)
     {
+        Debug.Log("Level manager recognized that player took damage");
         hudController.SetPlayerHp(newPlayerHp);
     }
 

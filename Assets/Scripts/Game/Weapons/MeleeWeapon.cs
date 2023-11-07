@@ -60,7 +60,6 @@ public class MeleeWeapon : WeaponController
 
     private void ApplyCharacterDamage(CharacterController character)
     {
-        Debug.Log(character.name);
         character.OnDamageTaken(damageType, baseDamageAmount);
     }
 
@@ -68,7 +67,7 @@ public class MeleeWeapon : WeaponController
     {
         // the weapon has collided with some other game object, do damage if character
         CharacterController otherChar = other.GetComponent<CharacterController>();
-        if (otherChar != null && otherChar != transform.parent)
+        if (otherChar != null && otherChar.transform != transform.parent)
         {
             // means we have collided with a character, apply damage, and no friendly fire on self
             ApplyCharacterDamage(otherChar);

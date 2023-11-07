@@ -166,7 +166,6 @@ public class PlayerController : CharacterController
             characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Down);
             movement.y -= 1.0f;
         }
-        Debug.LogFormat("movement {0}", movement);
 
         return movement;
     }
@@ -234,6 +233,7 @@ public class PlayerController : CharacterController
         }
     }
 
+    // TODO: should we remove this?
     void RegisterDamage(GameObject other, bool forceDmg = false)
     {
         float dmgAmount;
@@ -258,26 +258,10 @@ public class PlayerController : CharacterController
 
         canTakeDmg = false;
 
-        // TODO: use damageTaken
-        hpRemaining -= dmgAmount;
-        // TODO: use HUD controller
-        // TODO: level should subscribe to player damage?
-        // hpTextElement.text = $"{hpRemaining}";
-
-        if (IsDead())
-        {
-            // TODO: game over
-            // TODO: level should subscribe to player damage?
-            // hpTextElement.text = $"{hpRemaining}\nGame Over!";
-            _canMove = false;
-            // don't want to call WaitBeforeTakingDmg so we don't take more dmg
-            GetComponent<BoxCollider2D>().enabled = false;
-            return;
-        }
-        StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL, forceDmg));
+        OnDamageTaken(DamageType.FIRE, dmgAmount);
     }
 
-    private IEnumerator WaitBeforeTakingDmg(float waitTime, bool forceDmg)
+    private IEnumerator WaitBeforeTakingDmg(float waitTime, bool forceDmg = false)
     {
         // weird edge case?
         if (canTakeDmg && !forceDmg)
@@ -296,7 +280,19 @@ public class PlayerController : CharacterController
     {
         // TODO: add in effects for different damage types
         hpRemaining -= damageTaken;
+        Debug.LogFormat("player took damage of type {0} of amount {1}", damageType, damageTaken);
         OnDamageTakenAction?.Invoke(hpRemaining);
+
+        if (IsDead())
+        {
+            // TODO: game over
+            _canMove = false;
+            // don't want to call WaitBeforeTakingDmg so we don't take more dmg
+            GetComponent<BoxCollider2D>().enabled = false;
+            return;
+        }
+        // TODO: how to force damage sometimes?
+        StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
     }
 
     private void CreateMeleeWeapon()

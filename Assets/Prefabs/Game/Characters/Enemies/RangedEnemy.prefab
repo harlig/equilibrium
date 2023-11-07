@@ -359,15 +359,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6be5d5cefd14261b4c21870ae05d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSouthFacingSprite: {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
-  idleWestFacingSprite: {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
-  idleNorthFacingSprite: {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
-  idleEastFacingSprite: {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
-  walkSprites:
+  idleSpriteEast: {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleSpriteNorth: {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleSpriteSouth: {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleSpriteWest: {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  walkAnimationSpritesEast:
   - {fileID: 1044696775, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
   - {fileID: 290469193, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
   - {fileID: -98151058, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
   - {fileID: 803319434, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
   - {fileID: -1899396077, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
   - {fileID: 1072352161, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  walkAnimationSpritesNorth:
+  - {fileID: 1044696775, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 290469193, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -98151058, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 803319434, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -1899396077, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 1072352161, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  walkAnimationSpritesSouth:
+  - {fileID: 1044696775, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 290469193, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -98151058, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 803319434, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -1899396077, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 1072352161, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  walkAnimationSpritesWest:
+  - {fileID: 1044696775, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 290469193, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -98151058, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 803319434, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: -1899396077, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  - {fileID: 1072352161, guid: a968ddd3649784c67a85c2fa7129f3d1, type: 3}
+  idleAnimationSpritesEast:
+  - {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleAnimationSpritesNorth:
+  - {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleAnimationSpritesSouth:
+  - {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  idleAnimationSpritesWest:
+  - {fileID: 1191831533, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: -251965331, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 77909690, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
+  - {fileID: 795336505, guid: e59e3b7fd9af44de2badfe2052d4b540, type: 3}
   animationSpeed: 3

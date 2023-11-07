@@ -358,15 +358,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6be5d5cefd14261b4c21870ae05d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSouthFacingSprite: {fileID: 1287714104, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
-  idleWestFacingSprite: {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
-  idleNorthFacingSprite: {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
-  idleEastFacingSprite: {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
-  walkSprites:
+  idleSpriteEast: {fileID: 1287714104, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  idleSpriteNorth: {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  idleSpriteSouth: {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  idleSpriteWest: {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  walkAnimationSpritesEast:
   - {fileID: 1939505415, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
   - {fileID: -1560909277, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
   - {fileID: -552008342, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
   - {fileID: -1783341671, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
   - {fileID: -1250884391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
   - {fileID: 2025704391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  walkAnimationSpritesNorth:
+  - {fileID: 1939505415, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1560909277, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -552008342, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1783341671, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1250884391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: 2025704391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  walkAnimationSpritesSouth:
+  - {fileID: 1939505415, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1560909277, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -552008342, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1783341671, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1250884391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: 2025704391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  walkAnimationSpritesWest:
+  - {fileID: 1939505415, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1560909277, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -552008342, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1783341671, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: -1250884391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  - {fileID: 2025704391, guid: 8b0fbf5f49a8a4821a6ce044937cfbc3, type: 3}
+  idleAnimationSpritesEast:
+  - {fileID: 1287714104, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  idleAnimationSpritesNorth:
+  - {fileID: 1287714104, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  idleAnimationSpritesSouth:
+  - {fileID: 1287714104, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  idleAnimationSpritesWest:
+  - {fileID: 1287714104, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1405041465, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: -253922660, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
+  - {fileID: 1545504017, guid: 3c86bf9eb92b24a3b812fa20d6a7f340, type: 3}
   animationSpeed: 4
