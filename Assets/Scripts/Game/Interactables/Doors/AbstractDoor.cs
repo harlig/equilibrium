@@ -10,7 +10,6 @@ public abstract class AbstractDoor : InteractableBehavior
         DOWN
     }
 
-    [SerializeField]
     private RoomManager roomFrom;
 
     public RoomManager RoomTo;
@@ -18,35 +17,51 @@ public abstract class AbstractDoor : InteractableBehavior
     public abstract DoorType GetDoorType();
     private Vector2 newRoomStartingBuffer = new(3.5f, 2);
 
+    void Awake()
+    {
+        roomFrom = GetComponentInParent<RoomManager>();
+    }
+
     public void MovePlayerAndCamera(
         CameraController cameraController,
         PlayerController player,
-        RoomManager newRoom,
-        int gapBetweenRooms
+        RoomManager newRoom
     )
     {
+        Vector2 newMin,
+            newMax;
         switch (GetDoorType())
         {
             case DoorType.RIGHT:
-                // TODO: this should be dynamic based on edge tiles
-                var newMin = new Vector2(
+                newMin = new Vector2(
                     newRoom.minX - newRoomStartingBuffer.x,
                     newRoom.minY - newRoomStartingBuffer.y
                 );
-                var newMax = new Vector2(
+                newMax = new Vector2(
                     newRoom.maxX + newRoomStartingBuffer.x,
                     newRoom.maxY + newRoomStartingBuffer.y
                 );
-                cameraController.SetCameraBounds(newMin, newMax);
-
-                player.MovePlayerToLocation(
-                    new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                break;
+            case DoorType.UP:
+                newMin = new Vector2(
+                    newRoom.minX - newRoomStartingBuffer.x,
+                    newRoom.minY - newRoomStartingBuffer.y
                 );
-                return;
+                newMax = new Vector2(
+                    newRoom.maxX + newRoomStartingBuffer.x,
+                    newRoom.maxY + newRoomStartingBuffer.y
+                );
+                break;
             default:
                 Debug.LogErrorFormat("Unhandled door type {0}", GetDoorType());
                 return;
         }
+
+        cameraController.SetCameraBounds(newMin, newMax);
+
+        player.MovePlayerToLocation(
+            new(newRoom.minX + newRoomStartingBuffer.x, player.LocationAsVector2().y)
+        );
     }
 
     protected override void OnPlayerHit()

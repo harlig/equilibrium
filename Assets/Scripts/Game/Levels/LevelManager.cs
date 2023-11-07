@@ -95,7 +95,7 @@ public abstract class LevelManager : MonoBehaviour
                     Debug.LogError("Door was interacted with which had no RoomTo set!");
                     return;
                 }
-                door.MovePlayerAndCamera(cameraController, player, door.RoomTo, 2);
+                door.MovePlayerAndCamera(cameraController, player, door.RoomTo);
             }
         }
         else
