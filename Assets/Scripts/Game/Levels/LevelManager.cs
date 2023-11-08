@@ -134,5 +134,6 @@ public abstract class LevelManager : MonoBehaviour
     void OnPlayerOrbCollected(OrbController orbCollected, float newPlayerXp)
     {
         hudController.SetPlayerXp(newPlayerXp);
+        hudController.SetOrbsCollected();
     }
 }

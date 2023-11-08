@@ -10,13 +10,6 @@ public class PlayerController : CharacterController
 
     // TODO: move to HUDController
     [SerializeField]
-    private TextMeshProUGUI fireOrbsTextElement;
-
-    // TODO: move to HUDController
-    [SerializeField]
-    private TextMeshProUGUI iceOrbsTextElement;
-
-    [SerializeField]
     private MeleeWeapon meleeWeapon;
 
     // non-prefabs
@@ -26,7 +19,7 @@ public class PlayerController : CharacterController
     private CharacterAnimator characterAnimator;
 
     // configure orbs types
-    private OrbCollector orbCollector;
+    public OrbCollector OrbCollector { get; private set; }
     private float hpRemaining;
     private bool _canMove = true;
 
@@ -70,21 +63,20 @@ public class PlayerController : CharacterController
     void Awake()
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        var orbsToSupport = new Dictionary<OrbController.OrbType, TextMeshProUGUI>
-        {
-            [OrbController.OrbType.FIRE] = fireOrbsTextElement,
-            [OrbController.OrbType.ICE] = iceOrbsTextElement
-        };
         characterAnimator = GetComponent<CharacterAnimator>();
-        orbCollector = new(orbsToSupport);
-
+        OrbController.OrbType[] orbsToSupport =
+        {
+            OrbController.OrbType.FIRE,
+            OrbController.OrbType.ICE
+        };
+        OrbCollector = new OrbCollector(orbsToSupport);
         hpRemaining = MAX_HP;
         CreateMeleeWeapon();
     }
 
     public float XpCollected()
     {
-        return orbCollector.XpCollected;
+        return OrbCollector.XpCollected;
     }
 
     void Update()
@@ -204,8 +196,8 @@ public class PlayerController : CharacterController
 
     void CollectOrb(OrbController orb)
     {
-        orbCollector.Collect(orb);
-        OnOrbCollectedAction?.Invoke(orb, orbCollector.XpCollected);
+        OrbCollector.Collect(orb);
+        OnOrbCollectedAction?.Invoke(orb, OrbCollector.XpCollected);
         TryLevelUp();
     }
 
@@ -215,7 +207,7 @@ public class PlayerController : CharacterController
         if (PlayerLevel < GameManager.XpNeededForLevelUpAtIndex.Count)
         {
             var xpForLevelUp = GameManager.XpNeededForLevelUpAtIndex[PlayerLevel];
-            if (orbCollector.XpCollected >= xpForLevelUp)
+            if (OrbCollector.XpCollected >= xpForLevelUp)
             {
                 // TODO: celebrate that player leveled up, offer reward!
                 PlayerLevel++;

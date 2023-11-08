@@ -5,16 +5,13 @@ using UnityEngine;
 public class OrbCollector
 {
     public Dictionary<OrbController.OrbType, int> OrbsCollected { get; } = new();
-    private Dictionary<OrbController.OrbType, TextMeshProUGUI> orbTypeToTextElements;
     public float XpCollected { get; private set; } = 0;
 
-    public OrbCollector(Dictionary<OrbController.OrbType, TextMeshProUGUI> orbTypesAndTextElements)
+    public OrbCollector(OrbController.OrbType[] orbsToSupport)
     {
-        orbTypeToTextElements = orbTypesAndTextElements;
-        foreach (OrbController.OrbType type in orbTypesAndTextElements.Keys)
+        foreach (OrbController.OrbType type in orbsToSupport)
         {
             OrbsCollected[type] = 0;
-            SetTextForType(type);
         }
     }
 
@@ -30,17 +27,20 @@ public class OrbCollector
         OrbsCollected[orb.Type] = OrbsCollected[orb.Type] + 1;
         XpCollected += orb.Xp;
 
-        foreach (OrbController.OrbType type in orbTypeToTextElements.Keys)
-        {
-            SetTextForType(type);
-        }
-
         // destroy when we're done collecting
         Object.Destroy(orb.gameObject);
     }
 
-    private void SetTextForType(OrbController.OrbType type)
+    public int NumOrbsCollectedForType(OrbController.OrbType orbType)
     {
-        orbTypeToTextElements[type].text = $"{OrbsCollected[type]} {type} collected";
+        if (!OrbsCollected.ContainsKey(orbType))
+        {
+            Debug.LogError(
+                $"Cannot get number of orbs collected! This orb collector is not configured to collect orbs of type: {orbType}"
+            );
+            return -1;
+        }
+
+        return OrbsCollected[orbType];
     }
 }

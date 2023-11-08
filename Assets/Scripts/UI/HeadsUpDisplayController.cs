@@ -18,11 +18,16 @@ public class HeadsUpDisplayController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI iceOrbsTextElement;
 
+    private OrbCollector playerOrbCollector;
+
     public void Setup(PlayerController player)
     {
         SetPlayerLevel(player.PlayerLevel);
         SetPlayerHp(player.HpRemaining);
         SetPlayerXp(player.XpCollected());
+
+        playerOrbCollector = player.OrbCollector;
+        SetOrbsCollected();
     }
 
     public void SetPlayerLevel(int newPlayerLevel)
@@ -38,5 +43,13 @@ public class HeadsUpDisplayController : MonoBehaviour
     public void SetPlayerXp(float newPlayerXp)
     {
         playerXpText.text = string.Format("{0:N0} XP", newPlayerXp);
+    }
+
+    public void SetOrbsCollected()
+    {
+        fireOrbsTextElement.text =
+            $"{playerOrbCollector.NumOrbsCollectedForType(OrbController.OrbType.FIRE)}";
+        iceOrbsTextElement.text =
+            $"{playerOrbCollector.NumOrbsCollectedForType(OrbController.OrbType.ICE)}";
     }
 }
