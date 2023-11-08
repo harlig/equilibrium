@@ -22,6 +22,7 @@ public abstract class LevelManager : MonoBehaviour
 
     [SerializeField]
     private RoomManager startingRoom;
+    private RoomManager activeRoom;
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
 
@@ -29,24 +30,33 @@ public abstract class LevelManager : MonoBehaviour
     private bool shouldSpawnEnemies = true;
     bool spawningMoreEnemies = false;
 
+    private void SetActiveRoom(RoomManager newActiveRoom)
+    {
+        activeRoom = newActiveRoom;
+        newActiveRoom.SetAsActiveRoom(
+            player,
+            // escape hatch
+            shouldSpawnEnemies ? spawnLocations : new(),
+            meleeEnemyPrefab,
+            rangedEnemyPrefab
+        );
+    }
+
     protected void SetupLevel(List<Vector2> enemySpawnLocations, bool spawnEnemies = true)
     {
         cameraController = GetComponentInChildren<CameraController>();
         player.MainCamera = cameraController.GetComponent<Camera>();
-        cameraController.FollowPlayer(player.transform); //, edgeTiles);
-
+        cameraController.FollowPlayer(player.transform);
         cameraController.SetCameraBounds(startingRoom.Min, startingRoom.Max);
 
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
+        // TODO: bad code organization, clean this up
         shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
-        if (shouldSpawnEnemies)
-        {
-            SpawnEnemies(enemySpawnLocations);
-        }
+        SetActiveRoom(startingRoom);
 
         var interactables = GetComponentsInChildren<InteractableBehavior>();
         foreach (InteractableBehavior interactableBehavior in interactables)
@@ -73,45 +83,39 @@ public abstract class LevelManager : MonoBehaviour
         enemies.Add(rangedEnemy);
     }
 
-    private bool AllEnemiesDead()
-    {
-        foreach (var enemy in enemies)
-        {
-            if (!enemy.IsDead())
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private void OnInteractableHitPlayer(InteractableBehavior interactable)
     {
         if (interactable is AbstractDoor door)
         {
-            // is level beat, if so move camera and player
-            if (AllEnemiesDead())
-            {
-                if (door.RoomTo == null)
-                {
-                    Debug.LogError("Door was interacted with which had no RoomTo set!");
-                    return;
-                }
-                var newLocations = door.GetNewRoomPlayerAndCameraLocation(
-                    player.LocationAsVector2(),
-                    door.RoomTo
-                );
-                player.MovePlayerToLocation(newLocations.PlayerLocation);
-                cameraController.SetCameraBounds(
-                    newLocations.CameraBounds.Item1,
-                    newLocations.CameraBounds.Item2
-                );
-            }
+            TryMoveRooms(door);
         }
         // if (interactable is AbstractChest chest) { ... do stuff ... }
         else
         {
             Debug.LogErrorFormat("Unhandled interactable! {0}", interactable);
+        }
+    }
+
+    private void TryMoveRooms(AbstractDoor door)
+    {
+        // is level beat, if so move camera and player
+        if (activeRoom.AllEnemiesDead())
+        {
+            if (door.RoomTo == null)
+            {
+                Debug.LogError("Door was interacted with which had no RoomTo set!");
+                return;
+            }
+            var newLocations = door.GetNewRoomPlayerAndCameraLocation(
+                player.LocationAsVector2(),
+                door.RoomTo
+            );
+            player.MovePlayerToLocation(newLocations.PlayerLocation);
+            cameraController.SetCameraBounds(
+                newLocations.CameraBounds.Item1,
+                newLocations.CameraBounds.Item2
+            );
+            SetActiveRoom(door.RoomTo);
         }
     }
 
@@ -158,14 +162,14 @@ public abstract class LevelManager : MonoBehaviour
     //////////////////////////////////////////////////////////
     void FixedUpdate()
     {
-        if (!AllEnemiesDead() || spawningMoreEnemies || !shouldSpawnEnemies)
+        if (!activeRoom.AllEnemiesDead() || spawningMoreEnemies || !shouldSpawnEnemies)
         {
             return;
         }
         spawningMoreEnemies = true;
 
         // if all enemies are dead, spawn more
-        StartCoroutine(SpawnMoreEnemies());
+        // StartCoroutine(SpawnMoreEnemies());
     }
 
     IEnumerator SpawnMoreEnemies()

@@ -53,10 +53,21 @@ public abstract class EnemyController : CharacterController
     public static EnemyController Create(
         EnemyController prefab,
         Vector2 position,
-        PlayerController player
+        PlayerController player,
+        Transform parent = null
     )
     {
-        var createdEnemy = Instantiate(prefab, position, Quaternion.identity);
+        EnemyController createdEnemy;
+        if (parent != null)
+        {
+            createdEnemy = Instantiate(prefab, parent);
+        }
+        else
+        {
+            createdEnemy = Instantiate(prefab);
+        }
+        // is this okay? I want it to be relative to its parent's position so I think yes?
+        createdEnemy.transform.localPosition = position;
         createdEnemy.player = player;
         // instantiating this directly bc no need to pass additional data to it
         createdEnemy.orbDropper = Instantiate(prefab.orbDropper, createdEnemy.transform);
