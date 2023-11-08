@@ -57,13 +57,6 @@ public class OrbCollector
             return null;
         }
 
-        Debug.LogFormat(
-            "orb type: {0}, orbs collected for type {1}, total orbs collected: {2}",
-            orbType,
-            NumOrbsCollectedForType(orbType),
-            totalOrbsCollected
-        );
-
         return NumOrbsCollectedForType(orbType) / totalOrbsCollected * 100.0f;
     }
 }

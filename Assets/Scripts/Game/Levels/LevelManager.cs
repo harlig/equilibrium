@@ -45,18 +45,7 @@ public abstract class LevelManager : MonoBehaviour
         spawnLocations = enemySpawnLocations;
         if (shouldSpawnEnemies)
         {
-            foreach (var enemySpawnLocation in enemySpawnLocations)
-            {
-                // create new enemy at location
-                MeleeEnemy enemyController = (MeleeEnemy)
-                    EnemyController.Create(meleeEnemyPrefab, enemySpawnLocation, player);
-                enemyController.FollowPlayer(player);
-                enemies.Add(enemyController);
-            }
-
-            RangedEnemy rangedEnemy = (RangedEnemy)
-                EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
-            enemies.Add(rangedEnemy);
+            SpawnEnemies(enemySpawnLocations);
         }
 
         var interactables = GetComponentsInChildren<InteractableBehavior>();
@@ -66,6 +55,22 @@ public abstract class LevelManager : MonoBehaviour
         }
 
         hudController.Setup(player);
+    }
+
+    void SpawnEnemies(List<Vector2> enemySpawnLocations)
+    {
+        foreach (var enemySpawnLocation in enemySpawnLocations)
+        {
+            // create new enemy at location
+            MeleeEnemy enemyController = (MeleeEnemy)
+                EnemyController.Create(meleeEnemyPrefab, enemySpawnLocation, player);
+            enemyController.FollowPlayer(player);
+            enemies.Add(enemyController);
+        }
+
+        RangedEnemy rangedEnemy = (RangedEnemy)
+            EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
+        enemies.Add(rangedEnemy);
     }
 
     private bool AllEnemiesDead()
@@ -157,7 +162,7 @@ public abstract class LevelManager : MonoBehaviour
     IEnumerator SpawnMoreEnemies()
     {
         yield return new WaitForSeconds(5);
-        SetupLevel(spawnLocations);
+        SpawnEnemies(spawnLocations);
         spawningMoreEnemies = false;
     }
     //////////////////////////////////////////////////////////
