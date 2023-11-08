@@ -97,8 +97,15 @@ public abstract class LevelManager : MonoBehaviour
                     Debug.LogError("Door was interacted with which had no RoomTo set!");
                     return;
                 }
-                // TODO: door should return new spot for player and camera and level should do the movement
-                door.MovePlayerAndCamera(cameraController, player, door.RoomTo);
+                var newLocations = door.GetNewRoomPlayerAndCameraLocation(
+                    player.LocationAsVector2(),
+                    door.RoomTo
+                );
+                player.MovePlayerToLocation(newLocations.PlayerLocation);
+                cameraController.SetCameraBounds(
+                    newLocations.CameraBounds.Item1,
+                    newLocations.CameraBounds.Item2
+                );
             }
         }
         // if (interactable is AbstractChest chest) { ... do stuff ... }

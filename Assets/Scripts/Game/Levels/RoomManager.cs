@@ -29,4 +29,12 @@ public class RoomManager : MonoBehaviour
         Min = new(minX, minY);
         Max = new(maxX, maxY);
     }
+
+    // TODO: set room to active and show stuff, everything should be hidden by default except doors
+    public void SetAsActiveRoom()
+    {
+        Debug.LogFormat("New active room is at min {0}; max {1}", Min, Max);
+        // spawn enemies
+        // spawn non-door interactables
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class AbstractDoor : InteractableBehavior
@@ -17,40 +18,50 @@ public abstract class AbstractDoor : InteractableBehavior
     // how many grid units into the room the unit should be moved
     private Vector2 newRoomStartingBuffer = new(5f, 5f);
 
-    public void MovePlayerAndCamera(
-        CameraController cameraController,
-        PlayerController player,
+    public class PlayerAndCameraLocation
+    {
+        public Vector2 PlayerLocation { get; set; }
+        public Tuple<Vector2, Vector2> CameraBounds { get; set; }
+    }
+
+    public PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(
+        Vector2 currentPlayerLocation,
         RoomManager newRoom
     )
     {
+        PlayerAndCameraLocation newLocations = new();
         switch (GetDoorType())
         {
             case DoorType.LEFT:
-                player.MovePlayerToLocation(
-                    new(newRoom.Max.x - newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                newLocations.PlayerLocation = new(
+                    newRoom.Max.x - newRoomStartingBuffer.x,
+                    currentPlayerLocation.y
                 );
                 break;
             case DoorType.UP:
-                player.MovePlayerToLocation(
-                    new(player.LocationAsVector2().x, newRoom.Min.y + newRoomStartingBuffer.y)
+                newLocations.PlayerLocation = new(
+                    currentPlayerLocation.x,
+                    newRoom.Min.y + newRoomStartingBuffer.y
                 );
                 break;
             case DoorType.RIGHT:
-                player.MovePlayerToLocation(
-                    new(newRoom.Min.x + newRoomStartingBuffer.x, player.LocationAsVector2().y)
+                newLocations.PlayerLocation = new(
+                    newRoom.Min.x + newRoomStartingBuffer.x,
+                    currentPlayerLocation.y
                 );
                 break;
             case DoorType.DOWN:
-                player.MovePlayerToLocation(
-                    new(player.LocationAsVector2().x, newRoom.Max.y - newRoomStartingBuffer.y)
+                newLocations.PlayerLocation = new(
+                    currentPlayerLocation.x,
+                    newRoom.Max.y - newRoomStartingBuffer.y
                 );
                 break;
             default:
-                Debug.LogErrorFormat("Unhandled door type {0}", GetDoorType());
-                return;
+                throw new System.Exception($"Unhandled door type {GetDoorType()}");
         }
 
-        cameraController.SetCameraBounds(newRoom.Min, newRoom.Max);
+        newLocations.CameraBounds = new(newRoom.Min, newRoom.Max);
+        return newLocations;
     }
 
     protected override void OnPlayerHit()
