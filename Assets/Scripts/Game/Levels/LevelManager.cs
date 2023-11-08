@@ -27,6 +27,7 @@ public abstract class LevelManager : MonoBehaviour
 
     private readonly List<EnemyController> enemies = new();
     private bool shouldSpawnEnemies = true;
+    bool spawningMoreEnemies = false;
 
     protected void SetupLevel(List<Vector2> enemySpawnLocations, bool spawnEnemies = true)
     {
@@ -65,14 +66,6 @@ public abstract class LevelManager : MonoBehaviour
         }
 
         hudController.Setup(player);
-    }
-
-    void FixedUpdate()
-    {
-        if (!AllEnemiesDead() || !shouldSpawnEnemies)
-        {
-            return;
-        }
     }
 
     private bool AllEnemiesDead()
@@ -127,13 +120,49 @@ public abstract class LevelManager : MonoBehaviour
 
     void OnPlayerDamageTaken(float newPlayerHp)
     {
-        Debug.Log("Level manager recognized that player took damage");
         hudController.SetPlayerHp(newPlayerHp);
     }
 
     void OnPlayerOrbCollected(OrbController orbCollected, float newPlayerXp)
     {
+        // check for equilibrium change
+        var equilibriumState = EquilibriumManager.ManageEquilibrium(player.OrbCollector);
+        if (equilibriumState != player.EquilibriumState)
+        {
+            // TODO: play some animation saying "NEW STATE ENTERED"
+            player.EquilibriumState = equilibriumState;
+            hudController.SetEquilibriumState(equilibriumState);
+        }
         hudController.SetPlayerXp(newPlayerXp);
         hudController.SetOrbsCollected();
     }
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    /////// HELPERS TO BE DELETED JUST FOR DEV TESTING ///////
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    void FixedUpdate()
+    {
+        if (!AllEnemiesDead() || spawningMoreEnemies || !shouldSpawnEnemies)
+        {
+            return;
+        }
+        spawningMoreEnemies = true;
+
+        // if all enemies are dead, spawn more
+        StartCoroutine(SpawnMoreEnemies());
+    }
+
+    IEnumerator SpawnMoreEnemies()
+    {
+        yield return new WaitForSeconds(5);
+        SetupLevel(spawnLocations);
+        spawningMoreEnemies = false;
+    }
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    ///// END HELPERS TO BE DELETED JUST FOR DEV TESTING /////
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class OrbCollector
@@ -42,5 +41,29 @@ public class OrbCollector
         }
 
         return OrbsCollected[orbType];
+    }
+
+    public float? PercTypeOrbsCollectedOfTotal(OrbController.OrbType orbType)
+    {
+        float totalOrbsCollected = 0;
+        foreach (KeyValuePair<OrbController.OrbType, int> orbSet in OrbsCollected)
+        {
+            totalOrbsCollected += orbSet.Value;
+        }
+
+        // return null if no orbs have been collected for caller handling
+        if (totalOrbsCollected == 0)
+        {
+            return null;
+        }
+
+        Debug.LogFormat(
+            "orb type: {0}, orbs collected for type {1}, total orbs collected: {2}",
+            orbType,
+            NumOrbsCollectedForType(orbType),
+            totalOrbsCollected
+        );
+
+        return NumOrbsCollectedForType(orbType) / totalOrbsCollected * 100.0f;
     }
 }

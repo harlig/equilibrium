@@ -13,6 +13,9 @@ public class HeadsUpDisplayController : MonoBehaviour
     private TextMeshProUGUI playerXpText;
 
     [SerializeField]
+    private TextMeshProUGUI equilibriumStateTextElement;
+
+    [SerializeField]
     private TextMeshProUGUI fireOrbsTextElement;
 
     [SerializeField]
@@ -25,6 +28,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         SetPlayerLevel(player.PlayerLevel);
         SetPlayerHp(player.HpRemaining);
         SetPlayerXp(player.XpCollected());
+        SetEquilibriumState(player.EquilibriumState);
 
         playerOrbCollector = player.OrbCollector;
         SetOrbsCollected();
@@ -51,5 +55,10 @@ public class HeadsUpDisplayController : MonoBehaviour
             $"{playerOrbCollector.NumOrbsCollectedForType(OrbController.OrbType.FIRE)}";
         iceOrbsTextElement.text =
             $"{playerOrbCollector.NumOrbsCollectedForType(OrbController.OrbType.ICE)}";
+    }
+
+    public void SetEquilibriumState(EquilibriumManager.EquilibriumState equilibriumState)
+    {
+        equilibriumStateTextElement.text = $"{equilibriumState}";
     }
 }

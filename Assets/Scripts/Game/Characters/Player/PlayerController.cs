@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class PlayerController : CharacterController
@@ -17,6 +15,8 @@ public class PlayerController : CharacterController
     public Camera MainCamera { private get; set; }
 
     private CharacterAnimator characterAnimator;
+    public EquilibriumManager.EquilibriumState EquilibriumState { get; set; } =
+        EquilibriumManager.DefaultState();
 
     // configure orbs types
     public OrbCollector OrbCollector { get; private set; }
@@ -182,7 +182,6 @@ public class PlayerController : CharacterController
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Some trigger hit me: {other.name}");
         if (other.GetComponent<OrbController>() != null)
         {
             var orb = other.GetComponent<OrbController>();
@@ -265,7 +264,6 @@ public class PlayerController : CharacterController
     {
         // TODO: add in effects for different damage types
         hpRemaining -= damageTaken;
-        Debug.LogFormat("player took damage of type {0} of amount {1}", damageType, damageTaken);
         OnDamageTakenAction?.Invoke(hpRemaining);
 
         if (IsDead())
