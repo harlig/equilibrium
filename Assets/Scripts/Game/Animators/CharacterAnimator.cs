@@ -73,7 +73,7 @@ public class CharacterAnimator : MonoBehaviour
         Vector2 currentPosition = transform.position;
 
         // Check if the character is moving
-        if (!currentPosition.Equals(lastPosition))
+        if (currentPosition != lastPosition)
         {
             AnimateWalk();
         }
