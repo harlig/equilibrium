@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerController : CharacterController
 {
     // prefabs
-
-    // TODO: move to HUDController
     [SerializeField]
     private MeleeWeapon meleeWeapon;
 
