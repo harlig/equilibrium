@@ -11,7 +11,7 @@ public class RoomManager : MonoBehaviour
         Max;
     private List<EnemyController> enemies;
 
-    void Start()
+    void Awake()
     {
         CalculateGridDimensions();
 
