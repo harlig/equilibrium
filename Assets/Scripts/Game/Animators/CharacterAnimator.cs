@@ -169,6 +169,7 @@ public class CharacterAnimator : MonoBehaviour
         {
             this.moveDirection = moveDirection;
             currentSpriteIndex = 0;
+            // TODO: we may need to update updatesSinceLastSpriteChange here if the animation feels janky when you change directions
         }
     }
 }

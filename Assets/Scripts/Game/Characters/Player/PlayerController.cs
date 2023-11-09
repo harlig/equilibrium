@@ -16,8 +16,8 @@ public class PlayerController : CharacterController
     public EquilibriumManager.EquilibriumState EquilibriumState { get; set; } =
         EquilibriumManager.DefaultState();
 
-    // configure orbs types
     public OrbCollector OrbCollector { get; private set; }
+    public StatusEffectSystem StatusEffectSystem { get; private set; }
     private float hpRemaining;
     private bool _canMove = true;
 
@@ -68,6 +68,7 @@ public class PlayerController : CharacterController
             OrbController.OrbType.ICE
         };
         OrbCollector = new OrbCollector(orbsToSupport);
+        StatusEffectSystem = GetComponent<StatusEffectSystem>();
         hpRemaining = MAX_HP;
         CreateMeleeWeapon();
     }
@@ -195,6 +196,7 @@ public class PlayerController : CharacterController
     {
         OrbCollector.Collect(orb);
         OnOrbCollectedAction?.Invoke(orb, OrbCollector.XpCollected);
+
         TryLevelUp();
     }
 

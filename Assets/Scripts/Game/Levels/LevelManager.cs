@@ -150,6 +150,7 @@ public abstract class LevelManager : MonoBehaviour
             // TODO: play some animation saying "NEW STATE ENTERED"
             player.EquilibriumState = equilibriumState;
             hudController.SetEquilibriumState(equilibriumState);
+            player.StatusEffectSystem.SetStatusEffectForEquilibriumState(equilibriumState);
         }
         hudController.SetPlayerXp(newPlayerXp);
         hudController.SetOrbsCollected();
