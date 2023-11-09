@@ -60,4 +60,9 @@ public class RangedEnemy : EnemyController
 
         newProjectile.MoveInDirection(launchDirection);
     }
+
+    protected override int GetMaxHp()
+    {
+        return 20;
+    }
 }

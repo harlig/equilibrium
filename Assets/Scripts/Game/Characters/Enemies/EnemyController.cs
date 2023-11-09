@@ -20,7 +20,11 @@ public abstract class EnemyController : CharacterController
     // private Transform launchOffset;
 
     protected float movementSpeed = 0.03f;
-    private const int MAX_HP = 10;
+
+    protected virtual int GetMaxHp()
+    {
+        return 10;
+    }
 
     private float movementX,
         movementY;
@@ -32,7 +36,7 @@ public abstract class EnemyController : CharacterController
 
     public override float MaxHp
     {
-        get { return MAX_HP; }
+        get { return GetMaxHp(); }
     }
 
     public override float MovementSpeed
@@ -42,12 +46,12 @@ public abstract class EnemyController : CharacterController
 
     public override float HpRemaining
     {
-        get { return MAX_HP - damageTaken.TotalDamage(); }
+        get { return GetMaxHp() - damageTaken.TotalDamage(); }
     }
 
     void Awake()
     {
-        DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
+        DamageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), damageTaken, hpTextElement);
     }
 
     public static EnemyController Create(
@@ -117,7 +121,7 @@ public abstract class EnemyController : CharacterController
         }
 
         // TODO: this should be an instance method and then automatically set the text when FireDamage or IceDamage are modified
-        DamageTaken.SetDamageTakenTextOnTextElement(MAX_HP, damageTaken, hpTextElement);
+        DamageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), damageTaken, hpTextElement);
 
         if (IsDead())
         {
@@ -129,17 +133,8 @@ public abstract class EnemyController : CharacterController
     {
         // drop orb
         // orb should have amount of XP based on what kind of enemy this is (derivative of MAX_HP? log(MAX_HP)?)
-
-        if (OrbDropper.ShouldDropFireOrb(damageTaken))
-        {
-            // TODO: XP
-            orbDropper.DropFireOrb(MAX_HP);
-        }
-        else
-        {
-            // TODO: XP
-            orbDropper.DropIceOrb(MAX_HP);
-        }
+        // TODO: maybe we should drop a number of orbs depending on how many hits the enemy took?
+        orbDropper.DoOrbDrop(damageTaken, GetMaxHp());
 
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
@@ -147,6 +142,6 @@ public abstract class EnemyController : CharacterController
 
     public override bool IsDead()
     {
-        return damageTaken.TotalDamage() >= MAX_HP;
+        return damageTaken.TotalDamage() >= GetMaxHp();
     }
 }

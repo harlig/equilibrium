@@ -33,7 +33,7 @@ public class OrbDropper : MonoBehaviour
     const float MIN_PROBABILITY = 0.25f;
     const float MAX_PROBABILITY = 0.75f;
 
-    public static bool ShouldDropFireOrb(DamageTaken damageTaken)
+    private static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
         float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
 
@@ -41,13 +41,31 @@ public class OrbDropper : MonoBehaviour
             < Mathf.Clamp(fireProbability, MIN_PROBABILITY, MAX_PROBABILITY);
     }
 
-    public void DropFireOrb(float xp)
+    public void DoOrbDrop(DamageTaken damageTaken, float totalXp, int numToDrop = 10)
     {
-        OrbController.Create(fireOrbPrefab, this, OrbController.OrbType.FIRE, xp);
-    }
+        var shouldDropFireOrb = ShouldDropFireOrb(damageTaken);
 
-    public void DropIceOrb(float xp)
-    {
-        OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp);
+        int baseXp = (int)(totalXp / numToDrop);
+        int remainingXp = (int)(totalXp % numToDrop);
+
+        // TODO: if there are more than one to drop, we need to scatter them a little
+        for (int ndx = 0; ndx < numToDrop; ndx++)
+        {
+            int xp = baseXp;
+            if (remainingXp > 0)
+            {
+                xp++;
+                remainingXp--;
+            }
+
+            if (shouldDropFireOrb)
+            {
+                OrbController.Create(fireOrbPrefab, this, OrbController.OrbType.FIRE, xp);
+            }
+            else
+            {
+                OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp);
+            }
+        }
     }
 }
