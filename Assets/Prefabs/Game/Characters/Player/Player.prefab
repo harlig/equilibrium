@@ -34,7 +34,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6504430152292460724}
+  - {fileID: 2680450974202459548}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &-5089882032431152019
@@ -268,7 +268,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2f1417cef45c947419d4a477652a29e8, type: 3}
   deathSprite: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
   animationSpeed: 3
---- !u!1001 &5985382708472804904
+--- !u!1001 &3199498486208654080
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -286,7 +286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 672225047325318812, guid: bc3173dd4d99d4346bd0e1c852d9b4c9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 672225047325318812, guid: bc3173dd4d99d4346bd0e1c852d9b4c9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -325,8 +325,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3173dd4d99d4346bd0e1c852d9b4c9, type: 3}
---- !u!4 &6504430152292460724 stripped
+--- !u!4 &2680450974202459548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 672225047325318812, guid: bc3173dd4d99d4346bd0e1c852d9b4c9, type: 3}
-  m_PrefabInstance: {fileID: 5985382708472804904}
+  m_PrefabInstance: {fileID: 3199498486208654080}
   m_PrefabAsset: {fileID: 0}

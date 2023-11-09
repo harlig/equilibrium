@@ -11,17 +11,24 @@ public class StatusEffectAnimator : MonoBehaviour
 
     private int updatesSinceLastSpriteChange = 0;
 
-    // TODO: this should be based on CharacterController.MovementSpeed
     [SerializeField]
-    private float animationSpeed = 3;
+    private float animationSpeed = 8;
+
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
+    private bool shouldAnimate = false;
+    private Color tintColor;
 
-    public void DoAnimate(CharacterController character, SpriteRenderer spriteRenderer)
+    public void DoAnimate(
+        CharacterController character,
+        SpriteRenderer spriteRenderer,
+        Color tintColor
+    )
     {
-        // TODO: I think I need to move this sprite renderer behind the character
         this.character = character;
+        this.tintColor = tintColor;
         this.spriteRenderer = spriteRenderer;
+        shouldAnimate = true;
     }
 
     void FixedUpdate()
@@ -31,14 +38,24 @@ public class StatusEffectAnimator : MonoBehaviour
 
     void AnimateStatusEffect()
     {
-        updatesSinceLastSpriteChange++;
+        if (!shouldAnimate)
+        {
+            return;
+        }
 
+        TrySetCharacterSpriteColor();
+
+        updatesSinceLastSpriteChange++;
         if (updatesSinceLastSpriteChange >= animationSpeed)
         {
-            Debug.Log($"status effect size {statusEffectAnimationArray.Length}");
             currentSpriteIndex = (currentSpriteIndex + 1) % statusEffectAnimationArray.Length;
             spriteRenderer.sprite = statusEffectAnimationArray[currentSpriteIndex];
             updatesSinceLastSpriteChange = 0;
         }
+    }
+
+    void TrySetCharacterSpriteColor()
+    {
+        character.gameObject.GetComponent<SpriteRenderer>().color = tintColor;
     }
 }

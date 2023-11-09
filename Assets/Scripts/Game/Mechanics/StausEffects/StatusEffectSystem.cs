@@ -13,6 +13,23 @@ public class StatusEffectSystem : MonoBehaviour
     private PlayerController player;
     private SpriteRenderer spriteRenderer;
 
+    void Awake()
+    {
+        player = GetComponentInParent<PlayerController>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        for (int ndx = 0; ndx < statusEffects.Length; ndx++)
+        {
+            {
+                equilibriumStateToStatusEffectMap.Add(
+                    // this gets the enum position at this index, so the status effects need to be set up in the order they appear in the enum
+                    // if we want to expand this class to support generic characters, rethink this
+                    (EquilibriumManager.EquilibriumState)ndx,
+                    statusEffects[ndx]
+                );
+            }
+        }
+    }
+
     public void SetStatusEffectForEquilibriumState(
         EquilibriumManager.EquilibriumState newEquilibrumState
     )
@@ -27,26 +44,15 @@ public class StatusEffectSystem : MonoBehaviour
             );
             return;
         }
-        equilibriumStateToStatusEffectMap[newEquilibrumState].AnimateStatusEffect(
-            player,
-            spriteRenderer
+        var statusEffect = equilibriumStateToStatusEffectMap[newEquilibrumState];
+        Debug.LogFormat("using data retrieved {0}", statusEffects);
+        statusEffect.AnimateStatusEffect(player, spriteRenderer);
+        // somewhat transparent
+        spriteRenderer.color = new Color(
+            spriteRenderer.color.r,
+            spriteRenderer.color.g,
+            spriteRenderer.color.b,
+            0.5f
         );
-    }
-
-    void Awake()
-    {
-        player = GetComponent<PlayerController>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        for (int ndx = 0; ndx < statusEffects.Length; ndx++)
-        {
-            {
-                equilibriumStateToStatusEffectMap.Add(
-                    // this gets the enum position at this index, so the status effects need to be set up in the order they appear in the enum
-                    // if we want to expand this class to support generic characters, rethink this
-                    (EquilibriumManager.EquilibriumState)ndx,
-                    statusEffects[ndx]
-                );
-            }
-        }
     }
 }

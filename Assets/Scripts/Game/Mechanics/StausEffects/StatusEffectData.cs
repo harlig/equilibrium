@@ -7,10 +7,14 @@ public class StatusEffectData : MonoBehaviour
     [SerializeField]
     private StatusEffectAnimator statusEffectAnimator;
 
+    [SerializeField]
+    private Color tintColor;
+
     // TODO: can add stuff like duration, effect name, etc. here
 
     public void AnimateStatusEffect(CharacterController character, SpriteRenderer spriteRenderer)
     {
-        statusEffectAnimator.DoAnimate(character, spriteRenderer);
+        Debug.Log("doing animate");
+        statusEffectAnimator.DoAnimate(character, spriteRenderer, tintColor);
     }
 }

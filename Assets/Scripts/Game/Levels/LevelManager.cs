@@ -152,7 +152,6 @@ public abstract class LevelManager : MonoBehaviour
             hudController.SetEquilibriumState(equilibriumState);
 
             // TODO: change
-            Debug.Log("Setting player's status to frozen");
             player.StatusEffectSystem.SetStatusEffectForEquilibriumState(
                 EquilibriumManager.EquilibriumState.FROZEN
             );

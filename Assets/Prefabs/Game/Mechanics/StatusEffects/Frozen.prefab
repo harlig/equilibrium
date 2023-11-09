@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectAnimator: {fileID: 5027383251141045878}
+  tintColor: {r: 0.23113209, g: 0.99247134, b: 1, a: 1}
 --- !u!1 &8037013938269410589
 GameObject:
   m_ObjectHideFlags: 0
