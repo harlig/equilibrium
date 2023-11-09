@@ -33,6 +33,8 @@ public class OrbDropper : MonoBehaviour
     const float MIN_PROBABILITY = 0.25f;
     const float MAX_PROBABILITY = 0.75f;
 
+    public float scatterRange = 1.0f;
+
     private static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
         float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
@@ -41,14 +43,18 @@ public class OrbDropper : MonoBehaviour
             < Mathf.Clamp(fireProbability, MIN_PROBABILITY, MAX_PROBABILITY);
     }
 
-    public void DoOrbDrop(DamageTaken damageTaken, float totalXp, int numToDrop = 10)
+    public void DoOrbDrop(DamageTaken damageTaken, float totalXp, int desiredNumToDrop = 10)
     {
         var shouldDropFireOrb = ShouldDropFireOrb(damageTaken);
+
+        int minNumToDrop = Mathf.Max(Mathf.FloorToInt(desiredNumToDrop * 0.8f), 1); // 80% of the desired to drop but never below 1
+        int maxNumToDrop = Mathf.FloorToInt(desiredNumToDrop * 1.2f); // 120% of the desired to drop
+
+        int numToDrop = Random.Range(minNumToDrop, maxNumToDrop + 1);
 
         int baseXp = (int)(totalXp / numToDrop);
         int remainingXp = (int)(totalXp % numToDrop);
 
-        // TODO: if there are more than one to drop, we need to scatter them a little
         for (int ndx = 0; ndx < numToDrop; ndx++)
         {
             int xp = baseXp;
@@ -58,13 +64,25 @@ public class OrbDropper : MonoBehaviour
                 remainingXp--;
             }
 
+            Vector2? scatter = null;
+
+            // Apply scattering only when there's more than one item to drop
+            if (numToDrop > 1)
+            {
+                // Calculate random offsets for the X and Y positions
+                float xOffset = Random.Range(-scatterRange, scatterRange);
+                float yOffset = Random.Range(-scatterRange, scatterRange);
+
+                scatter = new Vector2(xOffset, yOffset);
+            }
+
             if (shouldDropFireOrb)
             {
-                OrbController.Create(fireOrbPrefab, this, OrbController.OrbType.FIRE, xp);
+                OrbController.Create(fireOrbPrefab, this, OrbController.OrbType.FIRE, xp, scatter);
             }
             else
             {
-                OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp);
+                OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp, scatter);
             }
         }
     }
