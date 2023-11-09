@@ -9,8 +9,8 @@ public class StatusEffectData : MonoBehaviour
 
     // TODO: can add stuff like duration, effect name, etc. here
 
-    public void AnimateStatusEffect(CharacterController character)
+    public void AnimateStatusEffect(CharacterController character, SpriteRenderer spriteRenderer)
     {
-        statusEffectAnimator.DoAnimate(character);
+        statusEffectAnimator.DoAnimate(character, spriteRenderer);
     }
 }

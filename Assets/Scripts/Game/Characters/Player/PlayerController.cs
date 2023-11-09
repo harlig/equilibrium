@@ -68,7 +68,7 @@ public class PlayerController : CharacterController
             OrbController.OrbType.ICE
         };
         OrbCollector = new OrbCollector(orbsToSupport);
-        StatusEffectSystem = GetComponent<StatusEffectSystem>();
+        StatusEffectSystem = GetComponentInChildren<StatusEffectSystem>();
         hpRemaining = MAX_HP;
         CreateMeleeWeapon();
     }

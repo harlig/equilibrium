@@ -17,15 +17,11 @@ public class StatusEffectAnimator : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
 
-    public void DoAnimate(CharacterController character)
+    public void DoAnimate(CharacterController character, SpriteRenderer spriteRenderer)
     {
         // TODO: I think I need to move this sprite renderer behind the character
         this.character = character;
-    }
-
-    void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        this.spriteRenderer = spriteRenderer;
     }
 
     void FixedUpdate()
@@ -39,6 +35,7 @@ public class StatusEffectAnimator : MonoBehaviour
 
         if (updatesSinceLastSpriteChange >= animationSpeed)
         {
+            Debug.Log($"status effect size {statusEffectAnimationArray.Length}");
             currentSpriteIndex = (currentSpriteIndex + 1) % statusEffectAnimationArray.Length;
             spriteRenderer.sprite = statusEffectAnimationArray[currentSpriteIndex];
             updatesSinceLastSpriteChange = 0;

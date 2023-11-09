@@ -11,6 +11,7 @@ public class StatusEffectSystem : MonoBehaviour
         StatusEffectData
     > equilibriumStateToStatusEffectMap = new();
     private PlayerController player;
+    private SpriteRenderer spriteRenderer;
 
     public void SetStatusEffectForEquilibriumState(
         EquilibriumManager.EquilibriumState newEquilibrumState
@@ -26,12 +27,16 @@ public class StatusEffectSystem : MonoBehaviour
             );
             return;
         }
-        equilibriumStateToStatusEffectMap[newEquilibrumState].AnimateStatusEffect(player);
+        equilibriumStateToStatusEffectMap[newEquilibrumState].AnimateStatusEffect(
+            player,
+            spriteRenderer
+        );
     }
 
     void Awake()
     {
         player = GetComponent<PlayerController>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         for (int ndx = 0; ndx < statusEffects.Length; ndx++)
         {
             {
