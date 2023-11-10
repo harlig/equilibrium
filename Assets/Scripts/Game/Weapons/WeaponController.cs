@@ -23,4 +23,16 @@ public abstract class WeaponController : MonoBehaviour
     }
 
     public abstract void AttackAtPosition(Vector2 position);
+
+    protected float GetDamageModifierOfParentCharacter()
+    {
+        // get damage modifier from the parent of this weapon if there is one
+        var parentCharacter = GetComponentInParent<CharacterController>();
+        float damageModifer = 0;
+        if (parentCharacter != null)
+        {
+            damageModifer = GetComponentInParent<CharacterController>().DamageDealtModifier;
+        }
+        return damageModifer;
+    }
 }

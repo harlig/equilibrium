@@ -65,7 +65,6 @@ public class RoomManager : MonoBehaviour
         return true;
     }
 
-    // TODO: set room to active and show stuff, everything should be hidden by default except doors
     public void SetAsActiveRoom(
         PlayerController player,
         List<Vector2> meleeEnemySpawnLocations,

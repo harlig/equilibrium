@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public abstract class CharacterController : MonoBehaviour
@@ -16,11 +13,17 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract float HpRemaining { get; }
 
-    private float movementSpeedModifier;
+    private float movementSpeedModifier = 0;
+    public float DamageDealtModifier { get; private set; } = 0;
 
-    protected void AddToMovementSpeedModifier(float speedToAdd)
+    public void AddToMovementSpeedModifier(float speedToAdd)
     {
         movementSpeedModifier += speedToAdd;
+    }
+
+    public void AddToDamageDealtModifier(float extraDamageDealt)
+    {
+        DamageDealtModifier += extraDamageDealt;
     }
 
     public abstract bool IsDead();

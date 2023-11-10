@@ -58,19 +58,20 @@ public class MeleeWeapon : WeaponController
         transform.rotation = Quaternion.Euler(0, 0, degrees);
     }
 
-    private void ApplyCharacterDamage(CharacterController character)
+    private void ApplyCharacterDamage(CharacterController character, float damageModifier)
     {
-        character.OnDamageTaken(damageType, baseDamageAmount);
+        character.OnDamageTaken(damageType, baseDamageAmount + damageModifier);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         // the weapon has collided with some other game object, do damage if character
         CharacterController otherChar = other.GetComponent<CharacterController>();
+
+        // means we have collided with a character, apply damage, and no friendly fire on self
         if (otherChar != null && otherChar.transform != transform.parent)
         {
-            // means we have collided with a character, apply damage, and no friendly fire on self
-            ApplyCharacterDamage(otherChar);
+            ApplyCharacterDamage(otherChar, GetDamageModifierOfParentCharacter());
         }
     }
 }

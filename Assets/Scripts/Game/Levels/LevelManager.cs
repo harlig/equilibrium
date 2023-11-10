@@ -66,7 +66,6 @@ public abstract class LevelManager : MonoBehaviour
 
         offerSystem = OfferSystem.Create(offerSystemPrefab, transform);
 
-        // TODO: bad code organization, clean this up
         shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
         SetActiveRoom(startingRoom);

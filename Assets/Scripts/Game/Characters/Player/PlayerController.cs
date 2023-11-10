@@ -42,11 +42,6 @@ public class PlayerController : CharacterController
 
     protected override float BaseMovementSpeed => 0.22f;
 
-    public void IncreaseMovementSpeed(float amountToIncrease)
-    {
-        AddToMovementSpeedModifier(amountToIncrease);
-    }
-
     public override float HpRemaining
     {
         get { return hpRemaining; }
