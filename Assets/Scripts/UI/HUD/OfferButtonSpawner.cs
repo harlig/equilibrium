@@ -15,8 +15,6 @@ public class OfferButtonSpawner : MonoBehaviour
         parentPanel = GetComponentInParent<RectTransform>();
     }
 
-    public float gapSize = 10f; // The gap size between buttons
-
     public void CreateOfferButtons(List<OfferData> offers, Action onOfferSelectedAction)
     {
         if (offers.Count == 0)
