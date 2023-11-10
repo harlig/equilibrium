@@ -30,7 +30,7 @@ public class ProjectileBehavior : MonoBehaviour
         }
         else
         {
-            Debug.Log($"projectile Hit something of name: {other.name}");
+            // TODO: do we need to do anything?
         }
     }
 

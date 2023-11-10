@@ -12,7 +12,7 @@ public class LevelUpUIElements : MonoBehaviour
     public void SetElements(
         int newPlayerLevel,
         List<OfferData> offers,
-        Action onOfferSelectedAction
+        Action<OfferData> onOfferSelectedAction
     )
     {
         offerButtonSpawner.CreateOfferButtons(offers, onOfferSelectedAction);

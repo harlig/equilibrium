@@ -31,9 +31,10 @@ public abstract class LevelManager : MonoBehaviour
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
 
-    private readonly List<EnemyController> enemies = new();
     private bool shouldSpawnEnemies = true;
     bool spawningMoreEnemies = false;
+    private readonly List<EnemyController> enemies = new();
+    private AcquisitionManager acquisitionManager = new();
 
     private void SetActiveRoom(RoomManager newActiveRoom)
     {
@@ -153,7 +154,23 @@ public abstract class LevelManager : MonoBehaviour
         }
 
         // TODO: level up behavior should display offers
-        levelUpBehavior.LevelUp(newLevel, levelUpOffers, afterLevelUpAction, hudController);
+        levelUpBehavior.LevelUp(
+            newLevel,
+            levelUpOffers,
+            AfterPlayerLevelUp,
+            // (offerSelected) =>
+            // {
+            //     AfterPlayerLevelUp(offerSelected);
+            // },
+            afterLevelUpAction,
+            hudController
+        );
+    }
+
+    void AfterPlayerLevelUp(OfferData offerSelected)
+    {
+        // know about what offer was selected and add it to the AcquisitionManager
+        acquisitionManager.AcquireOffer(offerSelected);
     }
 
     void OnPlayerDamageTaken(float newPlayerHp)

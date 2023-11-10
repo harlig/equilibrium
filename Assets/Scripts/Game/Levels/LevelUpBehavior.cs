@@ -11,22 +11,31 @@ public class LevelUpBehavior : MonoBehaviour
     public void LevelUp(
         int newPlayerLevel,
         List<OfferData> offers,
+        Action<OfferData> onOfferSelectedAction,
         Action afterLevelUpAction,
         HeadsUpDisplayController hudController
     )
     {
         // TODO fade background
-        levelUpUIElements.SetElements(newPlayerLevel, offers, OnButtonClick(afterLevelUpAction));
+        levelUpUIElements.SetElements(
+            newPlayerLevel,
+            offers,
+            OnButtonClick(onOfferSelectedAction, afterLevelUpAction)
+        );
         hudController.SetPlayerLevel(newPlayerLevel);
         LevelManager.PauseGame();
 
         // offer reward to player
     }
 
-    Action OnButtonClick(Action afterLevelUpAction)
+    Action<OfferData> OnButtonClick(
+        Action<OfferData> onOfferSelectedAction,
+        Action afterLevelUpAction
+    )
     {
-        return () =>
+        return (offerData) =>
         {
+            onOfferSelectedAction?.Invoke(offerData);
             // TODO un-fade background
             LevelManager.UnpauseGame();
             StartCoroutine(WaitForDelayThenAfterLevelUp(afterLevelUpAction));

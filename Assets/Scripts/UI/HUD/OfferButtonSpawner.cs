@@ -15,7 +15,7 @@ public class OfferButtonSpawner : MonoBehaviour
         parentPanel = GetComponentInParent<RectTransform>();
     }
 
-    public void CreateOfferButtons(List<OfferData> offers, Action onOfferSelectedAction)
+    public void CreateOfferButtons(List<OfferData> offers, Action<OfferData> onButtonClickedAction)
     {
         if (offers.Count == 0)
             return;
@@ -71,12 +71,12 @@ public class OfferButtonSpawner : MonoBehaviour
         {
             var item = createdButtons[ndx];
             item.Item2.onClick.AddListener(
-                () => OnOfferButtonClicked(item.Item1, onOfferSelectedAction)
+                () => OnOfferButtonClicked(item.Item1, onButtonClickedAction)
             );
         }
     }
 
-    private void OnOfferButtonClicked(OfferData offer, Action onOfferSelectedAction)
+    private void OnOfferButtonClicked(OfferData offer, Action<OfferData> onOfferSelectedAction)
     {
         // Handle the button click event
         // For example, display the offer details
@@ -85,6 +85,6 @@ public class OfferButtonSpawner : MonoBehaviour
         {
             Destroy(button.gameObject);
         }
-        onOfferSelectedAction?.Invoke();
+        onOfferSelectedAction?.Invoke(offer);
     }
 }
