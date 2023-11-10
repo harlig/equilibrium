@@ -11,9 +11,9 @@ public class OfferData : MonoBehaviour
         OfferPool = pool;
     }
 
-    public static OfferData Create(OfferData prefab)
+    public static OfferData Create(OfferData prefab, Transform parent)
     {
-        var instance = Instantiate(prefab);
+        var instance = Instantiate(prefab, parent);
         instance.name = prefab.name;
         return instance;
     }

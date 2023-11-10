@@ -9,9 +9,13 @@ public class LevelUpUIElements : MonoBehaviour
     [SerializeField]
     private OfferButtonSpawner offerButtonSpawner;
 
-    public void SetElements(int newPlayerLevel, List<OfferData> offers, Action onAcknowledgeAction)
+    public void SetElements(
+        int newPlayerLevel,
+        List<OfferData> offers,
+        Action onOfferSelectedAction
+    )
     {
-        offerButtonSpawner.CreateOfferButtons(offers);
+        offerButtonSpawner.CreateOfferButtons(offers, onOfferSelectedAction);
 
         gameObject.SetActive(true);
     }

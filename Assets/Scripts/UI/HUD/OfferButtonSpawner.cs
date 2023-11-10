@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using System;
 
 public class OfferButtonSpawner : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class OfferButtonSpawner : MonoBehaviour
 
     public float gapSize = 10f; // The gap size between buttons
 
-    public void CreateOfferButtons(List<OfferData> offers)
+    public void CreateOfferButtons(List<OfferData> offers, Action onOfferSelectedAction)
     {
         if (offers.Count == 0)
             return;
@@ -40,6 +41,7 @@ public class OfferButtonSpawner : MonoBehaviour
         // Calculate the starting x position to center the group of buttons in the parent panel
         float startXPosition = -(totalWidthNeeded / 2) + (buttonSize / 2); // Start with half button width to offset the first button
 
+        List<Tuple<OfferData, Button>> createdButtons = new();
         for (int ndx = 0; ndx < offers.Count; ndx++)
         {
             // Instantiate the button
@@ -56,20 +58,33 @@ public class OfferButtonSpawner : MonoBehaviour
                 0
             );
 
-            newButton
-                .GetComponent<Button>()
-                .onClick.AddListener(() => OnOfferButtonClicked(offers[ndx]));
+            var offer = offers[ndx];
+            createdButtons.Add(new(offer, newButton.GetComponent<Button>()));
+
             var tmp = newButton.GetComponentInChildren<TextMeshProUGUI>();
-            tmp.text = offers[ndx].GetName();
+            tmp.text = offer.GetName();
 
             newButton.SetActive(true);
         }
+
+        for (int ndx = 0; ndx < createdButtons.Count; ndx++)
+        {
+            var item = createdButtons[ndx];
+            item.Item2.onClick.AddListener(
+                () => OnOfferButtonClicked(item.Item1, onOfferSelectedAction)
+            );
+        }
     }
 
-    private void OnOfferButtonClicked(OfferData offer)
+    private void OnOfferButtonClicked(OfferData offer, Action onOfferSelectedAction)
     {
         // Handle the button click event
         // For example, display the offer details
         Debug.Log("Offer clicked: " + offer.GetName());
+        foreach (Button button in GetComponentsInChildren<Button>())
+        {
+            Destroy(button.gameObject);
+        }
+        onOfferSelectedAction?.Invoke();
     }
 }

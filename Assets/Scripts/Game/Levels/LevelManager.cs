@@ -58,7 +58,7 @@ public abstract class LevelManager : MonoBehaviour
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
-        offerSystem = OfferSystem.Create(offerSystemPrefab);
+        offerSystem = OfferSystem.Create(offerSystemPrefab, transform);
 
         // TODO: bad code organization, clean this up
         shouldSpawnEnemies = spawnEnemies;
@@ -141,7 +141,12 @@ public abstract class LevelManager : MonoBehaviour
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
         // TODO: how many offers should player get?
-        List<OfferData> levelUpOffers = offerSystem.GetOffers(1, newLevel, player.EquilibriumState);
+        var numOffersToGet = newLevel == 1 ? 1 : 2;
+        List<OfferData> levelUpOffers = offerSystem.GetOffers(
+            newLevel,
+            newLevel,
+            player.EquilibriumState
+        );
         foreach (OfferData offer in levelUpOffers)
         {
             Debug.Log($"Got offer {offer}");

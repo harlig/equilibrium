@@ -10,9 +10,9 @@ public class OfferSystem : MonoBehaviour
     private List<OfferData>[] offerPools;
     private readonly System.Random random = new();
 
-    public static OfferSystem Create(OfferSystem prefab)
+    public static OfferSystem Create(OfferSystem prefab, Transform parent)
     {
-        return Instantiate(prefab);
+        return Instantiate(prefab, parent);
     }
 
     private void Awake()
@@ -20,14 +20,11 @@ public class OfferSystem : MonoBehaviour
         HashSet<int> numPools = new();
         foreach (OfferData offer in allOfferPrefabs)
         {
-            Debug.Log($"offer {offer.OfferPool}");
             if (!numPools.Contains(offer.OfferPool))
             {
                 numPools.Add(offer.OfferPool);
             }
         }
-
-        Debug.Log($"num pool {numPools.Count}");
 
         // arrays are fast but idk if it's worth the extra effort to loop over allOffers twice
         offerPools = new List<OfferData>[numPools.Count];
@@ -76,7 +73,7 @@ public class OfferSystem : MonoBehaviour
 
             if (offerPrefab != null)
             {
-                selectedOffers.Add(OfferData.Create(offerPrefab));
+                selectedOffers.Add(OfferData.Create(offerPrefab, transform));
             }
         }
 
