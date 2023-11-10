@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CorrespondingState: 4
   OfferPool: 0
+  color: {r: 0.9622642, g: 0.27687788, b: 0.92468244, a: 1}

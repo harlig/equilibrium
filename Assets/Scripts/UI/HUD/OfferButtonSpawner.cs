@@ -60,9 +60,8 @@ public class OfferButtonSpawner : MonoBehaviour
 
             var offer = offers[ndx];
             createdButtons.Add(new(offer, newButton.GetComponent<Button>()));
-
-            var tmp = newButton.GetComponentInChildren<TextMeshProUGUI>();
-            tmp.text = offer.GetName();
+            newButton.GetComponentInChildren<TextMeshProUGUI>().text = offer.GetName();
+            newButton.GetComponent<Image>().color = offer.color;
 
             newButton.SetActive(true);
         }

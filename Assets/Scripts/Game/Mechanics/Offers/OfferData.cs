@@ -5,6 +5,8 @@ public class OfferData : MonoBehaviour
     public EquilibriumManager.EquilibriumState CorrespondingState;
     public int OfferPool;
 
+    public Color color;
+
     public OfferData(EquilibriumManager.EquilibriumState state, int pool)
     {
         CorrespondingState = state;
