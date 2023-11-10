@@ -33,9 +33,10 @@ public class AcquisitionManager
 
         switch (offer)
         {
+            // TODO: add many more offers to support here!
             case DamageOffer damageOffer:
                 Debug.Log("Would be increasing player damage!");
-                // TODO
+                // TODO: need to support this once weapon changes have landed
                 // player.IncreaseDamage(damageOffer.GetOfferValue());
                 break;
             case SpeedOffer speedOffer:
@@ -43,7 +44,7 @@ public class AcquisitionManager
                 player.IncreaseMovementSpeed(speedOffer.GetOfferValue());
                 break;
             default:
-                Debug.LogFormat("Unhandled offer type {0}", offer);
+                Debug.LogErrorFormat("Unhandled offer type {0}", offer);
                 break;
         }
     }
