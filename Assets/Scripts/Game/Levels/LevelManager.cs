@@ -146,9 +146,14 @@ public abstract class LevelManager : MonoBehaviour
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
         // TODO: how many offers should player get?
-        var numOffersToGet = newLevel == 1 ? 1 : 2;
+        var numOffersToGet =
+            newLevel == 1
+                ? 1
+                : newLevel <= 3
+                    ? 2
+                    : 3;
         List<OfferData> levelUpOffers = offerSystem.GetOffers(
-            newLevel,
+            numOffersToGet,
             newLevel,
             player.EquilibriumState
         );
