@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,21 +7,11 @@ using UnityEngine.UI;
 public class LevelUpUIElements : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI levelUpText;
+    private OfferButtonSpawner offerButtonSpawner;
 
-    [SerializeField]
-    private Button acknowledgeButton;
-
-    public void SetElements(int newPlayerLevel, Action onAcknowledgeAction)
+    public void SetElements(int newPlayerLevel, List<OfferData> offers, Action onAcknowledgeAction)
     {
-        levelUpText.text = $"Congratulations on reaching level {newPlayerLevel}";
-
-        acknowledgeButton.onClick.AddListener(() =>
-        {
-            onAcknowledgeAction.Invoke();
-            acknowledgeButton.onClick.RemoveAllListeners();
-            gameObject.SetActive(false);
-        });
+        offerButtonSpawner.CreateOfferButtons(offers);
 
         gameObject.SetActive(true);
     }

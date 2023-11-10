@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUpBehavior : MonoBehaviour
@@ -9,11 +10,13 @@ public class LevelUpBehavior : MonoBehaviour
 
     public void LevelUp(
         int newPlayerLevel,
+        List<OfferData> offers,
         Action afterLevelUpAction,
         HeadsUpDisplayController hudController
     )
     {
-        levelUpUIElements.SetElements(newPlayerLevel, OnButtonClick(afterLevelUpAction));
+        // TODO fade background
+        levelUpUIElements.SetElements(newPlayerLevel, offers, OnButtonClick(afterLevelUpAction));
         hudController.SetPlayerLevel(newPlayerLevel);
         LevelManager.PauseGame();
 
@@ -24,6 +27,7 @@ public class LevelUpBehavior : MonoBehaviour
     {
         return () =>
         {
+            // TODO un-fade background
             LevelManager.UnpauseGame();
             StartCoroutine(WaitForDelayThenAfterLevelUp(afterLevelUpAction));
         };

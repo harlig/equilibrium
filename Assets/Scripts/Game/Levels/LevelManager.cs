@@ -58,7 +58,7 @@ public abstract class LevelManager : MonoBehaviour
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
-        offerSystem = Instantiate(offerSystemPrefab);
+        offerSystem = OfferSystem.Create(offerSystemPrefab);
 
         // TODO: bad code organization, clean this up
         shouldSpawnEnemies = spawnEnemies;
@@ -148,7 +148,7 @@ public abstract class LevelManager : MonoBehaviour
         }
 
         // TODO: level up behavior should display offers
-        levelUpBehavior.LevelUp(newLevel, afterLevelUpAction, hudController);
+        levelUpBehavior.LevelUp(newLevel, levelUpOffers, afterLevelUpAction, hudController);
     }
 
     void OnPlayerDamageTaken(float newPlayerHp)

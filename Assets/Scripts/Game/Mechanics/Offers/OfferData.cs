@@ -10,4 +10,17 @@ public class OfferData : MonoBehaviour
         CorrespondingState = state;
         OfferPool = pool;
     }
+
+    public static OfferData Create(OfferData prefab)
+    {
+        var instance = Instantiate(prefab);
+        instance.name = prefab.name;
+        return instance;
+    }
+
+    public string GetName()
+    {
+        // TODO
+        return gameObject.name;
+    }
 }

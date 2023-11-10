@@ -6,14 +6,19 @@ public class OfferSystem : MonoBehaviour
 {
     // since all offers each belong to a pool, you can just add them to this system in the inspector
     [SerializeField]
-    private List<OfferData> allOffers;
+    private List<OfferData> allOfferPrefabs;
     private List<OfferData>[] offerPools;
     private readonly System.Random random = new();
+
+    public static OfferSystem Create(OfferSystem prefab)
+    {
+        return Instantiate(prefab);
+    }
 
     private void Awake()
     {
         HashSet<int> numPools = new();
-        foreach (OfferData offer in allOffers)
+        foreach (OfferData offer in allOfferPrefabs)
         {
             Debug.Log($"offer {offer.OfferPool}");
             if (!numPools.Contains(offer.OfferPool))
@@ -26,20 +31,20 @@ public class OfferSystem : MonoBehaviour
 
         // arrays are fast but idk if it's worth the extra effort to loop over allOffers twice
         offerPools = new List<OfferData>[numPools.Count];
-        for (int i = 0; i < offerPools.Length; i++)
+        for (int ndx = 0; ndx < offerPools.Length; ndx++)
         {
-            offerPools[i] = new List<OfferData>();
+            offerPools[ndx] = new List<OfferData>();
         }
 
-        foreach (OfferData offer in allOffers)
+        foreach (OfferData offer in allOfferPrefabs)
         {
-            if (offer.OfferPool >= allOffers.Count)
+            if (offer.OfferPool >= allOfferPrefabs.Count)
             {
                 throw new System.Exception(
                     string.Format(
                         "Tried to add offer for pool {0} when system is only configured to handle {1} pools! Offer {2}",
                         offer.OfferPool,
-                        allOffers.Count,
+                        allOfferPrefabs.Count,
                         offer
                     )
                 );
@@ -57,21 +62,21 @@ public class OfferSystem : MonoBehaviour
     {
         List<OfferData> selectedOffers = new();
 
-        for (int i = 0; i < numOffersToRetrieve; i++)
+        for (int ndx = 0; ndx < numOffersToRetrieve; ndx++)
         {
             int poolIndex = SelectPoolIndex(playerLevel);
-            OfferData offer = SelectOfferFromPool(poolIndex, currentEquilibriumState);
+            OfferData offerPrefab = SelectOfferFromPool(poolIndex, currentEquilibriumState);
 
             // if we can't get an offer from this pool, try from the pool below
-            while (offer == null && poolIndex >= 0)
+            while (offerPrefab == null && poolIndex >= 0)
             {
                 poolIndex--;
-                offer = SelectOfferFromPool(poolIndex, currentEquilibriumState);
+                offerPrefab = SelectOfferFromPool(poolIndex, currentEquilibriumState);
             }
 
-            if (offer != null)
+            if (offerPrefab != null)
             {
-                selectedOffers.Add(offer);
+                selectedOffers.Add(OfferData.Create(offerPrefab));
             }
         }
 
@@ -96,13 +101,13 @@ public class OfferSystem : MonoBehaviour
         // The following is a simple distribution logic for demonstration purposes:
         // The chance for the current level pool is (100 - playerLevel * 10)%
         // Each lower level pool has a 10% chance
-        for (int i = 0; i < totalNumPlayerLevels; i++)
+        for (int ndx = 0; ndx < totalNumPlayerLevels; ndx++)
         {
-            if (i == playerLevel)
+            if (ndx == playerLevel)
             {
                 poolChances.Add(100 - playerLevel * 10); // Chance for the current level pool
             }
-            else if (i < playerLevel)
+            else if (ndx < playerLevel)
             {
                 poolChances.Add(10); // Flat chance for each lower level pool
             }
@@ -113,17 +118,17 @@ public class OfferSystem : MonoBehaviour
         }
 
         // Convert the pool chances into a cumulative distribution
-        for (int i = 1; i < poolChances.Count; i++)
+        for (int ndx = 1; ndx < poolChances.Count; ndx++)
         {
-            poolChances[i] += poolChances[i - 1];
+            poolChances[ndx] += poolChances[ndx - 1];
         }
 
         // Use the cumulative distribution to select the pool
-        for (int i = 0; i < poolChances.Count; i++)
+        for (int ndx = 0; ndx < poolChances.Count; ndx++)
         {
-            if (randomNumber < poolChances[i])
+            if (randomNumber < poolChances[ndx])
             {
-                return i;
+                return ndx;
             }
         }
 
