@@ -31,15 +31,19 @@ public class OfferButtonSpawner : MonoBehaviour
         // Calculate the total width needed for all buttons including gaps
         float totalWidthNeeded = (buttonSize + gapSize) * offers.Count - gapSize;
 
-        // Recalculate button size and gap size if necessary to ensure they fit in the parent panel
+        // Recalculate button size, gap size, & totalWidth if necessary to ensure they fit in the parent panel
         if (totalWidthNeeded > parentPanel.rect.width)
         {
             buttonSize = (parentPanel.rect.width - gapSize * (offers.Count + 1)) / offers.Count;
             gapSize = buttonSize * gapPercentage; // Recalculate gap size based on new button size
+            totalWidthNeeded = (buttonSize + gapSize) * offers.Count - gapSize;
         }
 
-        // Calculate the starting x position to center the group of buttons in the parent panel
-        float startXPosition = -(totalWidthNeeded / 2) + (buttonSize / 2); // Start with half button width to offset the first button
+        // Calculate the start x position to center buttons
+        float offsetX = (totalWidthNeeded / 2) - (buttonSize / 2);
+
+        // Initial x position is the center of the panel minus half of the total width needed
+        float xPosition = -offsetX;
 
         List<Tuple<OfferData, Button>> createdButtons = new();
         for (int ndx = 0; ndx < offers.Count; ndx++)
@@ -48,13 +52,12 @@ public class OfferButtonSpawner : MonoBehaviour
             GameObject newButton = Instantiate(buttonPrefab, parentPanel);
             RectTransform buttonRect = newButton.GetComponent<RectTransform>();
 
-            // Set the button's size to be square
+            // Set the button's size to be square based on the calculated button size
             buttonRect.sizeDelta = new Vector2(buttonSize, buttonSize);
-            // TODO: there should be text under the button and there will be two elements: button and text
 
             // Position the button
             buttonRect.anchoredPosition = new Vector2(
-                startXPosition + ndx * (buttonSize + gapSize),
+                xPosition + (ndx * (buttonSize + gapSize)),
                 0
             );
 
