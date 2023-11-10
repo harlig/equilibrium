@@ -24,7 +24,7 @@ public abstract class OfferData : MonoBehaviour
 
     public string GetName()
     {
-        // TODO
+        // TODO: maybe a fixed name per instance that's forced to be defined in editor? I think that's ok
         return gameObject.name;
     }
 }

@@ -16,7 +16,7 @@ public class LevelUpBehavior : MonoBehaviour
         HeadsUpDisplayController hudController
     )
     {
-        // TODO fade background
+        // TODO: fade background
         levelUpUIElements.SetElements(
             newPlayerLevel,
             offers,
@@ -36,7 +36,7 @@ public class LevelUpBehavior : MonoBehaviour
         return (offerData) =>
         {
             onOfferSelectedAction?.Invoke(offerData);
-            // TODO un-fade background
+            // TODO: un-fade background
             LevelManager.UnpauseGame();
             StartCoroutine(WaitForDelayThenAfterLevelUp(afterLevelUpAction));
         };

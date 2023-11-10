@@ -158,15 +158,10 @@ public abstract class LevelManager : MonoBehaviour
             Debug.Log($"Got offer {offer}");
         }
 
-        // TODO: level up behavior should display offers
         levelUpBehavior.LevelUp(
             newLevel,
             levelUpOffers,
             AfterPlayerLevelUp,
-            // (offerSelected) =>
-            // {
-            //     AfterPlayerLevelUp(offerSelected);
-            // },
             afterLevelUpAction,
             hudController
         );
