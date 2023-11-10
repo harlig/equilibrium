@@ -175,6 +175,7 @@ public abstract class LevelManager : MonoBehaviour
     {
         // know about what offer was selected and add it to the AcquisitionManager
         acquisitionManager.AcquireOffer(offerSelected);
+        hudController.SetAcquisitions(acquisitionManager.Acquisitions);
     }
 
     void OnPlayerDamageTaken(float newPlayerHp)

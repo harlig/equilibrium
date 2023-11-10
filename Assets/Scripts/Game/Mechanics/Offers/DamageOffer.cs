@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DamageOffer : OfferData
 {
-    public override float GetOfferValue()
+    // TODO: make value serializeable so we can have instances of this script with different kinds of damage amounts
+    public override float GetValue()
     {
         return 1.0f;
     }

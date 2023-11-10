@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     private TextMeshProUGUI iceOrbsTextElement;
 
     private OrbCollector playerOrbCollector;
+    private AcquisitionsDisplayController acquisitionsDisplayController;
 
     public void Setup(PlayerController player)
     {
@@ -31,6 +33,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         SetEquilibriumState(player.EquilibriumState);
 
         playerOrbCollector = player.OrbCollector;
+        acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
         SetOrbsCollected();
     }
 
@@ -60,5 +63,10 @@ public class HeadsUpDisplayController : MonoBehaviour
     public void SetEquilibriumState(EquilibriumManager.EquilibriumState equilibriumState)
     {
         equilibriumStateTextElement.text = $"{equilibriumState}";
+    }
+
+    public void SetAcquisitions(List<Acquisition> acquisitions)
+    {
+        acquisitionsDisplayController.UpdateDisplay(acquisitions);
     }
 }

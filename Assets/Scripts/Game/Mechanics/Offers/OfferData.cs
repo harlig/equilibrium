@@ -7,7 +7,7 @@ public abstract class OfferData : MonoBehaviour
 
     public Color color;
 
-    public abstract float GetOfferValue();
+    public abstract float GetValue();
 
     public enum EffectType
     {

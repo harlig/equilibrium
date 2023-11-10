@@ -5,18 +5,7 @@ using UnityEngine;
 
 public class AcquisitionManager
 {
-    //////////////////////////////////////////////////////////
-    //////////////////////////events//////////////////////////
-    //////////////////////////////////////////////////////////
-    public delegate void AcquiredAction();
-    public event AcquiredAction OnAcquiredAction;
-
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-
-
-    public readonly List<OfferData> Acquisitions = new();
+    public readonly List<Acquisition> Acquisitions = new();
 
     private readonly PlayerController player;
 
@@ -29,22 +18,40 @@ public class AcquisitionManager
     {
         Debug.LogFormat("Acquired offer from the manager! {0}", offer.GetName());
 
-        Acquisitions.Add(offer);
+        Acquisitions.Add(Acquisition.FromOffer(offer));
 
         switch (offer)
         {
             // TODO: add many more offers to support here!
             case DamageOffer damageOffer:
                 Debug.Log("Would be increasing player damage!");
-                player.AddToDamageDealtModifier(damageOffer.GetOfferValue());
+                player.AddToDamageDealtModifier(damageOffer.GetValue());
                 break;
             case SpeedOffer speedOffer:
                 Debug.Log("Increasing player move speed");
-                player.AddToMovementSpeedModifier(speedOffer.GetOfferValue());
+                player.AddToMovementSpeedModifier(speedOffer.GetValue());
                 break;
             default:
                 Debug.LogErrorFormat("Unhandled offer type {0}", offer);
                 break;
         }
+    }
+}
+
+public class Acquisition
+{
+    public string Name { get; private set; }
+    public Color Color { get; private set; }
+    public float Value { get; private set; }
+
+    public static Acquisition FromOffer(OfferData offer)
+    {
+        var newAcquisition = new Acquisition
+        {
+            Name = offer.name,
+            Color = offer.color,
+            Value = offer.GetValue()
+        };
+        return newAcquisition;
     }
 }
