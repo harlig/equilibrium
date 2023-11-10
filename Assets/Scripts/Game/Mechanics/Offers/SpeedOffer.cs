@@ -6,6 +6,6 @@ public class SpeedOffer : OfferData
 {
     public override float GetOfferValue()
     {
-        return 1.0f;
+        return 0.03f;
     }
 }

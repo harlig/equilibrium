@@ -8,7 +8,7 @@ public abstract class CharacterController : MonoBehaviour
     // public api for move speed
     public float MovementSpeed
     {
-        get => BaseMovementSpeed + MovementSpeedModifier;
+        get => BaseMovementSpeed + movementSpeedModifier;
     }
     protected abstract float BaseMovementSpeed { get; }
 
@@ -16,10 +16,11 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract float HpRemaining { get; }
 
-    protected virtual float MovementSpeedModifier
+    private float movementSpeedModifier;
+
+    protected void AddToMovementSpeedModifier(float speedToAdd)
     {
-        get => 0;
-        // set => MovementSpeedModifier = value;
+        movementSpeedModifier += speedToAdd;
     }
 
     public abstract bool IsDead();

@@ -45,5 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allOfferPrefabs:
-  - {fileID: 6062085168296641770, guid: 0ffe86b0aff1f485e844161372006a53, type: 3}
   - {fileID: 2004328795588991296, guid: 5494c2dbdde354d7fa4951fcb23437ed, type: 3}

@@ -44,7 +44,7 @@ public class PlayerController : CharacterController
 
     public void IncreaseMovementSpeed(float amountToIncrease)
     {
-        // MovementSpeedModifier += amountToIncrease;
+        AddToMovementSpeedModifier(amountToIncrease);
     }
 
     public override float HpRemaining
