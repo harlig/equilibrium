@@ -21,9 +21,6 @@ public class PlayerController : CharacterController
     private float hpRemaining;
     private bool _canMove = true;
 
-    public const int MAX_HP = 3000;
-    private const float MOVEMENT_SPEED = 0.22f;
-
     //////////////////////////////////////////////////////////
     //////////////////////////events//////////////////////////
     //////////////////////////////////////////////////////////
@@ -41,20 +38,20 @@ public class PlayerController : CharacterController
 
     private const float WEAPON_OFFSET = 0.75F;
 
-    public override float MaxHp
-    {
-        get { return MAX_HP; }
-    }
+    public override float MaxHp => 3000;
 
-    public override float MovementSpeed
+    protected override float BaseMovementSpeed => 0.22f;
+
+    public void IncreaseMovementSpeed(float amountToIncrease)
     {
-        get { return MOVEMENT_SPEED; }
+        // MovementSpeedModifier += amountToIncrease;
     }
 
     public override float HpRemaining
     {
         get { return hpRemaining; }
     }
+
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;
 
@@ -69,7 +66,7 @@ public class PlayerController : CharacterController
         };
         OrbCollector = new OrbCollector(orbsToSupport);
         StatusEffectSystem = GetComponentInChildren<StatusEffectSystem>();
-        hpRemaining = MAX_HP;
+        hpRemaining = MaxHp;
         CreateMeleeWeapon();
     }
 
@@ -121,7 +118,7 @@ public class PlayerController : CharacterController
             return;
         }
         var movement = SetMoveDirection();
-        var newPosition = rigidBody.position + movement.normalized * MOVEMENT_SPEED;
+        var newPosition = rigidBody.position + movement.normalized * MovementSpeed;
 
         rigidBody.MovePosition(newPosition);
     }

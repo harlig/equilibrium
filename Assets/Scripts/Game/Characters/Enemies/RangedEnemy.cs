@@ -34,7 +34,7 @@ public class RangedEnemy : EnemyController
             var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
             var newPosition =
-                rigidBody.position + new Vector2(movementX, movementY).normalized * movementSpeed;
+                rigidBody.position + new Vector2(movementX, movementY).normalized * MovementSpeed;
 
             rigidBody.MovePosition(newPosition);
         }

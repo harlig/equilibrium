@@ -19,7 +19,6 @@ public abstract class EnemyController : CharacterController
     // [SerializeField]
     // private Transform launchOffset;
 
-    protected float movementSpeed = 0.03f;
 
     protected virtual int GetMaxHp()
     {
@@ -39,10 +38,7 @@ public abstract class EnemyController : CharacterController
         get { return GetMaxHp(); }
     }
 
-    public override float MovementSpeed
-    {
-        get { return movementSpeed; }
-    }
+    protected override float BaseMovementSpeed => 0.03f;
 
     public override float HpRemaining
     {
@@ -92,7 +88,7 @@ public abstract class EnemyController : CharacterController
             var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
             var newPosition =
-                rigidBody.position + new Vector2(movementX, movementY).normalized * movementSpeed;
+                rigidBody.position + new Vector2(movementX, movementY).normalized * MovementSpeed;
 
             rigidBody.MovePosition(newPosition);
         }
@@ -103,7 +99,8 @@ public abstract class EnemyController : CharacterController
         this.player = player;
         startFollowing = true;
 
-        movementSpeed = Random.Range(0.03f, 0.08f);
+        float randomSpeedBoost = Random.Range(0f, 0.05f);
+        // MovementSpeedModifier += randomSpeedBoost;
     }
 
     public override void OnDamageTaken(DamageType damageType, float damage)

@@ -34,7 +34,12 @@ public abstract class LevelManager : MonoBehaviour
     private bool shouldSpawnEnemies = true;
     bool spawningMoreEnemies = false;
     private readonly List<EnemyController> enemies = new();
-    private AcquisitionManager acquisitionManager = new();
+    private AcquisitionManager acquisitionManager;
+
+    void Awake()
+    {
+        acquisitionManager = new(player);
+    }
 
     private void SetActiveRoom(RoomManager newActiveRoom)
     {
