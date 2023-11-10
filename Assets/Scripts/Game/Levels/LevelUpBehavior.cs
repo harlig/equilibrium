@@ -24,8 +24,6 @@ public class LevelUpBehavior : MonoBehaviour
         );
         hudController.SetPlayerLevel(newPlayerLevel);
         LevelManager.PauseGame();
-
-        // offer reward to player
     }
 
     Action<OfferData> OnButtonClick(
@@ -44,7 +42,7 @@ public class LevelUpBehavior : MonoBehaviour
 
     IEnumerator WaitForDelayThenAfterLevelUp(Action afterLevelUpAction)
     {
-        yield return new WaitForSeconds(0.07f);
+        yield return new WaitForSeconds(0.04f);
         afterLevelUpAction.Invoke();
     }
 }

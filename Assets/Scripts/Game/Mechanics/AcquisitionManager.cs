@@ -16,19 +16,15 @@ public class AcquisitionManager
 
     public void AcquireOffer(OfferData offer)
     {
-        Debug.LogFormat("Acquired offer from the manager! {0}", offer.GetName());
-
         Acquisitions.Add(Acquisition.FromOffer(offer));
 
         switch (offer)
         {
             // TODO: add many more offers to support here!
             case DamageOffer damageOffer:
-                Debug.Log("Would be increasing player damage!");
                 player.AddToDamageDealtModifier(damageOffer.GetValue());
                 break;
             case SpeedOffer speedOffer:
-                Debug.Log("Increasing player move speed");
                 player.AddToMovementSpeedModifier(speedOffer.GetValue());
                 break;
             default:

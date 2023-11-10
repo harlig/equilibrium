@@ -45,7 +45,6 @@ public class StatusEffectSystem : MonoBehaviour
             return;
         }
         var statusEffect = equilibriumStateToStatusEffectMap[newEquilibrumState];
-        Debug.LogFormat("using data retrieved {0}", statusEffects);
         statusEffect.AnimateStatusEffect(player, spriteRenderer);
         // somewhat transparent
         spriteRenderer.color = new Color(

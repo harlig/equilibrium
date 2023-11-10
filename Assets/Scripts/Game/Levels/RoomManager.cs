@@ -72,7 +72,6 @@ public class RoomManager : MonoBehaviour
         RangedEnemy rangedEnemyPrefab
     )
     {
-        Debug.LogFormat("New active room is at min {0}; max {1}", Min, Max);
         SetActiveAllChildren(true);
         enemies = SpawnEnemies(
             player,

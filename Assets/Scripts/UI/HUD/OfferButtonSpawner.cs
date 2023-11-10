@@ -83,7 +83,6 @@ public class OfferButtonSpawner : MonoBehaviour
     {
         // Handle the button click event
         // For example, display the offer details
-        Debug.Log("Offer clicked: " + offer.GetName());
         foreach (Button button in GetComponentsInChildren<Button>())
         {
             Destroy(button.gameObject);

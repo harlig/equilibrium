@@ -64,11 +64,5 @@ public abstract class AbstractDoor : InteractableBehavior
         return newLocations;
     }
 
-    protected override void OnPlayerHit()
-    {
-        // check with level manager to see if level has been beat
-        // if so, move player in direction of DoorType
-        //        and move camera in direction while resetting bounds
-        Debug.Log($"player has hit {GetDoorType()} door");
-    }
+    protected override void OnPlayerHit() { }
 }

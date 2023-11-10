@@ -184,13 +184,28 @@ public class PlayerController : CharacterController
         }
     }
 
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.GetComponent<OrbController>() != null)
+        {
+            var orb = other.GetComponent<OrbController>();
+            CollectOrb(orb);
+        }
+    }
+
     void CollectOrb(OrbController orb)
     {
+        if (!canCollectOrbs)
+        {
+            return;
+        }
         OrbCollector.Collect(orb);
         OnOrbCollectedAction?.Invoke(orb, OrbCollector.XpCollected);
 
         TryLevelUp();
     }
+
+    bool canCollectOrbs = true;
 
     void TryLevelUp()
     {
@@ -203,8 +218,17 @@ public class PlayerController : CharacterController
                 // TODO: celebrate that player leveled up, offer reward!
                 PlayerLevel++;
 
-                // recursively call in case we need to level up again!
-                OnLevelUpAction?.Invoke(PlayerLevel, () => TryLevelUp());
+                // can't collect more orbs until we finish the level up
+                canCollectOrbs = false;
+                OnLevelUpAction?.Invoke(
+                    PlayerLevel,
+                    () =>
+                    {
+                        // recursively call in case we need to level up again!
+                        TryLevelUp();
+                        canCollectOrbs = true;
+                    }
+                );
             }
         }
     }

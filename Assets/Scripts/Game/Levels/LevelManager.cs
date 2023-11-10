@@ -157,10 +157,6 @@ public abstract class LevelManager : MonoBehaviour
             newLevel,
             player.EquilibriumState
         );
-        foreach (OfferData offer in levelUpOffers)
-        {
-            Debug.Log($"Got offer {offer}");
-        }
 
         levelUpBehavior.LevelUp(
             newLevel,

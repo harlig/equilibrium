@@ -155,7 +155,6 @@ public class OfferSystem : MonoBehaviour
             int numEntiresForThisOffer = Mathf.RoundToInt(
                 CalculateWeight(offer.CorrespondingState, equilibriumState) * MAX_ENTIRES_FOR_OFFER
             );
-            Debug.LogFormat("Offer {0}; weight {1}", offer, numEntiresForThisOffer);
             for (int i = 0; i < numEntiresForThisOffer; i++)
             {
                 offerEntriesInRaffle.Add(offer);
@@ -187,13 +186,6 @@ public class OfferSystem : MonoBehaviour
         // The weight decreases as the distance increases
         // This is a simple linear calculation, can change if we want
         float weight = 1.0f / (distance + 1);
-        Debug.LogFormat(
-            "offerState {0}; currentState {1}; distance {2}; weight {3}",
-            offerState,
-            currentState,
-            distance,
-            weight
-        );
         return weight;
     }
 }
