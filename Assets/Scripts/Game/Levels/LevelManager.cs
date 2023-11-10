@@ -18,10 +18,15 @@ public abstract class LevelManager : MonoBehaviour
     private LevelUpBehavior levelUpBehavior;
 
     [SerializeField]
+    private OfferSystem offerSystemPrefab;
+
+    [SerializeField]
     private HeadsUpDisplayController hudController;
 
     [SerializeField]
     private RoomManager startingRoom;
+
+    private OfferSystem offerSystem;
     private RoomManager activeRoom;
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
@@ -52,6 +57,8 @@ public abstract class LevelManager : MonoBehaviour
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
+
+        offerSystem = Instantiate(offerSystemPrefab);
 
         // TODO: bad code organization, clean this up
         shouldSpawnEnemies = spawnEnemies;
@@ -133,6 +140,14 @@ public abstract class LevelManager : MonoBehaviour
 
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
+        // TODO: how many offers should player get?
+        List<OfferData> levelUpOffers = offerSystem.GetOffers(1, newLevel, player.EquilibriumState);
+        foreach (OfferData offer in levelUpOffers)
+        {
+            Debug.Log($"Got offer {offer}");
+        }
+
+        // TODO: level up behavior should display offers
         levelUpBehavior.LevelUp(newLevel, afterLevelUpAction, hudController);
     }
 

@@ -16,6 +16,8 @@ public class LevelUpBehavior : MonoBehaviour
         levelUpUIElements.SetElements(newPlayerLevel, OnButtonClick(afterLevelUpAction));
         hudController.SetPlayerLevel(newPlayerLevel);
         LevelManager.PauseGame();
+
+        // offer reward to player
     }
 
     Action OnButtonClick(Action afterLevelUpAction)

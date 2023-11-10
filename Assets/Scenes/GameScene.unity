@@ -692,6 +692,7 @@ MonoBehaviour:
   meleeEnemyPrefab: {fileID: 5352518838595410912, guid: ca6f3de5263ca42f9b40d931e5fe0991, type: 3}
   rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 9bd82abb793cf4868bd99ae15735a373, type: 3}
   levelUpBehavior: {fileID: 1217699821}
+  offerSystemPrefab: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
   hudController: {fileID: 1714415047}
   startingRoom: {fileID: 1611848589}
 --- !u!1 &666296082
