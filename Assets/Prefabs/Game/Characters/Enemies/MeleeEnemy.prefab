@@ -402,9 +402,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 13b39883b4c324fa08cdfc93efc7ca0e, type: 3}
   - {fileID: 21300000, guid: e0269d4cf0e304368b0cf09eaf2e9cd7, type: 3}
   - {fileID: 21300000, guid: 54130b82a24bb4e6da9f1dc7ae9f42e3, type: 3}
-  idleAnimationSpritesEast: []
-  idleAnimationSpritesNorth: []
-  idleAnimationSpritesSouth: []
-  idleAnimationSpritesWest: []
+  idleAnimationSpritesEast:
+  - {fileID: 21300000, guid: e97ffc2284fb4426d8fc062f4c509532, type: 3}
+  idleAnimationSpritesNorth:
+  - {fileID: 21300000, guid: 6d18112a5fc7b4cf08e5463feab3d911, type: 3}
+  idleAnimationSpritesSouth:
+  - {fileID: 21300000, guid: 22e16a8f079414b9599e5b493d54517c, type: 3}
+  idleAnimationSpritesWest:
+  - {fileID: 21300000, guid: 1f93d5303eb3a4c5982e5b1905b2ce16, type: 3}
   deathSprite: {fileID: 2074668058, guid: 2975cff0e55eb44dbbb2dc4a7c3e8d50, type: 3}
   animationSpeed: 3
