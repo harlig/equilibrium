@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ public abstract class EnemyController : CharacterController
     // [SerializeField]
     // private Transform launchOffset;
 
+    private List<Node> path;
+    private int currentPathIndex;
 
     protected virtual int GetMaxHp()
     {
@@ -77,6 +80,9 @@ public abstract class EnemyController : CharacterController
         return createdEnemy;
     }
 
+    private float pathUpdateInterval = 0.5f; // Time in seconds between path updates
+    private float pathUpdateTimer;
+
     void FixedUpdate()
     {
         if (IsDead())
@@ -86,14 +92,31 @@ public abstract class EnemyController : CharacterController
 
         if (startFollowing && !player.IsDead())
         {
-            movementX = player.transform.position.x - transform.position.x;
-            movementY = player.transform.position.y - transform.position.y;
-            var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+            pathUpdateTimer += Time.fixedDeltaTime;
+            if (pathUpdateTimer >= pathUpdateInterval)
+            {
+                CalculatePath();
+                pathUpdateTimer = 0;
+            }
 
-            var newPosition =
-                rigidBody.position + new Vector2(movementX, movementY).normalized * MovementSpeed;
+            if (path != null && currentPathIndex < path.Count)
+            {
+                var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+                Node nextNode = path[currentPathIndex];
 
-            rigidBody.MovePosition(newPosition);
+                Vector2 nextPosition = new Vector2(nextNode.X, nextNode.Y);
+                Vector2 direction = (nextPosition - rigidBody.position).normalized;
+                Vector2 newPosition =
+                    rigidBody.position + direction * MovementSpeed * 100 * Time.fixedDeltaTime;
+                Debug.LogFormat("moving enemy rigidbody to {0}", newPosition);
+
+                rigidBody.MovePosition(newPosition);
+
+                if (Vector2.Distance(rigidBody.position, nextPosition) < 0.1f)
+                {
+                    currentPathIndex++;
+                }
+            }
         }
     }
 
@@ -104,6 +127,8 @@ public abstract class EnemyController : CharacterController
 
         float randomSpeedBoost = Random.Range(0f, 0.05f);
         AddToMovementSpeedModifier(randomSpeedBoost);
+
+        CalculatePath();
     }
 
     public override void OnDamageTaken(DamageType damageType, float damage)
@@ -143,5 +168,22 @@ public abstract class EnemyController : CharacterController
     public override bool IsDead()
     {
         return damageTaken.TotalDamage() >= GetMaxHp();
+    }
+
+    void CalculatePath()
+    {
+        // Convert world position to grid position
+        Vector2Int start = containingRoom.grid.WorldToGrid(transform.position);
+        Vector2Int end = containingRoom.grid.WorldToGrid(player.transform.position);
+        Debug.LogFormat("start {0}, end {1}", start, end);
+
+        // Implement or call your A* pathfinding method here
+        path = AStarPathfinding.FindPath(containingRoom.grid, start, end);
+        Debug.LogFormat("Foudn some path of size {0}", path.Count);
+
+        if (path != null && path.Count > 0)
+        {
+            currentPathIndex = 0;
+        }
     }
 }
