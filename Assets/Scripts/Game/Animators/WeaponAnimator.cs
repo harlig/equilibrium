@@ -48,13 +48,11 @@ public class WeaponAnimator : MonoBehaviour
     void AnimateSwing()
     {
         updatesSinceLastSpriteChange++;
-        Debug.Log("Trying to animate swing");
 
         if (updatesSinceLastSpriteChange >= animationSpeed)
         {
             if (currentSpriteIndex == attackSprites.Length - 1)
             {
-                Debug.Log("Finishing swing");
                 isSwinging = false;
                 currentSpriteIndex = 0;
                 spriteRenderer.sprite = originalSprite;
@@ -62,7 +60,6 @@ public class WeaponAnimator : MonoBehaviour
             if (isSwinging)
             {
                 currentSpriteIndex = (currentSpriteIndex + 1) % attackSprites.Length;
-                Debug.LogFormat("Trying to set weapon to new index {0}", currentSpriteIndex);
                 spriteRenderer.sprite = attackSprites[currentSpriteIndex];
             }
             updatesSinceLastSpriteChange = 0;

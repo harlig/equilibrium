@@ -33,9 +33,8 @@ public class MeleeWeapon : WeaponController
 
     public override void AttackAtPosition(Vector2 position)
     {
-        Debug.Log("Do attack!");
-        weaponAnimator.DoSwing(position);
         // TODO: apply animations and make the weapon degree dynamic
+        weaponAnimator.DoSwing(position);
         // StartCoroutine(DoStrikeAnimation(0.1f, position));
     }
 

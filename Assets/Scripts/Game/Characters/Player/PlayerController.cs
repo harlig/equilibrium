@@ -124,22 +124,18 @@ public class PlayerController : CharacterController
 
         if (Input.GetKey(KeyCode.A))
         {
-            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Left);
             movement.x -= 1.0f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Right);
             movement.x += 1.0f;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Up);
             movement.y += 1.0f;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            characterAnimator.SetMoveDirection(UnityEngine.EventSystems.MoveDirection.Down);
             movement.y -= 1.0f;
         }
 

@@ -75,6 +75,7 @@ public class CharacterAnimator : MonoBehaviour
         // Check if the character is moving
         if (currentPosition != lastPosition)
         {
+            SetMoveDirection(currentPosition, lastPosition);
             AnimateWalk();
         }
         else
@@ -163,13 +164,23 @@ public class CharacterAnimator : MonoBehaviour
         }
     }
 
-    public void SetMoveDirection(MoveDirection moveDirection)
+    public void SetMoveDirection(Vector2 currentPosition, Vector2 lastPosition)
     {
-        if (this.moveDirection != moveDirection)
+        // Calculate absolute differences in both x and y directions
+        float xDifference = Mathf.Abs(currentPosition.x - lastPosition.x);
+        float yDifference = Mathf.Abs(currentPosition.y - lastPosition.y);
+
+        if (xDifference > yDifference)
         {
-            this.moveDirection = moveDirection;
-            currentSpriteIndex = 0;
-            // TODO: we may need to update updatesSinceLastSpriteChange here if the animation feels janky when you change directions
+            // Movement is primarily horizontal
+            moveDirection =
+                currentPosition.x > lastPosition.x ? MoveDirection.Right : MoveDirection.Left;
+        }
+        else
+        {
+            // Movement is primarily vertical
+            moveDirection =
+                currentPosition.y > lastPosition.y ? MoveDirection.Up : MoveDirection.Down;
         }
     }
 }
