@@ -17,7 +17,12 @@ public abstract class WeaponController : MonoBehaviour
         CharacterController character
     )
     {
-        var createdWeapon = Instantiate(prefab, position, Quaternion.identity);
+        var createdWeapon = Instantiate(
+            prefab,
+            position,
+            prefab.transform.rotation,
+            character.transform
+        );
         createdWeapon.character = character;
         return createdWeapon;
     }
