@@ -15,6 +15,8 @@ public abstract class EnemyController : CharacterController
     [SerializeField]
     private OrbDropper orbDropper;
 
+    private RoomManager containingRoom;
+
     // TODO: use this
     // [SerializeField]
     // private Transform launchOffset;
@@ -47,6 +49,7 @@ public abstract class EnemyController : CharacterController
 
     void Awake()
     {
+        containingRoom = GetComponentInParent<RoomManager>();
         DamageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), damageTaken, hpTextElement);
     }
 
@@ -100,7 +103,7 @@ public abstract class EnemyController : CharacterController
         startFollowing = true;
 
         float randomSpeedBoost = Random.Range(0f, 0.05f);
-        // MovementSpeedModifier += randomSpeedBoost;
+        AddToMovementSpeedModifier(randomSpeedBoost);
     }
 
     public override void OnDamageTaken(DamageType damageType, float damage)
