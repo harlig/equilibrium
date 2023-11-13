@@ -5,14 +5,28 @@ using UnityEngine.Tilemaps;
 public class RoomManager : MonoBehaviour
 {
     public Tilemap floorTilemap;
-    public Tilemap wallTilemap;
+    public Tilemap obstaclesTilemap;
 
     public Vector2 Min,
         Max;
     private List<EnemyController> enemies;
+    private Grid grid;
 
     void Awake()
     {
+        this.grid = new Grid(floorTilemap, obstaclesTilemap);
+        for (int width = 0; width < grid.Width; width++)
+        {
+            for (int height = 0; height < grid.Height; height++)
+            {
+                Debug.LogFormat(
+                    "Looking at node at [{0}, {1}] with walkable {2}",
+                    width,
+                    height,
+                    grid.nodes[width, height].Walkable
+                );
+            }
+        }
         CalculateGridDimensions();
 
         // this gets set to false so we can hide chests and stuff until the room is active
@@ -39,10 +53,10 @@ public class RoomManager : MonoBehaviour
 
     void CalculateGridDimensions()
     {
-        BoundsInt bounds = wallTilemap.cellBounds;
+        BoundsInt bounds = obstaclesTilemap.cellBounds;
 
-        Vector3 minWorld = wallTilemap.GetCellCenterWorld(bounds.min);
-        Vector3 maxWorld = wallTilemap.GetCellCenterWorld(bounds.max);
+        Vector3 minWorld = obstaclesTilemap.GetCellCenterWorld(bounds.min);
+        Vector3 maxWorld = obstaclesTilemap.GetCellCenterWorld(bounds.max);
 
         var minX = Mathf.FloorToInt(minWorld.x);
         var minY = Mathf.FloorToInt(minWorld.y);
