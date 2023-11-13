@@ -12,7 +12,7 @@ public class OfferButtonSpawner : MonoBehaviour
 
     void Awake()
     {
-        parentPanel = GetComponentInParent<RectTransform>();
+        parentPanel = GetComponent<RectTransform>();
     }
 
     public void CreateOfferButtons(List<OfferData> offers, Action<OfferData> onButtonClickedAction)
