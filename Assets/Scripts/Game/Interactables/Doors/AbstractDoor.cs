@@ -63,6 +63,4 @@ public abstract class AbstractDoor : InteractableBehavior
         newLocations.CameraBounds = new(newRoom.Min, newRoom.Max);
         return newLocations;
     }
-
-    protected override void OnPlayerHit() { }
 }

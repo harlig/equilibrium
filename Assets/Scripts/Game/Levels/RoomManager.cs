@@ -22,17 +22,22 @@ public class RoomManager : MonoBehaviour
     void SetActiveAllChildren(bool shouldSetActive)
     {
         // disable all enemies and non-door interactables
-        foreach (var enemy in GetComponentsInChildren<EnemyController>())
+        foreach (var enemy in GetComponentsInChildren<EnemyController>(true))
         {
             enemy.gameObject.SetActive(shouldSetActive);
         }
-        foreach (var interactable in GetComponentsInChildren<InteractableBehavior>())
+        foreach (var interactable in GetComponentsInChildren<InteractableBehavior>(true))
         {
             if (interactable is AbstractDoor)
             {
                 // doors should remain active
                 continue;
             }
+            Debug.LogFormat(
+                "Setting interactable {0} active to {1}",
+                interactable,
+                shouldSetActive
+            );
             interactable.gameObject.SetActive(shouldSetActive);
         }
     }
@@ -72,6 +77,7 @@ public class RoomManager : MonoBehaviour
         RangedEnemy rangedEnemyPrefab
     )
     {
+        Debug.Log("Setting room as active room");
         SetActiveAllChildren(true);
         enemies = SpawnEnemies(
             player,

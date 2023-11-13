@@ -17,16 +17,13 @@ public abstract class LevelManager : MonoBehaviour
     [SerializeField]
     private LevelUpBehavior levelUpBehavior;
 
-    [SerializeField]
-    private OfferSystem offerSystemPrefab;
+    public OfferSystem OfferSystem;
 
     [SerializeField]
     private HeadsUpDisplayController hudController;
 
     [SerializeField]
     private RoomManager startingRoom;
-
-    private OfferSystem offerSystem;
     private RoomManager activeRoom;
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
@@ -63,8 +60,7 @@ public abstract class LevelManager : MonoBehaviour
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
-
-        offerSystem = OfferSystem.Create(offerSystemPrefab, transform);
+        // offerSystem = OfferSystem.Create(offerSystemPrefab, transform);
 
         shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
@@ -101,7 +97,17 @@ public abstract class LevelManager : MonoBehaviour
         {
             TryMoveRooms(door);
         }
-        // if (interactable is AbstractChest chest) { ... do stuff ... }
+        else if (interactable is ChestController chest)
+        {
+            // TODO: if chest is MimicChest :P
+            var offers = OfferSystem.GetOffers(3, player.PlayerLevel, player.EquilibriumState);
+            Debug.Log("got offers from chest");
+            foreach (var offer in offers)
+            {
+                Debug.Log($"offer: {offer.GetName()} - {offer.GetValue()}");
+            }
+            // pause game, show offers just like on level up
+        }
         else
         {
             Debug.LogErrorFormat("Unhandled interactable! {0}", interactable);
@@ -152,7 +158,7 @@ public abstract class LevelManager : MonoBehaviour
                 : newLevel <= 3
                     ? 2
                     : 3;
-        List<OfferData> levelUpOffers = offerSystem.GetOffers(
+        List<OfferData> levelUpOffers = OfferSystem.GetOffers(
             numOffersToGet,
             newLevel,
             player.EquilibriumState
