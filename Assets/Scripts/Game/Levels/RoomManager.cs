@@ -33,11 +33,6 @@ public class RoomManager : MonoBehaviour
                 // doors should remain active
                 continue;
             }
-            Debug.LogFormat(
-                "Setting interactable {0} active to {1}",
-                interactable,
-                shouldSetActive
-            );
             interactable.gameObject.SetActive(shouldSetActive);
         }
     }
@@ -77,7 +72,6 @@ public class RoomManager : MonoBehaviour
         RangedEnemy rangedEnemyPrefab
     )
     {
-        Debug.Log("Setting room as active room");
         SetActiveAllChildren(true);
         enemies = SpawnEnemies(
             player,

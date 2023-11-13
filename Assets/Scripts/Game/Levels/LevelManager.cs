@@ -27,6 +27,7 @@ public abstract class LevelManager : MonoBehaviour
     private RoomManager activeRoom;
     private CameraController cameraController;
     private List<Vector2> spawnLocations;
+    private OfferButtonSpawner offerButtonSpawner;
 
     private bool shouldSpawnEnemies = true;
     bool spawningMoreEnemies = false;
@@ -60,7 +61,6 @@ public abstract class LevelManager : MonoBehaviour
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
-        // offerSystem = OfferSystem.Create(offerSystemPrefab, transform);
 
         shouldSpawnEnemies = spawnEnemies;
         spawnLocations = enemySpawnLocations;
@@ -72,6 +72,7 @@ public abstract class LevelManager : MonoBehaviour
             interactableBehavior.OnInteractableHitPlayer += OnInteractableHitPlayer;
         }
 
+        offerButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
         hudController.Setup(player);
     }
 
@@ -99,7 +100,6 @@ public abstract class LevelManager : MonoBehaviour
         }
         else if (interactable is ChestController chest)
         {
-            // pause game, show offers just like on level up
             OnPlayerHitChest();
             // TODO: if chest is MimicChest :P
         }
@@ -208,21 +208,15 @@ public abstract class LevelManager : MonoBehaviour
             player.EquilibriumState
         );
 
-        // PauseGame();
-
-        Debug.Log("Player hit chest so we got them offers!");
-
-        // TODO need to display offers and indicate that a chest was hit
-        // and pass the callback of OnOfferSelected to the buttons created
-        // OfferButtonSpawner.SpawnButtonts(chestHitOffers, () => LevelManager.UnpauseGame())
-
-        // levelUpBehavior.LevelUp(
-        //     newLevel,
-        //     levelUpOffers,
-        //     AfterPlayerLevelUp,
-        //     afterLevelUpAction,
-        //     hudController
-        // );
+        PauseGame();
+        offerButtonSpawner.CreateOfferButtons(
+            chestHitOffers,
+            (offerSelected) =>
+            {
+                OnOfferSelected(offerSelected);
+                UnpauseGame();
+            }
+        );
     }
 
     //////////////////////////////////////////////////////////
