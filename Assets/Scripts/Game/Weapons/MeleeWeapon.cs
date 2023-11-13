@@ -6,6 +6,7 @@ using UnityEngine.TextCore.Text;
 public class MeleeWeapon : WeaponController
 {
     // private bool isSwinging = false;
+    private WeaponAnimator weaponAnimator;
 
     public override DamageType damageType
     {
@@ -25,10 +26,17 @@ public class MeleeWeapon : WeaponController
         }
     }
 
+    void Awake()
+    {
+        weaponAnimator = GetComponent<WeaponAnimator>();
+    }
+
     public override void AttackAtPosition(Vector2 position)
     {
+        Debug.Log("Do attack!");
+        weaponAnimator.DoSwing(position);
         // TODO: apply animations and make the weapon degree dynamic
-        StartCoroutine(DoStrikeAnimation(0.1f, position));
+        // StartCoroutine(DoStrikeAnimation(0.1f, position));
     }
 
     private IEnumerator DoStrikeAnimation(float waitTime, Vector2 position)
