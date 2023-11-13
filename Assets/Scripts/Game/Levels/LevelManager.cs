@@ -99,14 +99,9 @@ public abstract class LevelManager : MonoBehaviour
         }
         else if (interactable is ChestController chest)
         {
-            // TODO: if chest is MimicChest :P
-            var offers = OfferSystem.GetOffers(3, player.PlayerLevel, player.EquilibriumState);
-            Debug.Log("got offers from chest");
-            foreach (var offer in offers)
-            {
-                Debug.Log($"offer: {offer.GetName()} - {offer.GetValue()}");
-            }
             // pause game, show offers just like on level up
+            OnPlayerHitChest();
+            // TODO: if chest is MimicChest :P
         }
         else
         {
@@ -167,15 +162,14 @@ public abstract class LevelManager : MonoBehaviour
         levelUpBehavior.LevelUp(
             newLevel,
             levelUpOffers,
-            AfterPlayerLevelUp,
+            OnOfferSelected,
             afterLevelUpAction,
             hudController
         );
     }
 
-    void AfterPlayerLevelUp(OfferData offerSelected)
+    void OnOfferSelected(OfferData offerSelected)
     {
-        // know about what offer was selected and add it to the AcquisitionManager
         acquisitionManager.AcquireOffer(offerSelected);
         hudController.SetAcquisitions(acquisitionManager.Acquisitions);
     }
@@ -202,6 +196,33 @@ public abstract class LevelManager : MonoBehaviour
         }
         hudController.SetPlayerXp(newPlayerXp);
         hudController.SetOrbsCollected();
+    }
+
+    void OnPlayerHitChest()
+    {
+        // chests always give 3 offers
+        var numOffersToGet = 3;
+        List<OfferData> chestHitOffers = OfferSystem.GetOffers(
+            numOffersToGet,
+            player.PlayerLevel,
+            player.EquilibriumState
+        );
+
+        // PauseGame();
+
+        Debug.Log("Player hit chest so we got them offers!");
+
+        // TODO need to display offers and indicate that a chest was hit
+        // and pass the callback of OnOfferSelected to the buttons created
+        // OfferButtonSpawner.SpawnButtonts(chestHitOffers, () => LevelManager.UnpauseGame())
+
+        // levelUpBehavior.LevelUp(
+        //     newLevel,
+        //     levelUpOffers,
+        //     AfterPlayerLevelUp,
+        //     afterLevelUpAction,
+        //     hudController
+        // );
     }
 
     //////////////////////////////////////////////////////////
