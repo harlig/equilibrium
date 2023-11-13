@@ -48,10 +48,11 @@ public class AcquisitionsDisplayController : MonoBehaviour
 
     private void AdjustGridLayoutGroup(int itemCount)
     {
-        int minItemsPerRow = 4;
-        float totalSpacing = (minItemsPerRow - 1) * (rectTransform.rect.width * GapPercentage); // Total horizontal spacing
-        float availableWidth = rectTransform.rect.width - totalSpacing; // Width available for cells
-        float cellWidth = availableWidth / minItemsPerRow;
+        int maxItemsPerRow = 4; // Maximum items per row, used for centering
+        float totalHorizontalSpacing =
+            (maxItemsPerRow - 1) * (rectTransform.rect.width * GapPercentage); // Total horizontal spacing
+        float availableWidth = rectTransform.rect.width - totalHorizontalSpacing; // Width available for cells
+        float cellWidth = availableWidth / maxItemsPerRow;
         float cellHeight = cellWidth; // or any other logic to determine cell height
 
         // Set the spacing based on the cell width
@@ -60,23 +61,46 @@ public class AcquisitionsDisplayController : MonoBehaviour
 
         gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
 
-        // Additional logic to resize cells if the y space gets taken up
-        float totalHeightNeeded =
-            (Mathf.Ceil(itemCount / (float)minItemsPerRow)) * (cellHeight + spacing);
+        // Calculate rows and adjust for resizing if necessary
+        int rowsNeeded = Mathf.CeilToInt((float)itemCount / maxItemsPerRow);
+        float totalHeightNeeded = rowsNeeded * cellHeight + (rowsNeeded - 1) * spacing;
+
         if (totalHeightNeeded > rectTransform.rect.height)
         {
-            // Adjust cell size based on available height
-            cellHeight =
-                (
-                    rectTransform.rect.height
-                    - (Mathf.Ceil(itemCount / (float)minItemsPerRow) - 1) * spacing
-                ) / Mathf.Ceil(itemCount / (float)minItemsPerRow);
-            cellWidth = cellHeight; // Keep aspect ratio
-            gridLayoutGroup.cellSize = new Vector2(cellWidth, cellHeight);
-
-            // Adjust the spacing proportionally
-            spacing = cellWidth * GapPercentage;
-            gridLayoutGroup.spacing = new Vector2(spacing, spacing);
+            // Increase maxItemsPerRow to fit within the vertical space
+            maxItemsPerRow = CalculateMaxItemsPerRow(itemCount, cellHeight, spacing);
+            cellWidth =
+                (rectTransform.rect.width - (maxItemsPerRow - 1) * spacing) / maxItemsPerRow;
+            gridLayoutGroup.cellSize = new Vector2(cellWidth, cellWidth); // Keeping aspect ratio
         }
+
+        // Adjust padding for centering based on maxItemsPerRow
+        CenterItems(itemCount, maxItemsPerRow, cellWidth, spacing);
+    }
+
+    private int CalculateMaxItemsPerRow(int itemCount, float cellHeight, float spacing)
+    {
+        int itemsPerRow = 4;
+        while (true)
+        {
+            float totalHeightNeeded =
+                (Mathf.Ceil(itemCount / (float)itemsPerRow)) * (cellHeight + spacing);
+            if (totalHeightNeeded <= rectTransform.rect.height || itemsPerRow >= itemCount)
+            {
+                break;
+            }
+            itemsPerRow++;
+        }
+        return itemsPerRow;
+    }
+
+    private void CenterItems(int itemCount, int maxItemsPerRow, float cellWidth, float spacing)
+    {
+        int rows = Mathf.CeilToInt((float)itemCount / maxItemsPerRow);
+        float totalRowWidth = maxItemsPerRow * cellWidth + (maxItemsPerRow - 1) * spacing;
+        float paddingLeft = (rectTransform.rect.width - totalRowWidth) / 2;
+        paddingLeft = Mathf.Max(paddingLeft, 0);
+
+        gridLayoutGroup.padding.left = (int)paddingLeft;
     }
 }
