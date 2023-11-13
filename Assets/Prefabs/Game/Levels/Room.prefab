@@ -8513,11 +8513,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 3773598632785419303}
-  wallTilemap: {fileID: 2138139058818445940}
-  minX: 0
-  minY: 0
-  maxX: 0
-  maxY: 0
+  obstaclesTilemap: {fileID: 2138139058818445940}
+  Min: {x: 0, y: 0}
+  Max: {x: 0, y: 0}
 --- !u!1 &4566168433944532559
 GameObject:
   m_ObjectHideFlags: 0

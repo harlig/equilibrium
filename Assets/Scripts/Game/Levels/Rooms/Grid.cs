@@ -25,7 +25,7 @@ public class Grid
         {
             for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
-                Vector3Int localPlace = new Vector3Int(x, y, 0);
+                Vector3Int localPlace = new(x, y, 0);
                 bool isWalkable =
                     floorTilemap.HasTile(localPlace) && !obstaclesTilemap.HasTile(localPlace);
                 nodes[x - bounds.xMin, y - bounds.yMin] = new Node(isWalkable, x, y);

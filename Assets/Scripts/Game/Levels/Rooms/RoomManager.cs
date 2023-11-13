@@ -10,23 +10,11 @@ public class RoomManager : MonoBehaviour
     public Vector2 Min,
         Max;
     private List<EnemyController> enemies;
-    private Grid grid;
+    public Grid grid { get; private set; }
 
     void Awake()
     {
-        this.grid = new Grid(floorTilemap, obstaclesTilemap);
-        for (int width = 0; width < grid.Width; width++)
-        {
-            for (int height = 0; height < grid.Height; height++)
-            {
-                Debug.LogFormat(
-                    "Looking at node at [{0}, {1}] with walkable {2}",
-                    width,
-                    height,
-                    grid.nodes[width, height].Walkable
-                );
-            }
-        }
+        grid = new Grid(floorTilemap, obstaclesTilemap);
         CalculateGridDimensions();
 
         // this gets set to false so we can hide chests and stuff until the room is active
