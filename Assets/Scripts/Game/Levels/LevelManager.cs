@@ -66,7 +66,8 @@ public abstract class LevelManager : MonoBehaviour
         spawnLocations = enemySpawnLocations;
         SetActiveRoom(startingRoom);
 
-        var interactables = GetComponentsInChildren<InteractableBehavior>();
+        // this needs to have the true argument because it allows us to set this up for interactables in rooms which aren't the starting room
+        var interactables = GetComponentsInChildren<InteractableBehavior>(true);
         foreach (InteractableBehavior interactableBehavior in interactables)
         {
             interactableBehavior.OnInteractableHitPlayer += OnInteractableHitPlayer;
