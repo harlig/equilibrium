@@ -5,9 +5,9 @@ public abstract class OfferData : MonoBehaviour
     public EquilibriumManager.EquilibriumState CorrespondingState;
     public int OfferPool;
 
-    public Color color;
+    public Color Color;
 
-    public abstract float GetValue();
+    public float Value;
 
     public enum EffectType
     {

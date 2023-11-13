@@ -22,10 +22,10 @@ public class AcquisitionManager
         {
             // TODO: add many more offers to support here!
             case DamageOffer damageOffer:
-                player.AddToDamageDealtModifier(damageOffer.GetValue());
+                player.AddToDamageDealtModifier(damageOffer.Value);
                 break;
             case SpeedOffer speedOffer:
-                player.AddToMovementSpeedModifier(speedOffer.GetValue());
+                player.AddToMovementSpeedModifier(speedOffer.Value);
                 break;
             default:
                 Debug.LogErrorFormat("Unhandled offer type {0}", offer);
@@ -45,8 +45,8 @@ public class Acquisition
         var newAcquisition = new Acquisition
         {
             Name = offer.name,
-            Color = offer.color,
-            Value = offer.GetValue()
+            Color = offer.Color,
+            Value = offer.Value
         };
         return newAcquisition;
     }

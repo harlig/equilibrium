@@ -63,9 +63,9 @@ public class OfferButtonSpawner : MonoBehaviour
             createdButtons.Add(new(offer, newButton.GetComponent<Button>()));
             // TODO: should probably be a better shared way to set this
             newButton.GetComponentInChildren<TextMeshProUGUI>().text =
-                $"{offer.GetName()}\n+{offer.GetValue()}";
+                $"{offer.GetName()}\n+{offer.Value}";
 
-            newButton.GetComponent<Image>().color = offer.color;
+            newButton.GetComponent<Image>().color = offer.Color;
 
             newButton.SetActive(true);
         }

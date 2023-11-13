@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6819055823897241300
+--- !u!1 &4451123670697834550
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2466215813276707332}
-  - component: {fileID: 9123079116444068767}
+  - component: {fileID: 8137452742242942633}
+  - component: {fileID: 2004328795588991296}
   m_Layer: 0
-  m_Name: OfferSystem
+  m_Name: Speed small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2466215813276707332
+--- !u!4 &8137452742242942633
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6819055823897241300}
+  m_GameObject: {fileID: 4451123670697834550}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.4078135, y: -1.0942084, z: -0.01685147}
@@ -32,23 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9123079116444068767
+--- !u!114 &2004328795588991296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6819055823897241300}
+  m_GameObject: {fileID: 4451123670697834550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865f5e00f81814bf49ca056a0c32bfd3, type: 3}
+  m_Script: {fileID: 11500000, guid: da7d3a4c51dc34748b5b7ad62393f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allOfferPrefabs:
-  - {fileID: 6062085168296641770, guid: 015d64c5ab4404246997e419710df8e1, type: 3}
-  - {fileID: 6062085168296641770, guid: ef6a2d534d08045ff8d2b210139c6c57, type: 3}
-  - {fileID: 6062085168296641770, guid: 0ffe86b0aff1f485e844161372006a53, type: 3}
-  - {fileID: 2004328795588991296, guid: 02cbedba172274a108378fb511a83458, type: 3}
-  - {fileID: 2004328795588991296, guid: 05ce85474734b41d79388bed7f3d336f, type: 3}
-  - {fileID: 2004328795588991296, guid: 66903060c93c149f58beb0844dc6301e, type: 3}
-  - {fileID: 2004328795588991296, guid: 5494c2dbdde354d7fa4951fcb23437ed, type: 3}
+  CorrespondingState: 2
+  OfferPool: 0
+  Color: {r: 0.6698113, g: 0.6606389, b: 0.42653078, a: 1}
+  Value: 0.03
