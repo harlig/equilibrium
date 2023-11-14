@@ -92,8 +92,8 @@ public static class AStarPathfinding
 
     static int GetDistance(Node nodeA, Node nodeB)
     {
-        float dstX = Mathf.Abs(nodeA.X - nodeB.X);
-        float dstY = Mathf.Abs(nodeA.Y - nodeB.Y);
+        float dstX = Mathf.Abs(nodeA.WorldX - nodeB.WorldX);
+        float dstY = Mathf.Abs(nodeA.WorldY - nodeB.WorldY);
 
         if (dstX > dstY)
             return (int)(14 * dstY + 10 * (dstX - dstY));
@@ -111,8 +111,8 @@ public static class AStarPathfinding
                 if (x == 0 && y == 0)
                     continue;
 
-                int checkX = node.XIndex + x;
-                int checkY = node.YIndex + y;
+                int checkX = node.IndexX + x;
+                int checkY = node.IndexY + y;
 
                 if (checkX >= 0 && checkX < grid.Width && checkY >= 0 && checkY < grid.Height)
                 {
@@ -125,8 +125,8 @@ public static class AStarPathfinding
                     {
                         // Check if diagonal movement does not cross a corner
                         bool noCornerCutting =
-                            grid.nodes[node.XIndex + x, node.YIndex].Walkable
-                            && grid.nodes[node.XIndex, node.YIndex + y].Walkable;
+                            grid.nodes[node.IndexX + x, node.IndexY].Walkable
+                            && grid.nodes[node.IndexX, node.IndexY + y].Walkable;
 
                         if (noCornerCutting)
                         {

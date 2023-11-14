@@ -151,7 +151,7 @@ public abstract class EnemyController : CharacterController
                 var rigidBody = gameObject.GetComponent<Rigidbody2D>();
                 Node nextNode = path[currentPathIndex];
 
-                Vector2 nextPosition = new Vector2(nextNode.X, nextNode.Y);
+                Vector2 nextPosition = new Vector2(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
                 if (tryUnstuck)
@@ -269,7 +269,7 @@ public abstract class EnemyController : CharacterController
         string pathStr = "";
         foreach (var node in path)
         {
-            pathStr += $"[{node.X}, {node.Y}]; ";
+            pathStr += $"[{node.WorldX}, {node.WorldY}]; ";
         }
         Debug.LogFormat("Found path: {0}", pathStr);
 

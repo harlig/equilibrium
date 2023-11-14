@@ -38,8 +38,16 @@ public class Grid
                     floorTilemap.HasTile(localPlace) && !obstaclesTilemap.HasTile(localPlace);
                 int xIndex = x - bounds.xMin;
                 int yIndex = y - bounds.yMin;
+
+                // Calculate global position
+                Vector3 globalPos = floorTilemap.CellToWorld(localPlace) - gridOrigin;
+                globalPos.x += GRID_OFFSET_X;
+                globalPos.y += GRID_OFFSET_Y;
+
                 nodes[xIndex, yIndex] = new Node(
                     isWalkable,
+                    // globalPos.x,
+                    // globalPos.y,
                     x + GRID_OFFSET_X,
                     y + GRID_OFFSET_Y,
                     xIndex,
@@ -70,10 +78,10 @@ public class Grid
 public class Node
 {
     public bool Walkable;
-    public float X;
-    public float Y;
-    public int XIndex;
-    public int YIndex;
+    public float WorldX;
+    public float WorldY;
+    public int IndexX;
+    public int IndexY;
 
     // A* specific properties
     public int GCost; // Cost from start node
@@ -88,10 +96,10 @@ public class Node
     public Node(bool walkable, float x, float y, int xIndex, int yIndex)
     {
         Walkable = walkable;
-        X = x;
-        Y = y;
-        XIndex = xIndex;
-        YIndex = yIndex;
+        WorldX = x;
+        WorldY = y;
+        IndexX = xIndex;
+        IndexY = yIndex;
         GCost = int.MaxValue;
         HCost = 0;
         Parent = null;
@@ -99,6 +107,6 @@ public class Node
 
     public string PositionString()
     {
-        return string.Format("[{0}, {1}] with indexes [{2}, {3}]", X, Y, XIndex, YIndex);
+        return string.Format("[{0}, {1}] with indexes [{2}, {3}]", WorldX, WorldY, IndexX, IndexY);
     }
 }
