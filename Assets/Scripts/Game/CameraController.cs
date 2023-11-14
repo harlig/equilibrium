@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private Transform playerLocation;
 
     private static Vector2 margin = new(0.1f, 0.1f); // if the player stays inside this margin, the camera won't move
-    public static Vector2 smoothing = new(3, 3); // bigger means faster camera
+    public static Vector2 smoothing = new(5, 5); // bigger means faster camera
 
     // these indicate the min/max x/y values which will ever be in the camera's viewport
     public Vector2 MinCoordinatesVisible { get; private set; }
