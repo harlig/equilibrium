@@ -88,4 +88,9 @@ public class Node
         HCost = 0;
         Parent = null;
     }
+
+    public string PositionString()
+    {
+        return string.Format("[{0}, {1}] with indexes [{2}, {3}]", X, Y, XIndex, YIndex);
+    }
 }

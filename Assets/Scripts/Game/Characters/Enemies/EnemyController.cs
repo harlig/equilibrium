@@ -80,7 +80,7 @@ public abstract class EnemyController : CharacterController
         return createdEnemy;
     }
 
-    private float pathUpdateInterval = 0.5f; // Time in seconds between path updates
+    private float pathUpdateInterval = 1f; // Time in seconds between path updates
     private float pathUpdateTimer;
 
     void FixedUpdate()
@@ -93,7 +93,7 @@ public abstract class EnemyController : CharacterController
         if (startFollowing && !player.IsDead())
         {
             pathUpdateTimer += Time.fixedDeltaTime;
-            if (pathUpdateTimer >= pathUpdateInterval)
+            if (pathUpdateTimer >= pathUpdateInterval || currentPathIndex == path.Count)
             {
                 CalculatePath();
                 pathUpdateTimer = 0;
@@ -106,13 +106,19 @@ public abstract class EnemyController : CharacterController
 
                 Vector2 nextPosition = new Vector2(nextNode.X, nextNode.Y);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
+
+                // Calculate distance to move this frame
+                float step = 10 * MovementSpeed * Time.fixedDeltaTime;
+                float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
+
+                // Move only as far as or closer to the next node
                 Vector2 newPosition =
-                    rigidBody.position + direction * MovementSpeed * 100 * Time.fixedDeltaTime;
-                Debug.LogFormat("moving enemy rigidbody to {0}", newPosition);
+                    rigidBody.position + direction * Mathf.Min(step, distanceToNextNode);
 
                 rigidBody.MovePosition(newPosition);
 
-                if (Vector2.Distance(rigidBody.position, nextPosition) < 0.1f)
+                // Check if the node is reached or passed
+                if (distanceToNextNode <= step)
                 {
                     currentPathIndex++;
                 }
@@ -179,7 +185,12 @@ public abstract class EnemyController : CharacterController
 
         // Implement or call your A* pathfinding method here
         path = AStarPathfinding.FindPath(containingRoom.grid, start, end);
-        Debug.LogFormat("Foudn some path of size {0}", path.Count);
+        string pathStr = "";
+        foreach (var node in path)
+        {
+            pathStr += $"[{node.X}, {node.Y}]; ";
+        }
+        Debug.LogFormat("Found path: {0}", pathStr);
 
         if (path != null && path.Count > 0)
         {
