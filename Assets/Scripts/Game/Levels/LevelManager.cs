@@ -77,22 +77,6 @@ public abstract class LevelManager : MonoBehaviour
         hudController.Setup(player);
     }
 
-    void SpawnEnemies(List<Vector2> enemySpawnLocations)
-    {
-        foreach (var enemySpawnLocation in enemySpawnLocations)
-        {
-            // create new enemy at location
-            MeleeEnemy enemyController = (MeleeEnemy)
-                EnemyController.Create(meleeEnemyPrefab, enemySpawnLocation, player);
-            enemyController.FollowPlayer(player);
-            enemies.Add(enemyController);
-        }
-
-        RangedEnemy rangedEnemy = (RangedEnemy)
-            EnemyController.Create(rangedEnemyPrefab, new Vector2(-4, 3), player);
-        enemies.Add(rangedEnemy);
-    }
-
     private void OnInteractableHitPlayer(InteractableBehavior interactable)
     {
         if (interactable is AbstractDoor door)
@@ -219,33 +203,4 @@ public abstract class LevelManager : MonoBehaviour
             }
         );
     }
-
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    /////// HELPERS TO BE DELETED JUST FOR DEV TESTING ///////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    void FixedUpdate()
-    {
-        if (!activeRoom.AllEnemiesDead() || spawningMoreEnemies || !shouldSpawnEnemies)
-        {
-            return;
-        }
-        spawningMoreEnemies = true;
-
-        // if all enemies are dead, spawn more
-        // StartCoroutine(SpawnMoreEnemies());
-    }
-
-    IEnumerator SpawnMoreEnemies()
-    {
-        yield return new WaitForSeconds(5);
-        SpawnEnemies(spawnLocations);
-        spawningMoreEnemies = false;
-    }
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    ///// END HELPERS TO BE DELETED JUST FOR DEV TESTING /////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
 }

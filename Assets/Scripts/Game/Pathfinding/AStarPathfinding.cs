@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,8 +6,18 @@ public static class AStarPathfinding
 {
     public static List<Node> FindPath(Grid grid, Vector2Int start, Vector2Int end)
     {
-        Node startNode = grid.nodes[start.x, start.y];
-        Node endNode = grid.nodes[end.x, end.y];
+        Node startNode,
+            endNode;
+        try
+        {
+            startNode = grid.nodes[start.x, start.y];
+            endNode = grid.nodes[end.x, end.y];
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Debug.Log("No path found from enemy to player.");
+            return null;
+        }
 
         List<Node> openList = new List<Node>();
         HashSet<Node> closedList = new HashSet<Node>();

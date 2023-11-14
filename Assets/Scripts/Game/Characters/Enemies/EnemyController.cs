@@ -137,7 +137,10 @@ public abstract class EnemyController : CharacterController
         if (startFollowing && !player.IsDead())
         {
             pathUpdateTimer += Time.fixedDeltaTime;
-            if (pathUpdateTimer >= pathUpdateInterval || currentPathIndex == path.Count)
+            if (
+                pathUpdateTimer >= pathUpdateInterval
+                || (path != null && currentPathIndex == path.Count)
+            )
             {
                 CalculatePath();
                 pathUpdateTimer = 0;
@@ -261,7 +264,6 @@ public abstract class EnemyController : CharacterController
         if (path == null)
         {
             // don't even try
-            startFollowing = false;
             return;
         }
         string pathStr = "";
