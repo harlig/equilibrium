@@ -22,11 +22,9 @@ public class CameraController : MonoBehaviour
 
     private void CenterOnPlayer(Transform playerLocation)
     {
-        var cameraHalfWidth = mainCamera.orthographicSize * ((float)Screen.width / Screen.height);
-
         transform.position = new Vector3(
-            playerLocation.position.x - cameraHalfWidth,
-            playerLocation.position.y - mainCamera.orthographicSize,
+            playerLocation.position.x,
+            playerLocation.position.y,
             transform.position.z
         );
     }
