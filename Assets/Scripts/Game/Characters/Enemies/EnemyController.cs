@@ -233,6 +233,8 @@ public abstract class EnemyController : CharacterController
 
     void OnDeath()
     {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
         // drop orb
         // orb should have amount of XP based on what kind of enemy this is (derivative of MAX_HP? log(MAX_HP)?)
         // TODO: maybe we should drop a number of orbs depending on how many hits the enemy took?
@@ -260,6 +262,7 @@ public abstract class EnemyController : CharacterController
         {
             // don't even try
             startFollowing = false;
+            return;
         }
         string pathStr = "";
         foreach (var node in path)

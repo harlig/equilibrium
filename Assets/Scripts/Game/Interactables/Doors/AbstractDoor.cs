@@ -16,7 +16,7 @@ public abstract class AbstractDoor : InteractableBehavior
     public abstract DoorType GetDoorType();
 
     // how many grid units into the room the unit should be moved
-    private Vector2 newRoomStartingBuffer = new(5f, 5f);
+    private Vector2 newRoomStartingBuffer = new(7f, 7f);
 
     public class PlayerAndCameraLocation
     {
@@ -57,8 +57,10 @@ public abstract class AbstractDoor : InteractableBehavior
                 );
                 break;
             default:
-                throw new System.Exception($"Unhandled door type {GetDoorType()}");
+                throw new Exception($"Unhandled door type {GetDoorType()}");
         }
+
+        Debug.LogFormat("New room is at [{0}, {1}]", newRoom.Min, newRoom.Max);
 
         newLocations.CameraBounds = new(newRoom.Min, newRoom.Max);
         return newLocations;
