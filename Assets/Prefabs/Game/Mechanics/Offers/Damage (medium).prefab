@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8137452742242942633}
-  - component: {fileID: 2004328795588991296}
+  - component: {fileID: 6062085168296641770}
   m_Layer: 0
-  m_Name: Speed small
+  m_Name: Damage (medium)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2004328795588991296
+--- !u!114 &6062085168296641770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4451123670697834550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da7d3a4c51dc34748b5b7ad62393f12f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6a9eff0cb7548598750c403c863153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorrespondingState: 2
-  OfferPool: 0
-  Color: {r: 0.6698113, g: 0.6606389, b: 0.42653078, a: 1}
-  Value: 3
+  CorrespondingState: 4
+  OfferPool: 1
+  Color: {r: 0.6415094, g: 0.16037735, b: 0.401179, a: 1}
+  Value: 1.5

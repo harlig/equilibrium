@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: 2004328795588991296}
   m_Layer: 0
-  m_Name: Negative speed small
+  m_Name: Speed (medium)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7d3a4c51dc34748b5b7ad62393f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorrespondingState: 0
-  OfferPool: 0
-  Color: {r: 0.42745098, g: 0.67058825, b: 0.6513841, a: 1}
-  Value: -3
+  CorrespondingState: 2
+  OfferPool: 1
+  Color: {r: 0.8396226, g: 0.81260186, b: 0.2811944, a: 1}
+  Value: 5

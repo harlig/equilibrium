@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: 6062085168296641770}
   m_Layer: 0
-  m_Name: Damage medium
+  m_Name: Damage (small)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CorrespondingState: 4
-  OfferPool: 1
-  Color: {r: 0.6415094, g: 0.16037735, b: 0.401179, a: 1}
-  Value: 1.5
+  OfferPool: 0
+  Color: {r: 0.9528302, g: 0.57978815, b: 0.79719955, a: 1}
+  Value: 1
