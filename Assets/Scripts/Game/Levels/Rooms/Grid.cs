@@ -10,6 +10,8 @@ public class Grid
     private Vector3 gridOrigin;
     private readonly Tilemap floorTilemap,
         obstaclesTilemap;
+    private const float GRID_OFFSET_X = 0.5f;
+    private const float GRID_OFFSET_Y = 0.5f;
 
     public Grid(Tilemap floorTilemap, Tilemap obstaclesTilemap)
     {
@@ -36,7 +38,13 @@ public class Grid
                     floorTilemap.HasTile(localPlace) && !obstaclesTilemap.HasTile(localPlace);
                 int xIndex = x - bounds.xMin;
                 int yIndex = y - bounds.yMin;
-                nodes[xIndex, yIndex] = new Node(isWalkable, x, y, xIndex, yIndex);
+                nodes[xIndex, yIndex] = new Node(
+                    isWalkable,
+                    x + GRID_OFFSET_X,
+                    y + GRID_OFFSET_Y,
+                    xIndex,
+                    yIndex
+                );
             }
         }
     }
@@ -62,8 +70,8 @@ public class Grid
 public class Node
 {
     public bool Walkable;
-    public int X;
-    public int Y;
+    public float X;
+    public float Y;
     public int XIndex;
     public int YIndex;
 
@@ -77,7 +85,7 @@ public class Node
         get { return GCost + HCost; }
     } // Total cost (G + H)
 
-    public Node(bool walkable, int x, int y, int xIndex, int yIndex)
+    public Node(bool walkable, float x, float y, int xIndex, int yIndex)
     {
         Walkable = walkable;
         X = x;
