@@ -30,8 +30,6 @@ public abstract class LevelManager : MonoBehaviour
     private OfferButtonSpawner offerButtonSpawner;
 
     private bool shouldSpawnEnemies = true;
-    bool spawningMoreEnemies = false;
-    private readonly List<EnemyController> enemies = new();
     private AcquisitionManager acquisitionManager;
 
     void Awake()
