@@ -47,4 +47,4 @@ MonoBehaviour:
   CorrespondingState: 2
   OfferPool: 1
   Color: {r: 0.8396226, g: 0.81260186, b: 0.2811944, a: 1}
-  Value: 0.05
+  Value: 5

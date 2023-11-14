@@ -16,7 +16,7 @@ public abstract class AbstractDoor : InteractableBehavior
     public abstract DoorType GetDoorType();
 
     // how many grid units into the room the unit should be moved
-    private Vector2 newRoomStartingBuffer = new(2f, 2f);
+    private Vector2 newRoomStartingBuffer = new(4f, 4f);
 
     public class PlayerAndCameraLocation
     {

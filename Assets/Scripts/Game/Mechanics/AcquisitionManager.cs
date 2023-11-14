@@ -25,7 +25,7 @@ public class AcquisitionManager
                 player.AddToDamageDealtModifier(damageOffer.Value);
                 break;
             case SpeedOffer speedOffer:
-                player.AddToMovementSpeedModifier(speedOffer.Value);
+                player.AddToMovementSpeedModifier(speedOffer.Value * 0.0001f);
                 break;
             default:
                 Debug.LogErrorFormat("Unhandled offer type {0}", offer);
