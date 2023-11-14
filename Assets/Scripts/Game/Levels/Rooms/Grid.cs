@@ -39,17 +39,14 @@ public class Grid
                 int xIndex = x - bounds.xMin;
                 int yIndex = y - bounds.yMin;
 
-                // Calculate global position
-                Vector3 globalPos = floorTilemap.CellToWorld(localPlace) - gridOrigin;
+                Vector3 globalPos = floorTilemap.CellToWorld(localPlace);
                 globalPos.x += GRID_OFFSET_X;
                 globalPos.y += GRID_OFFSET_Y;
 
                 nodes[xIndex, yIndex] = new Node(
                     isWalkable,
-                    // globalPos.x,
-                    // globalPos.y,
-                    x + GRID_OFFSET_X,
-                    y + GRID_OFFSET_Y,
+                    globalPos.x,
+                    globalPos.y,
                     xIndex,
                     yIndex
                 );
