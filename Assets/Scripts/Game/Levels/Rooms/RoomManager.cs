@@ -10,11 +10,11 @@ public class RoomManager : MonoBehaviour
     public Vector2 Min,
         Max;
     private List<EnemyController> enemies;
-    public Grid grid { get; private set; }
+    public Grid Grid { get; private set; }
 
     void Awake()
     {
-        grid = new Grid(floorTilemap, obstaclesTilemap);
+        Grid = new Grid(floorTilemap, obstaclesTilemap);
         CalculateGridDimensions();
 
         // this gets set to false so we can hide chests and stuff until the room is active
@@ -101,7 +101,7 @@ public class RoomManager : MonoBehaviour
         }
         var rangedEnemy = EnemyController.Create(
             rangedEnemyPrefab,
-            new Vector2(-4, 3),
+            new Vector2(30, 18),
             player,
             transform
         );

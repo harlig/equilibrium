@@ -20,8 +20,20 @@ public class CameraController : MonoBehaviour
         mainCamera = GetComponent<Camera>();
     }
 
+    private void CenterOnPlayer(Transform playerLocation)
+    {
+        var cameraHalfWidth = mainCamera.orthographicSize * ((float)Screen.width / Screen.height);
+
+        transform.position = new Vector3(
+            playerLocation.position.x - cameraHalfWidth,
+            playerLocation.position.y - mainCamera.orthographicSize,
+            transform.position.z
+        );
+    }
+
     public void FollowPlayer(Transform playerLocation)
     {
+        CenterOnPlayer(playerLocation);
         isFollowing = true;
         this.playerLocation = playerLocation;
     }

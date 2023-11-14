@@ -80,7 +80,7 @@ public abstract class EnemyController : CharacterController
         return createdEnemy;
     }
 
-    private float pathUpdateInterval = 1f; // Time in seconds between path updates
+    private float pathUpdateInterval = 0.5f; // Time in seconds between path updates
     private float pathUpdateTimer;
 
     void FixedUpdate()
@@ -108,7 +108,8 @@ public abstract class EnemyController : CharacterController
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
                 // Calculate distance to move this frame
-                float step = 10 * MovementSpeed * Time.fixedDeltaTime;
+                // TODO: wtf is up with this move speed
+                float step = 80 * MovementSpeed * Time.fixedDeltaTime;
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
 
                 // Move only as far as or closer to the next node
@@ -179,12 +180,17 @@ public abstract class EnemyController : CharacterController
     void CalculatePath()
     {
         // Convert world position to grid position
-        Vector2Int start = containingRoom.grid.WorldToGrid(transform.position);
-        Vector2Int end = containingRoom.grid.WorldToGrid(player.transform.position);
+        Vector2Int start = containingRoom.Grid.WorldToGrid(transform.position);
+        Vector2Int end = containingRoom.Grid.WorldToGrid(player.transform.position);
         Debug.LogFormat("start {0}, end {1}", start, end);
 
         // Implement or call your A* pathfinding method here
-        path = AStarPathfinding.FindPath(containingRoom.grid, start, end);
+        path = AStarPathfinding.FindPath(containingRoom.Grid, start, end);
+        if (path == null)
+        {
+            // don't even try
+            startFollowing = false;
+        }
         string pathStr = "";
         foreach (var node in path)
         {
