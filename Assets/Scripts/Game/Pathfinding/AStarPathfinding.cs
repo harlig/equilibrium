@@ -15,7 +15,6 @@ public static class AStarPathfinding
         while (openList.Count > 0)
         {
             Node currentNode = openList[0];
-            Debug.LogFormat("Checking node at {0}", currentNode.PositionString());
             for (int i = 1; i < openList.Count; i++)
             {
                 if (

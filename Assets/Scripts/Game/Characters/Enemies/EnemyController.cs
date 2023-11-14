@@ -30,9 +30,6 @@ public abstract class EnemyController : CharacterController
         return 10;
     }
 
-    private float movementX,
-        movementY;
-
     protected PlayerController player;
 
     private bool startFollowing = false;
@@ -54,6 +51,7 @@ public abstract class EnemyController : CharacterController
     {
         containingRoom = GetComponentInParent<RoomManager>();
         DamageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), damageTaken, hpTextElement);
+        lastPosition = transform.position;
     }
 
     public static EnemyController Create(
@@ -82,6 +80,52 @@ public abstract class EnemyController : CharacterController
 
     private float pathUpdateInterval = 0.5f; // Time in seconds between path updates
     private float pathUpdateTimer;
+    private Vector3 lastPosition;
+    bool tryUnstuck = false;
+    UnstuckAttempt currentUnstuckAttempt;
+    private float stuckThreshold = 0.05f; // Threshold to determine if stuck
+    private float stuckTime = 0f; // Time since the enemy is stuck
+
+    enum UnstuckAttempt
+    {
+        NOT_SET,
+        POSITIVE_X,
+        POSITIVE_Y,
+        NEGATIVE_X,
+        NEGATIVE_Y,
+    }
+
+    static Vector2 SetDirectionForUnstuckAttempt(UnstuckAttempt unstuckAttempt, Vector2 direction)
+    {
+        Vector2 modifiedDirection = direction;
+        switch (unstuckAttempt)
+        {
+            case UnstuckAttempt.POSITIVE_X:
+                Debug.Log("trying positive unstuck in X");
+                modifiedDirection.y = 0;
+                break;
+            case UnstuckAttempt.POSITIVE_Y:
+                Debug.Log("trying positive unstuck in Y");
+                modifiedDirection.x = 0;
+                break;
+            case UnstuckAttempt.NEGATIVE_X:
+                Debug.Log("trying negative unstuck in X");
+                modifiedDirection.y = 0;
+                modifiedDirection.x = -modifiedDirection.x;
+                break;
+            case UnstuckAttempt.NEGATIVE_Y:
+                Debug.Log("trying negative unstuck in Y");
+                modifiedDirection.x = 0;
+                modifiedDirection.y = -modifiedDirection.y;
+                break;
+            case UnstuckAttempt.NOT_SET:
+                return SetDirectionForUnstuckAttempt(UnstuckAttempt.POSITIVE_X, direction);
+            default:
+                Debug.LogErrorFormat("Unhandled unstuck attempt {0}", unstuckAttempt);
+                break;
+        }
+        return modifiedDirection;
+    }
 
     void FixedUpdate()
     {
@@ -107,16 +151,42 @@ public abstract class EnemyController : CharacterController
                 Vector2 nextPosition = new Vector2(nextNode.X, nextNode.Y);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
+                if (tryUnstuck)
+                {
+                    direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
+                    currentUnstuckAttempt = (UnstuckAttempt)(
+                        ((int)currentUnstuckAttempt + 1)
+                        % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
+                    );
+                }
+
                 // Calculate distance to move this frame
                 // TODO: wtf is up with this move speed
-                float step = 80 * MovementSpeed * Time.fixedDeltaTime;
+                float step = 120 * MovementSpeed * Time.fixedDeltaTime;
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
 
                 // Move only as far as or closer to the next node
-                Vector2 newPosition =
-                    rigidBody.position + direction * Mathf.Min(step, distanceToNextNode);
+                Vector2 newPosition = rigidBody.position + direction * step;
 
                 rigidBody.MovePosition(newPosition);
+
+                // Inside FixedUpdate
+                if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
+                {
+                    stuckTime += Time.fixedDeltaTime;
+                    if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
+                    {
+                        Debug.Log("Let's try to unstuck");
+                        tryUnstuck = true;
+                    }
+                }
+                else
+                {
+                    stuckTime = 0f;
+                    tryUnstuck = false;
+                }
+
+                lastPosition = transform.position;
 
                 // Check if the node is reached or passed
                 if (distanceToNextNode <= step)
