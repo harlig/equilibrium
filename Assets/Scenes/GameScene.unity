@@ -6773,11 +6773,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2138139058818445940, guid: 599e500f65af244ffad5f463de6fb2dd, type: 3}
       propertyPath: m_Size.x
-      value: 64
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 2138139058818445940, guid: 599e500f65af244ffad5f463de6fb2dd, type: 3}
       propertyPath: m_Size.y
-      value: 39
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 2138139058818445940, guid: 599e500f65af244ffad5f463de6fb2dd, type: 3}
       propertyPath: m_Tiles.Array.size
