@@ -38,7 +38,7 @@ public abstract class FloorManager : MonoBehaviour
     {
         // TODO: need to put player in the middle of the floor's starting room but account for obstacles
         var playerCameraLocation = GetNewFloorStartingRoomPlayerAndCameraLocation();
-        playerController.MovePlayerToLocation(playerCameraLocation.PlayerLocation);
+        playerController.transform.position = playerCameraLocation.PlayerLocation;
 
         playerController.MainCamera = cameraController.GetComponent<Camera>();
         cameraController.FollowPlayer(playerController.transform);
