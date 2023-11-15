@@ -258,7 +258,6 @@ public abstract class EnemyController : CharacterController
         // Convert world position to grid position
         Vector2Int start = containingRoom.Grid.WorldToGrid(transform.position);
         Vector2Int end = containingRoom.Grid.WorldToGrid(player.transform.position);
-        Debug.LogFormat("start {0}, end {1}", start, end);
 
         // Implement or call your A* pathfinding method here
         path = AStarPathfinding.FindPath(containingRoom.Grid, start, end);
@@ -267,12 +266,6 @@ public abstract class EnemyController : CharacterController
             // don't even try
             return;
         }
-        string pathStr = "";
-        foreach (var node in path)
-        {
-            pathStr += $"[{node.WorldX}, {node.WorldY}]; ";
-        }
-        Debug.LogFormat("Found path: {0}", pathStr);
 
         if (path != null && path.Count > 0)
         {

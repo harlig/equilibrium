@@ -15,7 +15,7 @@ public static class AStarPathfinding
         }
         catch (IndexOutOfRangeException)
         {
-            Debug.Log("No path found from enemy to player.");
+            Debug.LogWarning("No path found from enemy to player.");
             return null;
         }
 
@@ -43,7 +43,6 @@ public static class AStarPathfinding
 
             if (currentNode == endNode)
             {
-                Debug.Log("Found a path!");
                 return RetracePath(startNode, endNode);
             }
 
