@@ -165,7 +165,7 @@ public abstract class EnemyController : CharacterController
 
                 // Calculate distance to move this frame
                 // TODO: wtf is up with this move speed
-                float step = 120 * MovementSpeed * Time.fixedDeltaTime;
+                float step = 80 * MovementSpeed * Time.fixedDeltaTime;
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
 
                 // Move only as far as or closer to the next node

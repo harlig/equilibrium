@@ -36,11 +36,11 @@ public class PlayerController : CharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
-    private const float WEAPON_OFFSET = 0.75F;
+    private const float WEAPON_OFFSET = 0.40f;
 
     public override float MaxHp => 3000;
 
-    protected override float BaseMovementSpeed => 0.22f;
+    protected override float BaseMovementSpeed => 0.15f;
 
     public override float HpRemaining
     {
