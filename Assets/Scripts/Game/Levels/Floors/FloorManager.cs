@@ -81,6 +81,7 @@ public abstract class FloorManager : MonoBehaviour
 
     private void OnInteractableHitPlayer(InteractableBehavior interactable)
     {
+        // TODO: these should probably delegate to the interactable themselves to do stuff. like almost everything in TryMoveRooms should just be in the door class I guess
         if (interactable is AbstractDoor door)
         {
             TryMoveRooms(door);
@@ -103,6 +104,7 @@ public abstract class FloorManager : MonoBehaviour
     private void TryMoveRooms(AbstractDoor door)
     {
         // is level beat, if so move camera and player
+        // TODO: need to put something in the HUD like "press E to go through door"
         if (activeRoom.AllEnemiesDead())
         {
             if (door.RoomTo == null)
@@ -121,6 +123,7 @@ public abstract class FloorManager : MonoBehaviour
             );
             SetActiveRoom(door.RoomTo);
         }
+        // TODO: need to add else that's like "kill all enemies in this room to unlock door"
     }
 
     private void TryMoveFloors(LadderController ladder)

@@ -37,6 +37,8 @@ public abstract class InteractableBehavior : MonoBehaviour
         }
     }
 
+    // TODO need to add OnTriggerExit and OnCollisionExit to clear the HUD
+
     public class PlayerAndCameraLocation
     {
         public Vector2 PlayerLocation { get; set; }
