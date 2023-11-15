@@ -69,13 +69,14 @@ public abstract class FloorManager : MonoBehaviour
         );
     }
 
-    private void SetActiveFloor(FloorManager floorTo)
+    private void SetNewActiveFloor(FloorManager floorTo)
     {
         var newFloor = Create(floorTo, playerController, cameraController, onPlayerHitChest);
+        // TODO: move this lower?
         newFloor.SetupFloor();
 
         // deactivate this floor
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnInteractableHitPlayer(InteractableBehavior interactable)
@@ -132,13 +133,7 @@ public abstract class FloorManager : MonoBehaviour
                 Debug.LogError("Ladder was interacted with which had no FloorTo set!");
                 return;
             }
-            var newLocations = ladder.FloorTo.GetNewFloorStartingRoomPlayerAndCameraLocation();
-            playerController.MovePlayerToLocation(newLocations.PlayerLocation);
-            cameraController.SetCameraBounds(
-                newLocations.CameraBounds.Item1,
-                newLocations.CameraBounds.Item2
-            );
-            SetActiveFloor(ladder.FloorTo);
+            SetNewActiveFloor(ladder.FloorTo);
         }
     }
 
