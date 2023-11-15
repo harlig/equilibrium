@@ -23,7 +23,7 @@ public class LevelUpBehavior : MonoBehaviour
             OnButtonClick(onOfferSelectedAction, afterLevelUpAction)
         );
         hudController.SetPlayerLevel(newPlayerLevel);
-        LevelManager.PauseGame();
+        GameManager.PauseGame();
     }
 
     Action<OfferData> OnButtonClick(
@@ -35,7 +35,7 @@ public class LevelUpBehavior : MonoBehaviour
         {
             onOfferSelectedAction?.Invoke(offerData);
             // TODO: un-fade background
-            LevelManager.UnpauseGame();
+            GameManager.UnpauseGame();
             StartCoroutine(WaitForDelayThenAfterLevelUp(afterLevelUpAction));
         };
     }
