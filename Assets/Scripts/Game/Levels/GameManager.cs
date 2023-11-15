@@ -35,14 +35,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SetupGame(new(), true);
+        SetupGame();
     }
 
-    protected void SetupGame(List<Vector2> enemySpawnLocations, bool spawnEnemies = true)
+    protected void SetupGame()
     {
         cameraController = GetComponentInChildren<CameraController>();
-        Instantiate(startingFloorPrefab)
-            .SetupFloor(player, cameraController, OfferSystem, enemySpawnLocations);
+        Instantiate(startingFloorPrefab).SetupFloor(player, cameraController, OfferSystem);
 
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;

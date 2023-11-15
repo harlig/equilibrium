@@ -12,23 +12,17 @@ public abstract class FloorManager : MonoBehaviour
 
     public RoomManager startingRoom;
     private RoomManager activeRoom;
-    private List<Vector2> spawnLocations;
     private bool shouldSpawnEnemies = true;
     private PlayerController playerController;
     private CameraController cameraController;
     private OfferSystem offerSystem;
 
-    // Start is called before the first frame update
-    void Start() { }
-
-    // Update is called once per frame
-    void Update() { }
+    public abstract List<Vector2> MeleeEnemySpawnLocations { get; }
 
     public void SetupFloor(
         PlayerController playerController,
         CameraController cameraController,
-        OfferSystem offerSystem,
-        List<Vector2> enemySpawnLocations
+        OfferSystem offerSystem
     )
     {
         this.playerController = playerController;
@@ -46,8 +40,6 @@ public abstract class FloorManager : MonoBehaviour
             interactableBehavior.OnInteractableHitPlayer += OnInteractableHitPlayer;
         }
 
-        // shouldSpawnEnemies = spawnEnemies;
-        spawnLocations = enemySpawnLocations;
         SetActiveRoom(startingRoom);
     }
 
@@ -57,7 +49,7 @@ public abstract class FloorManager : MonoBehaviour
         newActiveRoom.SetAsActiveRoom(
             playerController,
             // escape hatch
-            shouldSpawnEnemies ? spawnLocations : new(),
+            shouldSpawnEnemies ? MeleeEnemySpawnLocations : new(),
             meleeEnemyPrefab,
             rangedEnemyPrefab
         );

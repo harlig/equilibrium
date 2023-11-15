@@ -154,14 +154,15 @@ public abstract class EnemyController : CharacterController
                 Vector2 nextPosition = new Vector2(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
-                if (tryUnstuck)
-                {
-                    direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
-                    currentUnstuckAttempt = (UnstuckAttempt)(
-                        ((int)currentUnstuckAttempt + 1)
-                        % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
-                    );
-                }
+                // TODO: what did I break here?
+                // if (tryUnstuck)
+                // {
+                //     direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
+                //     currentUnstuckAttempt = (UnstuckAttempt)(
+                //         ((int)currentUnstuckAttempt + 1)
+                //         % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
+                //     );
+                // }
 
                 // Calculate distance to move this frame
                 // TODO: wtf is up with this move speed
@@ -174,20 +175,20 @@ public abstract class EnemyController : CharacterController
                 rigidBody.MovePosition(newPosition);
 
                 // Inside FixedUpdate
-                if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
-                {
-                    stuckTime += Time.fixedDeltaTime;
-                    if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
-                    {
-                        Debug.Log("Let's try to unstuck");
-                        tryUnstuck = true;
-                    }
-                }
-                else
-                {
-                    stuckTime = 0f;
-                    tryUnstuck = false;
-                }
+                // if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
+                // {
+                //     stuckTime += Time.fixedDeltaTime;
+                //     if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
+                //     {
+                //         Debug.Log("Let's try to unstuck");
+                //         tryUnstuck = true;
+                //     }
+                // }
+                // else
+                // {
+                //     stuckTime = 0f;
+                //     tryUnstuck = false;
+                // }
 
                 lastPosition = transform.position;
 
