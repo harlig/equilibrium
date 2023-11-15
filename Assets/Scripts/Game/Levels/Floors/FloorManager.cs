@@ -31,6 +31,9 @@ public abstract class FloorManager : MonoBehaviour
         this.cameraController = cameraController;
         this.onPlayerHitChest = onPlayerHitChest;
 
+        // TODO: need to put player in the middle of the floor's starting room but account for obstacles
+        playerController.MovePlayerToLocation((startingRoom.Max - startingRoom.Min) / 2.0f);
+
         playerController.MainCamera = cameraController.GetComponent<Camera>();
         cameraController.FollowPlayer(playerController.transform);
         cameraController.SetCameraBounds(startingRoom.Min, startingRoom.Max);
