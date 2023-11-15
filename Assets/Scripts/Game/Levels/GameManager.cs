@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     protected void SetupGame()
     {
         cameraController = GetComponentInChildren<CameraController>();
-        Instantiate(startingFloorPrefab).SetupFloor(player, cameraController, OfferSystem);
+        Instantiate(startingFloorPrefab).SetupFloor(player, cameraController, OnPlayerHitChest);
 
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;
@@ -115,5 +115,26 @@ public class GameManager : MonoBehaviour
         }
         hudController.SetPlayerXp(newPlayerXp);
         hudController.SetOrbsCollected();
+    }
+
+    void OnPlayerHitChest()
+    {
+        // chests always give 3 offers
+        var numOffersToGet = 3;
+        List<OfferData> chestHitOffers = OfferSystem.GetOffers(
+            numOffersToGet,
+            player.PlayerLevel,
+            player.EquilibriumState
+        );
+
+        PauseGame();
+        offerButtonSpawner.CreateOfferButtons(
+            chestHitOffers,
+            (offerSelected) =>
+            {
+                OnOfferSelected(offerSelected);
+                UnpauseGame();
+            }
+        );
     }
 }

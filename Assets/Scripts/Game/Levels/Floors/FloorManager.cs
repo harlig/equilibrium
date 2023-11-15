@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,19 +16,20 @@ public abstract class FloorManager : MonoBehaviour
     private bool shouldSpawnEnemies = true;
     private PlayerController playerController;
     private CameraController cameraController;
-    private OfferSystem offerSystem;
+    private Action onPlayerHitChest;
 
     public abstract List<Vector2> MeleeEnemySpawnLocations { get; }
 
     public void SetupFloor(
         PlayerController playerController,
         CameraController cameraController,
-        OfferSystem offerSystem
+        // TODO: what the fuck is this
+        Action onPlayerHitChest
     )
     {
         this.playerController = playerController;
         this.cameraController = cameraController;
-        this.offerSystem = offerSystem;
+        this.onPlayerHitChest = onPlayerHitChest;
 
         playerController.MainCamera = cameraController.GetComponent<Camera>();
         cameraController.FollowPlayer(playerController.transform);
@@ -63,7 +65,7 @@ public abstract class FloorManager : MonoBehaviour
         }
         else if (interactable is ChestController chest)
         {
-            OnPlayerHitChest();
+            onPlayerHitChest();
             // TODO: if chest is MimicChest :P
         }
         else
@@ -93,27 +95,5 @@ public abstract class FloorManager : MonoBehaviour
             );
             SetActiveRoom(door.RoomTo);
         }
-    }
-
-    void OnPlayerHitChest()
-    {
-        // chests always give 3 offers
-        var numOffersToGet = 3;
-        List<OfferData> chestHitOffers = offerSystem.GetOffers(
-            numOffersToGet,
-            playerController.PlayerLevel,
-            playerController.EquilibriumState
-        );
-
-        GameManager.PauseGame();
-        // TODO: how to make this work?
-        // offerButtonSpawner.CreateOfferButtons(
-        //     chestHitOffers,
-        //     (offerSelected) =>
-        //     {
-        //         OnOfferSelected(offerSelected);
-        //         UnpauseGame();
-        //     }
-        // );
     }
 }
