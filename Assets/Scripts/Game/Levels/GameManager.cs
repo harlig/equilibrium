@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
     protected void SetupGame()
     {
         cameraController = GetComponentInChildren<CameraController>();
-        Instantiate(startingFloorPrefab).SetupFloor(player, cameraController, OnPlayerHitChest);
+        FloorManager
+            .Create(startingFloorPrefab, player, cameraController, OnPlayerHitChest)
+            .SetupFloor();
 
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;

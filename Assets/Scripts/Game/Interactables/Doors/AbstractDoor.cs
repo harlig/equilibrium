@@ -18,12 +18,6 @@ public abstract class AbstractDoor : InteractableBehavior
     // how many grid units into the room the unit should be moved
     private Vector2 newRoomStartingBuffer = new(2.5f, 2.5f);
 
-    public class PlayerAndCameraLocation
-    {
-        public Vector2 PlayerLocation { get; set; }
-        public Tuple<Vector2, Vector2> CameraBounds { get; set; }
-    }
-
     public PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(
         Vector2 currentPlayerLocation,
         RoomManager newRoom
