@@ -151,7 +151,7 @@ public abstract class EnemyController : CharacterController
                 var rigidBody = gameObject.GetComponent<Rigidbody2D>();
                 Node nextNode = path[currentPathIndex];
 
-                Vector2 nextPosition = new Vector2(nextNode.WorldX, nextNode.WorldY);
+                Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
                 // TODO: what did I break here?

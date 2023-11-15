@@ -19,8 +19,8 @@ public static class AStarPathfinding
             return null;
         }
 
-        List<Node> openList = new List<Node>();
-        HashSet<Node> closedList = new HashSet<Node>();
+        List<Node> openList = new();
+        HashSet<Node> closedList = new();
         openList.Add(startNode);
 
         while (openList.Count > 0)
@@ -78,7 +78,7 @@ public static class AStarPathfinding
 
     static List<Node> RetracePath(Node startNode, Node endNode)
     {
-        List<Node> path = new List<Node>();
+        List<Node> path = new();
         Node currentNode = endNode;
 
         while (currentNode != startNode)
@@ -102,7 +102,7 @@ public static class AStarPathfinding
 
     static IEnumerable<Node> GetNeighbors(Grid grid, Node node)
     {
-        List<Node> neighbors = new List<Node>();
+        List<Node> neighbors = new();
 
         for (int x = -1; x <= 1; x++)
         {
