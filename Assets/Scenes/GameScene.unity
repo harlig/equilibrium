@@ -541,9 +541,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1906914275}
   levelUpBehavior: {fileID: 1217699821}
-  OfferSystem: {fileID: 800708657}
-  hudController: {fileID: 1714415047}
   startingFloorPrefab: {fileID: 8098758381604308694, guid: 99bba8b2459ff4cf081318403edb6d26, type: 3}
+  HudController: {fileID: 1714415047}
+  OfferSystem: {fileID: 800708657}
 --- !u!1 &666296082
 GameObject:
   m_ObjectHideFlags: 0

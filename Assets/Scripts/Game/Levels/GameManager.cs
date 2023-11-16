@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public HeadsUpDisplayController HudController;
     public OfferSystem OfferSystem;
 
-    public CameraController CameraController;
-    public OfferButtonSpawner OfferButtonSpawner;
+    public CameraController CameraController { get; private set; }
+    public OfferButtonSpawner OfferButtonSpawner { get; private set; }
 
     private AcquisitionManager acquisitionManager;
 
@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     protected void SetupGame()
     {
         CameraController = GetComponentInChildren<CameraController>();
+        OfferButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
+
         FloorManager
             .Create(startingFloorPrefab, transform, player, CameraController, HudController)
             .SetupFloor();
@@ -46,7 +48,6 @@ public class GameManager : MonoBehaviour
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
-        OfferButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
         HudController.Setup(player);
     }
 
