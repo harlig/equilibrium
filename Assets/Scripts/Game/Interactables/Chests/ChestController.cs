@@ -7,6 +7,9 @@ public class ChestController : InteractableBehavior
     private GameManager gameManager;
     private bool hasBeenOpened = false;
 
+    // chests always give 3 offers
+    private const int NUM_OFFERS = 3;
+
     void Awake()
     {
         gameManager = GetComponentInParent<GameManager>();
@@ -16,12 +19,17 @@ public class ChestController : InteractableBehavior
     {
         if (hasBeenOpened)
         {
+            // display text stating it's been opened?
             return;
         }
-        // chests always give 3 offers
-        var numOffersToGet = 3;
+        // display text stating you can open chest
+        OpenChest(player);
+    }
+
+    private void OpenChest(PlayerController player)
+    {
         List<OfferData> chestHitOffers = gameManager.OfferSystem.GetOffers(
-            numOffersToGet,
+            NUM_OFFERS,
             player.PlayerLevel,
             player.EquilibriumState
         );
@@ -36,6 +44,7 @@ public class ChestController : InteractableBehavior
             }
         );
 
+        // set as opened
         hasBeenOpened = true;
         GetComponent<SpriteRenderer>().color = Color.gray;
     }
