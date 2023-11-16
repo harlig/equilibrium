@@ -49,12 +49,38 @@ public abstract class FloorManager : MonoBehaviour
 
         // this needs to have the true argument because it allows us to set this up for interactables in rooms which aren't the starting room
         var interactables = GetComponentsInChildren<InteractableBehavior>(true);
-        foreach (InteractableBehavior interactableBehavior in interactables)
-        {
-            interactableBehavior.OnInteractableHitPlayer += OnInteractableHitPlayer;
-        }
+        RegisterInteractables(interactables);
 
         SetActiveRoom(startingRoom);
+    }
+
+    private void RegisterInteractables(InteractableBehavior[] interactables)
+    {
+        foreach (InteractableBehavior interactableBehavior in interactables)
+        {
+            interactableBehavior.OnInteractableHitPlayer += (
+                (interactable) =>
+                {
+                    if (interactable is AbstractDoor door)
+                    {
+                        TryMoveRooms(door);
+                    }
+                    else if (interactable is ChestController chest)
+                    {
+                        onPlayerHitChest();
+                        // TODO: if chest is MimicChest :P
+                    }
+                    else if (interactable is LadderController ladder)
+                    {
+                        TryMoveFloors(ladder);
+                    }
+                    else
+                    {
+                        Debug.LogErrorFormat("Unhandled interactable! {0}", interactable);
+                    }
+                }
+            );
+        }
     }
 
     private void SetActiveRoom(RoomManager newActiveRoom)
@@ -79,48 +105,13 @@ public abstract class FloorManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnInteractableHitPlayer(InteractableBehavior interactable)
-    {
-        // TODO: these should probably delegate to the interactable themselves to do stuff. like almost everything in TryMoveRooms should just be in the door class I guess
-        if (interactable is AbstractDoor door)
-        {
-            TryMoveRooms(door);
-        }
-        else if (interactable is ChestController chest)
-        {
-            onPlayerHitChest();
-            // TODO: if chest is MimicChest :P
-        }
-        else if (interactable is LadderController ladder)
-        {
-            TryMoveFloors(ladder);
-        }
-        else
-        {
-            Debug.LogErrorFormat("Unhandled interactable! {0}", interactable);
-        }
-    }
-
     private void TryMoveRooms(AbstractDoor door)
     {
         // is level beat, if so move camera and player
         // TODO: need to put something in the HUD like "press E to go through door"
         if (activeRoom.AllEnemiesDead())
         {
-            if (door.RoomTo == null)
-            {
-                Debug.LogError("Door was interacted with which had no RoomTo set!");
-                return;
-            }
-            var newLocations = door.GetNewRoomPlayerAndCameraLocation(
-                playerController.LocationAsVector2(),
-                door.RoomTo
-            );
-            playerController.MovePlayerToLocation(newLocations.PlayerLocation);
-            cameraController.SetCameraBounds(
-                newLocations.CameraBounds.Item1,
-                newLocations.CameraBounds.Item2
-            );
+            door.MovePlayerAndCameraThroughDoor(playerController, cameraController);
             SetActiveRoom(door.RoomTo);
         }
         // TODO: need to add else that's like "kill all enemies in this room to unlock door"

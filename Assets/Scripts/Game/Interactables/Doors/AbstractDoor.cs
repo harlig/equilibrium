@@ -59,4 +59,25 @@ public abstract class AbstractDoor : InteractableBehavior
         newLocations.CameraBounds = new(newRoom.Min, newRoom.Max);
         return newLocations;
     }
+
+    public void MovePlayerAndCameraThroughDoor(
+        PlayerController playerController,
+        CameraController cameraController
+    )
+    {
+        if (RoomTo == null)
+        {
+            Debug.LogError("Door was interacted with which had no RoomTo set!");
+            return;
+        }
+        var newLocations = GetNewRoomPlayerAndCameraLocation(
+            playerController.LocationAsVector2(),
+            RoomTo
+        );
+        playerController.MovePlayerToLocation(newLocations.PlayerLocation);
+        cameraController.SetCameraBounds(
+            newLocations.CameraBounds.Item1,
+            newLocations.CameraBounds.Item2
+        );
+    }
 }
