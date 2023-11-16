@@ -58,28 +58,24 @@ public abstract class FloorManager : MonoBehaviour
     {
         foreach (InteractableBehavior interactableBehavior in interactables)
         {
-            interactableBehavior.OnInteractableHitPlayer += (
-                (interactable) =>
-                {
-                    if (interactable is AbstractDoor door)
-                    {
-                        TryMoveRooms(door);
-                    }
-                    else if (interactable is ChestController chest)
-                    {
-                        onPlayerHitChest();
-                        // TODO: if chest is MimicChest :P
-                    }
-                    else if (interactable is LadderController ladder)
-                    {
-                        TryMoveFloors(ladder);
-                    }
-                    else
-                    {
-                        Debug.LogErrorFormat("Unhandled interactable! {0}", interactable);
-                    }
-                }
-            );
+            if (interactableBehavior is AbstractDoor door)
+            {
+                door.OnInteractableHitPlayer += () => TryMoveRooms(door);
+            }
+            else if (interactableBehavior is ChestController chest)
+            {
+                // TODO: if chest is MimicChest :P
+                // TODO: really need to clean up this dependency
+                chest.OnInteractableHitPlayer += () => onPlayerHitChest();
+            }
+            else if (interactableBehavior is LadderController ladder)
+            {
+                ladder.OnInteractableHitPlayer += () => TryMoveFloors(ladder);
+            }
+            else
+            {
+                Debug.LogErrorFormat("Unhandled interactable! {0}", interactableBehavior);
+            }
         }
     }
 

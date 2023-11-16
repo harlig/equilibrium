@@ -11,7 +11,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     //////////////////////////////////////////////////////////
     //////////////////////////events//////////////////////////
     //////////////////////////////////////////////////////////
-    public delegate void OnPlayerHitAction(InteractableBehavior interactable);
+    public delegate void OnPlayerHitAction();
     public event OnPlayerHitAction OnInteractableHitPlayer;
 
     //////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            OnInteractableHitPlayer?.Invoke(this);
+            OnInteractableHitPlayer?.Invoke();
             OnPlayerHit(other.GetComponent<PlayerController>());
         }
     }
@@ -32,7 +32,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            OnInteractableHitPlayer?.Invoke(this);
+            OnInteractableHitPlayer?.Invoke();
             OnPlayerHit(other.gameObject.GetComponent<PlayerController>());
         }
     }
