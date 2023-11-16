@@ -4,6 +4,8 @@ public class LadderController : InteractableBehavior
 {
     public FloorManager FloorTo;
 
+    protected override void DisplayInteractableText(HeadsUpDisplayController hudController) { }
+
     protected override void OnPlayerHit(PlayerController player)
     {
         // is level beat, if so move camera and player

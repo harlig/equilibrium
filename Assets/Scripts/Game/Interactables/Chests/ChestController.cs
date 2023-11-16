@@ -48,4 +48,6 @@ public class ChestController : InteractableBehavior
         hasBeenOpened = true;
         GetComponent<SpriteRenderer>().color = Color.gray;
     }
+
+    protected override void DisplayInteractableText(HeadsUpDisplayController hudController) { }
 }

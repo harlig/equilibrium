@@ -99,4 +99,6 @@ public abstract class AbstractDoor : InteractableBehavior
             newLocations.CameraBounds.Item2
         );
     }
+
+    protected override void DisplayInteractableText(HeadsUpDisplayController hudController) { }
 }

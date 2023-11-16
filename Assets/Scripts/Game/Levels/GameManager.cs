@@ -16,10 +16,8 @@ public class GameManager : MonoBehaviour
     private LevelUpBehavior levelUpBehavior;
 
     [SerializeField]
-    private HeadsUpDisplayController hudController;
-
-    [SerializeField]
     private FloorManager startingFloorPrefab;
+    public HeadsUpDisplayController HudController;
     public OfferSystem OfferSystem;
 
     public CameraController CameraController;
@@ -41,7 +39,7 @@ public class GameManager : MonoBehaviour
     {
         CameraController = GetComponentInChildren<CameraController>();
         FloorManager
-            .Create(startingFloorPrefab, transform, player, CameraController, hudController)
+            .Create(startingFloorPrefab, transform, player, CameraController, HudController)
             .SetupFloor();
 
         player.OnLevelUpAction += OnPlayerLevelUp;
@@ -49,7 +47,7 @@ public class GameManager : MonoBehaviour
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
         OfferButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
-        hudController.Setup(player);
+        HudController.Setup(player);
     }
 
     public static void PauseGame()
@@ -84,19 +82,19 @@ public class GameManager : MonoBehaviour
             levelUpOffers,
             OnOfferSelected,
             afterLevelUpAction,
-            hudController
+            HudController
         );
     }
 
     public void OnOfferSelected(OfferData offerSelected)
     {
         acquisitionManager.AcquireOffer(offerSelected);
-        hudController.SetAcquisitions(acquisitionManager.Acquisitions);
+        HudController.SetAcquisitions(acquisitionManager.Acquisitions);
     }
 
     void OnPlayerDamageTaken(float newPlayerHp)
     {
-        hudController.SetPlayerHp(newPlayerHp);
+        HudController.SetPlayerHp(newPlayerHp);
     }
 
     void OnPlayerOrbCollected(OrbController orbCollected, float newPlayerXp)
@@ -107,15 +105,15 @@ public class GameManager : MonoBehaviour
         {
             // TODO: play some animation saying "NEW STATE ENTERED"
             player.EquilibriumState = equilibriumState;
-            hudController.SetEquilibriumState(equilibriumState);
+            HudController.SetEquilibriumState(equilibriumState);
 
             // TODO: change
             player.StatusEffectSystem.SetStatusEffectForEquilibriumState(
                 EquilibriumManager.EquilibriumState.FROZEN
             );
         }
-        hudController.SetPlayerXp(newPlayerXp);
-        hudController.SetOrbsCollected();
+        HudController.SetPlayerXp(newPlayerXp);
+        HudController.SetOrbsCollected();
     }
 
     void OnPlayerHitChest()

@@ -7,9 +7,16 @@ public abstract class InteractableBehavior : MonoBehaviour
 {
     // This can be overridden if the interactable needs to do something when it's hit. However if the behavior is in the context of the floor, the handling should be in FloorManager.OnInteractableHitPlayer
     protected abstract void OnPlayerHit(PlayerController player);
+    protected abstract void DisplayInteractableText(HeadsUpDisplayController hudController);
 
     protected bool PlayerCanInteractWithThis { get; set; } = false;
     PlayerController playerController;
+    HeadsUpDisplayController hudController;
+
+    void Awake()
+    {
+        hudController = GetComponentInParent<GameManager>().HudController;
+    }
 
     void Update()
     {
@@ -17,11 +24,23 @@ public abstract class InteractableBehavior : MonoBehaviour
         {
             if (PlayerCanInteractWithThis)
             {
-                Debug.Log("Player can interact with this!");
                 OnPlayerHit(playerController);
                 PlayerCanInteractWithThis = false;
             }
         }
+    }
+
+    void PlayerHitInteractable(GameObject other)
+    {
+        PlayerCanInteractWithThis = true;
+        playerController = other.GetComponent<PlayerController>();
+        DisplayInteractableText(hudController);
+    }
+
+    void PlayerLeftInteractable()
+    {
+        PlayerCanInteractWithThis = false;
+        playerController = null;
     }
 
     // if an interactable is getting hit twice, does it have two rigidbodies?
@@ -29,8 +48,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerCanInteractWithThis = true;
-            playerController = other.GetComponent<PlayerController>();
+            PlayerHitInteractable(other.gameObject);
         }
     }
 
@@ -38,8 +56,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerCanInteractWithThis = false;
-            playerController = null;
+            PlayerLeftInteractable();
         }
     }
 
@@ -47,8 +64,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            PlayerCanInteractWithThis = true;
-            playerController = other.gameObject.GetComponent<PlayerController>();
+            PlayerHitInteractable(other.gameObject);
         }
     }
 
@@ -56,8 +72,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            PlayerCanInteractWithThis = false;
-            playerController = null;
+            PlayerLeftInteractable();
         }
     }
 
