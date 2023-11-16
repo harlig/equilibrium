@@ -8,6 +8,9 @@ public class PlayerController : CharacterController
     [SerializeField]
     private MeleeWeapon meleeWeapon;
 
+    [SerializeField]
+    private RangedWeapon rangedWeapon;
+
     // non-prefabs
     public int PlayerLevel { get; private set; } = 0;
     public Camera MainCamera { private get; set; }
@@ -63,6 +66,7 @@ public class PlayerController : CharacterController
         OrbitSystem = GetComponentInChildren<OrbitSystem>();
         hpRemaining = MaxHp;
         CreateMeleeWeapon();
+        CreateRangedWeapon();
     }
 
     public float XpCollected()
@@ -89,6 +93,14 @@ public class PlayerController : CharacterController
             {
                 OrbitSystem.AddOrbiter(OrbitSystem.OrbiterType.ICE);
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(
+                new Vector2(Input.mousePosition.x, Input.mousePosition.y)
+            );
+            rangedWeapon.AttackAtPosition(worldMousePos);
         }
     }
 
@@ -298,6 +310,18 @@ public class PlayerController : CharacterController
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining);
 
         StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
+    }
+
+    private void CreateRangedWeapon()
+    {
+        Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
+
+        // calculate the position to the top right corner
+        Vector2 spawnPos = (Vector2)transform.position + offset;
+
+        var weapon = WeaponController.Create(rangedWeapon, spawnPos, this);
+        weapon.transform.parent = transform;
+        rangedWeapon = (RangedWeapon)weapon;
     }
 
     private void CreateMeleeWeapon()

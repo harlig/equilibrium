@@ -22,7 +22,7 @@ public class ProjectileBehavior : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
         else if (other.GetComponent<TilemapCollider2D>() != null)
         {
