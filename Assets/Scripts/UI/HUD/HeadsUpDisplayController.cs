@@ -22,6 +22,9 @@ public class HeadsUpDisplayController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI iceOrbsTextElement;
 
+    [SerializeField]
+    private TextMeshProUGUI interactableHelpText;
+
     private OrbCollector playerOrbCollector;
     private AcquisitionsDisplayController acquisitionsDisplayController;
 
@@ -35,6 +38,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         playerOrbCollector = player.OrbCollector;
         acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
         SetOrbsCollected();
+        DisableInteractableHelpText();
     }
 
     public void SetPlayerLevel(int newPlayerLevel)
@@ -68,5 +72,16 @@ public class HeadsUpDisplayController : MonoBehaviour
     public void SetAcquisitions(List<Acquisition> acquisitions)
     {
         acquisitionsDisplayController.UpdateDisplay(acquisitions);
+    }
+
+    public void SetInteractableHelpText(string text)
+    {
+        interactableHelpText.text = text;
+        interactableHelpText.gameObject.SetActive(true);
+    }
+
+    public void DisableInteractableHelpText()
+    {
+        interactableHelpText.gameObject.SetActive(false);
     }
 }

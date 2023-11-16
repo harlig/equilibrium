@@ -49,5 +49,12 @@ public class ChestController : InteractableBehavior
         GetComponent<SpriteRenderer>().color = Color.gray;
     }
 
-    protected override void DisplayInteractableText(HeadsUpDisplayController hudController) { }
+    protected override string GetHelpText()
+    {
+        if (!hasBeenOpened)
+        {
+            return "Press E to open chest";
+        }
+        return "This chest has already been opened";
+    }
 }

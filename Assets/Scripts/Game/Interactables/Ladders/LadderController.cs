@@ -4,12 +4,24 @@ public class LadderController : InteractableBehavior
 {
     public FloorManager FloorTo;
 
-    protected override void DisplayInteractableText(HeadsUpDisplayController hudController) { }
+    protected override string GetHelpText()
+    {
+        if (CanClimbLadder())
+        {
+            return "Press E to climb down ladder to next floor";
+        }
+        return "You must clear the room to climb the ladder";
+    }
+
+    private bool CanClimbLadder()
+    {
+        return GetComponentInParent<RoomManager>().AllEnemiesDead();
+    }
 
     protected override void OnPlayerHit(PlayerController player)
     {
         // is level beat, if so move camera and player
-        if (GetComponentInParent<RoomManager>().AllEnemiesDead())
+        if (CanClimbLadder())
         {
             if (FloorTo == null)
             {

@@ -7,13 +7,13 @@ public abstract class InteractableBehavior : MonoBehaviour
 {
     // This can be overridden if the interactable needs to do something when it's hit. However if the behavior is in the context of the floor, the handling should be in FloorManager.OnInteractableHitPlayer
     protected abstract void OnPlayerHit(PlayerController player);
-    protected abstract void DisplayInteractableText(HeadsUpDisplayController hudController);
+    protected abstract string GetHelpText();
 
     protected bool PlayerCanInteractWithThis { get; set; } = false;
     PlayerController playerController;
     HeadsUpDisplayController hudController;
 
-    void Awake()
+    void Start()
     {
         hudController = GetComponentInParent<GameManager>().HudController;
     }
@@ -25,6 +25,7 @@ public abstract class InteractableBehavior : MonoBehaviour
             if (PlayerCanInteractWithThis)
             {
                 OnPlayerHit(playerController);
+                hudController.DisableInteractableHelpText();
                 PlayerCanInteractWithThis = false;
             }
         }
@@ -34,13 +35,14 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         PlayerCanInteractWithThis = true;
         playerController = other.GetComponent<PlayerController>();
-        DisplayInteractableText(hudController);
+        hudController.SetInteractableHelpText(GetHelpText());
     }
 
     void PlayerLeftInteractable()
     {
         PlayerCanInteractWithThis = false;
         playerController = null;
+        hudController.DisableInteractableHelpText();
     }
 
     // if an interactable is getting hit twice, does it have two rigidbodies?
