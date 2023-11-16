@@ -18,7 +18,26 @@ public abstract class AbstractDoor : InteractableBehavior
     // how many grid units into the room the unit should be moved
     private Vector2 newRoomStartingBuffer = new(2.5f, 2.5f);
 
-    public PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(
+    protected override void OnPlayerHit(PlayerController player)
+    {
+        // is level beat, if so move camera and player
+        // TODO: need to put something in the HUD like "press E to go through door"
+        if (GetComponentInParent<RoomManager>().AllEnemiesDead())
+        {
+            // TODO: the callback will be called if the key is pressed?
+            // hudController.DisplayOpenDoorText(() =>
+            // {
+            MovePlayerAndCameraThroughDoor(
+                player,
+                GetComponentInParent<GameManager>().CameraController
+            );
+            GetComponentInParent<FloorManager>().SetActiveRoom(RoomTo);
+            // }
+        }
+        // TODO: need to add else that's like "kill all enemies in this room to unlock door"
+    }
+
+    private PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(
         Vector2 currentPlayerLocation,
         RoomManager newRoom
     )
@@ -60,7 +79,7 @@ public abstract class AbstractDoor : InteractableBehavior
         return newLocations;
     }
 
-    public void MovePlayerAndCameraThroughDoor(
+    private void MovePlayerAndCameraThroughDoor(
         PlayerController playerController,
         CameraController cameraController
     )

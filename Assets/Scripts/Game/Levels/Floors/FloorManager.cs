@@ -16,21 +16,22 @@ public abstract class FloorManager : MonoBehaviour
     private bool shouldSpawnEnemies = true;
     private PlayerController playerController;
     private CameraController cameraController;
-    private Action onPlayerHitChest;
+    private HeadsUpDisplayController hudController;
 
     public abstract List<Vector2> MeleeEnemySpawnLocations { get; }
 
     public static FloorManager Create(
         FloorManager floorPrefab,
+        Transform parent,
         PlayerController playerController,
         CameraController cameraController,
-        Action onPlayerHitChest
+        HeadsUpDisplayController hudController
     )
     {
-        var createdFloor = Instantiate(floorPrefab);
+        var createdFloor = Instantiate(floorPrefab, parent);
         createdFloor.playerController = playerController;
         createdFloor.cameraController = cameraController;
-        createdFloor.onPlayerHitChest = onPlayerHitChest;
+        createdFloor.hudController = hudController;
         return createdFloor;
     }
 
@@ -47,39 +48,10 @@ public abstract class FloorManager : MonoBehaviour
             playerCameraLocation.CameraBounds.Item2
         );
 
-        // this needs to have the true argument because it allows us to set this up for interactables in rooms which aren't the starting room
-        var interactables = GetComponentsInChildren<InteractableBehavior>(true);
-        RegisterInteractables(interactables);
-
         SetActiveRoom(startingRoom);
     }
 
-    private void RegisterInteractables(InteractableBehavior[] interactables)
-    {
-        foreach (InteractableBehavior interactableBehavior in interactables)
-        {
-            if (interactableBehavior is AbstractDoor door)
-            {
-                door.OnInteractableHitPlayer += () => TryMoveRooms(door);
-            }
-            else if (interactableBehavior is ChestController chest)
-            {
-                // TODO: if chest is MimicChest :P
-                // TODO: really need to clean up this dependency
-                chest.OnInteractableHitPlayer += () => onPlayerHitChest();
-            }
-            else if (interactableBehavior is LadderController ladder)
-            {
-                ladder.OnInteractableHitPlayer += () => TryMoveFloors(ladder);
-            }
-            else
-            {
-                Debug.LogErrorFormat("Unhandled interactable! {0}", interactableBehavior);
-            }
-        }
-    }
-
-    private void SetActiveRoom(RoomManager newActiveRoom)
+    public void SetActiveRoom(RoomManager newActiveRoom)
     {
         activeRoom = newActiveRoom;
         newActiveRoom.SetAsActiveRoom(
@@ -91,40 +63,20 @@ public abstract class FloorManager : MonoBehaviour
         );
     }
 
-    private void SetNewActiveFloor(FloorManager floorTo)
+    public void SetNewActiveFloor(FloorManager floorTo)
     {
-        var newFloor = Create(floorTo, playerController, cameraController, onPlayerHitChest);
+        var newFloor = Create(
+            floorTo,
+            GetComponentInParent<GameManager>().transform,
+            playerController,
+            cameraController,
+            hudController
+        );
         // TODO: move this lower?
         newFloor.SetupFloor();
 
         // deactivate this floor
         Destroy(gameObject);
-    }
-
-    private void TryMoveRooms(AbstractDoor door)
-    {
-        // is level beat, if so move camera and player
-        // TODO: need to put something in the HUD like "press E to go through door"
-        if (activeRoom.AllEnemiesDead())
-        {
-            door.MovePlayerAndCameraThroughDoor(playerController, cameraController);
-            SetActiveRoom(door.RoomTo);
-        }
-        // TODO: need to add else that's like "kill all enemies in this room to unlock door"
-    }
-
-    private void TryMoveFloors(LadderController ladder)
-    {
-        // is level beat, if so move camera and player
-        if (activeRoom.AllEnemiesDead())
-        {
-            if (ladder.FloorTo == null)
-            {
-                Debug.LogError("Ladder was interacted with which had no FloorTo set!");
-                return;
-            }
-            SetNewActiveFloor(ladder.FloorTo);
-        }
     }
 
     private InteractableBehavior.PlayerAndCameraLocation GetNewFloorStartingRoomPlayerAndCameraLocation()

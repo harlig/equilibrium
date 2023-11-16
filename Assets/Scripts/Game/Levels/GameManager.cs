@@ -15,16 +15,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private LevelUpBehavior levelUpBehavior;
 
-    public OfferSystem OfferSystem;
-
     [SerializeField]
     private HeadsUpDisplayController hudController;
 
     [SerializeField]
     private FloorManager startingFloorPrefab;
+    public OfferSystem OfferSystem;
 
-    private CameraController cameraController;
-    private OfferButtonSpawner offerButtonSpawner;
+    public CameraController CameraController;
+    public OfferButtonSpawner OfferButtonSpawner;
 
     private AcquisitionManager acquisitionManager;
 
@@ -40,16 +39,16 @@ public class GameManager : MonoBehaviour
 
     protected void SetupGame()
     {
-        cameraController = GetComponentInChildren<CameraController>();
+        CameraController = GetComponentInChildren<CameraController>();
         FloorManager
-            .Create(startingFloorPrefab, player, cameraController, OnPlayerHitChest)
+            .Create(startingFloorPrefab, transform, player, CameraController, hudController)
             .SetupFloor();
 
         player.OnLevelUpAction += OnPlayerLevelUp;
         player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
-        offerButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
+        OfferButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
         hudController.Setup(player);
     }
 
@@ -89,7 +88,7 @@ public class GameManager : MonoBehaviour
         );
     }
 
-    void OnOfferSelected(OfferData offerSelected)
+    public void OnOfferSelected(OfferData offerSelected)
     {
         acquisitionManager.AcquireOffer(offerSelected);
         hudController.SetAcquisitions(acquisitionManager.Acquisitions);
@@ -130,7 +129,7 @@ public class GameManager : MonoBehaviour
         );
 
         PauseGame();
-        offerButtonSpawner.CreateOfferButtons(
+        OfferButtonSpawner.CreateOfferButtons(
             chestHitOffers,
             (offerSelected) =>
             {

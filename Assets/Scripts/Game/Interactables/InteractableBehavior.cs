@@ -6,24 +6,13 @@ using UnityEngine;
 public abstract class InteractableBehavior : MonoBehaviour
 {
     // This can be overridden if the interactable needs to do something when it's hit. However if the behavior is in the context of the floor, the handling should be in FloorManager.OnInteractableHitPlayer
-    protected virtual void OnPlayerHit(PlayerController player) { }
-
-    //////////////////////////////////////////////////////////
-    //////////////////////////events//////////////////////////
-    //////////////////////////////////////////////////////////
-    public delegate void OnPlayerHitAction();
-    public event OnPlayerHitAction OnInteractableHitPlayer;
-
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
+    protected abstract void OnPlayerHit(PlayerController player);
 
     // if an interactable is getting hit twice, does it have two rigidbodies?
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            OnInteractableHitPlayer?.Invoke();
             OnPlayerHit(other.GetComponent<PlayerController>());
         }
     }
@@ -32,7 +21,6 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            OnInteractableHitPlayer?.Invoke();
             OnPlayerHit(other.gameObject.GetComponent<PlayerController>());
         }
     }
