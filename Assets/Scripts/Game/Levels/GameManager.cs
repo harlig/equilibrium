@@ -13,9 +13,6 @@ public class GameManager : MonoBehaviour
     private PlayerController player;
 
     [SerializeField]
-    private LevelUpBehavior levelUpBehavior;
-
-    [SerializeField]
     private FloorManager startingFloorPrefab;
     public HeadsUpDisplayController HudController;
     public OfferSystem OfferSystem;
@@ -24,6 +21,7 @@ public class GameManager : MonoBehaviour
     public OfferButtonSpawner OfferButtonSpawner { get; private set; }
 
     private AcquisitionManager acquisitionManager;
+    private LevelUpBehavior levelUpBehavior;
 
     void Awake()
     {
@@ -39,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         CameraController = GetComponentInChildren<CameraController>();
         OfferButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
+        levelUpBehavior = GetComponentInChildren<LevelUpBehavior>();
 
         FloorManager
             .Create(startingFloorPrefab, transform, player, CameraController, HudController)
