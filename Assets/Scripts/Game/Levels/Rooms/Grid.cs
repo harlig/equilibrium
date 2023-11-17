@@ -5,8 +5,8 @@ public class Grid
 {
     public Node[,] nodes;
 
-    public int Width { get; private set; }
-    public int Height { get; private set; }
+    public int FloorWidth { get; private set; }
+    public int FloorHeight { get; private set; }
     private Vector3 gridOrigin;
     private readonly Tilemap floorTilemap,
         obstaclesTilemap;
@@ -24,10 +24,10 @@ public class Grid
     private void InitializeGrid(Tilemap floorTilemap, Tilemap obstaclesTilemap)
     {
         BoundsInt bounds = floorTilemap.cellBounds;
-        Width = bounds.size.x;
-        Height = bounds.size.y;
+        FloorWidth = bounds.size.x;
+        FloorHeight = bounds.size.y;
 
-        nodes = new Node[Width, Height];
+        nodes = new Node[FloorWidth, FloorHeight];
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)
         {

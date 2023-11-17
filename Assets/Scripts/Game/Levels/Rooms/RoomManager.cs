@@ -101,7 +101,7 @@ public class RoomManager : MonoBehaviour
         }
         var rangedEnemy = EnemyController.Create(
             rangedEnemyPrefab,
-            new Vector2(30, 18),
+            new Vector2(Grid.FloorWidth, Grid.FloorHeight),
             player,
             transform
         );
