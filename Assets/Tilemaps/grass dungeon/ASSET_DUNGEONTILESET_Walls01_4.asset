@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: ASSET_DUNGEONTILESET_Walls01_4
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1188258811, guid: 6e88a6597cf19495484214237c9073c2, type: 3}
+  m_Sprite: {fileID: 504035438, guid: 521a2dda004f34372b617ff8a3fdbd61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
