@@ -121,7 +121,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1476
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf9bad919654946d6ba11b8504e894c1
+      internalID: 887013256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_1
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 1476
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a911926b109e4023a26ca649270d870
+      internalID: -815135410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_2
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 1476
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 526073c19b5d8402980e8a837fb36c84
+      internalID: 1118198986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 738
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30c236d8a326a47baad33e598f2ec3c0
+      internalID: 984708559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_4
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 738
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4bf6ff1701894a20b100ba1a44004a0
+      internalID: 724933284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_5
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 738
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dab5554d42b043ce8e0dd4a6446c7f8
+      internalID: 1456318435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd74f1dfea8214605896911e91765064
+      internalID: 2116580175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_7
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 0
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6907f986c32154b40806a54ec1c650ce
+      internalID: 738325870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ASSET_DUNGEONTILESET_Ground01_8
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 0
+        width: 738
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f446b8d9798d84e72bebdfc2e7845bdc
+      internalID: 2021443904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +321,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ASSET_DUNGEONTILESET_Ground01_0: 887013256
+      ASSET_DUNGEONTILESET_Ground01_1: -815135410
+      ASSET_DUNGEONTILESET_Ground01_2: 1118198986
+      ASSET_DUNGEONTILESET_Ground01_3: 984708559
+      ASSET_DUNGEONTILESET_Ground01_4: 724933284
+      ASSET_DUNGEONTILESET_Ground01_5: 1456318435
+      ASSET_DUNGEONTILESET_Ground01_6: 2116580175
+      ASSET_DUNGEONTILESET_Ground01_7: 738325870
+      ASSET_DUNGEONTILESET_Ground01_8: 2021443904
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
