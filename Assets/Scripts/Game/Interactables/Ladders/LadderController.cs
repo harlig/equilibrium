@@ -15,7 +15,7 @@ public class LadderController : InteractableBehavior
 
     private bool CanClimbLadder()
     {
-        return GetComponentInParent<RoomManager>().AllEnemiesDead();
+        return GetComponentInParent<RoomManager>().HasClearedRoom;
     }
 
     protected override void OnPlayerHit(PlayerController player)

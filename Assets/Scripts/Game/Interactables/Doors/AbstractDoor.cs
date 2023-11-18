@@ -21,7 +21,7 @@ public abstract class AbstractDoor : InteractableBehavior
 
     private bool CanGoThroughDoor()
     {
-        return GetComponentInParent<RoomManager>().AllEnemiesDead();
+        return GetComponentInParent<RoomManager>().HasClearedRoom;
     }
 
     protected override string GetHelpText()

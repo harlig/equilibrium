@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviour
         Max;
     private List<EnemyController> enemies;
     public Grid Grid { get; private set; }
+    public bool HasClearedRoom { get; private set; } = false;
 
     void Awake()
     {
@@ -19,6 +20,14 @@ public class RoomManager : MonoBehaviour
 
         // this gets set to false so we can hide chests and stuff until the room is active
         SetActiveAllChildren(false);
+    }
+
+    void Update()
+    {
+        if (AllEnemiesDead())
+        {
+            HasClearedRoom = true;
+        }
     }
 
     void SetActiveAllChildren(bool shouldSetActive)
@@ -55,7 +64,7 @@ public class RoomManager : MonoBehaviour
         Max = new(maxX, maxY);
     }
 
-    public bool AllEnemiesDead()
+    private bool AllEnemiesDead()
     {
         foreach (var enemy in enemies)
         {
@@ -75,12 +84,15 @@ public class RoomManager : MonoBehaviour
     )
     {
         SetActiveAllChildren(true);
-        enemies = SpawnEnemies(
-            player,
-            meleeEnemySpawnLocations,
-            meleeEnemyPrefab,
-            rangedEnemyPrefab
-        );
+        if (!HasClearedRoom)
+        {
+            enemies = SpawnEnemies(
+                player,
+                meleeEnemySpawnLocations,
+                meleeEnemyPrefab,
+                rangedEnemyPrefab
+            );
+        }
     }
 
     List<EnemyController> SpawnEnemies(
