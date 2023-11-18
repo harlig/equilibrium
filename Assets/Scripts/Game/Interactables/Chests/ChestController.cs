@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChestController : InteractableBehavior
 {
+    [SerializeField]
+    private Sprite openedChestSprite;
     private GameManager gameManager;
     private bool hasBeenOpened = false;
 
@@ -46,7 +48,7 @@ public class ChestController : InteractableBehavior
 
         // set as opened
         hasBeenOpened = true;
-        GetComponent<SpriteRenderer>().color = Color.gray;
+        GetComponent<SpriteRenderer>().sprite = openedChestSprite;
     }
 
     protected override string GetHelpText()
