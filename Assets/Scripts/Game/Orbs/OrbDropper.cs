@@ -30,8 +30,7 @@ public class OrbDropper : MonoBehaviour
 
     [SerializeField]
     private OrbController iceOrbPrefab;
-    const float MIN_PROBABILITY = 0.25f;
-    const float MAX_PROBABILITY = 0.75f;
+    const float MAX_PROBABILITY = 0.80f;
 
     public float scatterRange = 1.0f;
 
@@ -40,7 +39,7 @@ public class OrbDropper : MonoBehaviour
         float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
 
         return Random.Range(0.0f, 1.0f)
-            < Mathf.Clamp(fireProbability, MIN_PROBABILITY, MAX_PROBABILITY);
+            < Mathf.Clamp(fireProbability, 1.0f - MAX_PROBABILITY, MAX_PROBABILITY);
     }
 
     public void DoOrbDrop(
