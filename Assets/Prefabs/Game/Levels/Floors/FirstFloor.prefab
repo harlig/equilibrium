@@ -363,6 +363,10 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5592216156033592526, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
+      propertyPath: DoorTo
+      value: 
+      objectReference: {fileID: 2778560845476315149}
+    - target: {fileID: 5592216156033592526, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
       propertyPath: RoomTo
       value: 
       objectReference: {fileID: 2452836779011397073}
@@ -380,6 +384,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3288174084181806298, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
   m_PrefabInstance: {fileID: 1248215607332715991}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6685883420922286361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5592216156033592526, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
+  m_PrefabInstance: {fileID: 1248215607332715991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adda011d8a0e24fc7980b170f4d4bb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1926407769334066228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,6 +510,10 @@ PrefabInstance:
       value: UpDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8013344754562292241, guid: 3024c9bb60886467084088fd99948179, type: 3}
+      propertyPath: DoorTo
+      value: 
+      objectReference: {fileID: 2362847175505261995}
+    - target: {fileID: 8013344754562292241, guid: 3024c9bb60886467084088fd99948179, type: 3}
       propertyPath: RoomTo
       value: 
       objectReference: {fileID: 6920255983891925017}
@@ -508,6 +527,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3288174084181806298, guid: 3024c9bb60886467084088fd99948179, type: 3}
   m_PrefabInstance: {fileID: 2675340933316296034}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5338356545200449395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8013344754562292241, guid: 3024c9bb60886467084088fd99948179, type: 3}
+  m_PrefabInstance: {fileID: 2675340933316296034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b41bac7e6a74587b8addccadca85f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2744773936207726578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,7 +556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5768995437793860011, guid: 599e500f65af244ffad5f463de6fb2dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5768995437793860011, guid: 599e500f65af244ffad5f463de6fb2dd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -648,6 +678,10 @@ PrefabInstance:
       value: RightDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
+      propertyPath: DoorTo
+      value: 
+      objectReference: {fileID: 8482987620656863017}
+    - target: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
       propertyPath: RoomTo
       value: 
       objectReference: {fileID: 5385200099187559607}
@@ -661,6 +695,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3288174084181806298, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
   m_PrefabInstance: {fileID: 2968486947249105510}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6158803051726677688 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
+  m_PrefabInstance: {fileID: 2968486947249105510}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde852aa21f3d4d29a0c59d2e9d277db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3087464409983003944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -776,6 +821,10 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5592216156033592526, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
+      propertyPath: DoorTo
+      value: 
+      objectReference: {fileID: 6158803051726677688}
+    - target: {fileID: 5592216156033592526, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
       propertyPath: RoomTo
       value: 
       objectReference: {fileID: 7873521119488606941}
@@ -793,6 +842,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3288174084181806298, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
   m_PrefabInstance: {fileID: 4044842405979814887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8482987620656863017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5592216156033592526, guid: bb4bf38e44b8b4a85ac3da5db3a80b6a, type: 3}
+  m_PrefabInstance: {fileID: 4044842405979814887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adda011d8a0e24fc7980b170f4d4bb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5567622716623197627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -846,6 +906,10 @@ PrefabInstance:
       value: DownDoor
       objectReference: {fileID: 0}
     - target: {fileID: 7894440298577534992, guid: ac8863033c0ee44af83a4c9b2133953f, type: 3}
+      propertyPath: DoorTo
+      value: 
+      objectReference: {fileID: 5338356545200449395}
+    - target: {fileID: 7894440298577534992, guid: ac8863033c0ee44af83a4c9b2133953f, type: 3}
       propertyPath: RoomTo
       value: 
       objectReference: {fileID: 5385200099187559607}
@@ -854,6 +918,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac8863033c0ee44af83a4c9b2133953f, type: 3}
+--- !u!114 &2362847175505261995 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7894440298577534992, guid: ac8863033c0ee44af83a4c9b2133953f, type: 3}
+  m_PrefabInstance: {fileID: 5567622716623197627}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb46b048dbb94c3ba07373dcaa26e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6982228366887082337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3288174084181806298, guid: ac8863033c0ee44af83a4c9b2133953f, type: 3}
@@ -1002,6 +1077,10 @@ PrefabInstance:
       value: RightDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
+      propertyPath: DoorTo
+      value: 
+      objectReference: {fileID: 6685883420922286361}
+    - target: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
       propertyPath: RoomTo
       value: 
       objectReference: {fileID: 6920255983891925017}
@@ -1010,6 +1089,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
+--- !u!114 &2778560845476315149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8956069319170067678, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}
+  m_PrefabInstance: {fileID: 6540695357998025939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde852aa21f3d4d29a0c59d2e9d277db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8603220189955850249 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3288174084181806298, guid: 0cbb73504ac5b4379a451ad60f99927d, type: 3}

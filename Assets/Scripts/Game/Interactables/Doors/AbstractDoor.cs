@@ -11,7 +11,8 @@ public abstract class AbstractDoor : InteractableBehavior
         DOWN
     }
 
-    public RoomManager RoomTo;
+    [SerializeField]
+    private AbstractDoor DoorTo;
 
     public abstract DoorType GetDoorType();
 
@@ -32,54 +33,51 @@ public abstract class AbstractDoor : InteractableBehavior
         return "You must clear the room to go through the door";
     }
 
+    protected RoomManager GetContainingRoom()
+    {
+        return GetComponentInParent<RoomManager>();
+    }
+
     protected override void OnPlayerHit(PlayerController player)
     {
         // is level beat, if so move camera and player
-        // TODO: need to put something in the HUD like "press E to go through door"
         if (CanGoThroughDoor())
         {
-            // TODO: the callback will be called if the key is pressed?
-            // hudController.DisplayOpenDoorText(() =>
-            // {
             MovePlayerAndCameraThroughDoor(
                 player,
                 GetComponentInParent<GameManager>().CameraController
             );
-            GetComponentInParent<FloorManager>().SetActiveRoom(RoomTo);
-            // }
+            GetComponentInParent<FloorManager>().SetActiveRoom(DoorTo.GetContainingRoom());
         }
-        // TODO: need to add else that's like "kill all enemies in this room to unlock door"
     }
 
-    private PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(
-        Vector2 currentPlayerLocation,
-        RoomManager newRoom
-    )
+    private PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(AbstractDoor newDoor)
     {
+        var newRoom = newDoor.GetContainingRoom();
         PlayerAndCameraLocation newLocations = new();
         switch (GetDoorType())
         {
             case DoorType.LEFT:
                 newLocations.PlayerLocation = new(
                     newRoom.Max.x - newRoomStartingBuffer.x,
-                    currentPlayerLocation.y
+                    newDoor.transform.position.y
                 );
                 break;
             case DoorType.UP:
                 newLocations.PlayerLocation = new(
-                    currentPlayerLocation.x,
+                    newDoor.transform.position.x,
                     newRoom.Min.y + newRoomStartingBuffer.y
                 );
                 break;
             case DoorType.RIGHT:
                 newLocations.PlayerLocation = new(
                     newRoom.Min.x + newRoomStartingBuffer.x,
-                    currentPlayerLocation.y
+                    newDoor.transform.position.y
                 );
                 break;
             case DoorType.DOWN:
                 newLocations.PlayerLocation = new(
-                    currentPlayerLocation.x,
+                    newDoor.transform.position.x,
                     newRoom.Max.y - newRoomStartingBuffer.y
                 );
                 break;
@@ -98,15 +96,11 @@ public abstract class AbstractDoor : InteractableBehavior
         CameraController cameraController
     )
     {
-        if (RoomTo == null)
+        if (DoorTo == null)
         {
-            Debug.LogError("Door was interacted with which had no RoomTo set!");
-            return;
+            throw new Exception("Door was interacted with which had no DoorTo set!");
         }
-        var newLocations = GetNewRoomPlayerAndCameraLocation(
-            playerController.LocationAsVector2(),
-            RoomTo
-        );
+        var newLocations = GetNewRoomPlayerAndCameraLocation(DoorTo);
         playerController.MovePlayerToLocation(newLocations.PlayerLocation);
         cameraController.SetCameraBounds(
             newLocations.CameraBounds.Item1,
