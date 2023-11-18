@@ -27,6 +27,12 @@ public class AcquisitionManager
             case SpeedOffer speedOffer:
                 player.AddToMovementSpeedModifier(speedOffer.Value * 0.0001f);
                 break;
+            case FirestarterOffer firestarterOffer:
+                Debug.LogFormat(
+                    "Would be acquiring a firestart of value {0}",
+                    firestarterOffer.Value
+                );
+                break;
             default:
                 Debug.LogErrorFormat("Unhandled offer type {0}", offer);
                 break;
