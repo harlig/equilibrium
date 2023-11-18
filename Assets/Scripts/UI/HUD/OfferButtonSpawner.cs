@@ -3,16 +3,20 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using System;
+using System.Globalization;
 
 public class OfferButtonSpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject buttonPrefab;
     private RectTransform parentPanel;
+    private TextMeshProUGUI textElement;
 
     void Awake()
     {
         parentPanel = GetComponent<RectTransform>();
+        textElement = GetComponentInChildren<TextMeshProUGUI>();
+        textElement.gameObject.SetActive(false);
     }
 
     public void CreateOfferButtons(List<OfferData> offers, Action<OfferData> onButtonClickedAction)
@@ -77,6 +81,7 @@ public class OfferButtonSpawner : MonoBehaviour
                 () => OnOfferButtonClicked(item.Item1, onButtonClickedAction)
             );
         }
+        textElement.gameObject.SetActive(true);
     }
 
     private void OnOfferButtonClicked(OfferData offer, Action<OfferData> onOfferSelectedAction)
@@ -88,5 +93,6 @@ public class OfferButtonSpawner : MonoBehaviour
             Destroy(button.gameObject);
         }
         onOfferSelectedAction?.Invoke(offer);
+        textElement.gameObject.SetActive(false);
     }
 }

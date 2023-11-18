@@ -28,10 +28,6 @@ public class ProjectileBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else
-        {
-            // TODO: do we need to do anything?
-        }
     }
 
     public void MoveInDirection(Vector2 directionToMove)
