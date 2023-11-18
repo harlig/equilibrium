@@ -258,7 +258,7 @@ public abstract class EnemyController : CharacterController
         // drop orb
         // orb should have amount of XP based on what kind of enemy this is (derivative of MAX_HP? log(MAX_HP)?)
         // TODO: maybe we should drop a number of orbs depending on how many hits the enemy took?
-        orbDropper.DoOrbDrop(damageTaken, GetMaxHp());
+        orbDropper.DoOrbDrop(damageTaken, GetMaxHp(), containingRoom);
 
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;

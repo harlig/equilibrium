@@ -43,12 +43,17 @@ public class OrbDropper : MonoBehaviour
             < Mathf.Clamp(fireProbability, MIN_PROBABILITY, MAX_PROBABILITY);
     }
 
-    public void DoOrbDrop(DamageTaken damageTaken, float totalXp, int desiredNumToDrop = 10)
+    public void DoOrbDrop(
+        DamageTaken damageTaken,
+        float totalXp,
+        RoomManager containingRoom,
+        int desiredNumToDrop = 10
+    )
     {
         var shouldDropFireOrb = ShouldDropFireOrb(damageTaken);
 
-        int minNumToDrop = Mathf.Max(Mathf.FloorToInt(desiredNumToDrop * 0.8f), 1); // 80% of the desired to drop but never below 1
-        int maxNumToDrop = Mathf.FloorToInt(desiredNumToDrop * 1.2f); // 120% of the desired to drop
+        int minNumToDrop = Mathf.Max(Mathf.FloorToInt(desiredNumToDrop * 0.8f), 1);
+        int maxNumToDrop = Mathf.FloorToInt(desiredNumToDrop * 1.2f);
 
         int numToDrop = Random.Range(minNumToDrop, maxNumToDrop + 1);
 
@@ -66,14 +71,9 @@ public class OrbDropper : MonoBehaviour
 
             Vector2? scatter = null;
 
-            // Apply scattering only when there's more than one item to drop
             if (numToDrop > 1)
             {
-                // Calculate random offsets for the X and Y positions
-                float xOffset = Random.Range(-scatterRange, scatterRange);
-                float yOffset = Random.Range(-scatterRange, scatterRange);
-
-                scatter = new Vector2(xOffset, yOffset);
+                scatter = GetRandomWalkablePosition(containingRoom.Grid);
             }
 
             if (shouldDropFireOrb)
@@ -85,5 +85,43 @@ public class OrbDropper : MonoBehaviour
                 OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp, scatter);
             }
         }
+    }
+
+    private Vector2 GetRandomWalkablePosition(Grid grid)
+    {
+        int attempts = 0;
+        int maxAttempts = 100; // Maximum number of attempts to find a walkable position
+
+        while (attempts < maxAttempts)
+        {
+            float xOffset = Random.Range(-scatterRange, scatterRange);
+            float yOffset = Random.Range(-scatterRange, scatterRange);
+
+            Vector2 potentialPosition = new Vector2(xOffset, yOffset);
+
+            // Convert potential position to Grid coordinates
+            Vector2Int gridPosition = grid.WorldToGrid(
+                potentialPosition + new Vector2(transform.position.x, transform.position.y)
+            );
+
+            if (
+                gridPosition.x >= 0
+                && gridPosition.x < grid.FloorWidth
+                && gridPosition.y >= 0
+                && gridPosition.y < grid.FloorHeight
+            )
+            {
+                Node node = grid.nodes[gridPosition.x, gridPosition.y];
+                if (node.Walkable)
+                {
+                    return potentialPosition;
+                }
+            }
+
+            attempts++;
+        }
+
+        // Default to a safe position if no walkable position is found
+        return Vector2.zero;
     }
 }
