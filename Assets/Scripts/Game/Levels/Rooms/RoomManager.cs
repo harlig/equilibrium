@@ -15,7 +15,13 @@ public class RoomManager : MonoBehaviour
 
     void Awake()
     {
-        Grid = new Grid(floorTilemap, obstaclesTilemap);
+        Grid = new Grid(
+            floorTilemap,
+            obstaclesTilemap,
+            GetComponentsInChildren<InteractableBehavior>(true),
+            transform.position.x,
+            transform.position.y
+        );
         CalculateGridDimensions();
 
         // this gets set to false so we can hide chests and stuff until the room is active

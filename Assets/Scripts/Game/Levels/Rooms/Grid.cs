@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,18 +11,31 @@ public class Grid
     private Vector3 gridOrigin;
     private readonly Tilemap floorTilemap,
         obstaclesTilemap;
+    private readonly InteractableBehavior[] interactables;
     private const float GRID_OFFSET_X = 0.5f;
     private const float GRID_OFFSET_Y = 0.5f;
 
-    public Grid(Tilemap floorTilemap, Tilemap obstaclesTilemap)
+    private readonly float parentX,
+        parentY;
+
+    public Grid(
+        Tilemap floorTilemap,
+        Tilemap obstaclesTilemap,
+        InteractableBehavior[] interactables,
+        float x,
+        float y
+    )
     {
         gridOrigin = CalculateGridOrigin(floorTilemap);
         this.floorTilemap = floorTilemap;
         this.obstaclesTilemap = obstaclesTilemap;
-        InitializeGrid(floorTilemap, obstaclesTilemap);
+        this.interactables = interactables;
+        this.parentX = x;
+        this.parentY = y;
+        InitializeGrid();
     }
 
-    private void InitializeGrid(Tilemap floorTilemap, Tilemap obstaclesTilemap)
+    private void InitializeGrid()
     {
         BoundsInt bounds = floorTilemap.cellBounds;
         FloorWidth = bounds.size.x;
@@ -36,6 +50,25 @@ public class Grid
                 Vector3Int localPlace = new(x, y, 0);
                 bool isWalkable =
                     floorTilemap.HasTile(localPlace) && !obstaclesTilemap.HasTile(localPlace);
+
+                // Check for interactables at this position
+                foreach (var interactable in interactables)
+                {
+                    if (IsInteractableAtPosition(interactable, localPlace))
+                    {
+                        isWalkable = IsInteractableWalkable(interactable);
+                        Debug.LogFormat(
+                            "Interactable {4} found at position {0}. Iswalkable {1}. parent [{2}, {3}]",
+                            localPlace,
+                            isWalkable,
+                            parentX,
+                            parentY,
+                            interactable.name
+                        );
+                        break;
+                    }
+                }
+
                 int xIndex = x - bounds.xMin;
                 int yIndex = y - bounds.yMin;
 
@@ -52,6 +85,27 @@ public class Grid
                 );
             }
         }
+    }
+
+    private bool IsInteractableAtPosition(
+        InteractableBehavior interactable,
+        Vector3Int gridPosition
+    )
+    {
+        // Convert the interactable's position to a grid cell position
+        Vector3Int interactableGridPosition = floorTilemap.WorldToCell(
+            interactable.transform.position
+        );
+
+        // Check if the interactable's grid position matches the provided grid position
+        return interactableGridPosition == gridPosition;
+    }
+
+    private bool IsInteractableWalkable(InteractableBehavior interactable)
+    {
+        // Return true if the collider of the interactable is a trigger (walkable)
+        // Return false if it's a non-trigger collider (non-walkable)
+        return interactable.GetComponent<Collider2D>().isTrigger;
     }
 
     private Vector3 CalculateGridOrigin(Tilemap tilemap)
