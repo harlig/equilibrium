@@ -82,35 +82,29 @@ public class OfferSystem : MonoBehaviour
 
     private int SelectPoolIndex(int playerLevel)
     {
-        // Determine the number of levels from the GameManager
         int totalNumPlayerLevels = GameManager.XpNeededForLevelUpAtIndex.Count;
-
-        // Ensure the playerLevel is within bounds
+        int totalNumPools = offerPools.Length;
         playerLevel = Mathf.Clamp(playerLevel, 0, totalNumPlayerLevels - 1);
 
-        // Generate a random number between 0 and 99
-        int randomNumber = random.Next(100);
+        // Calculate the relative level of the player
+        float relativeLevel = (float)playerLevel / totalNumPlayerLevels;
 
-        // This list will hold the cumulative probability for each pool
         List<int> poolChances = new();
 
-        // Calculate the distribution of chances based on player level
-        // The following is a simple distribution logic for demonstration purposes:
-        // The chance for the current level pool is (100 - playerLevel * 10)%
-        // Each lower level pool has a 10% chance
-        for (int ndx = 0; ndx < totalNumPlayerLevels; ndx++)
+        // Distribute the chances across pools based on relative level
+        for (int ndx = 0; ndx < totalNumPools; ndx++)
         {
-            if (ndx == playerLevel)
+            float poolPosition = (float)ndx / totalNumPools;
+
+            // Adjust the chance based on how close the pool is to the player's relative level
+            if (poolPosition <= relativeLevel)
             {
-                poolChances.Add(100 - playerLevel * 10); // Chance for the current level pool
-            }
-            else if (ndx < playerLevel)
-            {
-                poolChances.Add(10); // Flat chance for each lower level pool
+                int chance = (int)(100 * (1 - Mathf.Abs(relativeLevel - poolPosition)));
+                poolChances.Add(chance);
             }
             else
             {
-                poolChances.Add(0); // No chance for higher level pools
+                poolChances.Add(0); // No chance for pools too far ahead
             }
         }
 
@@ -119,6 +113,14 @@ public class OfferSystem : MonoBehaviour
         {
             poolChances[ndx] += poolChances[ndx - 1];
         }
+        string poolchances = "";
+        for (int ndx = 0; ndx < poolChances.Count; ndx++)
+        {
+            poolchances += $"pool {ndx}, chances {poolChances[ndx]}; ";
+        }
+
+        // Generate a random number
+        int randomNumber = random.Next(poolChances[poolChances.Count - 1]);
 
         // Use the cumulative distribution to select the pool
         for (int ndx = 0; ndx < poolChances.Count; ndx++)
