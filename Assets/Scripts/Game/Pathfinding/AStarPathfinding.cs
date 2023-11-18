@@ -115,7 +115,12 @@ public static class AStarPathfinding
                 int checkX = node.IndexX + x;
                 int checkY = node.IndexY + y;
 
-                if (checkX >= 0 && checkX < grid.FloorWidth && checkY >= 0 && checkY < grid.FloorHeight)
+                if (
+                    checkX >= 0
+                    && checkX < grid.FloorWidth
+                    && checkY >= 0
+                    && checkY < grid.FloorHeight
+                )
                 {
                     // Add non-diagonal neighbors
                     if (x == 0 || y == 0)

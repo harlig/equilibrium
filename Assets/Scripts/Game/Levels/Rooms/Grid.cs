@@ -87,6 +87,7 @@ public class Grid
         }
     }
 
+    // Are enemies getting stuck on obstacles? Make sure obstacles are properly positioned in the grid (with a [0.5, 0.5] offset at time of writing this) or else it won't work. Has to do with grid anchor while grid is using integer indexes
     private bool IsInteractableAtPosition(
         InteractableBehavior interactable,
         Vector3Int gridPosition
