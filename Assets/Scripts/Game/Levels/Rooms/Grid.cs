@@ -70,6 +70,39 @@ public class Grid
             cellPosition.y - floorTilemap.cellBounds.yMin
         );
     }
+
+    public Vector2 FindNearestWalkableTile(Vector2 targetPosition)
+    {
+        // Define the search radius
+        int radius = 1;
+
+        while (true)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    int checkX = Mathf.RoundToInt(targetPosition.x + x);
+                    int checkY = Mathf.RoundToInt(targetPosition.y + y);
+
+                    // Ensure the checked position is within the grid bounds
+                    if (
+                        checkX >= 0
+                        && checkX < nodes.GetLength(0)
+                        && checkY >= 0
+                        && checkY < nodes.GetLength(1)
+                    )
+                    {
+                        if (nodes[checkX, checkY].Walkable)
+                        {
+                            return new Vector2(checkX, checkY);
+                        }
+                    }
+                }
+            }
+            radius++;
+        }
+    }
 }
 
 public class Node

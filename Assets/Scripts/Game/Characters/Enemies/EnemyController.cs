@@ -70,9 +70,25 @@ public abstract class EnemyController : CharacterController
         {
             createdEnemy = Instantiate(prefab);
         }
-        // is this okay? I want it to be relative to its parent's position so I think yes?
+        var containingRoom = createdEnemy.GetComponentInParent<RoomManager>();
+
+        // Ensure the position is within the grid bounds
+        position.x = Mathf.Clamp(position.x, 0, containingRoom.Grid.nodes.GetLength(0) - 1);
+        position.y = Mathf.Clamp(position.y, 0, containingRoom.Grid.nodes.GetLength(1) - 1);
+
+        if (
+            !containingRoom.Grid.nodes[
+                Mathf.RoundToInt(position.x),
+                Mathf.RoundToInt(position.y)
+            ].Walkable
+        )
+        {
+            position = containingRoom.Grid.FindNearestWalkableTile(position);
+        }
+
         createdEnemy.transform.localPosition = position;
         createdEnemy.player = player;
+
         // instantiating this directly bc no need to pass additional data to it
         createdEnemy.orbDropper = Instantiate(prefab.orbDropper, createdEnemy.transform);
         return createdEnemy;
