@@ -96,7 +96,7 @@ public abstract class AbstractDoor : InteractableBehavior
         CameraController cameraController
     )
     {
-        if (DoorTo == null)
+        if (DoorTo is null)
         {
             throw new Exception("Door was interacted with which had no DoorTo set!");
         }

@@ -23,7 +23,7 @@ public class LadderController : InteractableBehavior
         // is level beat, if so move camera and player
         if (CanClimbLadder())
         {
-            if (FloorTo == null)
+            if (FloorTo is null)
             {
                 Debug.LogError("Ladder was interacted with which had no FloorTo set!");
                 return;

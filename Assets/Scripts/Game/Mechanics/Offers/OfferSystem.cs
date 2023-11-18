@@ -65,7 +65,7 @@ public class OfferSystem : MonoBehaviour
             OfferData offerPrefab = SelectOfferFromPool(poolIndex, currentEquilibriumState);
 
             // if we can't get an offer from this pool, try from the pool below
-            while (offerPrefab == null && poolIndex >= 0)
+            while (offerPrefab is null && poolIndex >= 0)
             {
                 poolIndex--;
                 offerPrefab = SelectOfferFromPool(poolIndex, currentEquilibriumState);

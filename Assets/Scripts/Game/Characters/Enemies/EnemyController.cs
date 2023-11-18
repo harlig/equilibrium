@@ -261,7 +261,7 @@ public abstract class EnemyController : CharacterController
 
         // Implement or call your A* pathfinding method here
         path = AStarPathfinding.FindPath(containingRoom.Grid, start, end);
-        if (path == null)
+        if (path is null)
         {
             // don't even try
             return;

@@ -54,7 +54,7 @@ public class EquilibriumManager
     public static EquilibriumState ManageEquilibrium(OrbCollector orbCollector)
     {
         var percFireOrbs = orbCollector.PercTypeOrbsCollectedOfTotal(OrbController.OrbType.FIRE);
-        if (percFireOrbs == null)
+        if (percFireOrbs is null)
         {
             return EquilibriumState.NEUTRAL;
         }

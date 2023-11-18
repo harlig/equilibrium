@@ -24,7 +24,7 @@ public class RoomManager : MonoBehaviour
 
     void Update()
     {
-        if (AllEnemiesDead())
+        if (enemies != null && AllEnemiesDead())
         {
             HasClearedRoom = true;
         }
@@ -66,6 +66,10 @@ public class RoomManager : MonoBehaviour
 
     private bool AllEnemiesDead()
     {
+        if (enemies is null)
+        {
+            return false;
+        }
         foreach (var enemy in enemies)
         {
             if (!enemy.IsDead())
@@ -84,6 +88,13 @@ public class RoomManager : MonoBehaviour
     )
     {
         SetActiveAllChildren(true);
+
+        if (meleeEnemySpawnLocations.Count == 0)
+        {
+            // if there are no enemies to spawn, room is cleared
+            HasClearedRoom = true;
+        }
+
         if (!HasClearedRoom)
         {
             enemies = SpawnEnemies(
