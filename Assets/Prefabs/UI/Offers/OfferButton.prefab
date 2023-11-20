@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8818445590094157644}
   - component: {fileID: 8525256037812520108}
   - component: {fileID: 7515878021203476239}
+  - component: {fileID: 4490044060965309640}
   m_Layer: 5
   m_Name: OfferButton
   m_TagString: Untagged
@@ -121,6 +122,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4490044060965309640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41698220495553160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9706d32fbf5704c1a9607ae8d2af07d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4963525312609674093
 GameObject:
   m_ObjectHideFlags: 0

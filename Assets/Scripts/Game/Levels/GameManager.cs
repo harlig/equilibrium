@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public OfferSystem OfferSystem;
 
     public CameraController CameraController { get; private set; }
-    public OfferButtonSpawner OfferButtonSpawner { get; private set; }
+    public OfferAreaManager OfferAreaManager { get; private set; }
 
     private AcquisitionManager acquisitionManager;
     private LevelUpBehavior levelUpBehavior;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     protected void SetupGame()
     {
         CameraController = GetComponentInChildren<CameraController>();
-        OfferButtonSpawner = GetComponentInChildren<OfferButtonSpawner>();
+        OfferAreaManager = GetComponentInChildren<OfferAreaManager>();
         levelUpBehavior = GetComponentInChildren<LevelUpBehavior>();
 
         FloorManager
@@ -111,26 +111,5 @@ public class GameManager : MonoBehaviour
         }
         HudController.SetPlayerXp(newPlayerXp);
         HudController.SetOrbsCollected();
-    }
-
-    void OnPlayerHitChest()
-    {
-        // chests always give 3 offers
-        var numOffersToGet = 3;
-        List<OfferData> chestHitOffers = OfferSystem.GetOffers(
-            numOffersToGet,
-            player.PlayerLevel,
-            player.EquilibriumState
-        );
-
-        PauseGame();
-        OfferButtonSpawner.CreateOfferButtons(
-            chestHitOffers,
-            (offerSelected) =>
-            {
-                OnOfferSelected(offerSelected);
-                UnpauseGame();
-            }
-        );
     }
 }

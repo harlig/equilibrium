@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelUpUIElements : MonoBehaviour
 {
     [SerializeField]
-    private OfferButtonSpawner offerButtonSpawner;
+    private OfferAreaManager offerButtonSpawner;
 
     public void SetElements(
         int newPlayerLevel,
