@@ -11,8 +11,7 @@ public class StatusEffectAnimator : MonoBehaviour
 
     private int updatesSinceLastSpriteChange = 0;
 
-    [SerializeField]
-    private float animationSpeed = 3;
+    private readonly float animationSpeed = 6;
 
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
