@@ -15,10 +15,19 @@ public class OfferAreaManager : MonoBehaviour
     [SerializeField]
     private RectTransform HelpArea;
 
+    public void DisableHelpText()
+    {
+        HelpArea.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        HelpArea.gameObject.SetActive(false);
+    }
+
     public void CreateOfferButtons(List<OfferData> offers, Action<OfferData> onButtonClickedAction)
     {
         if (offers.Count == 0)
             return;
+
+        HelpArea.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        HelpArea.gameObject.SetActive(true);
 
         // Calculate the button size and spacing based on the parent panel's width and the number of offers
         float maxButtonSize = OfferButtonArea.rect.width * 0.25f; // Maximum size a button can be is 25% of parent width
@@ -65,9 +74,11 @@ public class OfferAreaManager : MonoBehaviour
             var item = createdButtons[ndx];
             item.Item2
                 .Button()
-                .onClick.AddListener(() => OnOfferButtonClicked(item.Item1, onButtonClickedAction));
-
-            // item.Item2.Button().onPointerEnter.AddListener()
+                .onClick.AddListener(() =>
+                {
+                    OnOfferButtonClicked(item.Item1, onButtonClickedAction);
+                    DisableHelpText();
+                });
         }
     }
 

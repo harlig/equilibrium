@@ -29,7 +29,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     private AcquisitionsDisplayController acquisitionsDisplayController;
     public OfferAreaManager OfferAreaManager { get; private set; }
 
-    void Start()
+    void Awake()
     {
         OfferAreaManager = GetComponentInChildren<OfferAreaManager>();
     }
