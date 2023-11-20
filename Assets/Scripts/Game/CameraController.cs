@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -13,6 +14,9 @@ public class CameraController : MonoBehaviour
     // these indicate the min/max x/y values which will ever be in the camera's viewport
     public Vector2 MinCoordinatesVisible { get; private set; }
     public Vector2 MaxCoordinatesVisible { get; private set; }
+    private Vector3 originalCameraPosition;
+    private float shakeDuration = 0f;
+    private float shakeMagnitude = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -81,5 +85,31 @@ public class CameraController : MonoBehaviour
         );
 
         transform.position = new Vector3(x, y, transform.position.z);
+    }
+
+    public void TriggerShake(float duration, float magnitude)
+    {
+        shakeDuration = duration;
+        shakeMagnitude = magnitude;
+        originalCameraPosition = transform.position;
+        StartCoroutine(Shake());
+    }
+
+    private IEnumerator Shake()
+    {
+        while (shakeDuration > 0)
+        {
+            Vector3 shakePosition =
+                originalCameraPosition + Random.insideUnitSphere * shakeMagnitude;
+
+            // Keeping the camera's shake position within the bounds
+            shakePosition.z = originalCameraPosition.z;
+            transform.position = shakePosition;
+
+            shakeDuration -= Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = originalCameraPosition;
     }
 }

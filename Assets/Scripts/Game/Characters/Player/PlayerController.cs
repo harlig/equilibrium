@@ -50,6 +50,10 @@ public class PlayerController : CharacterController
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;
 
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    private const float FLASH_DURATION = 0.5f;
+
     void Awake()
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
@@ -63,6 +67,12 @@ public class PlayerController : CharacterController
         StatusEffectSystem = GetComponentInChildren<StatusEffectSystem>();
         hpRemaining = MaxHp;
         CreateMeleeWeapon();
+    }
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     public float XpCollected()
@@ -283,7 +293,9 @@ public class PlayerController : CharacterController
             GetComponent<BoxCollider2D>().enabled = false;
             return;
         }
-        // TODO: how to force damage sometimes?
+
+        // StartCoroutine(FlashSprite());
+        MainCamera.GetComponent<CameraController>().TriggerShake(0.10f, 0.2f);
         StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
     }
 
@@ -325,5 +337,30 @@ public class PlayerController : CharacterController
         Vector2 offset = isMovingRight ? topRight : topLeft;
 
         meleeWeapon.transform.position = currentPos + offset;
+    }
+
+    private IEnumerator FlashSprite()
+    {
+        // Change color to white
+        spriteRenderer.color = Color.white;
+
+        // Wait for half the duration
+        yield return new WaitForSeconds(FLASH_DURATION / 2);
+
+        // Lerp back to the original color over the remaining duration
+        float elapsedTime = 0;
+        while (elapsedTime < FLASH_DURATION / 2)
+        {
+            spriteRenderer.color = Color.Lerp(
+                Color.white,
+                originalColor,
+                elapsedTime / (FLASH_DURATION / 2)
+            );
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the color is set to the original color
+        spriteRenderer.color = originalColor;
     }
 }
