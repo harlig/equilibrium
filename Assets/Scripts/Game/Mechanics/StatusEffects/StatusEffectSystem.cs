@@ -34,6 +34,10 @@ public class StatusEffectSystem : MonoBehaviour
         EquilibriumManager.EquilibriumState newEquilibrumState
     )
     {
+        foreach (var effect in statusEffects)
+        {
+            effect.StopAnimating();
+        }
         // get status effect data for equilibrium state
         // set status effect data as active status effect and animate it on the character
         if (!equilibriumStateToStatusEffectMap.ContainsKey(newEquilibrumState))
@@ -44,6 +48,10 @@ public class StatusEffectSystem : MonoBehaviour
             );
             return;
         }
+        Debug.LogFormat(
+            "Trying to set status effect for equilibrium state of {0}",
+            newEquilibrumState
+        );
         var statusEffect = equilibriumStateToStatusEffectMap[newEquilibrumState];
         statusEffect.AnimateStatusEffect(player, spriteRenderer);
         // somewhat transparent

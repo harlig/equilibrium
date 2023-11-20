@@ -14,6 +14,17 @@ public class StatusEffectData : MonoBehaviour
 
     public void AnimateStatusEffect(CharacterController character, SpriteRenderer spriteRenderer)
     {
-        statusEffectAnimator.DoAnimate(character, spriteRenderer, tintColor);
+        if (statusEffectAnimator != null)
+        {
+            statusEffectAnimator.DoAnimate(character, spriteRenderer, tintColor);
+        }
+    }
+
+    public void StopAnimating()
+    {
+        if (statusEffectAnimator != null)
+        {
+            statusEffectAnimator.StopAnimating();
+        }
     }
 }

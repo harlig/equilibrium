@@ -107,10 +107,7 @@ public class GameManager : MonoBehaviour
             player.EquilibriumState = equilibriumState;
             HudController.SetEquilibriumState(equilibriumState);
 
-            // TODO: change
-            player.StatusEffectSystem.SetStatusEffectForEquilibriumState(
-                EquilibriumManager.EquilibriumState.FROZEN
-            );
+            player.StatusEffectSystem.SetStatusEffectForEquilibriumState(equilibriumState);
         }
         HudController.SetPlayerXp(newPlayerXp);
         HudController.SetOrbsCollected();

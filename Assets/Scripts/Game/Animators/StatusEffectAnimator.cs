@@ -12,7 +12,7 @@ public class StatusEffectAnimator : MonoBehaviour
     private int updatesSinceLastSpriteChange = 0;
 
     [SerializeField]
-    private float animationSpeed = 8;
+    private float animationSpeed = 3;
 
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
@@ -57,5 +57,10 @@ public class StatusEffectAnimator : MonoBehaviour
     void TrySetCharacterSpriteColor()
     {
         character.gameObject.GetComponent<SpriteRenderer>().color = tintColor;
+    }
+
+    public void StopAnimating()
+    {
+        shouldAnimate = false;
     }
 }

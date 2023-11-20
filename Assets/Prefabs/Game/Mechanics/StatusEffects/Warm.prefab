@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6296081496729478987}
   - component: {fileID: 151917366498361412}
   m_Layer: 0
-  m_Name: Frozen
+  m_Name: Warm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectAnimator: {fileID: 5027383251141045878}
-  tintColor: {r: 0, g: 0.9897957, b: 1, a: 1}
+  tintColor: {r: 1, g: 0.62102616, b: 0, a: 1}
 --- !u!1 &8037013938269410589
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,14 +92,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectAnimationArray:
-  - {fileID: 21300000, guid: ad777c567f1074aeca3e74a10a024ed2, type: 3}
-  - {fileID: 21300000, guid: e5ead175488d64997af74a1d90918bcc, type: 3}
-  - {fileID: 21300000, guid: 245cdf6d3530748d8ba0c33517a79034, type: 3}
-  - {fileID: 21300000, guid: 2a7f147f9bb6e4f0c920c427b852769f, type: 3}
-  - {fileID: 21300000, guid: 28cc464e6ee05423692a46cc41243774, type: 3}
-  - {fileID: 21300000, guid: 72a48ed8c9cbb48b695800f727a6319a, type: 3}
-  - {fileID: 21300000, guid: 1e4867a87e02b45ac951d8a4f0723d39, type: 3}
-  - {fileID: 21300000, guid: 0afeb3159172d40a5a19ad858a43448f, type: 3}
-  - {fileID: 21300000, guid: 29752af2c735542da88012e4bd3f9afa, type: 3}
-  - {fileID: 21300000, guid: 30802e448704d43cf9b0de7c2c235a47, type: 3}
+  - {fileID: 21300000, guid: ea962de9b8f9c47669318a0046069f74, type: 3}
+  - {fileID: 21300000, guid: 38f19a44427f046d8a3f72b13c012f0b, type: 3}
+  - {fileID: 21300000, guid: ee731596dafef48129dd2876805f3551, type: 3}
+  - {fileID: 21300000, guid: 297404e8758344ea5b21b633f5902693, type: 3}
+  - {fileID: 21300000, guid: dac3a06a73ac4429a8828b0cdddac593, type: 3}
+  - {fileID: 21300000, guid: 3e3644bb564d34fca80b7f9970513ec4, type: 3}
+  - {fileID: 21300000, guid: ebb9d44e9b587487bb162ff33b3d1bdb, type: 3}
+  - {fileID: 21300000, guid: dcd01df8f2ddd4bf9b8b5172e077e36d, type: 3}
   animationSpeed: 3

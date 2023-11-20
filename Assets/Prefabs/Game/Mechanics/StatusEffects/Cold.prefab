@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6296081496729478987}
   - component: {fileID: 151917366498361412}
   m_Layer: 0
-  m_Name: Frozen
+  m_Name: Cold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectAnimator: {fileID: 5027383251141045878}
-  tintColor: {r: 0, g: 0.9897957, b: 1, a: 1}
+  tintColor: {r: 0.37486652, g: 0.97494555, b: 0.9811321, a: 1}
 --- !u!1 &8037013938269410589
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,14 +92,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectAnimationArray:
-  - {fileID: 21300000, guid: ad777c567f1074aeca3e74a10a024ed2, type: 3}
-  - {fileID: 21300000, guid: e5ead175488d64997af74a1d90918bcc, type: 3}
-  - {fileID: 21300000, guid: 245cdf6d3530748d8ba0c33517a79034, type: 3}
-  - {fileID: 21300000, guid: 2a7f147f9bb6e4f0c920c427b852769f, type: 3}
-  - {fileID: 21300000, guid: 28cc464e6ee05423692a46cc41243774, type: 3}
-  - {fileID: 21300000, guid: 72a48ed8c9cbb48b695800f727a6319a, type: 3}
-  - {fileID: 21300000, guid: 1e4867a87e02b45ac951d8a4f0723d39, type: 3}
-  - {fileID: 21300000, guid: 0afeb3159172d40a5a19ad858a43448f, type: 3}
-  - {fileID: 21300000, guid: 29752af2c735542da88012e4bd3f9afa, type: 3}
-  - {fileID: 21300000, guid: 30802e448704d43cf9b0de7c2c235a47, type: 3}
-  animationSpeed: 3
+  - {fileID: 21300000, guid: f508689bf183d4d59ba35808e51c6ea0, type: 3}
+  - {fileID: 21300000, guid: 06cbb994515aa4680924276e6200cd13, type: 3}
+  - {fileID: 21300000, guid: 3add24885a2954dd8b5e8842c2e56eaa, type: 3}
+  - {fileID: 21300000, guid: 0101040192e04478e85e5c6bd6672611, type: 3}
+  - {fileID: 21300000, guid: 2514c58bd9d7a4ecc8ba757912b82333, type: 3}
+  - {fileID: 21300000, guid: b093476d233ec40b78b9f0d316e70b03, type: 3}
+  - {fileID: 21300000, guid: 3b164ff1f75a74ff2a9d0d3f505860d8, type: 3}
+  - {fileID: 21300000, guid: 852272f8746a740b6860c99a1d2ff034, type: 3}
+  - {fileID: 21300000, guid: 32977ddea03264fb4b1b735e821b1a0f, type: 3}
+  - {fileID: 21300000, guid: 0c1c541f909a046d79844ff4541bf0be, type: 3}
+  animationSpeed: 8
