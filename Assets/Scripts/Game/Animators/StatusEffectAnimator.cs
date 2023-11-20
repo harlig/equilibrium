@@ -65,6 +65,7 @@ public class StatusEffectAnimator : MonoBehaviour
         if (spriteRenderer != null)
         {
             spriteRenderer.sprite = null;
+            character.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }

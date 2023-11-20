@@ -27,6 +27,9 @@ public class EquilibriumManager
     > percentageTotalOrbsAreFireOrbsToEquilibriumStateMapping =
         GeneratePercentageTotalOrbsAreFireOrbsToEquilibriumStateMapping();
 
+    private const float NUM_ORBS_FOR_UNLOCK_HOT = 50;
+    private const float NUM_ORBS_FOR_UNLOCK_INFERNO = 100;
+
     private static Dictionary<
         (float, float),
         EquilibriumState
@@ -65,7 +68,7 @@ public class EquilibriumManager
             var range = rangeMapping.Key;
             if (percFireOrbs >= range.Item1 && percFireOrbs <= range.Item2)
             {
-                if (totalOrbs < 50)
+                if (totalOrbs < NUM_ORBS_FOR_UNLOCK_HOT)
                 {
                     if (rangeMapping.Value > EquilibriumState.WARM)
                     {
@@ -77,7 +80,7 @@ public class EquilibriumManager
                     }
                 }
 
-                if (totalOrbs < 125)
+                if (totalOrbs < NUM_ORBS_FOR_UNLOCK_INFERNO)
                 {
                     if (rangeMapping.Value > EquilibriumState.HOT)
                     {

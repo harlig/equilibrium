@@ -22,7 +22,7 @@ public class MeleeWeapon : WeaponController
         get
         {
             // TODO: change to be specific to actual weapon
-            return 2.0f;
+            return 20.0f;
         }
     }
 

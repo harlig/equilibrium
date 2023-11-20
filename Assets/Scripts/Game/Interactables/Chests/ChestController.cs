@@ -21,10 +21,8 @@ public class ChestController : InteractableBehavior
     {
         if (hasBeenOpened)
         {
-            // display text stating it's been opened?
             return;
         }
-        // display text stating you can open chest
         OpenChest(player);
     }
 
@@ -46,7 +44,6 @@ public class ChestController : InteractableBehavior
             }
         );
 
-        // set as opened
         hasBeenOpened = true;
         GetComponent<SpriteRenderer>().sprite = openedChestSprite;
     }
