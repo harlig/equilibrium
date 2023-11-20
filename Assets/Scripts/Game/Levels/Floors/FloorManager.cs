@@ -72,7 +72,6 @@ public abstract class FloorManager : MonoBehaviour
             cameraController,
             hudController
         );
-        // TODO: move this lower?
         newFloor.SetupFloor();
 
         // deactivate this floor

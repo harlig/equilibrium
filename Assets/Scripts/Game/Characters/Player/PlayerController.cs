@@ -211,7 +211,6 @@ public class PlayerController : CharacterController
             var xpForLevelUp = GameManager.XpNeededForLevelUpAtIndex[PlayerLevel];
             if (OrbCollector.XpCollected >= xpForLevelUp)
             {
-                // TODO: celebrate that player leveled up, offer reward!
                 PlayerLevel++;
 
                 // can't collect more orbs until we finish the level up
@@ -229,7 +228,6 @@ public class PlayerController : CharacterController
         }
     }
 
-    // TODO: should we remove this?
     void RegisterDamage(GameObject other, bool forceDmg = false)
     {
         float dmgAmount;
@@ -274,7 +272,6 @@ public class PlayerController : CharacterController
 
     public override void OnDamageTaken(DamageType damageType, float damageTaken)
     {
-        // TODO: add in effects for different damage types
         hpRemaining -= damageTaken;
         OnDamageTakenAction?.Invoke(hpRemaining);
 

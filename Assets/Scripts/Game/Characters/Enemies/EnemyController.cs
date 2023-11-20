@@ -170,7 +170,6 @@ public abstract class EnemyController : CharacterController
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
-                // TODO: what did I break here?
                 if (tryUnstuck)
                 {
                     direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
