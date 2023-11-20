@@ -94,7 +94,7 @@ public abstract class EnemyController : CharacterController
         return createdEnemy;
     }
 
-    private float pathUpdateInterval = 0.5f; // Time in seconds between path updates
+    private float pathUpdateInterval = 0.2f; // Time in seconds between path updates
     private float pathUpdateTimer;
     private Vector3 lastPosition;
     bool tryUnstuck = false;

@@ -30,7 +30,7 @@ public class OrbDropper : MonoBehaviour
 
     [SerializeField]
     private OrbController iceOrbPrefab;
-    const float MAX_PROBABILITY = 0.80f;
+    private const float MAX_PROBABILITY = 0.80f;
 
     public float scatterRange = 1.0f;
 
