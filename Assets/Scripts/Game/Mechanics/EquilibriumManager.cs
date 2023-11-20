@@ -54,6 +54,7 @@ public class EquilibriumManager
     public static EquilibriumState ManageEquilibrium(OrbCollector orbCollector)
     {
         var percFireOrbs = orbCollector.PercTypeOrbsCollectedOfTotal(OrbController.OrbType.FIRE);
+        var totalOrbs = orbCollector.TotalOrbsCollected();
         if (percFireOrbs is null)
         {
             return EquilibriumState.NEUTRAL;
@@ -64,6 +65,29 @@ public class EquilibriumManager
             var range = rangeMapping.Key;
             if (percFireOrbs >= range.Item1 && percFireOrbs <= range.Item2)
             {
+                if (totalOrbs < 50)
+                {
+                    if (rangeMapping.Value > EquilibriumState.WARM)
+                    {
+                        return EquilibriumState.WARM;
+                    }
+                    if (rangeMapping.Value < EquilibriumState.BRISK)
+                    {
+                        return EquilibriumState.BRISK;
+                    }
+                }
+
+                if (totalOrbs < 125)
+                {
+                    if (rangeMapping.Value > EquilibriumState.HOT)
+                    {
+                        return EquilibriumState.HOT;
+                    }
+                    if (rangeMapping.Value < EquilibriumState.COLD)
+                    {
+                        return EquilibriumState.COLD;
+                    }
+                }
                 return rangeMapping.Value;
             }
         }

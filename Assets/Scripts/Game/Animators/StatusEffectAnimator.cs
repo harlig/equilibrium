@@ -62,5 +62,9 @@ public class StatusEffectAnimator : MonoBehaviour
     public void StopAnimating()
     {
         shouldAnimate = false;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = null;
+        }
     }
 }

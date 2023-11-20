@@ -43,6 +43,17 @@ public class OrbCollector
         return OrbsCollected[orbType];
     }
 
+    public int TotalOrbsCollected()
+    {
+        int total = 0;
+        foreach (var orbsCollectedForType in OrbsCollected)
+        {
+            total += orbsCollectedForType.Value;
+        }
+
+        return total;
+    }
+
     public float? PercTypeOrbsCollectedOfTotal(OrbController.OrbType orbType)
     {
         float totalOrbsCollected = 0;
