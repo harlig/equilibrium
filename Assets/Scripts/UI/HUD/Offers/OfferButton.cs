@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class OfferButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private OfferData offer;
+    private TextMeshProUGUI helpText;
     public Button Button()
     {
         return GetComponent<Button>();
@@ -17,15 +19,17 @@ public class OfferButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Transform parent,
         float buttonSize,
         Vector2 anchoredPosition,
-        OfferData offer
+        OfferData offer,
+        TextMeshProUGUI helpText
     )
     {
         OfferButton newButton = Instantiate(buttonPrefab, parent);
         RectTransform buttonRect = newButton.GetComponent<RectTransform>();
 
-        // Set the button's size to be square based on the calculated button size
-        buttonRect.sizeDelta = new Vector2(buttonSize, buttonSize);
+        newButton.offer = offer;
+        newButton.helpText = helpText;
 
+        buttonRect.sizeDelta = new Vector2(buttonSize, buttonSize);
         buttonRect.anchoredPosition = anchoredPosition;
 
         // TODO: should probably be a better shared way to set this
@@ -40,13 +44,12 @@ public class OfferButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Pointer entered button");
-        // throw new System.NotImplementedException();
+        helpText.text = offer.GetHelpText();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Pointer left button");
+        helpText.text = "";
         // throw new System.NotImplementedException();
     }
 }

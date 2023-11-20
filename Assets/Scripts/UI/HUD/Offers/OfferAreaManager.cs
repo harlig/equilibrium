@@ -17,14 +17,6 @@ public class OfferAreaManager : MonoBehaviour
 
     public void CreateOfferButtons(List<OfferData> offers, Action<OfferData> onButtonClickedAction)
     {
-        InternalCreateOfferButtons(offers, onButtonClickedAction);
-    }
-
-    public void InternalCreateOfferButtons(
-        List<OfferData> offers,
-        Action<OfferData> onButtonClickedAction
-    )
-    {
         if (offers.Count == 0)
             return;
 
@@ -62,7 +54,8 @@ public class OfferAreaManager : MonoBehaviour
                 OfferButtonArea,
                 buttonSize,
                 anchoredPosition,
-                offer
+                offer,
+                HelpArea.GetComponentInChildren<TextMeshProUGUI>()
             );
             createdButtons.Add(new(offer, newButton));
         }

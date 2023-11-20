@@ -35,7 +35,7 @@ public class ChestController : InteractableBehavior
         );
 
         GameManager.PauseGame();
-        gameManager.OfferAreaManager.CreateOfferButtons(
+        gameManager.HudController.OfferAreaManager.CreateOfferButtons(
             chestHitOffers,
             (offerSelected) =>
             {

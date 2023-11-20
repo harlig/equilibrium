@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public OfferSystem OfferSystem;
 
     public CameraController CameraController { get; private set; }
-    public OfferAreaManager OfferAreaManager { get; private set; }
 
     private AcquisitionManager acquisitionManager;
     private LevelUpBehavior levelUpBehavior;
@@ -36,7 +35,6 @@ public class GameManager : MonoBehaviour
     protected void SetupGame()
     {
         CameraController = GetComponentInChildren<CameraController>();
-        OfferAreaManager = GetComponentInChildren<OfferAreaManager>();
         levelUpBehavior = GetComponentInChildren<LevelUpBehavior>();
 
         FloorManager

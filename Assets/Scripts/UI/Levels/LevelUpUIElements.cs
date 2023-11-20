@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class LevelUpUIElements : MonoBehaviour
 {
-    [SerializeField]
     private OfferAreaManager offerButtonSpawner;
+
+    void Start()
+    {
+        offerButtonSpawner = GetComponentInParent<HeadsUpDisplayController>().OfferAreaManager;
+    }
 
     public void SetElements(
         int newPlayerLevel,
@@ -15,6 +19,7 @@ public class LevelUpUIElements : MonoBehaviour
         Action<OfferData> onOfferSelectedAction
     )
     {
+        // TODO: need to say congrats on leveling up
         offerButtonSpawner.CreateOfferButtons(offers, onOfferSelectedAction);
 
         gameObject.SetActive(true);

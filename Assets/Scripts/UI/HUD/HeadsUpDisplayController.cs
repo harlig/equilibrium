@@ -27,6 +27,12 @@ public class HeadsUpDisplayController : MonoBehaviour
 
     private OrbCollector playerOrbCollector;
     private AcquisitionsDisplayController acquisitionsDisplayController;
+    public OfferAreaManager OfferAreaManager { get; private set; }
+
+    void Start()
+    {
+        OfferAreaManager = GetComponentInChildren<OfferAreaManager>();
+    }
 
     public void Setup(PlayerController player)
     {
