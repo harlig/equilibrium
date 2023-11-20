@@ -1,19 +1,19 @@
 using UnityEngine;
 
-public class LadderController : InteractableBehavior
+public class StairsController : InteractableBehavior
 {
     public FloorManager FloorTo;
 
     protected override string GetHelpText()
     {
-        if (CanClimbLadder())
+        if (CanDescendStairs())
         {
-            return "Press E to climb down ladder to next floor";
+            return "Press E to descend the stairs to the next floor";
         }
-        return "You must clear the room to climb the ladder";
+        return "You must clear the room to descend the stairs";
     }
 
-    private bool CanClimbLadder()
+    private bool CanDescendStairs()
     {
         return GetComponentInParent<RoomManager>().HasClearedRoom;
     }
@@ -21,11 +21,11 @@ public class LadderController : InteractableBehavior
     protected override void OnPlayerHit(PlayerController player)
     {
         // is level beat, if so move camera and player
-        if (CanClimbLadder())
+        if (CanDescendStairs())
         {
-            if (FloorTo is null)
+            if (FloorTo == null)
             {
-                Debug.LogError("Ladder was interacted with which had no FloorTo set!");
+                Debug.LogError("Stairs were interacted with which had no FloorTo set!");
                 return;
             }
             GetComponentInParent<FloorManager>().SetNewActiveFloor(FloorTo);

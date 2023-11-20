@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6080553235910141135}
   - component: {fileID: 47226871428776916}
   m_Layer: 0
-  m_Name: Ladder
+  m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1778749117
   m_SortingLayer: -1
   m_SortingOrder: 10
-  m_Sprite: {fileID: -67257873, guid: fd0cf1b900a454238b1fce0dac6664dc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7c4bca8dea3545c6970e4d0d7a44372, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

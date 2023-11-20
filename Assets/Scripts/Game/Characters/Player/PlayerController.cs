@@ -304,7 +304,7 @@ public class PlayerController : CharacterController
 
     private void MoveWeaponRelativeToMouse()
     {
-        if (meleeWeapon is null || MainCamera is null)
+        if (meleeWeapon == null || MainCamera == null)
         {
             return;
         }
