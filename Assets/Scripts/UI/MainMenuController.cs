@@ -11,21 +11,26 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private GameObject hasSavedGameMenu;
 
-    void Start() { }
+    [SerializeField]
+    private GameObject optionsMenu;
+
+    void Start()
+    {
+        SetActiveMenu();
+    }
 
     public void SetActiveMenu()
     {
-        // TODO: if we want level loading
-        // if (GameManager.Instance.LastBuildIndex.HasValue)
-        // {
-        //     freshGameMenu.SetActive(false);
-        //     hasSavedGameMenu.SetActive(true);
-        // }
-        // else
-        // {
         freshGameMenu.SetActive(true);
         hasSavedGameMenu.SetActive(false);
-        // }
+        optionsMenu.SetActive(false);
+    }
+
+    public void ShowOptionsMenu()
+    {
+        freshGameMenu.SetActive(false);
+        hasSavedGameMenu.SetActive(false);
+        optionsMenu.SetActive(true);
     }
 
     public void PlayGame()
