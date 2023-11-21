@@ -9,25 +9,24 @@ public class AudioManager : MonoBehaviour
     private AudioClip[] weaponSwingSounds;
 
     private AudioSource audioSource;
+    private AudioPreferences audioPreferences;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        audioPreferences = new();
     }
 
     public void DoPlaySound(AudioClip sound)
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.clip = sound;
-            audioSource.Play();
-        }
-        else
+        audioPreferences.LoadPreferences();
+        if (audioSource.isPlaying)
         {
             audioSource.Stop();
-            audioSource.clip = sound;
-            audioSource.Play();
         }
+        audioSource.clip = sound;
+        audioSource.volume = audioPreferences.mainVolume;
+        audioSource.Play();
     }
 
     public void PlayHurtSound()
