@@ -27,8 +27,6 @@ public class PlayerController : CharacterController
     public delegate void LevelUpAction(int newPlayerLevel, Action afterLevelUpAction);
     public event LevelUpAction OnLevelUpAction;
 
-    public delegate void DamageTakenAction(float newPlayerHp);
-    public event DamageTakenAction OnDamageTakenAction;
     public delegate void OrbCollectedAction(OrbController orbCollected, float newXp);
     public event OrbCollectedAction OnOrbCollectedAction;
 
@@ -283,7 +281,6 @@ public class PlayerController : CharacterController
     public override void OnDamageTaken(DamageType damageType, float damageTaken)
     {
         hpRemaining -= damageTaken;
-        OnDamageTakenAction?.Invoke(hpRemaining);
 
         if (IsDead())
         {
@@ -294,8 +291,9 @@ public class PlayerController : CharacterController
             return;
         }
 
-        // StartCoroutine(FlashSprite());
-        MainCamera.GetComponent<CameraController>().TriggerShake(0.10f, 0.2f);
+        GetComponentInParent<GameManager>().AudioManager.PlayHurtSound();
+        GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining);
+
         StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
     }
 

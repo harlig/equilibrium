@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
             .SetupFloor();
 
         player.OnLevelUpAction += OnPlayerLevelUp;
-        player.OnDamageTakenAction += OnPlayerDamageTaken;
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
         HudController.Setup(player);
@@ -89,12 +88,6 @@ public class GameManager : MonoBehaviour
     {
         acquisitionManager.AcquireOffer(offerSelected);
         HudController.SetAcquisitions(acquisitionManager.Acquisitions);
-    }
-
-    void OnPlayerDamageTaken(float newPlayerHp)
-    {
-        AudioManager.PlayHurtSound();
-        HudController.SetPlayerHp(newPlayerHp);
     }
 
     void OnPlayerOrbCollected(OrbController orbCollected, float newPlayerXp)
