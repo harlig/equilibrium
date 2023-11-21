@@ -290,6 +290,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: OfferSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6062085168296641770, guid: 015d64c5ab4404246997e419710df8e1, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 6062085168296641770, guid: ef6a2d534d08045ff8d2b210139c6c57, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 6062085168296641770, guid: 0ffe86b0aff1f485e844161372006a53, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3333020461621704239, guid: 03a1a542878e54d37aa9532f65e27c7d, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 3333020461621704239, guid: 9a01cb40233ea4256a33effd09d16d8f, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 3333020461621704239, guid: e153073521e2d4f8caaeb6bc81a9b74e, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 2004328795588991296, guid: 02cbedba172274a108378fb511a83458, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 2004328795588991296, guid: 05ce85474734b41d79388bed7f3d336f, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 2004328795588991296, guid: 66903060c93c149f58beb0844dc6301e, type: 3}
+    - target: {fileID: 9123079116444068767, guid: 747a2dabec3f2418d9d345c888ff7449, type: 3}
+      propertyPath: allOfferPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 2004328795588991296, guid: 5494c2dbdde354d7fa4951fcb23437ed, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

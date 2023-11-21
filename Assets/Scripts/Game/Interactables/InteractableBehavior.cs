@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class InteractableBehavior : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip onPlayerHitAudio;
+
     // This can be overridden if the interactable needs to do something when it's hit. However if the behavior is in the context of the floor, the handling should be in FloorManager.OnInteractableHitPlayer
     protected abstract void OnPlayerHit(PlayerController player);
     protected abstract string GetHelpText();
@@ -12,10 +15,12 @@ public abstract class InteractableBehavior : MonoBehaviour
     protected bool PlayerCanInteractWithThis { get; set; } = false;
     PlayerController playerController;
     HeadsUpDisplayController hudController;
+    AudioManager audioManager;
 
     void Start()
     {
         hudController = GetComponentInParent<GameManager>().HudController;
+        audioManager = GetComponentInParent<GameManager>().AudioManager;
     }
 
     void Update()
@@ -27,6 +32,7 @@ public abstract class InteractableBehavior : MonoBehaviour
                 OnPlayerHit(playerController);
                 hudController.DisableInteractableHelpText();
                 PlayerCanInteractWithThis = false;
+                audioManager.DoPlaySound(onPlayerHitAudio);
             }
         }
     }

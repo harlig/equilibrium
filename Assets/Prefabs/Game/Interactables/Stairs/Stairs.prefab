@@ -143,4 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9f01bef014d4cec976e72bcd5b7a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPlayerHitAudio: {fileID: 8300000, guid: f8b05bd7d09894ca1826a07997445edb, type: 3}
   FloorTo: {fileID: 0}
