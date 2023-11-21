@@ -7,12 +7,12 @@ public class FirstFloor : FloorManager
         new()
         {
             new(2, 2),
-            new(2, 3),
-            new(2, 4),
-            new(2, 5),
-            new Vector2(3, 5),
-            new Vector2(3, 4),
-            new Vector2(3, 3),
-            new Vector2(3, 2)
+            // new(2, 3),
+            // new(2, 4),
+            // new(2, 5),
+            // new Vector2(3, 5),
+            // new Vector2(3, 4),
+            // new Vector2(3, 3),
+            // new Vector2(3, 2)
         };
 }

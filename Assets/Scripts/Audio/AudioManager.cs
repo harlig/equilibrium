@@ -13,7 +13,16 @@ public class AudioManager : MonoBehaviour
 
     public void PlayHurtSound()
     {
-        audioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
-        audioSource.Play();
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+            audioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
+            audioSource.Play();
+        }
     }
 }

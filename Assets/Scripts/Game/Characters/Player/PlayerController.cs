@@ -336,29 +336,4 @@ public class PlayerController : CharacterController
 
         meleeWeapon.transform.position = currentPos + offset;
     }
-
-    private IEnumerator FlashSprite()
-    {
-        // Change color to white
-        spriteRenderer.color = Color.white;
-
-        // Wait for half the duration
-        yield return new WaitForSeconds(FLASH_DURATION / 2);
-
-        // Lerp back to the original color over the remaining duration
-        float elapsedTime = 0;
-        while (elapsedTime < FLASH_DURATION / 2)
-        {
-            spriteRenderer.color = Color.Lerp(
-                Color.white,
-                originalColor,
-                elapsedTime / (FLASH_DURATION / 2)
-            );
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Ensure the color is set to the original color
-        spriteRenderer.color = originalColor;
-    }
 }
