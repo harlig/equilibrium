@@ -4,7 +4,7 @@ public class SettingsManager : MonoBehaviour
 {
     public AudioPreferences audioPreferences;
 
-    void Start()
+    void Awake()
     {
         audioPreferences = new();
     }

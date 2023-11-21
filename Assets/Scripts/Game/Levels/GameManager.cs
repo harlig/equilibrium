@@ -32,6 +32,14 @@ public class GameManager : MonoBehaviour
         SetupGame();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GetComponentInChildren<PauseMenuController>(true).TogglePause();
+        }
+    }
+
     protected void SetupGame()
     {
         CameraController = GetComponentInChildren<CameraController>();

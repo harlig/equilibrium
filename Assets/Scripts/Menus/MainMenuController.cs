@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class MainMenuController : MonoBehaviour
     {
         freshGameMenu.SetActive(false);
         hasSavedGameMenu.SetActive(false);
+        optionsMenu.GetComponentInChildren<Slider>().value = new AudioPreferences().mainVolume;
         optionsMenu.SetActive(true);
     }
 
