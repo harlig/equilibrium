@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public OfferSystem OfferSystem;
 
     public CameraController CameraController { get; private set; }
+    public AudioManager AudioManager { get; private set; }
 
     private AcquisitionManager acquisitionManager;
     private LevelUpBehavior levelUpBehavior;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         CameraController = GetComponentInChildren<CameraController>();
         levelUpBehavior = GetComponentInChildren<LevelUpBehavior>();
+        AudioManager = GetComponentInChildren<AudioManager>();
 
         FloorManager
             .Create(startingFloorPrefab, transform, player, CameraController, HudController)
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
+        AudioManager.PlaySound(0);
         // TODO: how many offers should player get?
         var numOffersToGet =
             newLevel == 1
