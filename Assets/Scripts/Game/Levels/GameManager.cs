@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
-        AudioManager.PlaySound(0);
         // TODO: how many offers should player get?
         var numOffersToGet =
             newLevel == 1
@@ -94,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerDamageTaken(float newPlayerHp)
     {
+        AudioManager.PlayHurtSound();
         HudController.SetPlayerHp(newPlayerHp);
     }
 

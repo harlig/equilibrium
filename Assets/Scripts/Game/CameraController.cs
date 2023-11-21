@@ -92,7 +92,7 @@ public class CameraController : MonoBehaviour
         shakeDuration = duration;
         shakeMagnitude = magnitude;
         originalCameraPosition = transform.position;
-        StartCoroutine(Shake());
+        // StartCoroutine(Shake());
     }
 
     private IEnumerator Shake()

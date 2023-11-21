@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip[] soundClips; // Array of sound clips
+    [SerializeField]
+    private AudioClip[] hurtSounds;
     private AudioSource audioSource;
 
     void Awake()
@@ -10,16 +11,9 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(int clipIndex)
+    public void PlayHurtSound()
     {
-        if (clipIndex >= 0 && clipIndex < soundClips.Length)
-        {
-            audioSource.clip = soundClips[clipIndex];
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.LogError("Clip index out of range");
-        }
+        audioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
+        audioSource.Play();
     }
 }
