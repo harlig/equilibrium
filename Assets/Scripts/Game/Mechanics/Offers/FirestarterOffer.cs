@@ -35,4 +35,18 @@ public class FirestarterOffer : OfferData
     {
         return $"Firestarter {augmentation.ToString().ToLowerInvariant()}";
     }
+
+    public override string GetHelpText()
+    {
+        switch (augmentation)
+        {
+            case FirestarterAugmentation.CHANCE:
+                return "Chance to set enemies on fire.";
+            case FirestarterAugmentation.DAMAGE:
+                return "Increase damage done over time when setting enemies on fire.";
+            case FirestarterAugmentation.DURATION:
+                return "Increase duration of enemies being on fire.";
+        }
+        throw new Exception($"Couldn't handle this augmentation {augmentation}");
+    }
 }

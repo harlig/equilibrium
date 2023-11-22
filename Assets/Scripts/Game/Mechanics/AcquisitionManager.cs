@@ -47,7 +47,7 @@ public class Acquisition
     {
         var newAcquisition = new Acquisition
         {
-            Name = offer.name,
+            Name = offer.GetName(),
             Color = offer.Color,
             Value = offer.Value
         };

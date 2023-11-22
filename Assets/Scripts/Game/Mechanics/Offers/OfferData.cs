@@ -35,17 +35,17 @@ public abstract class OfferData : MonoBehaviour
 
     public abstract string GetName();
 
-    public string GetHelpText()
+    public virtual string GetHelpText()
     {
-        return effectType switch
+        return this switch
         {
-            EffectType.DAMAGE => "Augments your damage by the specified value.",
-            EffectType.SPEED => "Augments your speed by the specified value.",
-            EffectType.FIRESTARTER => "Chance to set enemies on fire (additive).",
+            DamageOffer => "Augments your damage by the specified value.",
+            SpeedOffer => "Augments your speed by the specified value.",
             _
                 => throw new Exception(
                     $"Unhandled offer type when getting help text for offer data {effectType}"
                 ),
         };
+        ;
     }
 }

@@ -69,10 +69,17 @@ public abstract class CharacterController : MonoBehaviour
         StartCoroutine(ApplyDOT(damageType, damageOverTimeDuration, totalDamage));
     }
 
+    private const float DOT_INTERVAL = 0.5f;
+    private const float DOT_BASE_DURATION = 5.0f;
+
     private IEnumerator ApplyDOT(DamageType damageType, float duration, float totalDamage)
     {
-        float interval = 0.5f;
-        float damagePerInterval = CalculateDamagePerInterval(duration, interval, totalDamage);
+        float damagePerInterval = CalculateDamagePerInterval(
+            // this allows an increased duration to get extra ticks of damage
+            DOT_BASE_DURATION,
+            DOT_INTERVAL,
+            totalDamage
+        );
 
         while (duration > 0)
         {
@@ -81,8 +88,8 @@ public abstract class CharacterController : MonoBehaviour
                 elementalDamageSystem.StopAnimating();
                 yield break;
             }
-            yield return new WaitForSeconds(interval);
-            duration -= interval;
+            yield return new WaitForSeconds(DOT_INTERVAL);
+            duration -= DOT_INTERVAL;
             OnDamageTaken(damageType, damagePerInterval);
         }
 

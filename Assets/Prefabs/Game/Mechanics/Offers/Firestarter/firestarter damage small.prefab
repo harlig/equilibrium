@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: 3333020461621704239}
   m_Layer: 0
-  m_Name: firestarter chance small
+  m_Name: firestarter damage small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CorrespondingState: 5
-  OfferPool: 1
+  OfferPool: 3
   Color: {r: 0.9339623, g: 0.54187435, b: 0.54187435, a: 1}
-  Value: 0.03
-  augmentation: 0
+  Value: 4
+  augmentation: 1
