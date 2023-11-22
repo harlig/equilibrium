@@ -9,7 +9,7 @@ public abstract class OfferData : MonoBehaviour
     public Color Color;
 
     public float Value;
-        private EffectType effectType;
+    private EffectType effectType;
 
     public enum EffectType
     {
@@ -33,18 +33,19 @@ public abstract class OfferData : MonoBehaviour
         return instance;
     }
 
-    public string GetName()
-    {
-        return gameObject.name;
-    }
+    public abstract string GetName();
 
-    public string GetHelpText() {
+    public string GetHelpText()
+    {
         return effectType switch
         {
             EffectType.DAMAGE => "Augments your damage by the specified value.",
             EffectType.SPEED => "Augments your speed by the specified value.",
             EffectType.FIRESTARTER => "Chance to set enemies on fire (additive).",
-            _ => throw new Exception($"Unhandled offer type when getting help text for offer data {effectType}"),
+            _
+                => throw new Exception(
+                    $"Unhandled offer type when getting help text for offer data {effectType}"
+                ),
         };
     }
 }

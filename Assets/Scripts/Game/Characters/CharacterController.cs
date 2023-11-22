@@ -42,7 +42,11 @@ public abstract class CharacterController : MonoBehaviour
         elementalDamageSystem = Instantiate(prefab, transform).GetComponent<StatusEffectSystem>();
     }
 
-    public void ApplyDamageOverTime(DamageType damageType, float damageOverTimeDuration)
+    public void ApplyDamageOverTime(
+        DamageType damageType,
+        float damageOverTimeDuration,
+        float totalDamage
+    )
     {
         if (applyingDamageOverTime)
         {
@@ -62,13 +66,13 @@ public abstract class CharacterController : MonoBehaviour
         };
         elementalDamageSystem.SetStateAndAnimate(state);
 
-        StartCoroutine(ApplyDOT(damageType, damageOverTimeDuration));
+        StartCoroutine(ApplyDOT(damageType, damageOverTimeDuration, totalDamage));
     }
 
-    private IEnumerator ApplyDOT(DamageType damageType, float duration)
+    private IEnumerator ApplyDOT(DamageType damageType, float duration, float totalDamage)
     {
         float interval = 0.5f;
-        float damagePerInterval = CalculateDamagePerInterval(duration, interval);
+        float damagePerInterval = CalculateDamagePerInterval(duration, interval, totalDamage);
 
         while (duration > 0)
         {
@@ -86,9 +90,8 @@ public abstract class CharacterController : MonoBehaviour
         applyingDamageOverTime = false;
     }
 
-    private float CalculateDamagePerInterval(float duration, float interval)
+    private float CalculateDamagePerInterval(float duration, float interval, float totalDamage)
     {
-        float totalDamage = 10;
         return totalDamage / (duration / interval);
     }
 

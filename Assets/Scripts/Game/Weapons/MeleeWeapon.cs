@@ -7,7 +7,7 @@ public class MeleeWeapon : WeaponController
 {
     // private bool isSwinging = false;
     private WeaponAnimator weaponAnimator;
-    public float FirestarterModifier { get; set; } = 0f;
+    public FirestarterSystem firestarterSystem = new();
 
     public override DamageType damageType
     {
@@ -70,11 +70,14 @@ public class MeleeWeapon : WeaponController
     {
         character.OnDamageTaken(damageType, baseDamageAmount + damageModifier);
 
-        Debug.LogFormat("Firestarter modifier {0}", FirestarterModifier);
-        if (FirestarterModifier > Random.Range(0f, 1f))
+        Debug.LogFormat("Firestarter modifier {0}", firestarterSystem.Chance);
+        if (firestarterSystem.Chance > Random.Range(0f, 1f))
         {
-            // TODO: make damage + duration variable
-            character.ApplyDamageOverTime(DamageType.FIRE, 5.0f);
+            character.ApplyDamageOverTime(
+                DamageType.FIRE,
+                firestarterSystem.Duration,
+                firestarterSystem.Damage
+            );
         }
     }
 

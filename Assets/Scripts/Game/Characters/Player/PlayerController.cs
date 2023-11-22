@@ -327,8 +327,19 @@ public class PlayerController : CharacterController
         meleeWeapon.transform.position = currentPos + offset;
     }
 
-    public void AddFirestarterModifier(float firestarterModifier)
+    // TODO: I think there's a better generic way of this? should I just expose meleeWeapon?
+    public void AddFirestarterChance(float firestarterModifier)
     {
-        meleeWeapon.FirestarterModifier += firestarterModifier;
+        meleeWeapon.firestarterSystem.Chance += firestarterModifier;
+    }
+
+    public void AddFirestarterDuration(float firestarterModifier)
+    {
+        meleeWeapon.firestarterSystem.Duration += firestarterModifier;
+    }
+
+    public void AddFirestarterDamage(float firestarterModifier)
+    {
+        meleeWeapon.firestarterSystem.Damage += firestarterModifier;
     }
 }
