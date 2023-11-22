@@ -34,6 +34,7 @@ public abstract class OfferData : MonoBehaviour
     }
 
     public abstract string GetName();
+    public abstract string GetValue();
 
     public virtual string GetHelpText()
     {

@@ -41,7 +41,7 @@ public class Acquisition
 {
     public string Name { get; private set; }
     public Color Color { get; private set; }
-    public float Value { get; private set; }
+    public string Value { get; private set; }
 
     public static Acquisition FromOffer(OfferData offer)
     {
@@ -49,7 +49,7 @@ public class Acquisition
         {
             Name = offer.GetName(),
             Color = offer.Color,
-            Value = offer.Value
+            Value = offer.GetValue()
         };
         return newAcquisition;
     }

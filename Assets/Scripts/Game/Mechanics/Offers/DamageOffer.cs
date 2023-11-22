@@ -8,4 +8,9 @@ public class DamageOffer : OfferData
     {
         return gameObject.name;
     }
+
+    public override string GetValue()
+    {
+        return $"{Value}";
+    }
 }

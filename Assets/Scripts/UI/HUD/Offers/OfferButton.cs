@@ -9,6 +9,7 @@ public class OfferButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     private OfferData offer;
     private TextMeshProUGUI helpText;
+
     public Button Button()
     {
         return GetComponent<Button>();
@@ -34,7 +35,7 @@ public class OfferButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         // TODO: should probably be a better shared way to set this
         newButton.GetComponentInChildren<TextMeshProUGUI>().text =
-            $"{offer.GetName()}\n+{offer.Value}";
+            $"{offer.GetName()}\n+{offer.GetValue()}";
 
         newButton.GetComponent<Image>().color = offer.Color;
 

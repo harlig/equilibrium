@@ -36,6 +36,17 @@ public class FirestarterOffer : OfferData
         return $"Firestarter {augmentation.ToString().ToLowerInvariant()}";
     }
 
+    public override string GetValue()
+    {
+        return augmentation switch
+        {
+            FirestarterAugmentation.CHANCE => $"{Value * 100}%",
+            FirestarterAugmentation.DAMAGE => $"{Value}",
+            FirestarterAugmentation.DURATION => $"{Value}s",
+            _ => throw new Exception($"Couldn't handle this augmentation {augmentation}"),
+        };
+    }
+
     public override string GetHelpText()
     {
         switch (augmentation)
