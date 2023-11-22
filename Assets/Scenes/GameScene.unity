@@ -661,13 +661,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4839541634023269999, guid: 54217c3ffefe546d68983a2f9faf9660, type: 3}
+      propertyPath: musicTrack
+      value: 
+      objectReference: {fileID: 8300000, guid: 291a1d0e14c9c44d698cc9e78b4c104c, type: 3}
     - target: {fileID: 6219552034435059471, guid: 54217c3ffefe546d68983a2f9faf9660, type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8450634466693832122, guid: 54217c3ffefe546d68983a2f9faf9660, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

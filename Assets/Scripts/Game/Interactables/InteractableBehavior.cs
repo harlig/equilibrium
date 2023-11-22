@@ -32,7 +32,7 @@ public abstract class InteractableBehavior : MonoBehaviour
                 OnPlayerHit(playerController);
                 hudController.DisableInteractableHelpText();
                 PlayerCanInteractWithThis = false;
-                audioManager.DoPlaySound(onPlayerHitAudio);
+                audioManager.PlayEffect(onPlayerHitAudio);
             }
         }
     }

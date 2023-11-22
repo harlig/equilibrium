@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
         HudController.Setup(player);
+        AudioManager.PlayMusic();
     }
 
     public static void PauseGame()

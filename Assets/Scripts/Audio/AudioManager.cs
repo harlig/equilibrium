@@ -8,29 +8,61 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioClip[] weaponSwingSounds;
 
-    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip musicTrack;
+
+    private AudioSource sfxAudioSource; // AudioSource for sound effects
+    private AudioSource musicAudioSource; // Separate AudioSource for music
     private AudioPreferences audioPreferences;
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        // Get components for both AudioSources
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        sfxAudioSource = audioSources[0];
+        musicAudioSource = audioSources[1]; // Ensure you have two AudioSources attached
+
         audioPreferences = new();
+        UpdateAudioLevels();
+
+        SettingsManager.OnSettingsUpdated += () => UpdateAudioLevels();
     }
 
-    public void DoPlaySound(AudioClip sound)
+    void UpdateAudioLevels()
     {
         audioPreferences.LoadPreferences();
-        if (audioSource.isPlaying)
+        sfxAudioSource.volume = audioPreferences.sfxVolume * audioPreferences.mainVolume;
+        musicAudioSource.volume = audioPreferences.musicVolume * audioPreferences.mainVolume;
+    }
+
+    public void PlayEffect(AudioClip effectClip)
+    {
+        if (sfxAudioSource.isPlaying)
         {
-            audioSource.Stop();
+            sfxAudioSource.Stop();
         }
-        audioSource.clip = sound;
-        audioSource.volume = audioPreferences.mainVolume;
-        audioSource.Play();
+
+        UpdateAudioLevels();
+        sfxAudioSource.clip = effectClip;
+        sfxAudioSource.Play();
     }
 
     public void PlayHurtSound()
     {
-        DoPlaySound(hurtSounds[Random.Range(0, hurtSounds.Length)]);
+        PlayEffect(hurtSounds[Random.Range(0, hurtSounds.Length)]);
+    }
+
+    public void PlayMusic()
+    {
+        if (musicAudioSource.isPlaying)
+        {
+            musicAudioSource.Stop();
+        }
+
+        UpdateAudioLevels();
+
+        musicAudioSource.clip = musicTrack;
+        musicAudioSource.loop = true;
+        musicAudioSource.Play();
     }
 }
