@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusEffectAnimator: {fileID: 0}
   tintColor: {r: 1, g: 1, b: 1, a: 1}
+  EquilibriumState: 3

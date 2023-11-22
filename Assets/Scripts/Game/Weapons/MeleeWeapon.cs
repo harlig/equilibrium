@@ -68,6 +68,13 @@ public class MeleeWeapon : WeaponController
     private void ApplyCharacterDamage(CharacterController character, float damageModifier)
     {
         character.OnDamageTaken(damageType, baseDamageAmount + damageModifier);
+
+        // TODO: base this off something and think about how this interacts with status effects on player
+        bool shouldApplyDamageTypeToCharacter = true;
+        if (shouldApplyDamageTypeToCharacter)
+        {
+            // character.ApplyDamageOverTime(DamageType.FIRE, 5.0f);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

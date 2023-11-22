@@ -10,20 +10,18 @@ public class StatusEffectSystem : MonoBehaviour
         EquilibriumManager.EquilibriumState,
         StatusEffectData
     > equilibriumStateToStatusEffectMap = new();
-    private PlayerController player;
+    private CharacterController character;
     private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
-        player = GetComponentInParent<PlayerController>();
+        character = GetComponentInParent<CharacterController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         for (int ndx = 0; ndx < statusEffects.Length; ndx++)
         {
             {
                 equilibriumStateToStatusEffectMap.Add(
-                    // this gets the enum position at this index, so the status effects need to be set up in the order they appear in the enum
-                    // if we want to expand this class to support generic characters, rethink this
-                    (EquilibriumManager.EquilibriumState)ndx,
+                    statusEffects[ndx].EquilibriumState,
                     statusEffects[ndx]
                 );
             }
@@ -53,7 +51,7 @@ public class StatusEffectSystem : MonoBehaviour
             newEquilibrumState
         );
         var statusEffect = equilibriumStateToStatusEffectMap[newEquilibrumState];
-        statusEffect.AnimateStatusEffect(player, spriteRenderer);
+        statusEffect.AnimateStatusEffect(character, spriteRenderer);
         // somewhat transparent
         spriteRenderer.color = new Color(
             spriteRenderer.color.r,

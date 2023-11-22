@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private FloorManager startingFloorPrefab;
+    public StatusEffectSystem ElementalDamageStatusEffectSystem;
     public HeadsUpDisplayController HudController;
     public OfferSystem OfferSystem;
 

@@ -10,6 +10,8 @@ public class StatusEffectData : MonoBehaviour
     [SerializeField]
     private Color tintColor;
 
+    public EquilibriumManager.EquilibriumState EquilibriumState;
+
     // TODO: can add stuff like duration, effect name, etc. here
 
     public void AnimateStatusEffect(CharacterController character, SpriteRenderer spriteRenderer)

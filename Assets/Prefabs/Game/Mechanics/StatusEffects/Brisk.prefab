@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusEffectAnimator: {fileID: 5027383251141045878}
   tintColor: {r: 0.75, g: 0.9974489, b: 1, a: 1}
+  EquilibriumState: 2
 --- !u!1 &8037013938269410589
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,4 +103,3 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f9564e0cffb7c4964854ede292acd878, type: 3}
   - {fileID: 21300000, guid: 64c54de3e8f5941dd83b596c29759564, type: 3}
   - {fileID: 21300000, guid: 36579ec0194a64140b66a9f203c21444, type: 3}
-  animationSpeed: 8

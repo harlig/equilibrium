@@ -30,6 +30,15 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract void OnDamageTaken(DamageType damageType, float damageTaken);
 
+    public void ApplyDamageOverTime(DamageType damageType, float damageOverTimeDuration)
+    {
+        // spawn a status effect animator, set to either INFERNO or FROZEN
+        // set something saying "applying DOT"
+        // start coroutine to deal damage over time
+        // every like 0.5 seconds we should deal some damage value to the character's HpRemaining (call a method?)
+        // unset applyingDOT at end of coroutine
+    }
+
     public Vector2 GetPositionAsVector2()
     {
         return new Vector2(transform.position.x, transform.position.y);

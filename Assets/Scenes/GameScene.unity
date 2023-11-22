@@ -236,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1906914275}
   startingFloorPrefab: {fileID: 8098758381604308694, guid: 99bba8b2459ff4cf081318403edb6d26, type: 3}
+  ElementalDamageStatusEffectSystem: {fileID: 5757885070661142702, guid: 25f29a3f9f7944e58b1046bd97c9e5b9, type: 3}
   HudController: {fileID: 1662996971}
   OfferSystem: {fileID: 800708657}
 --- !u!1001 &800708655
