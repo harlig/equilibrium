@@ -12,11 +12,11 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private GameObject hasSavedGameMenu;
 
-    [SerializeField]
-    private GameObject optionsMenu;
+    private OptionsMenuController optionsMenu;
 
     void Start()
     {
+        optionsMenu = GetComponentInChildren<OptionsMenuController>();
         SetActiveMenu();
     }
 
@@ -24,15 +24,14 @@ public class MainMenuController : MonoBehaviour
     {
         freshGameMenu.SetActive(true);
         hasSavedGameMenu.SetActive(false);
-        optionsMenu.SetActive(false);
+        optionsMenu.Hide();
     }
 
     public void ShowOptionsMenu()
     {
         freshGameMenu.SetActive(false);
         hasSavedGameMenu.SetActive(false);
-        optionsMenu.GetComponentInChildren<Slider>().value = new AudioPreferences().mainVolume;
-        optionsMenu.SetActive(true);
+        optionsMenu.Show();
     }
 
     public void PlayGame()

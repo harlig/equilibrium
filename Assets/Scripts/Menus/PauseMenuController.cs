@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class PauseMenuController : MonoBehaviour
 {
     [SerializeField]
-    GameObject pauseElements;
+    private GameObject pauseElements;
 
-    [SerializeField]
-    GameObject optionsMenu;
+    private OptionsMenuController optionsMenu;
     bool isPaused = false;
 
-    void Start()
+    void Awake()
     {
-        optionsMenu.SetActive(false);
+        optionsMenu = GetComponentInChildren<OptionsMenuController>();
+        optionsMenu.Hide();
     }
 
     public void TogglePause()
@@ -34,8 +34,8 @@ public class PauseMenuController : MonoBehaviour
     {
         isPaused = true;
         pauseElements.SetActive(true);
-        optionsMenu.SetActive(false);
         gameObject.SetActive(true);
+        optionsMenu.Hide();
         GameManager.PauseGame();
     }
 
@@ -43,15 +43,14 @@ public class PauseMenuController : MonoBehaviour
     {
         isPaused = false;
         pauseElements.SetActive(false);
-        optionsMenu.SetActive(false);
+        optionsMenu.Hide();
         gameObject.SetActive(false);
         GameManager.UnpauseGame();
     }
 
     public void ShowOptionsMenu()
     {
-        optionsMenu.SetActive(true);
-        optionsMenu.GetComponentInChildren<Slider>().value = new AudioPreferences().mainVolume;
+        optionsMenu.Show();
         pauseElements.SetActive(false);
     }
 
