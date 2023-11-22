@@ -33,6 +33,7 @@ public class OrbDropper : MonoBehaviour
     private const float MAX_PROBABILITY = 0.80f;
 
     public float scatterRange = 1.0f;
+    private bool didDropOrbs = false;
 
     private static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
@@ -49,6 +50,12 @@ public class OrbDropper : MonoBehaviour
         int desiredNumToDrop = 10
     )
     {
+        if (didDropOrbs)
+        {
+            return;
+        }
+        didDropOrbs = true;
+
         var shouldDropFireOrb = ShouldDropFireOrb(damageTaken);
 
         int minNumToDrop = Mathf.Max(Mathf.FloorToInt(desiredNumToDrop * 0.8f), 1);
