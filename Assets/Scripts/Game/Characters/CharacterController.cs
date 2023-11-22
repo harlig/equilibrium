@@ -33,6 +33,15 @@ public abstract class CharacterController : MonoBehaviour
 
     bool applyingDamageOverTime = false;
 
+    private StatusEffectSystem elementalDamageSystem;
+
+    protected void Start()
+    {
+        var gameManager = GetComponentInParent<GameManager>();
+        var prefab = gameManager.ElementalDamageStatusEffectSystemPrefab;
+        elementalDamageSystem = Instantiate(prefab, transform).GetComponent<StatusEffectSystem>();
+    }
+
     public void ApplyDamageOverTime(DamageType damageType, float damageOverTimeDuration)
     {
         if (applyingDamageOverTime)
@@ -42,11 +51,6 @@ public abstract class CharacterController : MonoBehaviour
 
         applyingDamageOverTime = true;
 
-        var elementalDamageSystem = Instantiate(
-                GetComponentInParent<GameManager>().ElementalDamageStatusEffectSystemPrefab,
-                transform
-            )
-            .GetComponent<StatusEffectSystem>();
         var state = damageType switch
         {
             DamageType.FIRE => EquilibriumManager.EquilibriumState.INFERNO,
@@ -68,11 +72,17 @@ public abstract class CharacterController : MonoBehaviour
 
         while (duration > 0)
         {
-            duration -= interval;
-            ApplyDamageOverTime(damageType, damagePerInterval);
+            if (IsDead())
+            {
+                elementalDamageSystem.StopAnimating();
+                yield break;
+            }
             yield return new WaitForSeconds(interval);
+            duration -= interval;
+            OnDamageTaken(damageType, damagePerInterval);
         }
 
+        elementalDamageSystem.StopAnimating();
         applyingDamageOverTime = false;
     }
 

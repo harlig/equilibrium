@@ -73,7 +73,7 @@ public class MeleeWeapon : WeaponController
         bool shouldApplyDamageTypeToCharacter = true;
         if (shouldApplyDamageTypeToCharacter)
         {
-            // character.ApplyDamageOverTime(DamageType.FIRE, 5.0f);
+            character.ApplyDamageOverTime(DamageType.FIRE, 5.0f);
         }
     }
 

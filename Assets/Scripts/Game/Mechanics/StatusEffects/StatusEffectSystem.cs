@@ -28,12 +28,17 @@ public class StatusEffectSystem : MonoBehaviour
         }
     }
 
-    public void SetStateAndAnimate(EquilibriumManager.EquilibriumState state)
+    public void StopAnimating()
     {
         foreach (var effect in statusEffects)
         {
             effect.StopAnimating();
         }
+    }
+
+    public void SetStateAndAnimate(EquilibriumManager.EquilibriumState state)
+    {
+        StopAnimating();
         // get status effect data for equilibrium state
         // set status effect data as active status effect and animate it on the character
         if (!equilibriumStateToStatusEffectMap.ContainsKey(state))

@@ -48,10 +48,6 @@ public class PlayerController : CharacterController
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;
 
-    private SpriteRenderer spriteRenderer;
-    private Color originalColor;
-    private const float FLASH_DURATION = 0.5f;
-
     void Awake()
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
@@ -65,12 +61,6 @@ public class PlayerController : CharacterController
         StatusEffectSystem = GetComponentInChildren<StatusEffectSystem>();
         hpRemaining = MaxHp;
         CreateMeleeWeapon();
-    }
-
-    void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalColor = spriteRenderer.color;
     }
 
     public float XpCollected()

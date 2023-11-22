@@ -11,8 +11,9 @@ public class RangedEnemy : EnemyController
     private int currentFireInterval = 0;
     private Vector3 spawnPosition;
 
-    void Start()
+    new void Start()
     {
+        base.Start();
         spawnPosition = transform.position;
     }
 
