@@ -27,7 +27,7 @@ public abstract class EnemyController : CharacterController
 
     protected virtual int GetMaxHp()
     {
-        return 10;
+        return 100;
     }
 
     protected PlayerController player;
@@ -99,7 +99,7 @@ public abstract class EnemyController : CharacterController
     private Vector3 lastPosition;
     bool tryUnstuck = false;
     UnstuckAttempt currentUnstuckAttempt;
-    private float stuckThreshold = 0.05f; // Threshold to determine if stuck
+    private readonly float stuckThreshold = 0.05f; // Threshold to determine if stuck
     private float stuckTime = 0f; // Time since the enemy is stuck
 
     enum UnstuckAttempt

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private FloorManager startingFloorPrefab;
-    public StatusEffectSystem ElementalDamageStatusEffectSystem;
+    public StatusEffectSystem ElementalDamageStatusEffectSystemPrefab;
     public HeadsUpDisplayController HudController;
     public OfferSystem OfferSystem;
 
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
             player.EquilibriumState = equilibriumState;
             HudController.SetEquilibriumState(equilibriumState);
 
-            player.StatusEffectSystem.SetStatusEffectForEquilibriumState(equilibriumState);
+            player.StatusEffectSystem.SetStateAndAnimate(equilibriumState);
         }
         HudController.SetPlayerXp(newPlayerXp);
         HudController.SetOrbsCollected();

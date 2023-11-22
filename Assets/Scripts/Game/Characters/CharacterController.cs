@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class CharacterController : MonoBehaviour
@@ -30,13 +31,55 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract void OnDamageTaken(DamageType damageType, float damageTaken);
 
+    bool applyingDamageOverTime = false;
+
     public void ApplyDamageOverTime(DamageType damageType, float damageOverTimeDuration)
     {
-        // spawn a status effect animator, set to either INFERNO or FROZEN
-        // set something saying "applying DOT"
-        // start coroutine to deal damage over time
-        // every like 0.5 seconds we should deal some damage value to the character's HpRemaining (call a method?)
-        // unset applyingDOT at end of coroutine
+        if (applyingDamageOverTime)
+        {
+            return;
+        }
+
+        applyingDamageOverTime = true;
+
+        var elementalDamageSystem = Instantiate(
+                GetComponentInParent<GameManager>().ElementalDamageStatusEffectSystemPrefab,
+                transform
+            )
+            .GetComponent<StatusEffectSystem>();
+        var state = damageType switch
+        {
+            DamageType.FIRE => EquilibriumManager.EquilibriumState.INFERNO,
+            DamageType.ICE => EquilibriumManager.EquilibriumState.FROZEN,
+            _
+                => throw new System.Exception(
+                    $"Couldn't handle damage type {damageType} for the elemental status effect system"
+                ),
+        };
+        elementalDamageSystem.SetStateAndAnimate(state);
+
+        StartCoroutine(ApplyDOT(damageType, damageOverTimeDuration));
+    }
+
+    private IEnumerator ApplyDOT(DamageType damageType, float duration)
+    {
+        float interval = 0.5f;
+        float damagePerInterval = CalculateDamagePerInterval(duration, interval);
+
+        while (duration > 0)
+        {
+            duration -= interval;
+            ApplyDamageOverTime(damageType, damagePerInterval);
+            yield return new WaitForSeconds(interval);
+        }
+
+        applyingDamageOverTime = false;
+    }
+
+    private float CalculateDamagePerInterval(float duration, float interval)
+    {
+        float totalDamage = 10;
+        return totalDamage / (duration / interval);
     }
 
     public Vector2 GetPositionAsVector2()

@@ -28,9 +28,7 @@ public class StatusEffectSystem : MonoBehaviour
         }
     }
 
-    public void SetStatusEffectForEquilibriumState(
-        EquilibriumManager.EquilibriumState newEquilibrumState
-    )
+    public void SetStateAndAnimate(EquilibriumManager.EquilibriumState state)
     {
         foreach (var effect in statusEffects)
         {
@@ -38,19 +36,16 @@ public class StatusEffectSystem : MonoBehaviour
         }
         // get status effect data for equilibrium state
         // set status effect data as active status effect and animate it on the character
-        if (!equilibriumStateToStatusEffectMap.ContainsKey(newEquilibrumState))
+        if (!equilibriumStateToStatusEffectMap.ContainsKey(state))
         {
             Debug.LogErrorFormat(
                 "This status effect system is not configured to handle equilibrium state {0}",
-                newEquilibrumState
+                state
             );
             return;
         }
-        Debug.LogFormat(
-            "Trying to set status effect for equilibrium state of {0}",
-            newEquilibrumState
-        );
-        var statusEffect = equilibriumStateToStatusEffectMap[newEquilibrumState];
+        Debug.LogFormat("Trying to set status effect for equilibrium state of {0}", state);
+        var statusEffect = equilibriumStateToStatusEffectMap[state];
         statusEffect.AnimateStatusEffect(character, spriteRenderer);
         // somewhat transparent
         spriteRenderer.color = new Color(

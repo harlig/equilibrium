@@ -64,6 +64,6 @@ public class RangedEnemy : EnemyController
 
     protected override int GetMaxHp()
     {
-        return 20;
+        return 200;
     }
 }
