@@ -326,4 +326,9 @@ public class PlayerController : CharacterController
 
         meleeWeapon.transform.position = currentPos + offset;
     }
+
+    public void AddFirestarterModifier(float firestarterModifier)
+    {
+        meleeWeapon.FirestarterModifier += firestarterModifier;
+    }
 }

@@ -49,7 +49,6 @@ public class StatusEffectSystem : MonoBehaviour
             );
             return;
         }
-        Debug.LogFormat("Trying to set status effect for equilibrium state of {0}", state);
         var statusEffect = equilibriumStateToStatusEffectMap[state];
         statusEffect.AnimateStatusEffect(character, spriteRenderer);
         // somewhat transparent

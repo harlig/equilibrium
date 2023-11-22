@@ -28,6 +28,7 @@ public class AcquisitionManager
                 player.AddToMovementSpeedModifier(speedOffer.Value * 0.0001f);
                 break;
             case FirestarterOffer firestarterOffer:
+                player.AddFirestarterModifier(firestarterOffer.Value);
                 Debug.LogFormat(
                     "Would be acquiring a firestart of value {0}",
                     firestarterOffer.Value

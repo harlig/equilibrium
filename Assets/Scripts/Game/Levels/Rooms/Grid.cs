@@ -57,14 +57,6 @@ public class Grid
                     if (IsInteractableAtPosition(interactable, localPlace))
                     {
                         isWalkable = IsInteractableWalkable(interactable);
-                        Debug.LogFormat(
-                            "Interactable {4} found at position {0}. Iswalkable {1}. parent [{2}, {3}]",
-                            localPlace,
-                            isWalkable,
-                            parentX,
-                            parentY,
-                            interactable.name
-                        );
                         break;
                     }
                 }
