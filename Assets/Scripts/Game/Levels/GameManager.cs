@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
 
         HudController.Setup(player);
         AudioManager.PlayMusic();
+
+        UnpauseGame();
     }
 
     public static void PauseGame()
