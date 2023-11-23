@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StairsController : InteractableBehavior
 {
@@ -27,6 +28,14 @@ public class StairsController : InteractableBehavior
             {
                 Debug.LogError("Stairs were interacted with which had no FloorTo set!");
                 return;
+            }
+            if (FloorTo.GetComponent<FirstFloor>() != null)
+            {
+                Debug.Log("hit first floor, gonna go ahead and load next build index");
+                SceneManager.LoadSceneAsync(
+                    SceneManager.GetActiveScene().buildIndex + 1,
+                    LoadSceneMode.Single
+                );
             }
             GetComponentInParent<FloorManager>().SetNewActiveFloor(FloorTo);
         }
