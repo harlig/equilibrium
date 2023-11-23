@@ -343,6 +343,9 @@ public class PlayerController : CharacterController
         meleeWeapon.firestarterSystem.Damage += firestarterModifier;
     }
 
+    private const float FROZEN_SPEED_MULTIPLICATIVE_MODIFIER = 0.5f;
+    private float speedRemovedFromFrozenState = 0f;
+
     public void SetEquilibriumState(EquilibriumManager.EquilibriumState newState)
     {
         var oldState = EquilibriumState;
@@ -355,6 +358,20 @@ public class PlayerController : CharacterController
             // transitioning out of inferno should stop DOT
             // TODO: we should remove this if the player can take DOT from sources other than this
             applyingDamageOverTime = false;
+        }
+
+        if (newState == EquilibriumManager.EquilibriumState.FROZEN)
+        {
+            // take speed down to 1/2 of what it is
+            var newSpeed = MovementSpeed * FROZEN_SPEED_MULTIPLICATIVE_MODIFIER;
+            var speedToRemove = MovementSpeed - newSpeed;
+            speedRemovedFromFrozenState = speedToRemove;
+            AddToMovementSpeedModifier(-speedToRemove);
+        }
+        else if (oldState == EquilibriumManager.EquilibriumState.INFERNO)
+        {
+            AddToMovementSpeedModifier(speedRemovedFromFrozenState);
+            speedRemovedFromFrozenState = 0f;
         }
         EquilibriumState = newState;
     }
