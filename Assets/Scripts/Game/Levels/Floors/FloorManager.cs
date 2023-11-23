@@ -80,14 +80,10 @@ public abstract class FloorManager : MonoBehaviour
 
     private InteractableBehavior.PlayerAndCameraLocation GetNewFloorStartingRoomPlayerAndCameraLocation()
     {
+        float xPos = (startingRoom.Max.x + startingRoom.Min.x) / 2.0f;
+        float yPos = (startingRoom.Max.y + startingRoom.Min.y) / 2.0f;
         InteractableBehavior.PlayerAndCameraLocation newLocations =
-            new()
-            {
-                PlayerLocation = new(
-                    (startingRoom.Max.x - startingRoom.Min.x) / 2.0f,
-                    (startingRoom.Max.y - startingRoom.Min.y) / 2.0f
-                )
-            };
+            new() { PlayerLocation = new(xPos, yPos) };
 
         Debug.LogFormat(
             "New floor starting room is at [{0}, {1}]",
