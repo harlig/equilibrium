@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         if (equilibriumState != player.EquilibriumState)
         {
             // TODO: play some animation saying "NEW STATE ENTERED"
-            player.EquilibriumState = equilibriumState;
+            player.SetEquilibriumState(equilibriumState);
             HudController.SetEquilibriumState(equilibriumState);
 
             player.StatusEffectSystem.SetStateAndAnimate(equilibriumState);

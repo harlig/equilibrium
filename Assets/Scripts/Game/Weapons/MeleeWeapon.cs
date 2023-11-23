@@ -70,7 +70,6 @@ public class MeleeWeapon : WeaponController
     {
         character.OnDamageTaken(damageType, baseDamageAmount + damageModifier);
 
-        Debug.LogFormat("Firestarter modifier {0}", firestarterSystem.Chance);
         if (firestarterSystem.Chance > Random.Range(0f, 1f))
         {
             character.ApplyDamageOverTime(

@@ -31,7 +31,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract void OnDamageTaken(DamageType damageType, float damageTaken);
 
-    bool applyingDamageOverTime = false;
+    protected bool applyingDamageOverTime = false;
 
     private StatusEffectSystem elementalDamageSystem;
 
@@ -45,7 +45,7 @@ public abstract class CharacterController : MonoBehaviour
     public void ApplyDamageOverTime(
         DamageType damageType,
         float damageOverTimeDuration,
-        float totalDamage
+        float? totalDamage = null
     )
     {
         if (applyingDamageOverTime)
@@ -66,13 +66,16 @@ public abstract class CharacterController : MonoBehaviour
         };
         elementalDamageSystem.SetStateAndAnimate(state);
 
+        Debug.Log("applying DOT to character");
+
         StartCoroutine(ApplyDOT(damageType, damageOverTimeDuration, totalDamage));
     }
 
     private const float DOT_INTERVAL = 0.5f;
     private const float DOT_BASE_DURATION = 5.0f;
+    private const float DOT_DEFAULT_DAMAGE_PER_TICK = 0.5f;
 
-    private IEnumerator ApplyDOT(DamageType damageType, float duration, float totalDamage)
+    private IEnumerator ApplyDOT(DamageType damageType, float duration, float? totalDamage)
     {
         float damagePerInterval = CalculateDamagePerInterval(
             // this allows an increased duration to get extra ticks of damage
@@ -81,7 +84,7 @@ public abstract class CharacterController : MonoBehaviour
             totalDamage
         );
 
-        while (duration > 0)
+        while (duration > 0 && applyingDamageOverTime)
         {
             if (IsDead())
             {
@@ -97,9 +100,13 @@ public abstract class CharacterController : MonoBehaviour
         applyingDamageOverTime = false;
     }
 
-    private float CalculateDamagePerInterval(float duration, float interval, float totalDamage)
+    private float CalculateDamagePerInterval(float duration, float interval, float? totalDamage)
     {
-        return totalDamage / (duration / interval);
+        if (totalDamage == null)
+        {
+            return DOT_DEFAULT_DAMAGE_PER_TICK;
+        }
+        return (float)(totalDamage / (duration / interval));
     }
 
     public Vector2 GetPositionAsVector2()

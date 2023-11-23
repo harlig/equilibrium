@@ -13,7 +13,7 @@ public class PlayerController : CharacterController
     public Camera MainCamera { private get; set; }
 
     private CharacterAnimator characterAnimator;
-    public EquilibriumManager.EquilibriumState EquilibriumState { get; set; } =
+    public EquilibriumManager.EquilibriumState EquilibriumState { get; private set; } =
         EquilibriumManager.DefaultState();
 
     public OrbCollector OrbCollector { get; private set; }
@@ -341,5 +341,21 @@ public class PlayerController : CharacterController
     public void AddFirestarterDamage(float firestarterModifier)
     {
         meleeWeapon.firestarterSystem.Damage += firestarterModifier;
+    }
+
+    public void SetEquilibriumState(EquilibriumManager.EquilibriumState newState)
+    {
+        var oldState = EquilibriumState;
+        if (newState == EquilibriumManager.EquilibriumState.INFERNO)
+        {
+            ApplyDamageOverTime(DamageType.FIRE, int.MaxValue);
+        }
+        else if (oldState == EquilibriumManager.EquilibriumState.INFERNO)
+        {
+            // transitioning out of inferno should stop DOT
+            // TODO: we should remove this if the player can take DOT from sources other than this
+            applyingDamageOverTime = false;
+        }
+        EquilibriumState = newState;
     }
 }
