@@ -11,15 +11,10 @@ public class DamageTaken
         return FireDamage + IceDamage;
     }
 
-    // TODO: this shouldn't be static I think
-    public static void SetDamageTakenTextOnTextElement(
-        float maxHp,
-        DamageTaken damageTaken,
-        TextMeshPro textElement
-    )
+    public void SetDamageTakenTextOnTextElement(float maxHp, TextMeshPro textElement)
     {
         // format to two decimal places
-        textElement.text = string.Format("{0:N1}", maxHp - damageTaken.TotalDamage());
+        textElement.text = string.Format("{0:N1}", maxHp - TotalDamage());
     }
 }
 

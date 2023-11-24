@@ -50,7 +50,7 @@ public abstract class EnemyController : CharacterController
     void Awake()
     {
         containingRoom = GetComponentInParent<RoomManager>();
-        DamageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), damageTaken, hpTextElement);
+        damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), hpTextElement);
         lastPosition = transform.position;
     }
 
@@ -241,8 +241,7 @@ public abstract class EnemyController : CharacterController
                 break;
         }
 
-        // TODO: this should be an instance method and then automatically set the text when FireDamage or IceDamage are modified
-        DamageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), damageTaken, hpTextElement);
+        damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), hpTextElement);
 
         if (IsDead())
         {

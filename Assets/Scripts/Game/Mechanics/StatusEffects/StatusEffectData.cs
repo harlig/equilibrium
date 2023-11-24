@@ -12,8 +12,6 @@ public class StatusEffectData : MonoBehaviour
 
     public EquilibriumManager.EquilibriumState EquilibriumState;
 
-    // TODO: can add stuff like duration, effect name, etc. here
-
     public void AnimateStatusEffect(CharacterController character, SpriteRenderer spriteRenderer)
     {
         if (statusEffectAnimator != null)
