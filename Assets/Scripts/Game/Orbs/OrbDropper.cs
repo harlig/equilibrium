@@ -6,15 +6,17 @@ public class DamageTaken
     public float FireDamage { get; set; }
     public float IceDamage { get; set; }
 
+    public TextMeshPro TextElement { get; set; }
+
     public float TotalDamage()
     {
         return FireDamage + IceDamage;
     }
 
-    public void SetDamageTakenTextOnTextElement(float maxHp, TextMeshPro textElement)
+    public void SetDamageTakenTextOnTextElement(float maxHp)
     {
         // format to two decimal places
-        textElement.text = string.Format("{0:N1}", maxHp - TotalDamage());
+        TextElement.text = string.Format("{0:N1}", maxHp - TotalDamage());
     }
 }
 

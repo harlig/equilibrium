@@ -50,7 +50,8 @@ public abstract class EnemyController : CharacterController
     void Awake()
     {
         containingRoom = GetComponentInParent<RoomManager>();
-        damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), hpTextElement);
+        damageTaken.TextElement = hpTextElement;
+        damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
         lastPosition = transform.position;
     }
 
@@ -241,7 +242,7 @@ public abstract class EnemyController : CharacterController
                 break;
         }
 
-        damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp(), hpTextElement);
+        damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
 
         if (IsDead())
         {
