@@ -48,7 +48,7 @@ public abstract class CharacterController : MonoBehaviour
         float? totalDamage = null
     )
     {
-        if (applyingDamageOverTime)
+        if (applyingDamageOverTime || IsDead())
         {
             return;
         }
@@ -92,6 +92,11 @@ public abstract class CharacterController : MonoBehaviour
                 yield break;
             }
             yield return new WaitForSeconds(DOT_INTERVAL);
+            if (IsDead())
+            {
+                elementalDamageSystem.StopAnimating();
+                yield break;
+            }
             duration -= DOT_INTERVAL;
             OnDamageTaken(damageType, damagePerInterval);
         }
