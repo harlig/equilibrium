@@ -18,6 +18,11 @@ public class DamageTaken
         // format to two decimal places
         TextElement.text = string.Format("{0:N1}", maxHp - TotalDamage());
     }
+
+    public void HideTextElement()
+    {
+        TextElement.gameObject.SetActive(false);
+    }
 }
 
 public class OrbDropper : MonoBehaviour
