@@ -9,7 +9,7 @@ public class OrbitSystem : MonoBehaviour
     private PlayerController player;
     private List<OrbiterData> orbiters;
     private readonly float orbitDistance = 1.0f; // Distance from the player
-    private readonly float angularVelocity = 30.0f; // Degrees per second
+    private readonly float angularVelocity = 90.0f; // Degrees per second
     private float currentSystemAngle = 0.0f; // Current rotation angle of the system
 
     public enum OrbiterType

@@ -29,6 +29,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract bool IsDead();
 
+    // TODO: rename this to like DealDamage
     public abstract void OnDamageTaken(DamageType damageType, float damageTaken);
 
     protected bool applyingDamageOverTime = false;
