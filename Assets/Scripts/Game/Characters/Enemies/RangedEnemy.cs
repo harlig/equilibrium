@@ -9,7 +9,7 @@ public class RangedEnemy : EnemyController
     public const float fireInterval = 60; // Number of FixedUpdate calls before firing
 
     private int currentFireInterval = 0;
-    private Vector3 spawnPosition;
+    private Vector2 spawnPosition;
 
     new void Start()
     {
@@ -17,8 +17,10 @@ public class RangedEnemy : EnemyController
         spawnPosition = transform.position;
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (!IsDead())
         {
             // Increment the current interval count
@@ -30,15 +32,30 @@ public class RangedEnemy : EnemyController
                 FireProjectile();
                 currentFireInterval = 0; // Reset the interval count
             }
+        }
+    }
 
-            var movementX = spawnPosition.x - transform.position.x;
-            var movementY = spawnPosition.y - transform.position.y;
-            var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+    protected override void DoMovementActions()
+    {
+        var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
-            var newPosition =
-                rigidBody.position + new Vector2(movementX, movementY).normalized * MovementSpeed;
+        Vector2 targetPosition = new(spawnPosition.x, spawnPosition.y);
+        Vector2 currentPosition = rigidBody.position;
+        Vector2 directionToSpawn = (targetPosition - currentPosition).normalized;
 
-            rigidBody.MovePosition(newPosition);
+        // Calculate the remaining distance to the target
+        float distanceToTarget = Vector2.Distance(currentPosition, targetPosition);
+
+        // Check if the enemy is at or has passed the target position
+        if (distanceToTarget < 0.1f) // Threshold distance to consider as reached the target
+        {
+            // Stop the movement
+            rigidBody.velocity = Vector2.zero;
+        }
+        else
+        {
+            // Apply force towards the target
+            rigidBody.AddForce(100 * MovementSpeed * directionToSpawn, ForceMode2D.Force);
         }
     }
 

@@ -105,7 +105,7 @@ public class OrbDropper : MonoBehaviour
             float xOffset = Random.Range(-scatterRange, scatterRange);
             float yOffset = Random.Range(-scatterRange, scatterRange);
 
-            Vector2 potentialPosition = new Vector2(xOffset, yOffset);
+            Vector2 potentialPosition = new(xOffset, yOffset);
 
             // Convert potential position to Grid coordinates
             Vector2Int gridPosition = grid.WorldToGrid(

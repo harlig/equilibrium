@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -144,12 +145,9 @@ public abstract class EnemyController : CharacterController
         return modifiedDirection;
     }
 
-    void FixedUpdate()
+    protected virtual void DoMovementActions()
     {
-        if (IsDead())
-        {
-            return;
-        }
+        var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
         if (startFollowing && !player.IsDead())
         {
@@ -165,7 +163,6 @@ public abstract class EnemyController : CharacterController
 
             if (path != null && currentPathIndex < path.Count)
             {
-                var rigidBody = gameObject.GetComponent<Rigidbody2D>();
                 Node nextNode = path[currentPathIndex];
 
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
@@ -180,17 +177,13 @@ public abstract class EnemyController : CharacterController
                     );
                 }
 
-                // Calculate distance to move this frame
-                // TODO: wtf is up with this move speed
-                float step = 80 * MovementSpeed * Time.fixedDeltaTime;
+                // Set velocity in the direction of the next node
+                float speed = MovementSpeed * 80; // Adjust this speed as needed
+                rigidBody.velocity = direction * speed;
+
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
 
-                // Move only as far as or closer to the next node
-                Vector2 newPosition = rigidBody.position + direction * step;
-
-                rigidBody.MovePosition(newPosition);
-
-                // Inside FixedUpdate
+                // Handling stuck situations
                 if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
                 {
                     stuckTime += Time.fixedDeltaTime;
@@ -209,88 +202,45 @@ public abstract class EnemyController : CharacterController
                 lastPosition = transform.position;
 
                 // Check if the node is reached or passed
-                if (distanceToNextNode <= step)
+                if (distanceToNextNode <= speed * Time.fixedDeltaTime)
                 {
                     currentPathIndex++;
                 }
             }
         }
+        else
+        {
+            // Stop the movement when not following
+            rigidBody.velocity = Vector2.zero;
+        }
     }
 
-    // void FixedUpdate()
-    // {
-    //     if (IsDead())
-    //     {
-    //         return;
-    //     }
+    protected virtual void FixedUpdate()
+    {
+        if (IsDead())
+        {
+            return;
+        }
 
-    //     var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        DoMovementActions();
+    }
 
-    //     if (startFollowing && !player.IsDead())
-    //     {
-    //         pathUpdateTimer += Time.fixedDeltaTime;
-    //         if (
-    //             pathUpdateTimer >= pathUpdateInterval
-    //             || (path != null && currentPathIndex == path.Count)
-    //         )
-    //         {
-    //             CalculatePath();
-    //             pathUpdateTimer = 0;
-    //         }
+    // TODO: this is mega broken, need to fix
+    public void ApplyKnockback(Vector2 knockbackDirection, float knockbackStrength)
+    {
+        // Calculate the target position for the knockback
+        // Vector2 targetPosition =
+        //     new Vector2(transform.position.x, transform.position.y)
+        //     + knockbackDirection * knockbackStrength;
 
-    //         if (path != null && currentPathIndex < path.Count)
-    //         {
-    //             Node nextNode = path[currentPathIndex];
+        // var rigidBody = GetComponent<Rigidbody2D>();
 
-    //             Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
-    //             Vector2 direction = (nextPosition - rigidBody.position).normalized;
+        // // Calculate the velocity required to reach the target position
+        // Vector2 velocity = targetPosition - rigidBody.position; // No division by time, implies immediate application
 
-    //             if (tryUnstuck)
-    //             {
-    //                 direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
-    //                 currentUnstuckAttempt = (UnstuckAttempt)(
-    //                     ((int)currentUnstuckAttempt + 1)
-    //                     % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
-    //                 );
-    //             }
-
-    //             // Set velocity in the direction of the next node
-    //             float speed = MovementSpeed * 80; // Adjust this speed as needed
-    //             rigidBody.velocity = direction * speed;
-
-    //             float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
-
-    //             // Handling stuck situations
-    //             if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
-    //             {
-    //                 stuckTime += Time.fixedDeltaTime;
-    //                 if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
-    //                 {
-    //                     Debug.Log("Let's try to unstuck");
-    //                     tryUnstuck = true;
-    //                 }
-    //             }
-    //             else
-    //             {
-    //                 stuckTime = 0f;
-    //                 tryUnstuck = false;
-    //             }
-
-    //             lastPosition = transform.position;
-
-    //             // Check if the node is reached or passed
-    //             if (distanceToNextNode <= speed * Time.fixedDeltaTime)
-    //             {
-    //                 currentPathIndex++;
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         // Stop the movement when not following
-    //         rigidBody.velocity = Vector2.zero;
-    //     }
-    // }
+        // // Apply the calculated velocity
+        // rigidBody.velocity = velocity;
+    }
 
     public void FollowPlayer(PlayerController player)
     {
