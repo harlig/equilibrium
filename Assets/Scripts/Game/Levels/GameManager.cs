@@ -6,7 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // if you are at level 0, you need 1 xp to level up. if you are at level 1, you need 10, etc.
-    public static List<int> XpNeededForLevelUpAtIndex { get; } = new() { 210, 610, 1310, 2000 };
+    public static List<int> XpNeededForLevelUpAtIndex { get; } =
+        new() { 10, 20, 30, 40, 50, 210, 610, 1310, 2000 };
 
     [SerializeField]
     private PlayerController player;

@@ -45,6 +45,7 @@ public class Acquisition
     public string Name { get; private set; }
     public Color Color { get; private set; }
     public string Value { get; private set; }
+    public Sprite Sprite { get; private set; }
 
     public static Acquisition FromOffer(OfferData offer)
     {
@@ -52,7 +53,8 @@ public class Acquisition
         {
             Name = offer.GetName(),
             Color = offer.Color,
-            Value = offer.GetValue()
+            Value = offer.GetValue(),
+            Sprite = offer.Sprite
         };
         return newAcquisition;
     }

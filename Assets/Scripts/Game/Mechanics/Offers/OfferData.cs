@@ -10,6 +10,8 @@ public abstract class OfferData : MonoBehaviour
 
     public float Value;
 
+    public Sprite Sprite;
+
     public static OfferData Create(OfferData prefab, Transform parent)
     {
         var instance = Instantiate(prefab, parent);

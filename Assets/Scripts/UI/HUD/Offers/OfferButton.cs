@@ -33,11 +33,18 @@ public class OfferButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         buttonRect.sizeDelta = new Vector2(buttonSize, buttonSize);
         buttonRect.anchoredPosition = anchoredPosition;
 
-        // TODO: should probably be a better shared way to set this
-        newButton.GetComponentInChildren<TextMeshProUGUI>().text =
-            $"{offer.GetName()}\n+{offer.GetValue()}";
-
-        newButton.GetComponent<Image>().color = offer.Color;
+        if (offer.Sprite != null)
+        {
+            newButton.GetComponent<Image>().sprite = offer.Sprite;
+            newButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
+        }
+        else
+        {
+            newButton.GetComponent<Image>().color = offer.Color;
+            // TODO: should probably be a better shared way to set this
+            newButton.GetComponentInChildren<TextMeshProUGUI>().text =
+                $"{offer.GetName()}\n+{offer.GetValue()}";
+        }
 
         newButton.gameObject.SetActive(true);
         return newButton;

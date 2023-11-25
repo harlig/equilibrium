@@ -36,13 +36,21 @@ public class AcquisitionsDisplayController : MonoBehaviour
             var acquisition = acquisitions[i];
             GameObject display = Instantiate(acquisitionPrefab, transform);
 
-            // Set the data for this acquisition
-            display.GetComponentInChildren<TextMeshProUGUI>().text =
-                $"{acquisition.Name}\n+{acquisition.Value}";
-            // TODO: don't want color like this
-            display.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-
-            display.GetComponentInChildren<Image>().color = acquisition.Color;
+            if (acquisition.Sprite != null)
+            {
+                display.GetComponentInChildren<Image>().sprite = acquisition.Sprite;
+                display.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
+                display.GetComponentInChildren<Image>().color = Color.white;
+            }
+            else
+            {
+                display.GetComponentInChildren<Image>().color = acquisition.Color;
+                // Set the data for this acquisition
+                display.GetComponentInChildren<TextMeshProUGUI>().text =
+                    $"{acquisition.Name}\n+{acquisition.Value}";
+                // TODO: don't want color like this
+                display.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+            }
         }
     }
 
