@@ -9,6 +9,11 @@ public class MeleeWeapon : WeaponController
     private WeaponAnimator weaponAnimator;
     public FirestarterSystem firestarterSystem = new();
 
+    public override bool shouldRotateToMousePosition
+    {
+        get { return false; }
+    }
+
     public override DamageType damageType
     {
         get

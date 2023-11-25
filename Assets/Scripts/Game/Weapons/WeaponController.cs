@@ -11,6 +11,8 @@ public abstract class WeaponController : MonoBehaviour
 
     public abstract float baseDamageAmount { get; }
 
+    public abstract bool shouldRotateToMousePosition { get; }
+
     public static WeaponController Create(
         WeaponController prefab,
         Vector2 position,

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WeaponSlotController : MonoBehaviour
 {
@@ -52,14 +53,17 @@ public class WeaponSlotController : MonoBehaviour
             float offset = idx * weaponOffsetAngle;
             // Calculate the direction from the character to the mouse position
             Vector2 direction = (position - (Vector2)transform.position).normalized;
-            // Calculate the position on the circumference of the circle in the direction of the mouse
-            // Vector2 circlePosition =
-            //     (Vector2)transform.position + direction * (circleRadius + offset / 2);
 
+            // Calculate the position on the circumference of the circle in the direction of the mouse
             Vector2 circlePosition = CalculatePositionOnCircle(direction, offset);
 
             // move and rotate each of the weapons equipped
             MoveAndRotateWeapon(circlePosition, idx);
+
+            // if (equippedWeapons[idx].shouldRotateToMousePosition)
+            // {
+            //     RotateTowardsDirection(position, idx);
+            // }
         }
     }
 
@@ -104,5 +108,16 @@ public class WeaponSlotController : MonoBehaviour
         Vector2 circlePosition = (Vector2)transform.position + rotatedDirection * circleRadius;
 
         return circlePosition;
+    }
+
+    void RotateTowardsDirection(Vector2 lookAtDirection, int slot)
+    {
+        Vector2 direction = (
+            lookAtDirection - (Vector2)equippedWeapons[slot].transform.position
+        ).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        equippedWeapons[slot].transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }

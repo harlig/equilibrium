@@ -8,6 +8,11 @@ public class RangedWeapon : WeaponController
     private ProjectileBehavior projectilePrefab;
     private WeaponAnimator weaponAnimator;
 
+    public override bool shouldRotateToMousePosition
+    {
+        get { return true; }
+    }
+
     public override DamageType damageType
     {
         get
