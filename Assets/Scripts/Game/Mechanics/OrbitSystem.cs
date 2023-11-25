@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +13,7 @@ public class OrbitSystem : MonoBehaviour
     private float currentSystemAngle = 0.0f; // Current rotation angle of the system
     private float deflectProjectileChance = 0f;
     private readonly float maxDeflectProjectileChance = 0.8f;
+    public Dictionary<OrbiterType, float> ChanceOfOrbiterTypeDoingElementalEffect = new();
 
     public enum OrbiterType
     {
@@ -24,6 +25,11 @@ public class OrbitSystem : MonoBehaviour
     {
         orbiters = new();
         player = GetComponentInParent<PlayerController>();
+
+        foreach (OrbiterType type in Enum.GetValues(typeof(OrbiterType)))
+        {
+            ChanceOfOrbiterTypeDoingElementalEffect.Add(type, 0.0f);
+        }
     }
 
     void Update()
@@ -67,11 +73,7 @@ public class OrbitSystem : MonoBehaviour
             );
         }
 
-        OrbiterData orbiterInstance = OrbiterData.Create(
-            orbiterPrefabToInstantiate,
-            transform,
-            player
-        );
+        OrbiterData orbiterInstance = OrbiterData.Create(orbiterPrefabToInstantiate, this, player);
         orbiters.Add(orbiterInstance);
 
         // Rearrange all orbiters to be equidistant
@@ -107,7 +109,7 @@ public class OrbitSystem : MonoBehaviour
 
     public bool ShouldDeflectProjectile()
     {
-        return Random.Range(0f, 1.0f)
+        return UnityEngine.Random.Range(0f, 1.0f)
             < Mathf.Clamp(deflectProjectileChance, 0f, maxDeflectProjectileChance);
     }
 

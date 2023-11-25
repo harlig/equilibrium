@@ -9,11 +9,18 @@ public class OrbiterData : MonoBehaviour
     private float damageAmount = 5.0f;
     private readonly float knockbackStrength = 10.0f;
     private PlayerController player;
+    private OrbitSystem orbitSystem;
 
-    public static OrbiterData Create(OrbiterData prefab, Transform parent, PlayerController player)
+    public static OrbiterData Create(
+        OrbiterData prefab,
+        OrbitSystem orbitSystem,
+        PlayerController player
+    )
     {
-        var instance = Instantiate(prefab.gameObject, parent).GetComponent<OrbiterData>();
+        var instance = Instantiate(prefab.gameObject, orbitSystem.transform)
+            .GetComponent<OrbiterData>();
         instance.player = player;
+        instance.orbitSystem = orbitSystem;
         return instance;
     }
 
@@ -45,6 +52,15 @@ public class OrbiterData : MonoBehaviour
                     other.transform.position - player.transform.position
                 ).normalized;
                 enemy.ApplyKnockback(knockbackDirection, knockbackStrength);
+            }
+
+            if (
+                orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType]
+                > Random.Range(0, 1.0f)
+            )
+            {
+                // chance for DOT
+                enemy.ApplyDamageOverTime(damageType, 3.0f, 3.0f);
             }
         }
     }
