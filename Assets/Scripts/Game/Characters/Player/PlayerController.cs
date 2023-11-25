@@ -47,7 +47,7 @@ public class PlayerController : CharacterController
 
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;
-    private OrbitSystem orbitSystem;
+    public OrbitSystem OrbitSystem { get; private set; }
 
     void Awake()
     {
@@ -60,7 +60,7 @@ public class PlayerController : CharacterController
         };
         OrbCollector = new OrbCollector(orbsToSupport);
         StatusEffectSystem = GetComponentInChildren<StatusEffectSystem>();
-        orbitSystem = GetComponentInChildren<OrbitSystem>();
+        OrbitSystem = GetComponentInChildren<OrbitSystem>();
         hpRemaining = MaxHp;
         CreateMeleeWeapon();
     }
@@ -78,7 +78,6 @@ public class PlayerController : CharacterController
         if (Input.GetMouseButtonDown(0))
         {
             meleeWeapon.AttackAtPosition(GetPositionAsVector2());
-            orbitSystem.AddOrbiter(OrbitSystem.OrbiterType.FIRE);
         }
     }
 

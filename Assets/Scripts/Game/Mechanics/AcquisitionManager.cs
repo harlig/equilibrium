@@ -30,6 +30,9 @@ public class AcquisitionManager
             case FirestarterOffer firestarterOffer:
                 firestarterOffer.ApplyToPlayer(player);
                 break;
+            case OrbiterOffer orbiterOffer:
+                player.OrbitSystem.AddOrbiter(orbiterOffer.orbiterType);
+                break;
             default:
                 Debug.LogErrorFormat("Unhandled offer type {0}", offer);
                 break;
