@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpeedOffer : OfferData
 {
+    public override string GetHelpText()
+    {
+        return $"Increases your speed by {Value}";
+    }
+
     public override string GetName()
     {
         return gameObject.name;
