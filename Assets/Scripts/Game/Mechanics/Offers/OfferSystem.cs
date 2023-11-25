@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -185,6 +186,10 @@ public class OfferSystem : MonoBehaviour
     {
         // Calculate weight based on the distance in the enum index
         int distance = Mathf.Abs(offerState - currentState);
+        if (distance > Enum.GetValues(typeof(EquilibriumManager.EquilibriumState)).Length - 3)
+        {
+            return 0;
+        }
         // The weight decreases as the distance increases
         // This is a simple linear calculation, can change if we want
         float weight = 1.0f / (distance + 1);
