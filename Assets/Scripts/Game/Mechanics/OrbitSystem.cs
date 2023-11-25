@@ -4,20 +4,38 @@ using UnityEngine;
 
 public class OrbitSystem : MonoBehaviour
 {
+    [SerializeField]
+    private List<OrbiterData> supportedOrbiterPrefabs;
     private PlayerController player;
-    private List<GameObject> orbiters; // List of orbiter GameObjects
+    private List<OrbiterData> orbiters;
     private readonly float orbitDistance = 1.0f; // Distance from the player
+
+    public enum OrbiterType
+    {
+        FIRE
+    }
 
     void Awake()
     {
-        orbiters = new List<GameObject>();
+        orbiters = new();
         player = GetComponentInParent<PlayerController>();
     }
 
-    public void AddOrbiter(OrbiterData newOrbiter)
+    public void AddOrbiter(OrbiterType orbiter)
     {
-        // Instantiate the new orbiter and add it to the list
-        GameObject orbiterInstance = Instantiate(newOrbiter.gameObject, transform);
+        OrbiterData orbiterPrefabToInstantiate = null;
+        foreach (OrbiterData supportedOrbiter in supportedOrbiterPrefabs)
+        {
+            if (supportedOrbiter.OrbiterType == orbiter)
+            {
+                orbiterPrefabToInstantiate = supportedOrbiter;
+                break;
+            }
+        }
+        if (orbiterPrefabToInstantiate == null) { }
+
+        OrbiterData orbiterInstance = Instantiate(orbiterPrefabToInstantiate.gameObject, transform)
+            .GetComponent<OrbiterData>();
         orbiters.Add(orbiterInstance);
 
         // Rearrange all orbiters to be equidistant

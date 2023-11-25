@@ -4,9 +4,7 @@ public class OrbiterData : MonoBehaviour
 {
     [SerializeField]
     private Color color;
-
-    // just support fire orbiter
-    // this gameobject will have a trigger collider so it'll implement OnTriggerEnter2D where it can deal damage or apply its effect to enemies
+    public OrbitSystem.OrbiterType OrbiterType;
 
     void OnTriggerEnter2D(Collider2D other)
     {
