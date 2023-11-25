@@ -144,86 +144,12 @@ public abstract class EnemyController : CharacterController
         return modifiedDirection;
     }
 
-    // void FixedUpdate()
-    // {
-    //     if (IsDead())
-    //     {
-    //         return;
-    //     }
-
-    //     if (startFollowing && !player.IsDead())
-    //     {
-    //         pathUpdateTimer += Time.fixedDeltaTime;
-    //         if (
-    //             pathUpdateTimer >= pathUpdateInterval
-    //             || (path != null && currentPathIndex == path.Count)
-    //         )
-    //         {
-    //             CalculatePath();
-    //             pathUpdateTimer = 0;
-    //         }
-
-    //         if (path != null && currentPathIndex < path.Count)
-    //         {
-    //             var rigidBody = gameObject.GetComponent<Rigidbody2D>();
-    //             Node nextNode = path[currentPathIndex];
-
-    //             Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
-    //             Vector2 direction = (nextPosition - rigidBody.position).normalized;
-
-    //             if (tryUnstuck)
-    //             {
-    //                 direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
-    //                 currentUnstuckAttempt = (UnstuckAttempt)(
-    //                     ((int)currentUnstuckAttempt + 1)
-    //                     % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
-    //                 );
-    //             }
-
-    //             // Calculate distance to move this frame
-    //             // TODO: wtf is up with this move speed
-    //             float step = 80 * MovementSpeed * Time.fixedDeltaTime;
-    //             float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
-
-    //             // Move only as far as or closer to the next node
-    //             Vector2 newPosition = rigidBody.position + direction * step;
-
-    //             rigidBody.MovePosition(newPosition);
-
-    //             // Inside FixedUpdate
-    //             if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
-    //             {
-    //                 stuckTime += Time.fixedDeltaTime;
-    //                 if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
-    //                 {
-    //                     Debug.Log("Let's try to unstuck");
-    //                     tryUnstuck = true;
-    //                 }
-    //             }
-    //             else
-    //             {
-    //                 stuckTime = 0f;
-    //                 tryUnstuck = false;
-    //             }
-
-    //             lastPosition = transform.position;
-
-    //             // Check if the node is reached or passed
-    //             if (distanceToNextNode <= step)
-    //             {
-    //                 currentPathIndex++;
-    //             }
-    //         }
-    //     }
-    // }
     void FixedUpdate()
     {
         if (IsDead())
         {
             return;
         }
-
-        var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
         if (startFollowing && !player.IsDead())
         {
@@ -239,6 +165,7 @@ public abstract class EnemyController : CharacterController
 
             if (path != null && currentPathIndex < path.Count)
             {
+                var rigidBody = gameObject.GetComponent<Rigidbody2D>();
                 Node nextNode = path[currentPathIndex];
 
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
@@ -253,13 +180,17 @@ public abstract class EnemyController : CharacterController
                     );
                 }
 
-                // Set velocity in the direction of the next node
-                float speed = MovementSpeed * 80; // Adjust this speed as needed
-                rigidBody.velocity = direction * speed;
-
+                // Calculate distance to move this frame
+                // TODO: wtf is up with this move speed
+                float step = 80 * MovementSpeed * Time.fixedDeltaTime;
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
 
-                // Handling stuck situations
+                // Move only as far as or closer to the next node
+                Vector2 newPosition = rigidBody.position + direction * step;
+
+                rigidBody.MovePosition(newPosition);
+
+                // Inside FixedUpdate
                 if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
                 {
                     stuckTime += Time.fixedDeltaTime;
@@ -278,18 +209,88 @@ public abstract class EnemyController : CharacterController
                 lastPosition = transform.position;
 
                 // Check if the node is reached or passed
-                if (distanceToNextNode <= speed * Time.fixedDeltaTime)
+                if (distanceToNextNode <= step)
                 {
                     currentPathIndex++;
                 }
             }
         }
-        else
-        {
-            // Stop the movement when not following
-            rigidBody.velocity = Vector2.zero;
-        }
     }
+
+    // void FixedUpdate()
+    // {
+    //     if (IsDead())
+    //     {
+    //         return;
+    //     }
+
+    //     var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+
+    //     if (startFollowing && !player.IsDead())
+    //     {
+    //         pathUpdateTimer += Time.fixedDeltaTime;
+    //         if (
+    //             pathUpdateTimer >= pathUpdateInterval
+    //             || (path != null && currentPathIndex == path.Count)
+    //         )
+    //         {
+    //             CalculatePath();
+    //             pathUpdateTimer = 0;
+    //         }
+
+    //         if (path != null && currentPathIndex < path.Count)
+    //         {
+    //             Node nextNode = path[currentPathIndex];
+
+    //             Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
+    //             Vector2 direction = (nextPosition - rigidBody.position).normalized;
+
+    //             if (tryUnstuck)
+    //             {
+    //                 direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
+    //                 currentUnstuckAttempt = (UnstuckAttempt)(
+    //                     ((int)currentUnstuckAttempt + 1)
+    //                     % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
+    //                 );
+    //             }
+
+    //             // Set velocity in the direction of the next node
+    //             float speed = MovementSpeed * 80; // Adjust this speed as needed
+    //             rigidBody.velocity = direction * speed;
+
+    //             float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
+
+    //             // Handling stuck situations
+    //             if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
+    //             {
+    //                 stuckTime += Time.fixedDeltaTime;
+    //                 if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
+    //                 {
+    //                     Debug.Log("Let's try to unstuck");
+    //                     tryUnstuck = true;
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 stuckTime = 0f;
+    //                 tryUnstuck = false;
+    //             }
+
+    //             lastPosition = transform.position;
+
+    //             // Check if the node is reached or passed
+    //             if (distanceToNextNode <= speed * Time.fixedDeltaTime)
+    //             {
+    //                 currentPathIndex++;
+    //             }
+    //         }
+    //     }
+    //     else
+    //     {
+    //         // Stop the movement when not following
+    //         rigidBody.velocity = Vector2.zero;
+    //     }
+    // }
 
     public void FollowPlayer(PlayerController player)
     {
