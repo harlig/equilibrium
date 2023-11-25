@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class OrbitSystem : MonoBehaviour
@@ -111,6 +112,14 @@ public class OrbitSystem : MonoBehaviour
     {
         return UnityEngine.Random.Range(0f, 1.0f)
             < Mathf.Clamp(deflectProjectileChance, 0f, maxDeflectProjectileChance);
+    }
+
+    public void IncreaseElementalEffectChance(float chanceToAdd)
+    {
+        foreach (var key in ChanceOfOrbiterTypeDoingElementalEffect.Keys.ToList())
+        {
+            ChanceOfOrbiterTypeDoingElementalEffect[key] += chanceToAdd;
+        }
     }
 
     private void RearrangeOrbiters()
