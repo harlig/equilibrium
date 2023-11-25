@@ -68,6 +68,17 @@ public class OrbitSystem : MonoBehaviour
         RearrangeOrbiters();
     }
 
+    public void IncreaseDamageOfOrbiterType(OrbiterType orbiterType, float damageIncrase)
+    {
+        foreach (var orbiter in orbiters)
+        {
+            if (orbiter.OrbiterType == orbiterType)
+            {
+                orbiter.AddToDamage(damageIncrase);
+            }
+        }
+    }
+
     private void RearrangeOrbiters()
     {
         int numOrbiters = orbiters.Count;

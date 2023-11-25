@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbiterOffer : OfferData
+public class GainOrbiterOffer : OrbiterOffer
 {
-    public OrbitSystem.OrbiterType orbiterType;
-
-    public override string GetName()
+    public override void ApplyToOrbitSystem(OrbitSystem orbitSystem)
     {
-        return gameObject.name;
-    }
-
-    public override string GetValue()
-    {
-        return $"{Value}";
+        orbitSystem.AddOrbiter(orbiterType);
     }
 
     public override string GetHelpText()
