@@ -10,28 +10,60 @@ public class OfferAreaManager : MonoBehaviour
     private OfferButton buttonPrefab;
 
     [SerializeField]
-    private RectTransform OfferButtonArea;
+    private TextMeshProUGUI congratsText;
 
     [SerializeField]
-    private RectTransform HelpArea;
+    private GameObject chooseOfferText;
 
-    public void DisableHelpText()
+    [SerializeField]
+    private RectTransform offerButtonArea;
+
+    [SerializeField]
+    private RectTransform helpArea;
+
+    void Start()
     {
-        HelpArea.GetComponentInChildren<TextMeshProUGUI>().text = "";
-        HelpArea.gameObject.SetActive(false);
+        DisableElements();
     }
 
-    public void CreateOfferButtons(List<OfferData> offers, Action<OfferData> onButtonClickedAction)
+    private void DisableElements()
+    {
+        DisableHelpText();
+        DisableOfferAreaText();
+        chooseOfferText.SetActive(false);
+    }
+
+    private void DisableHelpText()
+    {
+        helpArea.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        helpArea.gameObject.SetActive(false);
+    }
+
+    private void DisableOfferAreaText()
+    {
+        congratsText.text = "";
+        congratsText.gameObject.SetActive(false);
+    }
+
+    public void CreateOfferButtons(
+        List<OfferData> offers,
+        Action<OfferData> onButtonClickedAction,
+        string textForOFfer
+    )
     {
         if (offers.Count == 0)
             return;
 
-        HelpArea.GetComponentInChildren<TextMeshProUGUI>().text = "";
-        HelpArea.gameObject.SetActive(true);
+        helpArea.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        helpArea.gameObject.SetActive(true);
+
+        congratsText.text = textForOFfer;
+        congratsText.gameObject.SetActive(true);
+        chooseOfferText.SetActive(true);
 
         // Calculate the button size and spacing based on the parent panel's width and the number of offers
-        float maxButtonSize = OfferButtonArea.rect.width * 0.25f; // Maximum size a button can be is 25% of parent width
-        float buttonSize = Mathf.Min(maxButtonSize, OfferButtonArea.rect.width / offers.Count); // Calculate the button size
+        float maxButtonSize = offerButtonArea.rect.width * 0.25f; // Maximum size a button can be is 25% of parent width
+        float buttonSize = Mathf.Min(maxButtonSize, offerButtonArea.rect.width / offers.Count); // Calculate the button size
         float gapPercentage = 0.1f; // Gap size as a percentage of the button size
         float gapSize = buttonSize * gapPercentage; // Calculate the actual gap size
 
@@ -39,9 +71,9 @@ public class OfferAreaManager : MonoBehaviour
         float totalWidthNeeded = (buttonSize + gapSize) * offers.Count - gapSize;
 
         // Recalculate button size, gap size, & totalWidth if necessary to ensure they fit in the parent panel
-        if (totalWidthNeeded > OfferButtonArea.rect.width)
+        if (totalWidthNeeded > offerButtonArea.rect.width)
         {
-            buttonSize = (OfferButtonArea.rect.width - gapSize * (offers.Count + 1)) / offers.Count;
+            buttonSize = (offerButtonArea.rect.width - gapSize * (offers.Count + 1)) / offers.Count;
             gapSize = buttonSize * gapPercentage; // Recalculate gap size based on new button size
             totalWidthNeeded = (buttonSize + gapSize) * offers.Count - gapSize;
         }
@@ -60,11 +92,11 @@ public class OfferAreaManager : MonoBehaviour
 
             OfferButton newButton = OfferButton.Create(
                 buttonPrefab,
-                OfferButtonArea,
+                offerButtonArea,
                 buttonSize,
                 anchoredPosition,
                 offer,
-                HelpArea.GetComponentInChildren<TextMeshProUGUI>()
+                helpArea.GetComponentInChildren<TextMeshProUGUI>()
             );
             createdButtons.Add(new(offer, newButton));
         }
@@ -77,19 +109,18 @@ public class OfferAreaManager : MonoBehaviour
                 .onClick.AddListener(() =>
                 {
                     OnOfferButtonClicked(item.Item1, onButtonClickedAction);
-                    DisableHelpText();
                 });
         }
     }
 
     private void OnOfferButtonClicked(OfferData offer, Action<OfferData> onOfferSelectedAction)
     {
-        // Handle the button click event
-        // For example, display the offer details
         foreach (Button button in GetComponentsInChildren<Button>())
         {
             Destroy(button.gameObject);
         }
+        DisableElements();
+
         onOfferSelectedAction?.Invoke(offer);
     }
 }

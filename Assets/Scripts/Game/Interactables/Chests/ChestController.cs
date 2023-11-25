@@ -41,7 +41,8 @@ public class ChestController : InteractableBehavior
             {
                 gameManager.OnOfferSelected(offerSelected);
                 GameManager.UnpauseGame();
-            }
+            },
+            "Chest opened!"
         );
 
         hasBeenOpened = true;

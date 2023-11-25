@@ -20,7 +20,11 @@ public class LevelUpUIElements : MonoBehaviour
     )
     {
         // TODO: need to say congrats on leveling up
-        offerButtonSpawner.CreateOfferButtons(offers, onOfferSelectedAction);
+        offerButtonSpawner.CreateOfferButtons(
+            offers,
+            onOfferSelectedAction,
+            $"Leveled up to level {newPlayerLevel}!"
+        );
 
         gameObject.SetActive(true);
     }

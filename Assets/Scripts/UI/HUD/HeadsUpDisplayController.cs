@@ -45,7 +45,6 @@ public class HeadsUpDisplayController : MonoBehaviour
         acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
         SetOrbsCollected();
         DisableInteractableHelpText();
-        OfferAreaManager.DisableHelpText();
     }
 
     public void SetPlayerLevel(int newPlayerLevel)
