@@ -79,6 +79,17 @@ public class PlayerController : CharacterController
         {
             meleeWeapon.AttackAtPosition(GetPositionAsVector2());
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (UnityEngine.Random.Range(0.0f, 1.0f) < 0.5)
+            {
+                OrbitSystem.AddOrbiter(OrbitSystem.OrbiterType.FIRE);
+            }
+            else
+            {
+                OrbitSystem.AddOrbiter(OrbitSystem.OrbiterType.ICE);
+            }
+        }
     }
 
     int automoveInterval = 1;

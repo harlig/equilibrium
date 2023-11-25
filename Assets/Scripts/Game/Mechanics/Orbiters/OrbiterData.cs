@@ -7,6 +7,15 @@ public class OrbiterData : MonoBehaviour
     private DamageType damageType;
     public OrbitSystem.OrbiterType OrbiterType;
     private float damageAmount = 5.0f;
+    private readonly float knockbackStrength = 10.0f;
+    private PlayerController player;
+
+    public static OrbiterData Create(OrbiterData prefab, Transform parent, PlayerController player)
+    {
+        var instance = Instantiate(prefab.gameObject, parent).GetComponent<OrbiterData>();
+        instance.player = player;
+        return instance;
+    }
 
     void Awake()
     {
@@ -28,6 +37,20 @@ public class OrbiterData : MonoBehaviour
         {
             // TODO: this should be replaced with something specific to the orbiter and probably a system per-type of orbiter
             enemy.OnDamageTaken(damageType, damageAmount);
+
+            // Apply knockback
+            if (!enemy.IsDead() && other.attachedRigidbody != null)
+            {
+                Debug.Log("applying knockback to enemy");
+                Vector2 knockbackDirection = (
+                    other.transform.position - player.transform.position
+                ).normalized;
+                Debug.LogFormat("knockback direction {0}", knockbackDirection);
+                other.attachedRigidbody.AddForce(
+                    knockbackDirection * knockbackStrength,
+                    ForceMode2D.Impulse
+                );
+            }
         }
     }
 

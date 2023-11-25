@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     // if you are at level 0, you need 1 xp to level up. if you are at level 1, you need 10, etc.
     public static List<int> XpNeededForLevelUpAtIndex { get; } =
+        // new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 21, 41, 81, 150, 210, 610, 1310, 2000 };
         new() { 21, 41, 81, 150, 210, 610, 1310, 2000 };
 
     [SerializeField]

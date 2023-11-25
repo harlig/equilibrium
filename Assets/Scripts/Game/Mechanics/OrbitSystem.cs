@@ -58,10 +58,18 @@ public class OrbitSystem : MonoBehaviour
                 break;
             }
         }
-        if (orbiterPrefabToInstantiate == null) { }
+        if (orbiterPrefabToInstantiate == null)
+        {
+            throw new System.Exception(
+                $"failed to find an orbiter to instantiate in this system of type {orbiter}"
+            );
+        }
 
-        OrbiterData orbiterInstance = Instantiate(orbiterPrefabToInstantiate.gameObject, transform)
-            .GetComponent<OrbiterData>();
+        OrbiterData orbiterInstance = OrbiterData.Create(
+            orbiterPrefabToInstantiate,
+            transform,
+            player
+        );
         orbiters.Add(orbiterInstance);
 
         // Rearrange all orbiters to be equidistant
