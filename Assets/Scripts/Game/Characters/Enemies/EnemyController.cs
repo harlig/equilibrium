@@ -262,6 +262,7 @@ public abstract class EnemyController : CharacterController
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
 
+        elementalDamageSystem.StopAnimating();
         damageTaken.HideTextElement();
     }
 

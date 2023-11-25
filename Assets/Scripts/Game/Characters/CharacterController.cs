@@ -34,7 +34,7 @@ public abstract class CharacterController : MonoBehaviour
 
     protected bool applyingDamageOverTime = false;
 
-    private StatusEffectSystem elementalDamageSystem;
+    protected StatusEffectSystem elementalDamageSystem;
 
     protected void Start()
     {

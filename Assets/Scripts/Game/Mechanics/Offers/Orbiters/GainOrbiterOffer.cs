@@ -11,6 +11,6 @@ public class GainOrbiterOffer : OrbiterOffer
 
     public override string GetHelpText()
     {
-        return $"Gain {Value} {orbiterType.ToString().ToLower()} orb{(Value > 1 ? "s" : "")}";
+        return $"Gain {Value} {orbiterType.ToString().ToLower()} orbiter{(Value > 1 ? "s" : "")}";
     }
 }
