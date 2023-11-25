@@ -9,6 +9,8 @@ public class OrbitSystem : MonoBehaviour
     private PlayerController player;
     private List<OrbiterData> orbiters;
     private readonly float orbitDistance = 1.0f; // Distance from the player
+    private readonly float angularVelocity = 30.0f; // Degrees per second
+    private float currentSystemAngle = 0.0f; // Current rotation angle of the system
 
     public enum OrbiterType
     {
@@ -19,6 +21,29 @@ public class OrbitSystem : MonoBehaviour
     {
         orbiters = new();
         player = GetComponentInParent<PlayerController>();
+    }
+
+    void Update()
+    {
+        // Update the rotation of the system
+        float angle = angularVelocity * Time.deltaTime;
+        currentSystemAngle += angle;
+
+        // Ensure the angle stays within 0-360 degrees
+        currentSystemAngle %= 360.0f;
+
+        // Update the position of each orbiter every frame
+        for (int i = 0; i < orbiters.Count; i++)
+        {
+            if (orbiters[i] != null)
+            {
+                orbiters[i].transform.RotateAround(
+                    player.transform.position,
+                    Vector3.forward,
+                    angle
+                );
+            }
+        }
     }
 
     public void AddOrbiter(OrbiterType orbiter)
@@ -49,8 +74,8 @@ public class OrbitSystem : MonoBehaviour
 
         for (int i = 0; i < numOrbiters; i++)
         {
-            // Calculate the position for each orbiter
-            float angle = angleStep * i;
+            // Calculate the position for each orbiter, considering the current system rotation
+            float angle = currentSystemAngle + angleStep * i;
             Vector3 position = CalculateOrbiterPosition(angle);
             orbiters[i].transform.position = position;
         }
