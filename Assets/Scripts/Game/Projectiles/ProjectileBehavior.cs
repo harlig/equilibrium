@@ -28,6 +28,13 @@ public class ProjectileBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (other.GetComponent<OrbiterData>() != null)
+        {
+            if (other.GetComponentInParent<OrbitSystem>().ShouldDeflectProjectile())
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void MoveInDirection(Vector2 directionToMove)

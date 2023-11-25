@@ -11,6 +11,8 @@ public class OrbitSystem : MonoBehaviour
     private float orbitDistance = 1.0f; // Distance from the player
     private float angularVelocity = 90.0f; // Degrees per second
     private float currentSystemAngle = 0.0f; // Current rotation angle of the system
+    private float deflectProjectileChance = 0f;
+    private readonly float maxDeflectProjectileChance = 0.8f;
 
     public enum OrbiterType
     {
@@ -96,6 +98,17 @@ public class OrbitSystem : MonoBehaviour
     {
         orbitDistance += distanceToIncrease;
         RearrangeOrbiters();
+    }
+
+    public void IncreaseDeflectProjectileChance(float chanceToAdd)
+    {
+        deflectProjectileChance += chanceToAdd;
+    }
+
+    public bool ShouldDeflectProjectile()
+    {
+        return Random.Range(0f, 1.0f)
+            < Mathf.Clamp(deflectProjectileChance, 0f, maxDeflectProjectileChance);
     }
 
     private void RearrangeOrbiters()
