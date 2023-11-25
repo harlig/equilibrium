@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class OrbiterOffer : OfferData
 {
-    public OrbitSystem.OrbiterType orbiterType;
-
     public abstract void ApplyToOrbitSystem(OrbitSystem orbitSystem);
 
     public override string GetName()

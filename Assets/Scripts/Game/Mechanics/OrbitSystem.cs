@@ -8,8 +8,8 @@ public class OrbitSystem : MonoBehaviour
     private List<OrbiterData> supportedOrbiterPrefabs;
     private PlayerController player;
     private List<OrbiterData> orbiters;
-    private readonly float orbitDistance = 1.0f; // Distance from the player
-    private readonly float angularVelocity = 90.0f; // Degrees per second
+    private float orbitDistance = 1.0f; // Distance from the player
+    private float angularVelocity = 90.0f; // Degrees per second
     private float currentSystemAngle = 0.0f; // Current rotation angle of the system
 
     public enum OrbiterType
@@ -77,6 +77,17 @@ public class OrbitSystem : MonoBehaviour
                 orbiter.AddToDamage(damageIncrase);
             }
         }
+    }
+
+    public void IncreaseOrbitSpeed(float angularVelocityToIncrease)
+    {
+        angularVelocity += angularVelocityToIncrease;
+    }
+
+    public void IncreaseDistanceFromPlayer(float distanceToIncrease)
+    {
+        orbitDistance += distanceToIncrease;
+        RearrangeOrbiters();
     }
 
     private void RearrangeOrbiters()

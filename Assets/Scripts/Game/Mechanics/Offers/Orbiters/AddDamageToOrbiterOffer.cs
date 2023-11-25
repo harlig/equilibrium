@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddDamageToOrbiterOffer : OrbiterOffer
+public class AddDamageToOrbiterOffer : SpecificTypeOfOrbiterOffer
 {
     public override void ApplyToOrbitSystem(OrbitSystem orbitSystem)
     {

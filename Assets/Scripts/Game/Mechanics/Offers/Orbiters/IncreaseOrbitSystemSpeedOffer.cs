@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GainOrbiterOffer : SpecificTypeOfOrbiterOffer
+public class IncreaseOrbitSystemSpeedOffer : OrbiterOffer
 {
     public override void ApplyToOrbitSystem(OrbitSystem orbitSystem)
     {
-        orbitSystem.AddOrbiter(orbiterType);
+        orbitSystem.IncreaseOrbitSpeed(Value);
     }
 
     public override string GetHelpText()
     {
-        return $"Gain {Value} {orbiterType.ToString().ToLower()} orbiter{(Value > 1 ? "s" : "")}";
+        return $"Increase speed of orbiters by {Value} degrees per second";
     }
 }
