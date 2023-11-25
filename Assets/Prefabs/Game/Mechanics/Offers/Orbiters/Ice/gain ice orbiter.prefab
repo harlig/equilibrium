@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6819055823897241300
+--- !u!1 &4451123670697834550
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2466215813276707332}
-  - component: {fileID: 2825237975567345288}
+  - component: {fileID: 8137452742242942633}
+  - component: {fileID: 5816268899713979088}
   m_Layer: 0
-  m_Name: OrbitSystem
+  m_Name: gain ice orbiter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2466215813276707332
+--- !u!4 &8137452742242942633
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6819055823897241300}
+  m_GameObject: {fileID: 4451123670697834550}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,18 +32,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2825237975567345288
+--- !u!114 &5816268899713979088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6819055823897241300}
+  m_GameObject: {fileID: 4451123670697834550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ce8a0e1e22a44eb9be92fe0d8875ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fffa04f935144be2987b2976d0b4843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  supportedOrbiterPrefabs:
-  - {fileID: 6375964179812831144, guid: a4cb82a30b6de47f59cccb658c33f804, type: 3}
-  - {fileID: 6375964179812831144, guid: 5f854c1179b4144fba273a911c09f7b0, type: 3}
+  CorrespondingState: 1
+  OfferPool: 2
+  Color: {r: 0, g: 0.10515156, b: 0.9056604, a: 1}
+  Value: 1
+  Sprite: {fileID: 0}
+  orbiterType: 1

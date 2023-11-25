@@ -14,7 +14,8 @@ public class OrbitSystem : MonoBehaviour
 
     public enum OrbiterType
     {
-        FIRE
+        FIRE,
+        ICE
     }
 
     void Awake()
