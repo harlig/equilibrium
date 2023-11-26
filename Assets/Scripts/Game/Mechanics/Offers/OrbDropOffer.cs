@@ -26,8 +26,7 @@ public class OrbDropOffer : OfferData
     public void DropOrbs(PlayerController player)
     {
         var orbDropper = Instantiate(orbDropperPrefab, player.CurrentRoom.transform);
-        orbDropper.transform.position =
-            player.transform.position - player.CurrentRoom.transform.position;
+        orbDropper.transform.position = player.transform.position;
         orbDropper.DoOrbDrop(
             orbType,
             0,
