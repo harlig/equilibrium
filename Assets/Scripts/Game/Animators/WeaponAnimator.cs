@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,7 @@ public class WeaponAnimator : MonoBehaviour
     private Vector2 desiredPosition;
     private int currentSpriteIndex = 0;
     private bool isSwinging = false;
+    private Action afterSwingAction;
 
     void Awake()
     {
@@ -39,10 +41,11 @@ public class WeaponAnimator : MonoBehaviour
         AnimateSwing();
     }
 
-    public void DoSwing(Vector2 desiredPosition)
+    public void DoSwing(Vector2 desiredPosition, Action afterSwingAction)
     {
         isSwinging = true;
         this.desiredPosition = desiredPosition;
+        this.afterSwingAction = afterSwingAction;
     }
 
     void AnimateSwing()
@@ -56,6 +59,7 @@ public class WeaponAnimator : MonoBehaviour
                 isSwinging = false;
                 currentSpriteIndex = 0;
                 spriteRenderer.sprite = originalSprite;
+                afterSwingAction?.Invoke();
             }
             if (isSwinging)
             {

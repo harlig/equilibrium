@@ -4,6 +4,7 @@ using UnityEngine;
 public class MeleeWeapon : WeaponController
 {
     private WeaponAnimator weaponAnimator;
+    private BoxCollider2D boxCollider;
     public FirestarterSystem firestarterSystem = new();
 
     public override bool ShouldRotateToMousePosition
@@ -21,15 +22,37 @@ public class MeleeWeapon : WeaponController
         get { return 20.0f; }
     }
 
+    private bool isSwinging = false;
+
     void Awake()
     {
         weaponAnimator = GetComponent<WeaponAnimator>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
+
+    void Start()
+    {
+        boxCollider.enabled = false;
     }
 
     public override void AttackAtPosition(Vector2 position)
     {
+        if (isSwinging)
+        {
+            return;
+        }
+
+        isSwinging = true;
+        boxCollider.enabled = true;
         // TODO: apply animations and make the weapon degree dynamic
-        weaponAnimator.DoSwing(position);
+        weaponAnimator.DoSwing(
+            position,
+            () =>
+            {
+                isSwinging = false;
+                boxCollider.enabled = false;
+            }
+        );
     }
 
     private void ApplyCharacterDamage(CharacterController character, float damageModifier)
