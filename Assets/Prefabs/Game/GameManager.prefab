@@ -449,6 +449,10 @@ PrefabInstance:
       propertyPath: meleeWeapon
       value: 
       objectReference: {fileID: -7031157983985048254, guid: 0c2ebce90d1444cc28f5fad5361c9d42, type: 3}
+    - target: {fileID: -1932976131922833050, guid: a8d78a69fd46b46309b5369f1c705109, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 553911553520147597, guid: 17e5089d75c7b4e88968018dac549edc, type: 3}
     - target: {fileID: 653283382459598151, guid: a8d78a69fd46b46309b5369f1c705109, type: 3}
       propertyPath: m_Name
       value: Player
