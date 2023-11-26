@@ -44,12 +44,21 @@ public abstract class EnemyController : CharacterController
         get { return GetMaxHp() - damageTaken.TotalDamage(); }
     }
 
+    protected WeaponSlotController weaponSlotController;
+
+    [SerializeField]
+    private MeleeWeapon meleeWeapon;
+
+    [SerializeField]
+    private RangedWeapon rangedWeapon;
+
     void Awake()
     {
         containingRoom = GetComponentInParent<RoomManager>();
         damageTaken.TextElement = hpTextElement;
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
         lastPosition = transform.position;
+        weaponSlotController = new(this);
     }
 
     public static EnemyController Create(
@@ -310,5 +319,22 @@ public abstract class EnemyController : CharacterController
         {
             currentPathIndex = 0;
         }
+    }
+
+    void Update()
+    {
+        weaponSlotController.MoveWeaponsAtPosition(player.transform.position);
+    }
+
+    protected void CreateRangedWeapon()
+    {
+        var weapon = WeaponController.Create(rangedWeapon, transform.position, this);
+        weaponSlotController.AssignWeaponSlot(weapon, 1);
+    }
+
+    protected void CreateMeleeWeapon()
+    {
+        var weapon = WeaponController.Create(meleeWeapon, transform.position, this);
+        weaponSlotController.AssignWeaponSlot(weapon, 0);
     }
 }

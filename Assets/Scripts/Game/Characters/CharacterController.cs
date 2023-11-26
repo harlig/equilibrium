@@ -35,7 +35,7 @@ public abstract class CharacterController : MonoBehaviour
 
     protected StatusEffectSystem elementalDamageSystem;
 
-    protected void Start()
+    protected virtual void Start()
     {
         var gameManager = GetComponentInParent<GameManager>();
         var prefab = gameManager.ElementalDamageStatusEffectSystemPrefab;
@@ -112,10 +112,5 @@ public abstract class CharacterController : MonoBehaviour
             return DOT_DEFAULT_DAMAGE_PER_TICK;
         }
         return (float)(totalDamage / (duration / interval));
-    }
-
-    public Vector2 GetPositionAsVector2()
-    {
-        return new Vector2(transform.position.x, transform.position.y);
     }
 }

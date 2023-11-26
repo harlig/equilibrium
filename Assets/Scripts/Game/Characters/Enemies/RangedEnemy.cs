@@ -15,6 +15,7 @@ public class RangedEnemy : EnemyController
     {
         base.Start();
         spawnPosition = transform.position;
+        CreateRangedWeapon();
     }
 
     protected override void FixedUpdate()

@@ -15,8 +15,6 @@ public class PlayerController : CharacterController
     public int PlayerLevel { get; private set; } = 0;
     public Camera MainCamera { get; set; }
 
-    private CharacterAnimator characterAnimator;
-
     private WeaponSlotController weaponSlotController;
 
     public EquilibriumManager.EquilibriumState EquilibriumState { get; private set; } =
@@ -59,7 +57,6 @@ public class PlayerController : CharacterController
     void Awake()
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        characterAnimator = GetComponent<CharacterAnimator>();
         OrbController.OrbType[] orbsToSupport =
         {
             OrbController.OrbType.FIRE,
@@ -94,7 +91,7 @@ public class PlayerController : CharacterController
             }
         }
 
-        weaponSlotController.ManageWeaponSlots();
+        weaponSlotController.ManageWeapons();
     }
 
     int automoveInterval = 1;

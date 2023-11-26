@@ -2,10 +2,7 @@ using UnityEngine;
 
 public class WeaponSlotController
 {
-    private bool isPlayer = false;
-
     protected CharacterController character;
-    protected PlayerController player;
 
     private readonly float circleRadius = 0.7f;
 
@@ -16,20 +13,15 @@ public class WeaponSlotController
     public WeaponSlotController(CharacterController character)
     {
         this.character = character;
-        if (character is PlayerController player)
-        {
-            isPlayer = true;
-            this.player = player;
-        }
     }
 
-    public void ManageWeaponSlots()
+    public void ManageWeapons()
     {
-        if (isPlayer)
+        if (character is PlayerController player)
         {
             // if a player, move based on mouse position
             Vector2 mousePosition = player.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-            MoveWeaponsAtMousePosition(mousePosition);
+            MoveWeaponsAtPosition(mousePosition);
 
             // weapon controls
             if (Input.GetMouseButtonUp(0))
@@ -43,12 +35,16 @@ public class WeaponSlotController
         }
     }
 
-    void MoveWeaponsAtMousePosition(Vector2 position)
+    public void MoveWeaponsAtPosition(Vector2 position)
     {
         for (int ndx = 0; ndx < equippedWeapons.Length; ndx++)
         {
             float offset = ndx * weaponOffsetAngle;
             var weapon = equippedWeapons[ndx];
+            if (weapon == null)
+            {
+                continue;
+            }
             // Calculate the direction from the character to the mouse position
             Vector2 direction = (position - (Vector2)character.transform.position).normalized;
 
