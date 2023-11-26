@@ -20,9 +20,16 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // TODO: this should only happen for enemy-fired projectiles
         if (other.GetComponent<PlayerController>() != null)
         {
             // Destroy(gameObject);
+        }
+        // TODO: this should only happen for player-fired projectiles
+        else if (other.GetComponent<EnemyController>() != null)
+        {
+            other.GetComponent<EnemyController>().OnDamageTaken(DamageType.ICE, 2f);
+            Destroy(gameObject);
         }
         else if (other.GetComponent<TilemapCollider2D>() != null)
         {

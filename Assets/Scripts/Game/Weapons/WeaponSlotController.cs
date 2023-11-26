@@ -10,7 +10,7 @@ public class WeaponSlotController : MonoBehaviour
     protected CharacterController character;
     protected PlayerController player;
 
-    private float circleRadius = 0.8f;
+    private float circleRadius = 0.7f;
 
     private WeaponController[] equippedWeapons = new WeaponController[2];
 
@@ -40,7 +40,7 @@ public class WeaponSlotController : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                equippedWeapons[1].AttackAtPosition(equippedWeapons[1].transform.position);
+                equippedWeapons[1].AttackAtPosition(mousePosition);
             }
         }
     }

@@ -46,8 +46,8 @@ public class RangedWeapon : WeaponController
             Quaternion.identity
         );
 
-        var directionX = firePosition.x - character.transform.position.x;
-        var directionY = firePosition.y - character.transform.position.y;
+        var directionX = firePosition.x - transform.position.x;
+        var directionY = firePosition.y - transform.position.y;
 
         Vector2 launchDirection = new Vector2(directionX, directionY).normalized;
 
