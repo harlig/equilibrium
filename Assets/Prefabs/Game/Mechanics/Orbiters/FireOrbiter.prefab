@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2974896344644295715}
   - component: {fileID: 6375964179812831144}
+  - component: {fileID: 4056850944012483595}
   - component: {fileID: 1329598276395048772}
   - component: {fileID: 7613828139318815928}
   - component: {fileID: -9206315756923856260}
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,8 +48,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3e1998781d84bfe993d8eae468ee2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   OrbiterType: 0
+--- !u!114 &4056850944012483595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234318386832212766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fe9313315074463ba68a115b39622c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbiterAnimationArray:
+  - {fileID: 21300000, guid: 40add63a90e0042d6963070bf2002833, type: 3}
+  - {fileID: 21300000, guid: 9b7bbed673be0482fa91c7adf598cce9, type: 3}
+  - {fileID: 21300000, guid: 5d41497706e264d4a84977dc353a2827, type: 3}
+  - {fileID: 21300000, guid: a0f3e598ea93648feb8e3b2e65289964, type: 3}
+  - {fileID: 21300000, guid: 0657a39b546814f23891fa4e7cf08232, type: 3}
+  - {fileID: 21300000, guid: 877427a63f6494f3fa3a678b77a52a39, type: 3}
+  - {fileID: 21300000, guid: 83e655aa2b52f4837982434a6e1af0a6, type: 3}
+  - {fileID: 21300000, guid: 68b0ff09b18d44fe09a0182eca8d749f, type: 3}
 --- !u!212 &1329598276395048772
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4aa2041afdf8948dca7060db7f8903a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 40add63a90e0042d6963070bf2002833, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -133,7 +155,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0015799701, y: -0.19275536}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -144,7 +166,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.34535652, y: 0.408555}
   m_EdgeRadius: 0
 --- !u!50 &-9206315756923856260
 Rigidbody2D:
