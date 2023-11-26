@@ -39,7 +39,6 @@ public class RangedWeapon : WeaponController
 
     void FireProjectile(Vector2 firePosition)
     {
-        Debug.Log(firePosition);
         var projectile = Instantiate(
             projectilePrefab,
             transform.localToWorldMatrix.GetPosition(),

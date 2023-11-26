@@ -13,9 +13,12 @@ public class PlayerController : CharacterController
 
     // non-prefabs
     public int PlayerLevel { get; private set; } = 0;
-    public Camera MainCamera { private get; set; }
+    public Camera MainCamera { get; set; }
 
     private CharacterAnimator characterAnimator;
+
+    private WeaponSlotController weaponSlotController;
+
     public EquilibriumManager.EquilibriumState EquilibriumState { get; private set; } =
         EquilibriumManager.DefaultState();
 
@@ -56,6 +59,7 @@ public class PlayerController : CharacterController
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         characterAnimator = GetComponent<CharacterAnimator>();
+        weaponSlotController = GetComponent<WeaponSlotController>();
         OrbController.OrbType[] orbsToSupport =
         {
             OrbController.OrbType.FIRE,
@@ -65,6 +69,7 @@ public class PlayerController : CharacterController
         StatusEffectSystem = GetComponentInChildren<StatusEffectSystem>();
         OrbitSystem = GetComponentInChildren<OrbitSystem>();
         hpRemaining = MaxHp;
+
         CreateMeleeWeapon();
         CreateRangedWeapon();
     }
@@ -76,13 +81,13 @@ public class PlayerController : CharacterController
 
     void Update()
     {
-        // move weapon to left or right depending on where mouse is
-        MoveWeaponRelativeToMouse();
+        //     // move weapon to left or right depending on where mouse is
+        //     MoveWeaponRelativeToMouse();
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            meleeWeapon.AttackAtPosition(GetPositionAsVector2());
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     meleeWeapon.AttackAtPosition(GetPositionAsVector2());
+        // }
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (UnityEngine.Random.Range(0.0f, 1.0f) < 0.5)
@@ -95,13 +100,13 @@ public class PlayerController : CharacterController
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(
-                new Vector2(Input.mousePosition.x, Input.mousePosition.y)
-            );
-            rangedWeapon.AttackAtPosition(worldMousePos);
-        }
+        //     if (Input.GetMouseButtonDown(1))
+        //     {
+        //         Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(
+        //             new Vector2(Input.mousePosition.x, Input.mousePosition.y)
+        //         );
+        //         rangedWeapon.AttackAtPosition(worldMousePos);
+        //     }
     }
 
     int automoveInterval = 1;
@@ -314,54 +319,30 @@ public class PlayerController : CharacterController
 
     private void CreateRangedWeapon()
     {
-        Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
+        var weapon = WeaponController.Create(rangedWeapon, transform.position, this);
+        weaponSlotController.AssignWeaponSlot(weapon, 1);
+        // Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
 
-        // calculate the position to the top right corner
-        Vector2 spawnPos = (Vector2)transform.position + offset;
+        // // calculate the position to the top right corner
+        // Vector2 spawnPos = (Vector2)transform.position + offset;
 
-        var weapon = WeaponController.Create(rangedWeapon, spawnPos, this);
-        weapon.transform.parent = transform;
-        rangedWeapon = (RangedWeapon)weapon;
+        // var weapon = WeaponController.Create(rangedWeapon, spawnPos, this);
+        // weapon.transform.parent = transform;
+        // rangedWeapon = (RangedWeapon)weapon;
     }
 
     private void CreateMeleeWeapon()
     {
-        Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
+        var weapon = WeaponController.Create(meleeWeapon, transform.position, this);
+        weaponSlotController.AssignWeaponSlot(weapon, 0);
+        // Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
 
-        // calculate the position to the top right corner
-        Vector2 spawnPos = (Vector2)transform.position + offset;
+        // // calculate the position to the top right corner
+        // Vector2 spawnPos = (Vector2)transform.position + offset;
 
-        var weapon = WeaponController.Create(meleeWeapon, spawnPos, this);
-        weapon.transform.parent = transform;
-        meleeWeapon = (MeleeWeapon)weapon;
-    }
-
-    private void MoveWeaponRelativeToMouse()
-    {
-        if (meleeWeapon == null || MainCamera == null)
-        {
-            return;
-        }
-
-        Vector2 mousePos = Input.mousePosition;
-        Vector2 currentPos = transform.position;
-        if (mousePos == null)
-        {
-            return;
-        }
-
-        Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(new Vector2(mousePos.x, mousePos.y));
-
-        Vector2 direction = worldMousePos - currentPos;
-
-        bool isMovingRight = direction.x > 0;
-
-        Vector2 topRight = new(WEAPON_OFFSET, WEAPON_OFFSET);
-        Vector2 topLeft = new(-WEAPON_OFFSET, WEAPON_OFFSET);
-
-        Vector2 offset = isMovingRight ? topRight : topLeft;
-
-        meleeWeapon.transform.position = currentPos + offset;
+        // var weapon = WeaponController.Create(meleeWeapon, spawnPos, this);
+        // weapon.transform.parent = transform;
+        // meleeWeapon = (MeleeWeapon)weapon;
     }
 
     // TODO: I think there's a better generic way of this? should I just expose meleeWeapon?
