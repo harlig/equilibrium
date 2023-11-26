@@ -20,11 +20,7 @@ public class RangedWeapon : WeaponController
 
     public override float baseDamageAmount
     {
-        get
-        {
-            // TODO: change to be specific to actual weapon
-            return 2.0f;
-        }
+        get { return 20.0f; }
     }
 
     void Awake()
@@ -40,21 +36,15 @@ public class RangedWeapon : WeaponController
 
     void FireProjectile(Vector2 firePosition)
     {
-        var projectile = Instantiate(
-            projectilePrefab,
-            transform.localToWorldMatrix.GetPosition(),
-            Quaternion.identity
-        );
-
         var directionX = firePosition.x - transform.position.x;
         var directionY = firePosition.y - transform.position.y;
-
         Vector2 launchDirection = new Vector2(directionX, directionY).normalized;
 
-        float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-        projectile.transform.rotation = rotation;
-        projectile.MoveInDirection(launchDirection);
+        ProjectileBehavior.Create(
+            projectilePrefab,
+            transform.localToWorldMatrix.GetPosition(),
+            launchDirection,
+            character
+        );
     }
 }

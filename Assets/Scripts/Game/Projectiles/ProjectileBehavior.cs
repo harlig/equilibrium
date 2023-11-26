@@ -9,6 +9,25 @@ public class ProjectileBehavior : MonoBehaviour
     private bool canMove = false;
 
     public float DamageAmount = 7.0f;
+    private CharacterController CharacterFiredFrom { get; set; }
+
+    public static ProjectileBehavior Create(
+        ProjectileBehavior prefab,
+        Vector3 position,
+        Vector2 launchDirection,
+        CharacterController firedFrom
+    )
+    {
+        float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        var projectile = Instantiate(prefab, position, rotation);
+
+        projectile.MoveInDirection(launchDirection);
+        projectile.CharacterFiredFrom = firedFrom;
+
+        return projectile;
+    }
 
     void FixedUpdate()
     {
@@ -21,12 +40,19 @@ public class ProjectileBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // TODO: this should only happen for enemy-fired projectiles
-        if (other.GetComponent<PlayerController>() != null)
+        if (
+            other.GetComponent<PlayerController>() != null
+            && CharacterFiredFrom is not PlayerController
+        )
         {
-            // Destroy(gameObject);
+            other.GetComponent<PlayerController>().OnDamageTaken(DamageType.ICE, DamageAmount);
+            Destroy(gameObject);
         }
         // TODO: this should only happen for player-fired projectiles
-        else if (other.GetComponent<EnemyController>() != null)
+        else if (
+            other.GetComponent<EnemyController>() != null
+            && CharacterFiredFrom is not EnemyController
+        )
         {
             other.GetComponent<EnemyController>().OnDamageTaken(DamageType.ICE, 2f);
             Destroy(gameObject);

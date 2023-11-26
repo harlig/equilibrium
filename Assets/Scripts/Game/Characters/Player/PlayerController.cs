@@ -268,11 +268,6 @@ public class PlayerController : CharacterController
             // melee dmg is fixed
             dmgAmount = 5;
         }
-        else if (other.GetComponent<ProjectileBehavior>() != null)
-        {
-            var projectile = other.GetComponent<ProjectileBehavior>();
-            dmgAmount = projectile.DamageAmount;
-        }
         else
         {
             return;
