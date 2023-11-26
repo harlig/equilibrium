@@ -61,6 +61,7 @@ public abstract class FloorManager : MonoBehaviour
             meleeEnemyPrefab,
             rangedEnemyPrefab
         );
+        playerController.CurrentRoom = newActiveRoom;
     }
 
     public void SetNewActiveFloor(FloorManager floorTo)

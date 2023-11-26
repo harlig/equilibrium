@@ -54,6 +54,7 @@ public class PlayerController : CharacterController
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;
     public OrbitSystem OrbitSystem { get; private set; }
+    public RoomManager CurrentRoom { get; set; }
 
     void Awake()
     {
@@ -81,13 +82,6 @@ public class PlayerController : CharacterController
 
     void Update()
     {
-        //     // move weapon to left or right depending on where mouse is
-        //     MoveWeaponRelativeToMouse();
-
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     meleeWeapon.AttackAtPosition(GetPositionAsVector2());
-        // }
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (UnityEngine.Random.Range(0.0f, 1.0f) < 0.5)
@@ -99,14 +93,6 @@ public class PlayerController : CharacterController
                 OrbitSystem.AddOrbiter(OrbitSystem.OrbiterType.ICE);
             }
         }
-
-        //     if (Input.GetMouseButtonDown(1))
-        //     {
-        //         Vector2 worldMousePos = MainCamera.ScreenToWorldPoint(
-        //             new Vector2(Input.mousePosition.x, Input.mousePosition.y)
-        //         );
-        //         rangedWeapon.AttackAtPosition(worldMousePos);
-        //     }
     }
 
     int automoveInterval = 1;

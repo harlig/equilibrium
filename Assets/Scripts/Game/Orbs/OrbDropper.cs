@@ -46,7 +46,7 @@ public class OrbDropper : MonoBehaviour
     }
 
     public void DoOrbDrop(
-        DamageTaken damageTaken,
+        OrbController.OrbType orbTypeToDrop,
         float totalXp,
         RoomManager containingRoom,
         int desiredNumToDrop = 10
@@ -57,8 +57,6 @@ public class OrbDropper : MonoBehaviour
             return;
         }
         didDropOrbs = true;
-
-        var shouldDropFireOrb = ShouldDropFireOrb(damageTaken);
 
         int minNumToDrop = Mathf.Max(Mathf.FloorToInt(desiredNumToDrop * 0.8f), 1);
         int maxNumToDrop = Mathf.FloorToInt(desiredNumToDrop * 1.2f);
@@ -84,14 +82,32 @@ public class OrbDropper : MonoBehaviour
                 scatter = GetRandomWalkablePosition(containingRoom.Grid);
             }
 
-            if (shouldDropFireOrb)
+            if (orbTypeToDrop == OrbController.OrbType.FIRE)
             {
-                OrbController.Create(fireOrbPrefab, this, OrbController.OrbType.FIRE, xp, scatter);
+                OrbController.Create(fireOrbPrefab, this, orbTypeToDrop, xp, scatter);
             }
             else
             {
-                OrbController.Create(iceOrbPrefab, this, OrbController.OrbType.ICE, xp, scatter);
+                OrbController.Create(iceOrbPrefab, this, orbTypeToDrop, xp, scatter);
             }
+        }
+    }
+
+    public void DoOrbDrop(
+        DamageTaken damageTaken,
+        float totalXp,
+        RoomManager containingRoom,
+        int desiredNumToDrop = 10
+    )
+    {
+        var shouldDropFireOrb = ShouldDropFireOrb(damageTaken);
+        if (shouldDropFireOrb)
+        {
+            DoOrbDrop(OrbController.OrbType.FIRE, totalXp, containingRoom, desiredNumToDrop);
+        }
+        else
+        {
+            DoOrbDrop(OrbController.OrbType.ICE, totalXp, containingRoom, desiredNumToDrop);
         }
     }
 

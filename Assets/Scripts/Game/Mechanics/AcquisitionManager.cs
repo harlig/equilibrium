@@ -33,6 +33,9 @@ public class AcquisitionManager
             case OrbiterOffer orbiterOffer:
                 orbiterOffer.ApplyToOrbitSystem(player.OrbitSystem);
                 break;
+            case OrbDropOffer orbDropOffer:
+                orbDropOffer.DropOrbs(player);
+                break;
             default:
                 Debug.LogErrorFormat("Unhandled offer type {0}", offer);
                 break;

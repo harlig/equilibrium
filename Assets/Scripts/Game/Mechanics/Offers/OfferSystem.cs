@@ -38,7 +38,7 @@ public class OfferSystem : MonoBehaviour
         {
             if (offer.OfferPool >= allOfferPrefabs.Count)
             {
-                throw new System.Exception(
+                throw new Exception(
                     string.Format(
                         "Tried to add offer for pool {0} when system is only configured to handle {1} pools! Offer {2}",
                         offer.OfferPool,

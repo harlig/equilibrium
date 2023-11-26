@@ -101,6 +101,8 @@ public class RoomManager : MonoBehaviour
             HasClearedRoom = true;
         }
 
+        player.CurrentRoom = this;
+
         if (!HasClearedRoom)
         {
             enemies = SpawnEnemies(
