@@ -23,6 +23,8 @@ public class RangedWeapon : WeaponController
         get { return 20.0f; }
     }
 
+    private bool isShooting = false;
+
     void Awake()
     {
         weaponAnimator = GetComponent<WeaponAnimator>();
@@ -31,6 +33,18 @@ public class RangedWeapon : WeaponController
 
     public override void AttackAtPosition(Vector2 position)
     {
+        if (isShooting)
+        {
+            return;
+        }
+
+        isShooting = true;
+
+        weaponAnimator.DoAnimate(() =>
+        {
+            isShooting = false;
+        });
+
         FireProjectile(position);
     }
 

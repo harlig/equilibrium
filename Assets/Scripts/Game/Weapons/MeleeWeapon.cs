@@ -44,14 +44,11 @@ public class MeleeWeapon : WeaponController
 
         isSwinging = true;
         boxCollider.enabled = true;
-        weaponAnimator.DoSwing(
-            position,
-            () =>
-            {
-                isSwinging = false;
-                boxCollider.enabled = false;
-            }
-        );
+        weaponAnimator.DoAnimate(() =>
+        {
+            isSwinging = false;
+            boxCollider.enabled = false;
+        });
     }
 
     private void ApplyCharacterDamage(CharacterController character, float damageModifier)

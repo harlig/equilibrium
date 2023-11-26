@@ -16,8 +16,6 @@ public class WeaponAnimator : MonoBehaviour
     [SerializeField]
     private float animationSpeed = 3;
     private SpriteRenderer spriteRenderer;
-    private Vector2 lastPosition;
-    private Vector2 desiredPosition;
     private int currentSpriteIndex = 0;
     private bool isSwinging = false;
     private Action afterSwingAction;
@@ -25,7 +23,6 @@ public class WeaponAnimator : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        lastPosition = transform.position;
     }
 
     // TODO: I think this should be `Update` but it won't work for some reason
@@ -35,16 +32,12 @@ public class WeaponAnimator : MonoBehaviour
         {
             return;
         }
-        Vector2 currentPosition = transform.position;
-        lastPosition = currentPosition;
-
         AnimateSwing();
     }
 
-    public void DoSwing(Vector2 desiredPosition, Action afterSwingAction)
+    public void DoAnimate(Action afterSwingAction)
     {
         isSwinging = true;
-        this.desiredPosition = desiredPosition;
         this.afterSwingAction = afterSwingAction;
     }
 
