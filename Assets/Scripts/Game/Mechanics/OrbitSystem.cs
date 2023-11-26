@@ -133,6 +133,10 @@ public class OrbitSystem : MonoBehaviour
             float angle = currentSystemAngle + angleStep * i;
             Vector3 position = CalculateOrbiterPosition(angle);
             orbiters[i].transform.position = position;
+
+            // Calculate and set the rotation of the orbiter
+            Quaternion rotation = Quaternion.Euler(0, 0, angle - 180); // Subtract 180 to align the bottom of the sprite with the orbit direction
+            orbiters[i].transform.rotation = rotation;
         }
     }
 
