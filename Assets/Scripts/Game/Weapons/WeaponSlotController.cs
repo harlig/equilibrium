@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class WeaponSlotController : MonoBehaviour
 {
@@ -10,11 +7,11 @@ public class WeaponSlotController : MonoBehaviour
     protected CharacterController character;
     protected PlayerController player;
 
-    private float circleRadius = 0.7f;
+    private readonly float circleRadius = 0.7f;
 
-    private WeaponController[] equippedWeapons = new WeaponController[2];
+    private readonly WeaponController[] equippedWeapons = new WeaponController[2];
 
-    private float weaponOffsetAngle = 45f;
+    private readonly float weaponOffsetAngle = 45f;
 
     void Awake()
     {
@@ -60,7 +57,7 @@ public class WeaponSlotController : MonoBehaviour
             // move and rotate each of the weapons equipped
             MoveAndRotateWeapon(circlePosition, ndx);
 
-            if (weapon.shouldRotateToMousePosition)
+            if (weapon.ShouldRotateToMousePosition)
             {
                 RotateTowardsDirection(weapon, position);
             }

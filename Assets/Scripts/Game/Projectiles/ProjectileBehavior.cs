@@ -8,11 +8,12 @@ public class ProjectileBehavior : MonoBehaviour
     private Vector2 direction;
     private bool canMove = false;
 
-    public float DamageAmount = 7.0f;
+    public float DamageAmount;
     private CharacterController CharacterFiredFrom { get; set; }
 
     public static ProjectileBehavior Create(
         ProjectileBehavior prefab,
+        float damageAmount,
         Vector3 position,
         Vector2 launchDirection,
         CharacterController firedFrom
@@ -24,6 +25,7 @@ public class ProjectileBehavior : MonoBehaviour
         var projectile = Instantiate(prefab, position, rotation);
 
         projectile.MoveInDirection(launchDirection);
+        projectile.DamageAmount = damageAmount;
         projectile.CharacterFiredFrom = firedFrom;
 
         return projectile;
@@ -54,7 +56,7 @@ public class ProjectileBehavior : MonoBehaviour
             && CharacterFiredFrom is not EnemyController
         )
         {
-            other.GetComponent<EnemyController>().OnDamageTaken(DamageType.ICE, 2f);
+            other.GetComponent<EnemyController>().OnDamageTaken(DamageType.ICE, DamageAmount);
             Destroy(gameObject);
         }
         else if (other.GetComponent<TilemapCollider2D>() != null)

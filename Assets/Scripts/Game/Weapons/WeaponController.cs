@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public abstract class WeaponController : MonoBehaviour
 {
     protected CharacterController character;
 
-    public abstract DamageType damageType { get; }
+    public abstract DamageType DamageType { get; }
 
-    public abstract float baseDamageAmount { get; }
+    public abstract float BaseDamageAmount { get; }
 
-    public abstract bool shouldRotateToMousePosition { get; }
+    public abstract bool ShouldRotateToMousePosition { get; }
 
     public static WeaponController Create(
         WeaponController prefab,

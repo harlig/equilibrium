@@ -68,6 +68,7 @@ public class RangedEnemy : EnemyController
 
         ProjectileBehavior.Create(
             projectilePrefab,
+            7f,
             transform.localToWorldMatrix.GetPosition(),
             launchDirection,
             this

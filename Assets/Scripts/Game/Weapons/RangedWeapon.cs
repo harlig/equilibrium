@@ -8,17 +8,17 @@ public class RangedWeapon : WeaponController
     private ProjectileBehavior projectilePrefab;
     private WeaponAnimator weaponAnimator;
 
-    public override bool shouldRotateToMousePosition
+    public override bool ShouldRotateToMousePosition
     {
         get { return true; }
     }
 
-    public override DamageType damageType
+    public override DamageType DamageType
     {
         get { return DamageType.ICE; }
     }
 
-    public override float baseDamageAmount
+    public override float BaseDamageAmount
     {
         get { return 20.0f; }
     }
@@ -42,6 +42,7 @@ public class RangedWeapon : WeaponController
 
         ProjectileBehavior.Create(
             projectilePrefab,
+            BaseDamageAmount,
             transform.localToWorldMatrix.GetPosition(),
             launchDirection,
             character

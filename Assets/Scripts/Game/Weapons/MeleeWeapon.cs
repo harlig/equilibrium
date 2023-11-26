@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class MeleeWeapon : WeaponController
 {
@@ -9,27 +7,19 @@ public class MeleeWeapon : WeaponController
     private WeaponAnimator weaponAnimator;
     public FirestarterSystem firestarterSystem = new();
 
-    public override bool shouldRotateToMousePosition
+    public override bool ShouldRotateToMousePosition
     {
         get { return false; }
     }
 
-    public override DamageType damageType
+    public override DamageType DamageType
     {
-        get
-        {
-            // TODO: change this to be specifc to actual weapon
-            return DamageType.FIRE;
-        }
+        get { return DamageType.FIRE; }
     }
 
-    public override float baseDamageAmount
+    public override float BaseDamageAmount
     {
-        get
-        {
-            // TODO: change to be specific to actual weapon
-            return 20.0f;
-        }
+        get { return 20.0f; }
     }
 
     void Awake()
@@ -73,7 +63,7 @@ public class MeleeWeapon : WeaponController
 
     private void ApplyCharacterDamage(CharacterController character, float damageModifier)
     {
-        character.OnDamageTaken(damageType, baseDamageAmount + damageModifier);
+        character.OnDamageTaken(DamageType, BaseDamageAmount + damageModifier);
 
         if (firestarterSystem.Chance > Random.Range(0f, 1f))
         {
