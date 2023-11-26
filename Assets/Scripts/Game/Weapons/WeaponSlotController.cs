@@ -19,8 +19,7 @@ public class WeaponSlotController : MonoBehaviour
     void Awake()
     {
         character = GetComponent<CharacterController>();
-        player = GetComponent<PlayerController>();
-        if (player != null)
+        if (TryGetComponent<PlayerController>(out player))
         {
             isPlayer = true;
         }
@@ -48,9 +47,10 @@ public class WeaponSlotController : MonoBehaviour
 
     void MoveWeaponsAtMousePosition(Vector2 position)
     {
-        for (int idx = 0; idx < equippedWeapons.Length; idx++)
+        for (int ndx = 0; ndx < equippedWeapons.Length; ndx++)
         {
-            float offset = idx * weaponOffsetAngle;
+            float offset = ndx * weaponOffsetAngle;
+            var weapon = equippedWeapons[ndx];
             // Calculate the direction from the character to the mouse position
             Vector2 direction = (position - (Vector2)transform.position).normalized;
 
@@ -58,12 +58,12 @@ public class WeaponSlotController : MonoBehaviour
             Vector2 circlePosition = CalculatePositionOnCircle(direction, offset);
 
             // move and rotate each of the weapons equipped
-            MoveAndRotateWeapon(circlePosition, idx);
+            MoveAndRotateWeapon(circlePosition, ndx);
 
-            // if (equippedWeapons[idx].shouldRotateToMousePosition)
-            // {
-            //     RotateTowardsDirection(position, idx);
-            // }
+            if (weapon.shouldRotateToMousePosition)
+            {
+                RotateTowardsDirection(weapon, position);
+            }
         }
     }
 
@@ -110,14 +110,11 @@ public class WeaponSlotController : MonoBehaviour
         return circlePosition;
     }
 
-    void RotateTowardsDirection(Vector2 lookAtDirection, int slot)
+    void RotateTowardsDirection(WeaponController weapon, Vector2 lookAtDirection)
     {
-        Vector2 direction = (
-            lookAtDirection - (Vector2)equippedWeapons[slot].transform.position
-        ).normalized;
+        Vector2 direction = (lookAtDirection - (Vector2)weapon.transform.position).normalized;
+        float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) - 90; // subtract 90 to account for tan angle
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        equippedWeapons[slot].transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }

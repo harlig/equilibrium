@@ -15,11 +15,7 @@ public class RangedWeapon : WeaponController
 
     public override DamageType damageType
     {
-        get
-        {
-            // TODO: change this to be specifc to actual weapon
-            return DamageType.FIRE;
-        }
+        get { return DamageType.ICE; }
     }
 
     public override float baseDamageAmount
@@ -55,7 +51,7 @@ public class RangedWeapon : WeaponController
 
         Vector2 launchDirection = new Vector2(directionX, directionY).normalized;
 
-        float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
+        float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
         projectile.transform.rotation = rotation;
