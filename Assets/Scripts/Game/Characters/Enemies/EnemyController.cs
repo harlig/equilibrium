@@ -225,21 +225,35 @@ public abstract class EnemyController : CharacterController
         DoMovementActions();
     }
 
-    // TODO: this is mega broken, need to fix
+    private readonly float knockbackRecoveryTime = 1.0f; // time in seconds before enemy can move again after knockback
+    private float lastKnockbackTime;
+
     public void ApplyKnockback(Vector2 knockbackDirection, float knockbackStrength)
     {
-        // Calculate the target position for the knockback
-        // Vector2 targetPosition =
-        //     new Vector2(transform.position.x, transform.position.y)
-        //     + knockbackDirection * knockbackStrength;
+        // if we've recently knocked back, can't knockback rn
+        if (Time.time - lastKnockbackTime < knockbackRecoveryTime)
+        {
+            return;
+        }
 
-        // var rigidBody = GetComponent<Rigidbody2D>();
+        // Calculate new position based on knockback direction and strength
+        Vector2Int newPosition =
+            new Vector2Int(
+                Mathf.RoundToInt(transform.position.x),
+                Mathf.RoundToInt(transform.position.y)
+            )
+            + new Vector2Int(
+                Mathf.RoundToInt(knockbackDirection.x * knockbackStrength),
+                Mathf.RoundToInt(knockbackDirection.y * knockbackStrength)
+            );
 
-        // // Calculate the velocity required to reach the target position
-        // Vector2 velocity = targetPosition - rigidBody.position; // No division by time, implies immediate application
-
-        // // Apply the calculated velocity
-        // rigidBody.velocity = velocity;
+        // Check if the new position is within a walkable area
+        if (containingRoom.Grid.IsWalkable(newPosition))
+        {
+            // If walkable, move to the new position
+            transform.position = new(newPosition.x, newPosition.y, transform.position.z);
+            lastKnockbackTime = Time.time;
+        }
     }
 
     public void FollowPlayer(PlayerController player)

@@ -109,6 +109,24 @@ public class Grid
         );
     }
 
+    public bool IsWalkable(Vector2Int position)
+    {
+        if (position.x >= nodes.GetLength(0) || position.x < 0)
+        {
+            return false;
+        }
+        if (position.y >= nodes.GetLength(1) || position.y < 0)
+        {
+            return false;
+        }
+
+        if (nodes[position.x, position.y].Walkable)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public Vector2Int WorldToGrid(Vector3 worldPosition)
     {
         Vector3Int cellPosition = floorTilemap.WorldToCell(worldPosition);

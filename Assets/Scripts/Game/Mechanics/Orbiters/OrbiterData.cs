@@ -7,7 +7,7 @@ public class OrbiterData : MonoBehaviour
     private DamageType damageType;
     public OrbitSystem.OrbiterType OrbiterType;
     private float damageAmount = 5.0f;
-    private readonly float knockbackStrength = 10.0f;
+    private readonly float knockbackStrength = 1.0f;
     private PlayerController player;
     private OrbitSystem orbitSystem;
 
@@ -46,13 +46,13 @@ public class OrbiterData : MonoBehaviour
             enemy.OnDamageTaken(damageType, damageAmount);
 
             // TODO: knockback is broken
-            if (!enemy.IsDead() && other.attachedRigidbody != null)
-            {
-                Vector2 knockbackDirection = (
-                    other.transform.position - player.transform.position
-                ).normalized;
-                enemy.ApplyKnockback(knockbackDirection, knockbackStrength);
-            }
+            // if (!enemy.IsDead() && other.attachedRigidbody != null)
+            // {
+            //     Vector2 knockbackDirection = (
+            //         other.transform.position - player.transform.position
+            //     ).normalized;
+            //     enemy.ApplyKnockback(knockbackDirection, knockbackStrength);
+            // }
 
             if (
                 orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType]
