@@ -46,7 +46,7 @@ public class ProjectileBehavior : MonoBehaviour
             && CharacterFiredFrom is not PlayerController
         )
         {
-            other.GetComponent<PlayerController>().OnDamageTaken(DamageType.ICE, DamageAmount);
+            other.GetComponent<PlayerController>().DealDamage(DamageType.ICE, DamageAmount);
             Destroy(gameObject);
         }
         else if (
@@ -54,7 +54,7 @@ public class ProjectileBehavior : MonoBehaviour
             && CharacterFiredFrom is not EnemyController
         )
         {
-            other.GetComponent<EnemyController>().OnDamageTaken(DamageType.ICE, DamageAmount);
+            other.GetComponent<EnemyController>().DealDamage(DamageType.ICE, DamageAmount);
             Destroy(gameObject);
         }
         else if (other.GetComponent<TilemapCollider2D>() != null)

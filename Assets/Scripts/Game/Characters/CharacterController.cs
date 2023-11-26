@@ -29,8 +29,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract bool IsDead();
 
-    // TODO: rename this to like DealDamage
-    public abstract void OnDamageTaken(DamageType damageType, float damageTaken);
+    public abstract void DealDamage(DamageType damageType, float damageTaken);
 
     protected bool applyingDamageOverTime = false;
 
@@ -99,7 +98,7 @@ public abstract class CharacterController : MonoBehaviour
                 yield break;
             }
             duration -= DOT_INTERVAL;
-            OnDamageTaken(damageType, damagePerInterval);
+            DealDamage(damageType, damagePerInterval);
         }
 
         elementalDamageSystem.StopAnimating();

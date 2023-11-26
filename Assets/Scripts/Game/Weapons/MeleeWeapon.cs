@@ -44,7 +44,6 @@ public class MeleeWeapon : WeaponController
 
         isSwinging = true;
         boxCollider.enabled = true;
-        // TODO: apply animations and make the weapon degree dynamic
         weaponAnimator.DoSwing(
             position,
             () =>
@@ -57,7 +56,7 @@ public class MeleeWeapon : WeaponController
 
     private void ApplyCharacterDamage(CharacterController character, float damageModifier)
     {
-        character.OnDamageTaken(DamageType, BaseDamageAmount + damageModifier);
+        character.DealDamage(DamageType, BaseDamageAmount + damageModifier);
 
         if (firestarterSystem.Chance > Random.Range(0f, 1f))
         {

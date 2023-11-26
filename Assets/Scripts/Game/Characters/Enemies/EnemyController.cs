@@ -19,10 +19,6 @@ public abstract class EnemyController : CharacterController
 
     private RoomManager containingRoom;
 
-    // TODO: use this
-    // [SerializeField]
-    // private Transform launchOffset;
-
     private List<Node> path;
     private int currentPathIndex;
 
@@ -253,7 +249,7 @@ public abstract class EnemyController : CharacterController
         CalculatePath();
     }
 
-    public override void OnDamageTaken(DamageType damageType, float damage)
+    public override void DealDamage(DamageType damageType, float damage)
     {
         // use DamageType enum here
         // maintain amount of damage dealt with certain types of orb

@@ -275,7 +275,7 @@ public class PlayerController : CharacterController
 
         canTakeDmg = false;
 
-        OnDamageTaken(DamageType.FIRE, dmgAmount);
+        DealDamage(DamageType.FIRE, dmgAmount);
     }
 
     private IEnumerator WaitBeforeTakingDmg(float waitTime, bool forceDmg = false)
@@ -293,7 +293,7 @@ public class PlayerController : CharacterController
         return hpRemaining <= 0;
     }
 
-    public override void OnDamageTaken(DamageType damageType, float damageTaken)
+    public override void DealDamage(DamageType damageType, float damageTaken)
     {
         hpRemaining -= damageTaken;
 

@@ -19,7 +19,6 @@ public class LevelUpUIElements : MonoBehaviour
         Action<OfferData> onOfferSelectedAction
     )
     {
-        // TODO: need to say congrats on leveling up
         offerButtonSpawner.CreateOfferButtons(
             offers,
             onOfferSelectedAction,

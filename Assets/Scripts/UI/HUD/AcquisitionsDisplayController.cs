@@ -48,8 +48,6 @@ public class AcquisitionsDisplayController : MonoBehaviour
                 // Set the data for this acquisition
                 display.GetComponentInChildren<TextMeshProUGUI>().text =
                     $"{acquisition.Name}\n+{acquisition.Value}";
-                // TODO: don't want color like this
-                display.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
             }
         }
     }
