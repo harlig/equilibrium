@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 9078893335377086729}
   - component: {fileID: 1711073298821610627}
   - component: {fileID: -2076165470449188014}
-  - component: {fileID: 1073941630405746342}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -271,18 +270,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2f1417cef45c947419d4a477652a29e8, type: 3}
   deathSprite: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
   animationSpeed: 3
---- !u!114 &1073941630405746342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653283382459598151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b135f6a22c57747689e24bdd7c96aa4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3199498486208654080
 PrefabInstance:
   m_ObjectHideFlags: 0

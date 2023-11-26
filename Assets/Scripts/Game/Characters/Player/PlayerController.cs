@@ -60,7 +60,6 @@ public class PlayerController : CharacterController
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         characterAnimator = GetComponent<CharacterAnimator>();
-        weaponSlotController = GetComponent<WeaponSlotController>();
         OrbController.OrbType[] orbsToSupport =
         {
             OrbController.OrbType.FIRE,
@@ -71,6 +70,7 @@ public class PlayerController : CharacterController
         OrbitSystem = GetComponentInChildren<OrbitSystem>();
         hpRemaining = MaxHp;
 
+        weaponSlotController = new(this);
         CreateMeleeWeapon();
         CreateRangedWeapon();
     }
@@ -93,6 +93,8 @@ public class PlayerController : CharacterController
                 OrbitSystem.AddOrbiter(OrbitSystem.OrbiterType.ICE);
             }
         }
+
+        weaponSlotController.ManageWeaponSlots();
     }
 
     int automoveInterval = 1;
@@ -302,28 +304,12 @@ public class PlayerController : CharacterController
     {
         var weapon = WeaponController.Create(rangedWeapon, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 1);
-        // Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
-
-        // // calculate the position to the top right corner
-        // Vector2 spawnPos = (Vector2)transform.position + offset;
-
-        // var weapon = WeaponController.Create(rangedWeapon, spawnPos, this);
-        // weapon.transform.parent = transform;
-        // rangedWeapon = (RangedWeapon)weapon;
     }
 
     private void CreateMeleeWeapon()
     {
         var weapon = WeaponController.Create(meleeWeapon, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 0);
-        // Vector2 offset = new(WEAPON_OFFSET, WEAPON_OFFSET);
-
-        // // calculate the position to the top right corner
-        // Vector2 spawnPos = (Vector2)transform.position + offset;
-
-        // var weapon = WeaponController.Create(meleeWeapon, spawnPos, this);
-        // weapon.transform.parent = transform;
-        // meleeWeapon = (MeleeWeapon)weapon;
     }
 
     // TODO: I think there's a better generic way of this? should I just expose meleeWeapon?

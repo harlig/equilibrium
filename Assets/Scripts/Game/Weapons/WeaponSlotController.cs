@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponSlotController : MonoBehaviour
+public class WeaponSlotController
 {
     private bool isPlayer = false;
 
@@ -13,16 +13,17 @@ public class WeaponSlotController : MonoBehaviour
 
     private readonly float weaponOffsetAngle = 45f;
 
-    void Awake()
+    public WeaponSlotController(CharacterController character)
     {
-        character = GetComponent<CharacterController>();
-        if (TryGetComponent<PlayerController>(out player))
+        this.character = character;
+        if (character is PlayerController player)
         {
             isPlayer = true;
+            this.player = player;
         }
     }
 
-    void Update()
+    public void ManageWeaponSlots()
     {
         if (isPlayer)
         {
@@ -49,7 +50,7 @@ public class WeaponSlotController : MonoBehaviour
             float offset = ndx * weaponOffsetAngle;
             var weapon = equippedWeapons[ndx];
             // Calculate the direction from the character to the mouse position
-            Vector2 direction = (position - (Vector2)transform.position).normalized;
+            Vector2 direction = (position - (Vector2)character.transform.position).normalized;
 
             // Calculate the position on the circumference of the circle in the direction of the mouse
             Vector2 circlePosition = CalculatePositionOnCircle(direction, offset);
@@ -71,8 +72,8 @@ public class WeaponSlotController : MonoBehaviour
         // Calculate the rotation angle in degrees
         float angle =
             Mathf.Atan2(
-                circlePosition.y - transform.position.y,
-                circlePosition.x - transform.position.x
+                circlePosition.y - character.transform.position.y,
+                circlePosition.x - character.transform.position.x
             ) * Mathf.Rad2Deg
             + 90;
 
@@ -91,7 +92,7 @@ public class WeaponSlotController : MonoBehaviour
             Mathf.Sin(angleRadians) * circleRadius
         );
 
-        weapon.transform.position = (Vector2)transform.position + startPosition;
+        weapon.transform.position = (Vector2)character.transform.position + startPosition;
         equippedWeapons[slot] = weapon;
     }
 
@@ -102,7 +103,8 @@ public class WeaponSlotController : MonoBehaviour
         Vector2 rotatedDirection = rotation * direction;
 
         // Calculate the position on the circumference of the circle
-        Vector2 circlePosition = (Vector2)transform.position + rotatedDirection * circleRadius;
+        Vector2 circlePosition =
+            (Vector2)character.transform.position + rotatedDirection * circleRadius;
 
         return circlePosition;
     }
