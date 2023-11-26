@@ -12,6 +12,37 @@ public class OrbController : MonoBehaviour
     public OrbType Type { get; private set; }
     public float Xp { get; private set; }
 
+    [SerializeField]
+    private Sprite[] orbAnimationArray;
+
+    private int updatesSinceLastSpriteChange = 0;
+
+    private readonly float animationSpeed = 3;
+
+    private SpriteRenderer spriteRenderer;
+    private int currentSpriteIndex = 0;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void FixedUpdate()
+    {
+        AnimateOrb();
+    }
+
+    void AnimateOrb()
+    {
+        updatesSinceLastSpriteChange++;
+        if (updatesSinceLastSpriteChange >= animationSpeed)
+        {
+            currentSpriteIndex = (currentSpriteIndex + 1) % orbAnimationArray.Length;
+            spriteRenderer.sprite = orbAnimationArray[currentSpriteIndex];
+            updatesSinceLastSpriteChange = 0;
+        }
+    }
+
     public static OrbController Create(
         OrbController prefab,
         OrbDropper orbDropper,
@@ -31,22 +62,6 @@ public class OrbController : MonoBehaviour
             createdOrb.transform.position += offset;
         }
 
-        // apply random starting rotation
-        Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-        createdOrb.transform.rotation = randomRotation;
-
-        float randomAngularVelocity = Random.Range(-RotationSpeed, RotationSpeed);
-        // determine the direction of rotation (either clockwise or counterclockwise)
-        if (Random.value > 0.5f)
-        {
-            randomAngularVelocity = Mathf.Abs(randomAngularVelocity);
-        }
-        else
-        {
-            randomAngularVelocity = -Mathf.Abs(randomAngularVelocity);
-        }
-
-        createdOrb.GetComponent<Rigidbody2D>().angularVelocity = randomAngularVelocity;
         return createdOrb;
     }
 }
