@@ -1,0 +1,216 @@
+#################
+OFFER POOL 0
+--------------
+Name: Negative speed (small)
+Value: -3
+Offer Pool: 0
+---------------
+Name: Damage (low)
+Value: 1
+Offer Pool: 0
+---------------
+Name: Speed (small)
+Value: 3
+Offer Pool: 0
+---------------
+#################
+
+#################
+OFFER POOL 1
+--------------
+Name: firestarter chance low
+Value: 0.03
+Offer Pool: 1
+---------------
+Name: Damage (medium)
+Value: 1.5
+Offer Pool: 1
+---------------
+Name: Speed (medium)
+Value: 5
+Offer Pool: 1
+---------------
+#################
+
+#################
+OFFER POOL 2
+--------------
+Name: firestarter duration low
+Value: 1
+Offer Pool: 2
+---------------
+Name: gain fire orbiter
+Value: 1
+Offer Pool: 2
+---------------
+Name: gain ice orbiter
+Value: 1
+Offer Pool: 2
+---------------
+Name: Damage (high)
+Value: 2
+Offer Pool: 2
+---------------
+Name: Speed (large)
+Value: 7
+Offer Pool: 2
+---------------
+#################
+
+#################
+OFFER POOL 3
+--------------
+Name: firestarter chance medium
+Value: 0.05
+Offer Pool: 3
+---------------
+Name: increase fire orbiter damage (low)
+Value: 0.5
+Offer Pool: 3
+---------------
+Name: increase ice orbiter damage (low)
+Value: 0.5
+Offer Pool: 3
+---------------
+Name: firestarter damage small
+Value: 4
+Offer Pool: 3
+---------------
+#################
+
+#################
+OFFER POOL 4
+--------------
+Name: increase orbiters deflection chance (low)
+Value: 0.01
+Offer Pool: 4
+---------------
+Name: firestarter chance high
+Value: 0.07
+Offer Pool: 4
+---------------
+Name: increase fire orbiter damage (medium)
+Value: 1.5
+Offer Pool: 4
+---------------
+Name: increase ice orbiter damage (medium)
+Value: 1.5
+Offer Pool: 4
+---------------
+Name: firestarter duration medium
+Value: 2
+Offer Pool: 4
+---------------
+Name: firestarter damage medium
+Value: 6
+Offer Pool: 4
+---------------
+#################
+
+#################
+OFFER POOL 5
+--------------
+Name: increase orbiters distance (low)
+Value: 0.1
+Offer Pool: 5
+---------------
+Name: firestarter damage large
+Value: 10
+Offer Pool: 5
+---------------
+Name: increase orbiters speed (low)
+Value: 10
+Offer Pool: 5
+---------------
+Name: Drop fire orbs (low)
+Value: 3
+Offer Pool: 5
+---------------
+Name: Drop ice orbs (low) 1
+Value: 3
+Offer Pool: 5
+---------------
+Name: firestarter duration high
+Value: 3
+Offer Pool: 5
+---------------
+Name: increase fire orbiter damage (high)
+Value: 3
+Offer Pool: 5
+---------------
+Name: increase ice orbiter damage (high)
+Value: 3
+Offer Pool: 5
+---------------
+#################
+
+#################
+OFFER POOL 6
+--------------
+Name: increase orbiters elemental effect chance (low)
+Value: 0.005
+Offer Pool: 6
+---------------
+Name: increase orbiters deflection chance (medium)
+Value: 0.03
+Offer Pool: 6
+---------------
+Name: increase orbiters distance (medium)
+Value: 0.25
+Offer Pool: 6
+---------------
+Name: increase orbiters speed (medium)
+Value: 20
+Offer Pool: 6
+---------------
+#################
+
+#################
+OFFER POOL 7
+--------------
+Name: increase orbiters elemental effect chance (medium)
+Value: 0.012
+Offer Pool: 7
+---------------
+Name: increase orbiters distance (high)
+Value: 0.5
+Offer Pool: 7
+---------------
+Name: increase orbiters speed (high)
+Value: 30
+Offer Pool: 7
+---------------
+Name: Drop fire orbs (medium)
+Value: 4
+Offer Pool: 7
+---------------
+Name: Drop ice orbs (medium) 1
+Value: 4
+Offer Pool: 7
+---------------
+#################
+
+#################
+OFFER POOL 8
+--------------
+Name: increase orbiters elemental effect chance (high)
+Value: 0.02
+Offer Pool: 8
+---------------
+Name: increase orbiters deflection chance (high)
+Value: 0.05
+Offer Pool: 8
+---------------
+#################
+
+#################
+OFFER POOL 9
+--------------
+Name: Drop ice orbs (high) 1
+Value: 6
+Offer Pool: 9
+---------------
+Name: drop fire orbs (high)
+Value: 6
+Offer Pool: 9
+---------------
