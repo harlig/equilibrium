@@ -4,15 +4,16 @@ public class WeaponSlotController
 {
     protected CharacterController character;
 
-    private readonly float circleRadius = 0.7f;
+    private readonly float circleRadius;
 
     private readonly WeaponController[] equippedWeapons = new WeaponController[2];
 
     private readonly float weaponOffsetAngle = 45f;
 
-    public WeaponSlotController(CharacterController character)
+    public WeaponSlotController(CharacterController character, float distanceFromCharacter = 0.7f)
     {
         this.character = character;
+        circleRadius = distanceFromCharacter;
     }
 
     public void ManageWeapons()
@@ -26,7 +27,7 @@ public class WeaponSlotController
             // weapon controls
             if (Input.GetMouseButtonUp(0))
             {
-                AttackAtPosition(0, equippedWeapons[0].transform.position);
+                AttackAtPosition(0);
             }
             else if (Input.GetMouseButtonUp(1))
             {
@@ -35,9 +36,18 @@ public class WeaponSlotController
         }
     }
 
-    public void AttackAtPosition(int weaponSlotIndex, Vector2 attackPosition)
+    public void AttackAtPosition(int weaponSlotIndex, Vector2? attackPosition = null)
     {
-        equippedWeapons[weaponSlotIndex].AttackAtPosition(attackPosition);
+        if (attackPosition == null)
+        {
+            equippedWeapons[weaponSlotIndex].AttackAtPosition(
+                equippedWeapons[weaponSlotIndex].transform.position
+            );
+        }
+        else
+        {
+            equippedWeapons[weaponSlotIndex].AttackAtPosition((Vector2)attackPosition);
+        }
     }
 
     public void MoveWeaponsAtPosition(Vector2 position)

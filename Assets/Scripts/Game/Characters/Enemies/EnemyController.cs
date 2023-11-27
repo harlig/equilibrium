@@ -58,7 +58,7 @@ public abstract class EnemyController : CharacterController
         damageTaken.TextElement = hpTextElement;
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
         lastPosition = transform.position;
-        weaponSlotController = new(this);
+        weaponSlotController = new(this, 0.4f);
     }
 
     public static EnemyController Create(
