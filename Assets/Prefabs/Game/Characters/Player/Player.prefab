@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d15ad1e552a642328d33ad26e6ce36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeWeapon: {fileID: 0}
-  rangedWeapon: {fileID: 0}
+  meleeWeaponPrefab: {fileID: 0}
+  rangedWeaponPrefab: {fileID: 0}
 --- !u!50 &9078893335377086729
 Rigidbody2D:
   serializedVersion: 4
