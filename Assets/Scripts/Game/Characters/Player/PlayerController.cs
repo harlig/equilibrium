@@ -25,9 +25,9 @@ public class PlayerController : GenericCharacterController
     private float hpRemaining;
     private bool _canMove = true;
 
-    public MeleeWeapon MeleeWeapon { get; private set; }
+    public MeleeWeapon MeleeWeapon { get; private set; } = null;
 
-    public RangedWeapon RangedWeapon { get; private set; }
+    public RangedWeapon RangedWeapon { get; private set; } = null;
 
     //////////////////////////////////////////////////////////
     //////////////////////////events//////////////////////////
@@ -277,6 +277,16 @@ public class PlayerController : GenericCharacterController
         var weapon = WeaponController.Create(meleeWeaponPrefab, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 0);
         MeleeWeapon = (MeleeWeapon)weapon;
+    }
+
+    public WeaponController GetWeaponOfType(WeaponController.WeaponType weaponType)
+    {
+        return weaponType switch
+        {
+            WeaponController.WeaponType.MELEE => MeleeWeapon,
+            WeaponController.WeaponType.RANGED => RangedWeapon,
+            _ => throw new Exception($"Weapon type {weaponType} not supported"),
+        };
     }
 
     private const float FROZEN_SPEED_MULTIPLICATIVE_MODIFIER = 0.5f;

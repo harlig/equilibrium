@@ -9,7 +9,16 @@ public class AttackSpeedOffer : OfferData
 
     public override void ApplyToPlayer(PlayerController player)
     {
-        throw new System.NotImplementedException();
+        var weapon = player.GetWeaponOfType(affectedWeaponType);
+        if (weapon == null)
+        {
+            Debug.LogErrorFormat(
+                "We offered an attack speed reward for weapon type {0} when one doesn't exist on the player",
+                affectedWeaponType
+            );
+            return;
+        }
+        weapon.IncreaseAttackSpeed(Value);
     }
 
     public override string GetHelpText()
@@ -19,7 +28,7 @@ public class AttackSpeedOffer : OfferData
 
     public override string GetName()
     {
-        return gameObject.name;
+        return $"{affectedWeaponType.ToString().ToLower()} {gameObject.name} increase";
     }
 
     public override string GetValue()

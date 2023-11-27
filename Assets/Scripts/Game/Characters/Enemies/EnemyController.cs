@@ -47,9 +47,13 @@ public abstract class EnemyController : GenericCharacterController
     protected WeaponSlotController weaponSlotController;
 
     [SerializeField]
-    private MeleeWeapon meleeWeapon;
+    private MeleeWeapon meleeWeaponPrefab;
 
     [SerializeField]
+    private RangedWeapon rangedWeaponPrefab;
+
+    private MeleeWeapon meleeWeapon;
+
     private RangedWeapon rangedWeapon;
 
     void Awake()
@@ -294,6 +298,15 @@ public abstract class EnemyController : GenericCharacterController
 
         elementalSystem.StopAnimating();
         damageTaken.HideTextElement();
+
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.StopAttacking();
+        }
+        if (rangedWeapon != null)
+        {
+            rangedWeapon.StopAttacking();
+        }
     }
 
     public override bool IsDead()
@@ -331,13 +344,15 @@ public abstract class EnemyController : GenericCharacterController
 
     protected void CreateRangedWeapon()
     {
-        var weapon = WeaponController.Create(rangedWeapon, transform.position, this);
+        var weapon = WeaponController.Create(rangedWeaponPrefab, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 1);
+        rangedWeapon = (RangedWeapon)weapon;
     }
 
     protected void CreateMeleeWeapon()
     {
-        var weapon = WeaponController.Create(meleeWeapon, transform.position, this);
+        var weapon = WeaponController.Create(meleeWeaponPrefab, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 0);
+        meleeWeapon = (MeleeWeapon)weapon;
     }
 }

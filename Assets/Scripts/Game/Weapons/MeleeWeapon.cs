@@ -47,6 +47,11 @@ public class MeleeWeapon : WeaponController
         );
     }
 
+    public override void StopAttacking()
+    {
+        weaponAnimator.StopAnimate();
+    }
+
     private void ApplyCharacterDamage(GenericCharacterController character, float damageModifier)
     {
         character.DealDamage(DamageType, BaseDamageAmount + damageModifier);

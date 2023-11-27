@@ -346,8 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpTextElement: {fileID: 3555654630889757491}
   orbDropper: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}
-  meleeWeapon: {fileID: 0}
-  rangedWeapon: {fileID: 553911553520147597, guid: 7b63a01d3509b48c3b4c1be3a3a3c512, type: 3}
+  meleeWeaponPrefab: {fileID: 0}
+  rangedWeaponPrefab: {fileID: 553911553520147597, guid: 7b63a01d3509b48c3b4c1be3a3a3c512, type: 3}
   projectilePrefab: {fileID: 3850049155645364791, guid: b81af1c99194f4d6e90e16f0e9e55433, type: 3}
 --- !u!114 &219655062684712697
 MonoBehaviour:

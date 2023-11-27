@@ -42,6 +42,11 @@ public class RangedWeapon : WeaponController
         );
     }
 
+    public override void StopAttacking()
+    {
+        weaponAnimator.StopAnimate();
+    }
+
     void FireProjectile(Vector2 firePosition)
     {
         var directionX = firePosition.x - transform.position.x;

@@ -31,6 +31,11 @@ public class WeaponAnimator : MonoBehaviour
         }
     }
 
+    public void StopAnimate()
+    {
+        isAnimating = false;
+    }
+
     public void DoAnimate(float attackSpeed, Action afterSwingAction)
     {
         isAnimating = true;

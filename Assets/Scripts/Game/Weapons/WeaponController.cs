@@ -36,6 +36,7 @@ public abstract class WeaponController : MonoBehaviour
     }
 
     public abstract void AttackAtPosition(Vector2 position);
+    public abstract void StopAttacking();
 
     protected float GetDamageModifierOfParentCharacter()
     {
