@@ -6,9 +6,6 @@ public class RangedEnemy : EnemyController
     [SerializeField]
     private ProjectileBehavior projectilePrefab;
 
-    public const float fireInterval = 60; // Number of FixedUpdate calls before firing
-
-    private int currentFireInterval = 0;
     private Vector2 spawnPosition;
 
     new void Start()
@@ -24,15 +21,8 @@ public class RangedEnemy : EnemyController
 
         if (!IsDead())
         {
-            // Increment the current interval count
-            currentFireInterval++;
-
-            // Check if it's time to fire
-            if (currentFireInterval >= fireInterval)
-            {
-                FireProjectile();
-                currentFireInterval = 0; // Reset the interval count
-            }
+            // we can just constantly do this, the weapon will limit how fast it can be done
+            FireProjectile();
         }
     }
 
