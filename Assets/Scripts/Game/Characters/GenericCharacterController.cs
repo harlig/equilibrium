@@ -46,15 +46,10 @@ public abstract class GenericCharacterController : MonoBehaviour
     {
         if (totalDamage == null)
         {
-            return DOT_DEFAULT_DAMAGE_PER_TICK;
+            return DamageOverTimeSystem.DOT_DEFAULT_DAMAGE_PER_TICK;
         }
         return (float)(totalDamage / (duration / interval));
     }
-
-    private const float DOT_INTERVAL = 0.5f; // Common interval for DOT effects
-    private const float DOT_BASE_DURATION = 5.0f; // Common base duration
-    private const float DOT_DEFAULT_DAMAGE_PER_TICK = 0.5f;
-    private const float FREEZING_INTERVAL = 0.1f;
 
     public void ApplyDamageOverTime(DamageType damageType, float duration, float totalDamage = 0)
     {
@@ -80,9 +75,12 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     private IEnumerator DoDamageOverTime(DamageType damageType, float duration, float totalDamage)
     {
-        float interval = damageType == DamageType.FIRE ? DOT_INTERVAL : FREEZING_INTERVAL;
-        float baseDuration = DOT_BASE_DURATION;
-        float damagePerInterval = CalculateDamagePerInterval(baseDuration, interval, totalDamage);
+        float baseDuration = DamageOverTimeSystem.DOT_BASE_DURATION;
+        float damagePerInterval = CalculateDamagePerInterval(
+            baseDuration,
+            DamageOverTimeSystem.DOT_INTERVAL,
+            totalDamage
+        );
 
         while (duration > 0 && applyingStatusEffect)
         {
@@ -92,7 +90,7 @@ public abstract class GenericCharacterController : MonoBehaviour
                 yield break;
             }
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(DamageOverTimeSystem.DOT_INTERVAL);
 
             if (IsDead())
             {
@@ -100,7 +98,7 @@ public abstract class GenericCharacterController : MonoBehaviour
                 yield break;
             }
 
-            duration -= interval;
+            duration -= DamageOverTimeSystem.DOT_INTERVAL;
             DealDamage(damageType, damagePerInterval);
         }
 
