@@ -50,6 +50,7 @@ public class MeleeWeapon : WeaponController
     public override void StopAttacking()
     {
         weaponAnimator.StopAnimate();
+        boxCollider.enabled = false;
     }
 
     private void ApplyCharacterDamage(GenericCharacterController character, float damageModifier)
