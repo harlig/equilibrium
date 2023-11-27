@@ -56,11 +56,19 @@ public class OrbiterData : MonoBehaviour
 
             if (
                 orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType]
-                > Random.Range(0, 1.0f)
+                // > Random.Range(0, 1.0f)
+                > -1
             )
             {
-                // chance for DOT
-                enemy.ApplyDamageOverTime(damageType, 3.0f, 3.0f);
+                if (damageType == DamageType.FIRE)
+                {
+                    // chance for DOT
+                    enemy.ApplyDamageOverTime(damageType, 3.0f, 3.0f);
+                }
+                else if (damageType == DamageType.ICE)
+                {
+                    enemy.MakeEnemyFrozen(damageType, 3.0f);
+                }
             }
         }
     }

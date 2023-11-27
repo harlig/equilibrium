@@ -31,51 +31,79 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     public abstract void DealDamage(DamageType damageType, float damageTaken);
 
-    protected bool applyingDamageOverTime = false;
+    protected bool applyingStatusEffect = false;
 
-    protected StatusEffectSystem elementalDamageSystem;
+    protected StatusEffectSystem elementalSystem;
 
     protected virtual void Start()
     {
         var gameManager = GetComponentInParent<GameManager>();
         var prefab = gameManager.ElementalDamageStatusEffectSystemPrefab;
-        elementalDamageSystem = Instantiate(prefab, transform).GetComponent<StatusEffectSystem>();
+        elementalSystem = Instantiate(prefab, transform).GetComponent<StatusEffectSystem>();
     }
 
     public void ApplyDamageOverTime(
         DamageType damageType,
         float damageOverTimeDuration,
-        float? totalDamage = null
+        float totalDamage = 0
     )
     {
-        if (applyingDamageOverTime || IsDead())
+        if (applyingStatusEffect || IsDead())
         {
             return;
         }
 
-        applyingDamageOverTime = true;
+        applyingStatusEffect = true;
 
         var state = damageType switch
         {
             DamageType.FIRE => EquilibriumManager.EquilibriumState.INFERNO,
+            _
+                => throw new System.Exception(
+                    $"Couldn't handle damage type {damageType} for the elemental status effect system"
+                ),
+        };
+        elementalSystem.SetStateAndAnimate(state);
+
+        Debug.Log("applying DOT to character");
+
+        StartCoroutine(DoFireDOT(damageType, damageOverTimeDuration, totalDamage));
+    }
+
+    // TODO: how to make better
+    public void MakeEnemyFrozen(
+        DamageType damageType,
+        float freezingDuration,
+        float totalDamage = 0
+    )
+    {
+        if (applyingStatusEffect || IsDead())
+        {
+            return;
+        }
+
+        applyingStatusEffect = true;
+
+        var state = damageType switch
+        {
             DamageType.ICE => EquilibriumManager.EquilibriumState.FROZEN,
             _
                 => throw new System.Exception(
                     $"Couldn't handle damage type {damageType} for the elemental status effect system"
                 ),
         };
-        elementalDamageSystem.SetStateAndAnimate(state);
+        elementalSystem.SetStateAndAnimate(state);
 
-        Debug.Log("applying DOT to character");
+        Debug.Log("freezing enemy");
 
-        StartCoroutine(ApplyDOT(damageType, damageOverTimeDuration, totalDamage));
+        StartCoroutine(DoFreezing(freezingDuration, totalDamage));
     }
 
     private const float DOT_INTERVAL = 0.5f;
     private const float DOT_BASE_DURATION = 5.0f;
     private const float DOT_DEFAULT_DAMAGE_PER_TICK = 0.5f;
 
-    private IEnumerator ApplyDOT(DamageType damageType, float duration, float? totalDamage)
+    private IEnumerator DoFireDOT(DamageType damageType, float duration, float totalDamage)
     {
         float damagePerInterval = CalculateDamagePerInterval(
             // this allows an increased duration to get extra ticks of damage
@@ -84,25 +112,25 @@ public abstract class GenericCharacterController : MonoBehaviour
             totalDamage
         );
 
-        while (duration > 0 && applyingDamageOverTime)
+        while (duration > 0 && applyingStatusEffect)
         {
             if (IsDead())
             {
-                elementalDamageSystem.StopAnimating();
+                elementalSystem.StopAnimating();
                 yield break;
             }
             yield return new WaitForSeconds(DOT_INTERVAL);
             if (IsDead())
             {
-                elementalDamageSystem.StopAnimating();
+                elementalSystem.StopAnimating();
                 yield break;
             }
             duration -= DOT_INTERVAL;
             DealDamage(damageType, damagePerInterval);
         }
 
-        elementalDamageSystem.StopAnimating();
-        applyingDamageOverTime = false;
+        elementalSystem.StopAnimating();
+        applyingStatusEffect = false;
     }
 
     private float CalculateDamagePerInterval(float duration, float interval, float? totalDamage)
@@ -112,5 +140,39 @@ public abstract class GenericCharacterController : MonoBehaviour
             return DOT_DEFAULT_DAMAGE_PER_TICK;
         }
         return (float)(totalDamage / (duration / interval));
+    }
+
+    private const float FREEZING_INTERVAL = 0.1f;
+    private const float FREEZING_BASE_DURATION = 5.0f;
+
+    private IEnumerator DoFreezing(float duration, float totalDamage)
+    {
+        float damagePerInterval = CalculateDamagePerInterval(
+            // this allows an increased duration to get extra ticks of damage
+            FREEZING_BASE_DURATION,
+            FREEZING_INTERVAL,
+            totalDamage
+        );
+
+        while (duration > 0 && applyingStatusEffect)
+        {
+            if (IsDead())
+            {
+                elementalSystem.StopAnimating();
+                yield break;
+            }
+            yield return new WaitForSeconds(FREEZING_INTERVAL);
+            if (IsDead())
+            {
+                elementalSystem.StopAnimating();
+                yield break;
+            }
+            duration -= FREEZING_INTERVAL;
+
+            DealDamage(DamageType.ICE, damagePerInterval);
+        }
+
+        elementalSystem.StopAnimating();
+        applyingStatusEffect = false;
     }
 }

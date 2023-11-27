@@ -303,7 +303,7 @@ public class PlayerController : GenericCharacterController
         {
             // transitioning out of inferno should stop DOT
             // TODO: we should remove this if the player can take DOT from sources other than this
-            applyingDamageOverTime = false;
+            applyingStatusEffect = false;
         }
 
         if (newState == EquilibriumManager.EquilibriumState.FROZEN)
