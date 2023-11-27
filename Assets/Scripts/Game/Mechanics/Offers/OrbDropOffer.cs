@@ -23,7 +23,7 @@ public class OrbDropOffer : OfferData
         return $"{Value}";
     }
 
-    public void DropOrbs(PlayerController player)
+    public override void ApplyToPlayer(PlayerController player)
     {
         var orbDropper = Instantiate(orbDropperPrefab, player.CurrentRoom.transform);
         orbDropper.transform.position = player.transform.position;

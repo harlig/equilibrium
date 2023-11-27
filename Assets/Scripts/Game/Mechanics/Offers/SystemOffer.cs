@@ -15,8 +15,6 @@ public abstract class SystemOffer : OfferData
         DURATION
     }
 
-    public abstract void ApplyToPlayer(PlayerController player);
-
     public override string GetValue()
     {
         return augmentation switch

@@ -15,4 +15,9 @@ public abstract class OrbiterOffer : OfferData
     {
         return $"{Value}";
     }
+
+    public override void ApplyToPlayer(PlayerController player)
+    {
+        ApplyToOrbitSystem(player.OrbitSystem);
+    }
 }

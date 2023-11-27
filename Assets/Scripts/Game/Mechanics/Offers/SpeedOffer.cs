@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpeedOffer : OfferData
 {
+    public override void ApplyToPlayer(PlayerController player)
+    {
+        player.AddToMovementSpeedModifier(Value * 0.0001f);
+    }
+
     public override string GetHelpText()
     {
         return $"Increases your speed by {Value}";

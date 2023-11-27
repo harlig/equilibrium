@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class DamageOffer : OfferData
 {
+    public override void ApplyToPlayer(PlayerController player)
+    {
+        player.AddToDamageDealtModifier(Value);
+    }
+
     public override string GetHelpText()
     {
         return $"Increases your damage by {Value}";

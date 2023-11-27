@@ -7,6 +7,11 @@ public class AttackSpeedOffer : OfferData
     [SerializeField]
     private WeaponController.WeaponType affectedWeaponType;
 
+    public override void ApplyToPlayer(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override string GetHelpText()
     {
         return $"Increases the attack speed of your {affectedWeaponType.ToString().ToLower()} weapon by {Value}";

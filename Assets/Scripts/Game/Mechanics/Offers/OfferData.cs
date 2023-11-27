@@ -22,4 +22,6 @@ public abstract class OfferData : MonoBehaviour
     public abstract string GetName();
     public abstract string GetValue();
     public abstract string GetHelpText();
+
+    public abstract void ApplyToPlayer(PlayerController player);
 }
