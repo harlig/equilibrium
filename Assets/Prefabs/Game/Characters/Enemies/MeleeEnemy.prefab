@@ -412,5 +412,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 22e16a8f079414b9599e5b493d54517c, type: 3}
   idleAnimationSpritesWest:
   - {fileID: 21300000, guid: 1f93d5303eb3a4c5982e5b1905b2ce16, type: 3}
-  deathSprite: {fileID: 2074668058, guid: 2975cff0e55eb44dbbb2dc4a7c3e8d50, type: 3}
+  deathSprite: {fileID: 21300000, guid: fb68b874a35cb4dfeb7988d61bcecb16, type: 3}
   animationSpeed: 3
