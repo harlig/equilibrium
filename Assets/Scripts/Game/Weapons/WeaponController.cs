@@ -9,6 +9,12 @@ public abstract class WeaponController : MonoBehaviour
     public abstract float BaseDamageAmount { get; }
 
     public abstract bool ShouldRotateToMousePosition { get; }
+    public float AttackSpeed
+    {
+        get => BaseAttackSpeed + attackSpeedModifier;
+    }
+    protected abstract float BaseAttackSpeed { get; }
+    private float attackSpeedModifier = 0;
 
     public static WeaponController Create(
         WeaponController prefab,
@@ -38,5 +44,10 @@ public abstract class WeaponController : MonoBehaviour
             damageModifer = GetComponentInParent<GenericCharacterController>().DamageDealtModifier;
         }
         return damageModifer;
+    }
+
+    public void IncreaseAttackSpeed(float amountToIncrease)
+    {
+        attackSpeedModifier += amountToIncrease;
     }
 }

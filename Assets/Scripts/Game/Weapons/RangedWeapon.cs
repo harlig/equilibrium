@@ -24,6 +24,7 @@ public class RangedWeapon : WeaponController
     }
 
     private bool isShooting = false;
+    protected override float BaseAttackSpeed => 3;
 
     void Awake()
     {

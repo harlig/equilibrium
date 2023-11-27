@@ -23,6 +23,7 @@ public class MeleeWeapon : WeaponController
     }
 
     private bool isSwinging = false;
+    protected override float BaseAttackSpeed => 3;
 
     void Awake()
     {
