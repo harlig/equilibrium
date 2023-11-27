@@ -2,7 +2,7 @@ using System;
 
 public class FrostbiteOffer : SystemOffer
 {
-    public void ApplyToPlayer(PlayerController player)
+    public override void ApplyToPlayer(PlayerController player)
     {
         switch (augmentation)
         {

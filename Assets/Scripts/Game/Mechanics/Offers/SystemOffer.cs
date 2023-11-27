@@ -15,21 +15,7 @@ public abstract class SystemOffer : OfferData
         DURATION
     }
 
-    // public void ApplyToPlayer(PlayerController player)
-    // {
-    //     switch (augmentation)
-    //     {
-    //         case FirestarterAugmentation.CHANCE:
-    //             player.AddFirestarterChance(Value);
-    //             return;
-    //         case FirestarterAugmentation.DAMAGE:
-    //             player.AddFirestarterDamage(Value);
-    //             return;
-    //         case FirestarterAugmentation.DURATION:
-    //             player.AddFirestarterDuration(Value);
-    //             return;
-    //     }
-    // }
+    public abstract void ApplyToPlayer(PlayerController player);
 
     public override string GetValue()
     {

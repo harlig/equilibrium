@@ -27,8 +27,8 @@ public class AcquisitionManager
             case SpeedOffer speedOffer:
                 player.AddToMovementSpeedModifier(speedOffer.Value * 0.0001f);
                 break;
-            case FirestarterOffer firestarterOffer:
-                firestarterOffer.ApplyToPlayer(player);
+            case SystemOffer systemOffer:
+                systemOffer.ApplyToPlayer(player);
                 break;
             case OrbiterOffer orbiterOffer:
                 orbiterOffer.ApplyToOrbitSystem(player.OrbitSystem);

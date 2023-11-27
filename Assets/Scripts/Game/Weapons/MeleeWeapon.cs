@@ -5,7 +5,7 @@ public class MeleeWeapon : WeaponController
 {
     private WeaponAnimator weaponAnimator;
     private BoxCollider2D boxCollider;
-    public ElementalSystem elementalSystem = new();
+    public ElementalSystem elementalSystem = new(5f);
 
     public override bool ShouldRotateToMousePosition
     {

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8137452742242942633}
-  - component: {fileID: 3333020461621704239}
+  - component: {fileID: 6107317134793192612}
   m_Layer: 0
-  m_Name: firestarter duration high
+  m_Name: frostbite chance low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3333020461621704239
+--- !u!114 &6107317134793192612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,12 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4451123670697834550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d078388db70a4b44a966e219e8eca2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8486cef9bce1a4f059a9c2f572e3e5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorrespondingState: 6
-  OfferPool: 6
-  Color: {r: 1, g: 0, b: 0, a: 1}
-  Value: 3
-  Sprite: {fileID: 21300000, guid: 5fb2cb6daf85d40e49b843abec8bde2a, type: 3}
-  augmentation: 2
+  CorrespondingState: 1
+  OfferPool: 1
+  Color: {r: 0.3820755, g: 0.89674455, b: 1, a: 1}
+  Value: 0.03
+  Sprite: {fileID: 0}
+  augmentation: 0
