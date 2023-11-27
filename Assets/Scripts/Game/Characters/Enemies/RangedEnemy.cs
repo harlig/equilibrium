@@ -62,18 +62,7 @@ public class RangedEnemy : EnemyController
 
     void FireProjectile()
     {
-        var directionX = player.transform.position.x - transform.position.x;
-        var directionY = player.transform.position.y - transform.position.y;
-
-        Vector2 launchDirection = new Vector2(directionX, directionY).normalized;
-
-        ProjectileBehavior.Create(
-            projectilePrefab,
-            7f,
-            transform.localToWorldMatrix.GetPosition(),
-            launchDirection,
-            this
-        );
+        weaponSlotController.AttackAtPosition(1, player.transform.position);
     }
 
     protected override int GetMaxHp()

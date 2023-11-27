@@ -26,13 +26,18 @@ public class WeaponSlotController
             // weapon controls
             if (Input.GetMouseButtonUp(0))
             {
-                equippedWeapons[0].AttackAtPosition(equippedWeapons[0].transform.position);
+                AttackAtPosition(0, equippedWeapons[0].transform.position);
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                equippedWeapons[1].AttackAtPosition(mousePosition);
+                AttackAtPosition(1, mousePosition);
             }
         }
+    }
+
+    public void AttackAtPosition(int weaponSlotIndex, Vector2 attackPosition)
+    {
+        equippedWeapons[weaponSlotIndex].AttackAtPosition(attackPosition);
     }
 
     public void MoveWeaponsAtPosition(Vector2 position)
