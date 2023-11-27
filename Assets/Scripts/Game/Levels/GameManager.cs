@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // if you are at level 0, you need 1 xp to level up. if you are at level 1, you need 10, etc.
-    public static List<int> XpNeededForLevelUpAtIndex { get; private set; } = InitializeXpList(100);
+    public static List<int> XpNeededForLevelUpAtIndex { get; private set; } = InitializeXpList(10);
 
     private static List<int> InitializeXpList(int supportedLevels)
     {
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private static int CalculateXpForLevel(int level)
     {
         float baseXP = 20f;
-        float growthFactor = 1.5f;
+        float growthFactor = 1.2f;
         float levelFactor = 2.0f;
 
         // non-linear scaling: Increases XP requirement more at lower levels
