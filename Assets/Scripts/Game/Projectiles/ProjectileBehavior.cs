@@ -76,14 +76,14 @@ public class ProjectileBehavior : MonoBehaviour
     private void DealDamage(GenericCharacterController character)
     {
         character.DealDamage(DamageType.ICE, DamageAmount);
-        if (Random.Range(0, 1.0f) < elementalSystem.Chance)
-        {
-            character.ApplyDamageOverTime(
-                DamageType.ICE,
-                elementalSystem.Duration,
-                elementalSystem.Damage
-            );
-        }
+        // if (Random.Range(0, 1.0f) < elementalSystem.Chance)
+        // {
+        character.ApplyDamageOverTime(
+            DamageType.ICE,
+            elementalSystem.Duration,
+            elementalSystem.Damage
+        );
+        // }
     }
 
     public void MoveInDirection(Vector2 directionToMove)
