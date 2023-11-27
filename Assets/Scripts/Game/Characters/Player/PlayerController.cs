@@ -5,11 +5,9 @@ using UnityEngine;
 public class PlayerController : GenericCharacterController
 {
     // prefabs
-    [SerializeField]
-    private MeleeWeapon meleeWeapon;
+    public MeleeWeapon meleeWeapon;
 
-    [SerializeField]
-    private RangedWeapon rangedWeapon;
+    public RangedWeapon rangedWeapon;
 
     // non-prefabs
     public int PlayerLevel { get; private set; } = 0;
@@ -271,22 +269,6 @@ public class PlayerController : GenericCharacterController
     {
         var weapon = WeaponController.Create(meleeWeapon, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 0);
-    }
-
-    // TODO: I think there's a better generic way of this? should I just expose meleeWeapon?
-    public void AddFirestarterChance(float firestarterModifier)
-    {
-        meleeWeapon.firestarterSystem.Chance += firestarterModifier;
-    }
-
-    public void AddFirestarterDuration(float firestarterModifier)
-    {
-        meleeWeapon.firestarterSystem.Duration += firestarterModifier;
-    }
-
-    public void AddFirestarterDamage(float firestarterModifier)
-    {
-        meleeWeapon.firestarterSystem.Damage += firestarterModifier;
     }
 
     private const float FROZEN_SPEED_MULTIPLICATIVE_MODIFIER = 0.5f;

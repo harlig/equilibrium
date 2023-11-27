@@ -5,7 +5,7 @@ public class MeleeWeapon : WeaponController
 {
     private WeaponAnimator weaponAnimator;
     private BoxCollider2D boxCollider;
-    public FirestarterSystem firestarterSystem = new();
+    public ElementalSystem elementalSystem = new();
 
     public override bool ShouldRotateToMousePosition
     {
@@ -55,12 +55,12 @@ public class MeleeWeapon : WeaponController
     {
         character.DealDamage(DamageType, BaseDamageAmount + damageModifier);
 
-        if (firestarterSystem.Chance > Random.Range(0f, 1f))
+        if (elementalSystem.Chance > Random.Range(0f, 1f))
         {
             character.ApplyDamageOverTime(
                 DamageType.FIRE,
-                firestarterSystem.Duration,
-                firestarterSystem.Damage
+                elementalSystem.Duration,
+                elementalSystem.Damage
             );
         }
     }

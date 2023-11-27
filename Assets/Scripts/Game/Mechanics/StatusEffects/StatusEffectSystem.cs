@@ -38,6 +38,7 @@ public class StatusEffectSystem : MonoBehaviour
 
     public void SetStateAndAnimate(EquilibriumManager.EquilibriumState state)
     {
+        StopAnimating();
         if (!equilibriumStateToStatusEffectMap.ContainsKey(state))
         {
             Debug.LogErrorFormat(

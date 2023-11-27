@@ -7,6 +7,7 @@ public class RangedWeapon : WeaponController
     [SerializeField]
     private ProjectileBehavior projectilePrefab;
     private WeaponAnimator weaponAnimator;
+    public ElementalSystem elementalSystem = new();
 
     public override bool ShouldRotateToMousePosition
     {
@@ -60,6 +61,7 @@ public class RangedWeapon : WeaponController
             transform.localToWorldMatrix.GetPosition(),
             launchDirection,
             character,
+            elementalSystem,
             BaseDamageAmount
         );
     }

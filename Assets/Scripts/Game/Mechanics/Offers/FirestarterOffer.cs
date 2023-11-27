@@ -1,32 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class FirestarterOffer : OfferData
+public class FirestarterOffer : SystemOffer
 {
-    [SerializeField]
-    private FirestarterAugmentation augmentation;
-
-    public enum FirestarterAugmentation
-    {
-        CHANCE,
-        DAMAGE,
-        DURATION
-    }
-
     public void ApplyToPlayer(PlayerController player)
     {
         switch (augmentation)
         {
-            case FirestarterAugmentation.CHANCE:
-                player.AddFirestarterChance(Value);
+            case Augmentation.CHANCE:
+                player.meleeWeapon.elementalSystem.Chance += Value;
                 return;
-            case FirestarterAugmentation.DAMAGE:
-                player.AddFirestarterDamage(Value);
+            case Augmentation.DAMAGE:
+                player.meleeWeapon.elementalSystem.Damage += Value;
                 return;
-            case FirestarterAugmentation.DURATION:
-                player.AddFirestarterDuration(Value);
+            case Augmentation.DURATION:
+                player.meleeWeapon.elementalSystem.Damage += Value;
                 return;
         }
     }
@@ -36,28 +23,14 @@ public class FirestarterOffer : OfferData
         return $"Firestarter {augmentation.ToString().ToLowerInvariant()}";
     }
 
-    public override string GetValue()
+    public override string GetHelpText()
     {
         return augmentation switch
         {
-            FirestarterAugmentation.CHANCE => $"{Value * 100}%",
-            FirestarterAugmentation.DAMAGE => $"{Value}",
-            FirestarterAugmentation.DURATION => $"{Value}s",
+            Augmentation.CHANCE => "Chance to set enemies on fire with your melee weapon",
+            Augmentation.DAMAGE => "Increase damage done over time when setting enemies on fire",
+            Augmentation.DURATION => "Increase duration of enemies being on fire",
             _ => throw new Exception($"Couldn't handle this augmentation {augmentation}"),
         };
-    }
-
-    public override string GetHelpText()
-    {
-        switch (augmentation)
-        {
-            case FirestarterAugmentation.CHANCE:
-                return "Chance to set enemies on fire";
-            case FirestarterAugmentation.DAMAGE:
-                return "Increase damage done over time when setting enemies on fire";
-            case FirestarterAugmentation.DURATION:
-                return "Increase duration of enemies being on fire";
-        }
-        throw new Exception($"Couldn't handle this augmentation {augmentation}");
     }
 }

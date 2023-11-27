@@ -1,4 +1,4 @@
-public class FirestarterSystem
+public class ElementalSystem
 {
     public float Chance { get; set; } = 0f;
     public float Damage { get; set; } = 10f;

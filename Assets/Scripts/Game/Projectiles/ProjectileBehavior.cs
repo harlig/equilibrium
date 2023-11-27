@@ -10,12 +10,14 @@ public class ProjectileBehavior : MonoBehaviour
 
     public float DamageAmount;
     private GenericCharacterController CharacterFiredFrom { get; set; }
+    private ElementalSystem elementalSystem;
 
     public static ProjectileBehavior Create(
         ProjectileBehavior prefab,
         Vector3 position,
         Vector2 launchDirection,
         GenericCharacterController firedFrom,
+        ElementalSystem elementalSystem,
         float extraDamageAmount = 0f
     )
     {
@@ -27,6 +29,7 @@ public class ProjectileBehavior : MonoBehaviour
         projectile.MoveInDirection(launchDirection);
         projectile.CharacterFiredFrom = firedFrom;
         projectile.DamageAmount += extraDamageAmount;
+        projectile.elementalSystem = elementalSystem;
 
         return projectile;
     }
@@ -46,7 +49,7 @@ public class ProjectileBehavior : MonoBehaviour
             && CharacterFiredFrom is not PlayerController
         )
         {
-            other.GetComponent<PlayerController>().DealDamage(DamageType.ICE, DamageAmount);
+            DealDamage(other.GetComponent<PlayerController>());
             Destroy(gameObject);
         }
         else if (
@@ -54,7 +57,7 @@ public class ProjectileBehavior : MonoBehaviour
             && CharacterFiredFrom is not EnemyController
         )
         {
-            other.GetComponent<EnemyController>().DealDamage(DamageType.ICE, DamageAmount);
+            DealDamage(other.GetComponent<EnemyController>());
             Destroy(gameObject);
         }
         else if (other.GetComponent<TilemapCollider2D>() != null)
@@ -67,6 +70,19 @@ public class ProjectileBehavior : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void DealDamage(GenericCharacterController character)
+    {
+        character.DealDamage(DamageType.ICE, DamageAmount);
+        if (Random.Range(0, 1.0f) < elementalSystem.Chance)
+        {
+            character.ApplyDamageOverTime(
+                DamageType.ICE,
+                elementalSystem.Duration,
+                elementalSystem.Damage
+            );
         }
     }
 
