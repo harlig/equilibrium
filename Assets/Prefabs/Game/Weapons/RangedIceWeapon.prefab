@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b75d1ff746f24e5298039aa68cd13fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseAttackSpeed: 50
   projectilePrefab: {fileID: 3850049155645364791, guid: b81af1c99194f4d6e90e16f0e9e55433, type: 3}
 --- !u!114 &1660209964111247370
 MonoBehaviour:
@@ -67,7 +68,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4b91446bdee004bf1ba7a5dae9c76a72, type: 3}
   - {fileID: 21300000, guid: ebfa9a9dd1f8c42aa813cce14390c764, type: 3}
   - {fileID: 21300000, guid: 587fdd6047b144a5493b79041ffef736, type: 3}
-  animationSpeed: 3
 --- !u!1 &8332083597958447854
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 04327b366e9a246fea60ee11fc4ce79c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

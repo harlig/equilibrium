@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class WeaponAnimator : MonoBehaviour
 {
@@ -10,14 +9,13 @@ public class WeaponAnimator : MonoBehaviour
     [SerializeField]
     private Sprite[] attackSprites;
 
-    private int updatesSinceLastSpriteChange = 0;
+    private float timeSinceLastSpriteChange = 0f;
 
-    // TODO: this should be based on WeaponController.WeaponSpeed
-    [SerializeField]
-    private float animationSpeed = 3;
+    // Animation speed is now defined as seconds per sprite change
+    private float secondsPerSprite;
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
-    private bool isSwinging = false;
+    private bool isAnimating = false;
     private Action afterSwingAction;
 
     void Awake()
@@ -25,41 +23,40 @@ public class WeaponAnimator : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    // TODO: I think this should be `Update` but it won't work for some reason
-    void FixedUpdate()
+    void Update()
     {
-        if (!isSwinging)
+        if (isAnimating)
         {
-            return;
+            AnimateSwing();
         }
-        AnimateSwing();
     }
 
-    public void DoAnimate(Action afterSwingAction)
+    public void DoAnimate(float attackSpeed, Action afterSwingAction)
     {
-        isSwinging = true;
+        isAnimating = true;
         this.afterSwingAction = afterSwingAction;
+
+        // Adjust the secondsPerSprite based on the attackSpeed
+        // Higher attack speed means lower secondsPerSprite
+        secondsPerSprite = 0.2f / attackSpeed; // This is an example calculation, adjust as needed
     }
 
     void AnimateSwing()
     {
-        updatesSinceLastSpriteChange++;
+        timeSinceLastSpriteChange += Time.deltaTime;
 
-        if (updatesSinceLastSpriteChange >= animationSpeed)
+        if (timeSinceLastSpriteChange >= secondsPerSprite)
         {
-            if (currentSpriteIndex == attackSprites.Length - 1)
+            timeSinceLastSpriteChange = 0f;
+            currentSpriteIndex = (currentSpriteIndex + 1) % attackSprites.Length;
+            spriteRenderer.sprite = attackSprites[currentSpriteIndex];
+
+            if (currentSpriteIndex == 0)
             {
-                isSwinging = false;
-                currentSpriteIndex = 0;
+                isAnimating = false;
                 spriteRenderer.sprite = originalSprite;
                 afterSwingAction?.Invoke();
             }
-            if (isSwinging)
-            {
-                currentSpriteIndex = (currentSpriteIndex + 1) % attackSprites.Length;
-                spriteRenderer.sprite = attackSprites[currentSpriteIndex];
-            }
-            updatesSinceLastSpriteChange = 0;
         }
     }
 }

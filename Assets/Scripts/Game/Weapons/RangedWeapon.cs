@@ -24,7 +24,6 @@ public class RangedWeapon : WeaponController
     }
 
     private bool isShooting = false;
-    protected override float BaseAttackSpeed => 3;
 
     void Awake()
     {
@@ -41,12 +40,14 @@ public class RangedWeapon : WeaponController
 
         isShooting = true;
 
-        weaponAnimator.DoAnimate(() =>
-        {
-            isShooting = false;
-        });
-
-        FireProjectile(position);
+        weaponAnimator.DoAnimate(
+            AttackSpeed,
+            () =>
+            {
+                FireProjectile(position);
+                isShooting = false;
+            }
+        );
     }
 
     void FireProjectile(Vector2 firePosition)

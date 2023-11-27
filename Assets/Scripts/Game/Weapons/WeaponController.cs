@@ -13,7 +13,9 @@ public abstract class WeaponController : MonoBehaviour
     {
         get => BaseAttackSpeed + attackSpeedModifier;
     }
-    protected abstract float BaseAttackSpeed { get; }
+
+    [SerializeField]
+    protected float BaseAttackSpeed = 3f;
     private float attackSpeedModifier = 0;
 
     public static WeaponController Create(

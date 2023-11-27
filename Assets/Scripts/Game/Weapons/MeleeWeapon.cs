@@ -23,7 +23,6 @@ public class MeleeWeapon : WeaponController
     }
 
     private bool isSwinging = false;
-    protected override float BaseAttackSpeed => 3;
 
     void Awake()
     {
@@ -45,11 +44,14 @@ public class MeleeWeapon : WeaponController
 
         isSwinging = true;
         boxCollider.enabled = true;
-        weaponAnimator.DoAnimate(() =>
-        {
-            isSwinging = false;
-            boxCollider.enabled = false;
-        });
+        weaponAnimator.DoAnimate(
+            AttackSpeed,
+            () =>
+            {
+                isSwinging = false;
+                boxCollider.enabled = false;
+            }
+        );
     }
 
     private void ApplyCharacterDamage(GenericCharacterController character, float damageModifier)
