@@ -227,11 +227,11 @@ public abstract class EnemyController : GenericCharacterController
 
         if (meleeWeapon != null)
         {
-            meleeWeapon.StopAttacking();
+            Destroy(meleeWeapon.gameObject);
         }
         if (rangedWeapon != null)
         {
-            rangedWeapon.StopAttacking();
+            Destroy(rangedWeapon.gameObject);
         }
     }
 
