@@ -60,15 +60,12 @@ public class OrbiterData : MonoBehaviour
                 > -1
             )
             {
+                float damage = 0;
                 if (damageType == DamageType.FIRE)
                 {
-                    // chance for DOT
-                    enemy.ApplyDamageOverTime(damageType, 3.0f, 3.0f);
+                    damage = 3f;
                 }
-                else if (damageType == DamageType.ICE)
-                {
-                    enemy.MakeEnemyFrozen(damageType, 3.0f);
-                }
+                enemy.ApplyDamageOverTime(damageType, 3.0f, damage);
             }
         }
     }
