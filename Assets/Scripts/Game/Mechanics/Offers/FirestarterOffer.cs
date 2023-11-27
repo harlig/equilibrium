@@ -7,13 +7,13 @@ public class FirestarterOffer : SystemOffer
         switch (augmentation)
         {
             case Augmentation.CHANCE:
-                player.meleeWeapon.elementalSystem.Chance += Value;
+                player.MeleeWeapon.elementalSystem.Chance += Value;
                 return;
             case Augmentation.DAMAGE:
-                player.meleeWeapon.elementalSystem.Damage += Value;
+                player.MeleeWeapon.elementalSystem.Damage += Value;
                 return;
             case Augmentation.DURATION:
-                player.meleeWeapon.elementalSystem.Damage += Value;
+                player.MeleeWeapon.elementalSystem.Damage += Value;
                 return;
         }
     }

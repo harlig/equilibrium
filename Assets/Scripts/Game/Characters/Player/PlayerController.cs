@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerController : GenericCharacterController
 {
     // prefabs
-    public MeleeWeapon meleeWeapon;
+    [SerializeField]
+    private MeleeWeapon meleeWeaponPrefab;
 
-    public RangedWeapon rangedWeapon;
+    [SerializeField]
+    private RangedWeapon rangedWeaponPrefab;
 
     // non-prefabs
     public int PlayerLevel { get; private set; } = 0;
@@ -22,6 +24,10 @@ public class PlayerController : GenericCharacterController
     public StatusEffectSystem StatusEffectSystem { get; private set; }
     private float hpRemaining;
     private bool _canMove = true;
+
+    public MeleeWeapon MeleeWeapon { get; private set; }
+
+    public RangedWeapon RangedWeapon { get; private set; }
 
     //////////////////////////////////////////////////////////
     //////////////////////////events//////////////////////////
@@ -261,14 +267,16 @@ public class PlayerController : GenericCharacterController
 
     private void CreateRangedWeapon()
     {
-        var weapon = WeaponController.Create(rangedWeapon, transform.position, this);
+        var weapon = WeaponController.Create(rangedWeaponPrefab, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 1);
+        RangedWeapon = (RangedWeapon)weapon;
     }
 
     private void CreateMeleeWeapon()
     {
-        var weapon = WeaponController.Create(meleeWeapon, transform.position, this);
+        var weapon = WeaponController.Create(meleeWeaponPrefab, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 0);
+        MeleeWeapon = (MeleeWeapon)weapon;
     }
 
     private const float FROZEN_SPEED_MULTIPLICATIVE_MODIFIER = 0.5f;

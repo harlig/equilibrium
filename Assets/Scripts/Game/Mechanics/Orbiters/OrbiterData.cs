@@ -56,8 +56,7 @@ public class OrbiterData : MonoBehaviour
 
             if (
                 orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType]
-                // > Random.Range(0, 1.0f)
-                > -1
+                > Random.Range(0, 1.0f)
             )
             {
                 float damage = 0;

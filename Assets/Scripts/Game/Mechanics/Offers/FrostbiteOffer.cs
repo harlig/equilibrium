@@ -1,19 +1,25 @@
 using System;
+using UnityEngine;
 
 public class FrostbiteOffer : SystemOffer
 {
     public override void ApplyToPlayer(PlayerController player)
     {
+        Debug.LogFormat(
+            "applying frostbite ofer {0} to player with value {1}",
+            augmentation,
+            Value
+        );
         switch (augmentation)
         {
             case Augmentation.CHANCE:
-                player.rangedWeapon.elementalSystem.Chance += Value;
+                player.RangedWeapon.elementalSystem.Chance += Value;
                 return;
             case Augmentation.DAMAGE:
-                player.rangedWeapon.elementalSystem.Damage += Value;
+                player.RangedWeapon.elementalSystem.Damage += Value;
                 return;
             case Augmentation.DURATION:
-                player.rangedWeapon.elementalSystem.Damage += Value;
+                player.RangedWeapon.elementalSystem.Duration += Value;
                 return;
         }
     }

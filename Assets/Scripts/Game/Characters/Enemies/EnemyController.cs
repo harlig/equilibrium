@@ -37,7 +37,7 @@ public abstract class EnemyController : GenericCharacterController
         get { return GetMaxHp(); }
     }
 
-    protected override float BaseMovementSpeed => 0.03f;
+    protected override float BaseMovementSpeed => 0.01f;
 
     public override float HpRemaining
     {
