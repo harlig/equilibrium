@@ -17,7 +17,7 @@ public class MeleeEnemy : EnemyController
             // if within 2 units of player, start swinging
             if (Vector2.Distance(player.transform.position, transform.position) < 2.0f)
             {
-                weaponSlotController.AttackAtPosition(0);
+                weaponSlotController.AttackAtPosition(typeof(MeleeWeapon));
             }
         }
     }

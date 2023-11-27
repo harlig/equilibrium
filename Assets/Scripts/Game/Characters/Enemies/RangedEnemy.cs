@@ -62,7 +62,7 @@ public class RangedEnemy : EnemyController
 
     void FireProjectile()
     {
-        weaponSlotController.AttackAtPosition(1, player.transform.position);
+        weaponSlotController.AttackAtPosition(typeof(RangedWeapon), player.transform.position);
     }
 
     protected override int GetMaxHp()

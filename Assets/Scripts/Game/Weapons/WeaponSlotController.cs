@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WeaponSlotController
@@ -30,26 +31,43 @@ public class WeaponSlotController
             // weapon controls
             if (Input.GetMouseButton(0))
             {
-                AttackAtPosition(0);
+                AttackAtPosition(typeof(MeleeWeapon));
             }
             else if (Input.GetMouseButton(1))
             {
-                AttackAtPosition(1, mousePosition);
+                AttackAtPosition(typeof(RangedWeapon), mousePosition);
             }
         }
     }
 
-    public void AttackAtPosition(int weaponSlotIndex, Vector2? attackPosition = null)
+    public void AttackAtPosition(Type weaponType, Vector2? attackPosition = null)
     {
+        WeaponController equippedWeapon = null;
+        for (int ndx = 0; ndx < equippedWeapons.Length; ndx++)
+        {
+            WeaponController weapon = equippedWeapons[ndx];
+            if (weapon == null)
+            {
+                continue;
+            }
+            if (weapon.GetType() == weaponType)
+            {
+                equippedWeapon = weapon;
+            }
+        }
+        if (equippedWeapon == null)
+        {
+            Debug.LogErrorFormat("No weapon found of this type {0}! Cannot attack", weaponType);
+            return;
+        }
+
         if (attackPosition == null)
         {
-            equippedWeapons[weaponSlotIndex].AttackAtPosition(
-                equippedWeapons[weaponSlotIndex].transform.position
-            );
+            equippedWeapon.AttackAtPosition(equippedWeapon.transform.position);
         }
         else
         {
-            equippedWeapons[weaponSlotIndex].AttackAtPosition((Vector2)attackPosition);
+            equippedWeapon.AttackAtPosition((Vector2)attackPosition);
         }
     }
 
