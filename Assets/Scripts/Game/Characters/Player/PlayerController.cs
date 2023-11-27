@@ -170,26 +170,12 @@ public class PlayerController : CharacterController
 
     private bool canTakeDmg = true;
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        RegisterDamage(other.gameObject);
-    }
-
-    void OnCollisionStay2D(Collision2D other)
-    {
-        RegisterDamage(other.gameObject);
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<OrbController>() != null)
         {
             var orb = other.GetComponent<OrbController>();
             CollectOrb(orb);
-        }
-        else
-        {
-            RegisterDamage(other.gameObject, true);
         }
     }
 
@@ -239,28 +225,6 @@ public class PlayerController : CharacterController
                 );
             }
         }
-    }
-
-    void RegisterDamage(GameObject other, bool forceDmg = false)
-    {
-        float dmgAmount;
-        if (!canTakeDmg && !forceDmg)
-        {
-            return;
-        }
-        if (other.GetComponent<EnemyController>() != null)
-        {
-            // melee dmg is fixed
-            dmgAmount = 5;
-        }
-        else
-        {
-            return;
-        }
-
-        canTakeDmg = false;
-
-        DealDamage(DamageType.FIRE, dmgAmount);
     }
 
     private IEnumerator WaitBeforeTakingDmg(float waitTime, bool forceDmg = false)

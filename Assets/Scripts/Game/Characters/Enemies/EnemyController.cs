@@ -323,7 +323,10 @@ public abstract class EnemyController : CharacterController
 
     void Update()
     {
-        weaponSlotController.MoveWeaponsAtPosition(player.transform.position);
+        if (!IsDead())
+        {
+            weaponSlotController.MoveWeaponsAtPosition(player.transform.position);
+        }
     }
 
     protected void CreateRangedWeapon()
