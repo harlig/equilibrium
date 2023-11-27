@@ -29,7 +29,16 @@ public abstract class EnemyController : GenericCharacterController
 
     protected PlayerController player;
 
-    private bool startFollowing = false;
+    private EnemyMovePosition enemyMovePosition;
+
+    private enum EnemyMovePosition
+    {
+        TOWARDS_PLAYER,
+        TOWARDS_SPAWN
+    }
+
+    protected Vector2 spawnPosition;
+
     private readonly DamageTaken damageTaken = new();
 
     public override float MaxHp
@@ -62,6 +71,12 @@ public abstract class EnemyController : GenericCharacterController
         damageTaken.TextElement = hpTextElement;
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
         weaponSlotController = new(this, 0.4f);
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        spawnPosition = transform.position;
     }
 
     public static EnemyController Create(
@@ -111,7 +126,7 @@ public abstract class EnemyController : GenericCharacterController
     {
         var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
-        if (startFollowing && !player.IsDead())
+        if (!player.IsDead())
         {
             pathUpdateTimer += Time.fixedDeltaTime;
             if (
@@ -119,7 +134,14 @@ public abstract class EnemyController : GenericCharacterController
                 || (path != null && currentPathIndex == path.Count)
             )
             {
-                CalculatePath();
+                if (enemyMovePosition == EnemyMovePosition.TOWARDS_PLAYER)
+                {
+                    CalculatePath(player.transform.position);
+                }
+                else if (enemyMovePosition == EnemyMovePosition.TOWARDS_SPAWN)
+                {
+                    CalculatePath(spawnPosition);
+                }
                 pathUpdateTimer = 0;
             }
 
@@ -130,13 +152,11 @@ public abstract class EnemyController : GenericCharacterController
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
-                // Set velocity in the direction of the next node
-                float speed = MovementSpeed * 80; // Adjust this speed as needed
+                float speed = MovementSpeed * 80;
                 rigidBody.velocity = direction * speed;
 
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
 
-                // Check if the node is reached or passed
                 if (distanceToNextNode <= speed * Time.fixedDeltaTime)
                 {
                     currentPathIndex++;
@@ -180,12 +200,17 @@ public abstract class EnemyController : GenericCharacterController
     public void FollowPlayer(PlayerController player)
     {
         this.player = player;
-        startFollowing = true;
+        enemyMovePosition = EnemyMovePosition.TOWARDS_PLAYER;
 
         float randomSpeedBoost = Random.Range(0f, 0.05f);
         AddToMovementSpeedModifier(randomSpeedBoost);
 
-        CalculatePath();
+        CalculatePath(player.transform.position);
+    }
+
+    public void StayAtSpawn()
+    {
+        enemyMovePosition = EnemyMovePosition.TOWARDS_SPAWN;
     }
 
     public override void DealDamage(DamageType damageType, float damage)
@@ -240,10 +265,10 @@ public abstract class EnemyController : GenericCharacterController
         return damageTaken.TotalDamage() >= GetMaxHp();
     }
 
-    void CalculatePath()
+    void CalculatePath(Vector2 endPosition)
     {
         Vector2Int start = containingRoom.Grid.WorldToGrid(transform.position);
-        Vector2Int end = containingRoom.Grid.WorldToGrid(player.transform.position);
+        Vector2Int end = containingRoom.Grid.WorldToGrid(endPosition);
 
         path = AStarPathfinding.FindPath(containingRoom.Grid, start, end);
         if (path is null)

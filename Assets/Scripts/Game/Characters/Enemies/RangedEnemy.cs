@@ -6,12 +6,10 @@ public class RangedEnemy : EnemyController
     [SerializeField]
     private ProjectileBehavior projectilePrefab;
 
-    private Vector2 spawnPosition;
-
     new void Start()
     {
         base.Start();
-        spawnPosition = transform.position;
+        StayAtSpawn();
         CreateRangedWeapon();
     }
 
@@ -26,29 +24,29 @@ public class RangedEnemy : EnemyController
         }
     }
 
-    protected override void DoMovementActions()
-    {
-        var rigidBody = gameObject.GetComponent<Rigidbody2D>();
+    // protected override void DoMovementActions()
+    // {
+    //     var rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
-        Vector2 targetPosition = new(spawnPosition.x, spawnPosition.y);
-        Vector2 currentPosition = rigidBody.position;
-        Vector2 directionToSpawn = (targetPosition - currentPosition).normalized;
+    //     Vector2 targetPosition = new(spawnPosition.x, spawnPosition.y);
+    //     Vector2 currentPosition = rigidBody.position;
+    //     Vector2 directionToSpawn = (targetPosition - currentPosition).normalized;
 
-        // Calculate the remaining distance to the target
-        float distanceToTarget = Vector2.Distance(currentPosition, targetPosition);
+    //     // Calculate the remaining distance to the target
+    //     float distanceToTarget = Vector2.Distance(currentPosition, targetPosition);
 
-        // Check if the enemy is at or has passed the target position
-        if (distanceToTarget < 0.1f) // Threshold distance to consider as reached the target
-        {
-            // Stop the movement
-            rigidBody.velocity = Vector2.zero;
-        }
-        else
-        {
-            // Apply force towards the target
-            rigidBody.AddForce(100 * MovementSpeed * directionToSpawn, ForceMode2D.Force);
-        }
-    }
+    //     // Check if the enemy is at or has passed the target position
+    //     if (distanceToTarget < 0.1f) // Threshold distance to consider as reached the target
+    //     {
+    //         // Stop the movement
+    //         rigidBody.velocity = Vector2.zero;
+    //     }
+    //     else
+    //     {
+    //         // Apply force towards the target
+    //         rigidBody.AddForce(100 * MovementSpeed * directionToSpawn, ForceMode2D.Force);
+    //     }
+    // }
 
     void FireProjectile()
     {
