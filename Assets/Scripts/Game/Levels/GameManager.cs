@@ -6,9 +6,29 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // if you are at level 0, you need 1 xp to level up. if you are at level 1, you need 10, etc.
-    public static List<int> XpNeededForLevelUpAtIndex { get; } =
-        // new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 21, 41, 81, 150, 210, 610, 1310, 2000 };
-        new() { 21, 41, 81, 150, 210, 610, 1310, 2000 };
+    public static List<int> XpNeededForLevelUpAtIndex { get; private set; } = InitializeXpList(100);
+
+    private static List<int> InitializeXpList(int supportedLevels)
+    {
+        var xpNeededPerLevel = new List<int>();
+
+        for (int level = 1; level <= supportedLevels; level++)
+        {
+            int xpRequired = CalculateXpForLevel(level);
+            xpNeededPerLevel.Add(xpRequired);
+        }
+        return xpNeededPerLevel;
+    }
+
+    private static int CalculateXpForLevel(int level)
+    {
+        float baseXP = 20f;
+        float growthFactor = 1.5f;
+        float levelFactor = 2.0f;
+
+        // non-linear scaling: Increases XP requirement more at lower levels
+        return (int)(baseXP * Mathf.Pow(growthFactor + Mathf.Log(level, levelFactor), level - 1));
+    }
 
     [SerializeField]
     private PlayerController player;

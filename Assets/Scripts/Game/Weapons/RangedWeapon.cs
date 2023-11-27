@@ -59,7 +59,7 @@ public class RangedWeapon : WeaponController
             launchDirection,
             character,
             elementalSystem,
-            BaseDamageAmount
+            BaseDamageAmount + GetDamageModifierOfParentCharacter()
         );
     }
 }

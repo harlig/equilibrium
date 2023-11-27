@@ -34,6 +34,7 @@ public class WeaponAnimator : MonoBehaviour
     public void StopAnimate()
     {
         isAnimating = false;
+        spriteRenderer.sprite = originalSprite;
     }
 
     public void DoAnimate(float attackSpeed, Action afterSwingAction)
