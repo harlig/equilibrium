@@ -31,16 +31,19 @@ public class WeaponSlotController
             // weapon controls
             if (Input.GetMouseButton(0))
             {
-                AttackAtPosition(typeof(MeleeWeapon));
+                AttackAtPosition(WeaponController.WeaponType.MELEE);
             }
             else if (Input.GetMouseButton(1))
             {
-                AttackAtPosition(typeof(RangedWeapon), mousePosition);
+                AttackAtPosition(WeaponController.WeaponType.RANGED, mousePosition);
             }
         }
     }
 
-    public void AttackAtPosition(Type weaponType, Vector2? attackPosition = null)
+    public void AttackAtPosition(
+        WeaponController.WeaponType weaponType,
+        Vector2? attackPosition = null
+    )
     {
         WeaponController equippedWeapon = null;
         for (int ndx = 0; ndx < equippedWeapons.Length; ndx++)
@@ -50,7 +53,7 @@ public class WeaponSlotController
             {
                 continue;
             }
-            if (weapon.GetType() == weaponType)
+            if (weapon.Type == weaponType)
             {
                 equippedWeapon = weapon;
             }

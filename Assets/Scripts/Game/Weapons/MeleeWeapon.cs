@@ -7,20 +7,13 @@ public class MeleeWeapon : WeaponController
     private BoxCollider2D boxCollider;
     public ElementalSystem elementalSystem = new(5f);
 
-    public override bool ShouldRotateToMousePosition
-    {
-        get { return false; }
-    }
+    public override bool ShouldRotateToMousePosition => false;
 
-    public override DamageType DamageType
-    {
-        get { return DamageType.FIRE; }
-    }
+    public override DamageType DamageType => DamageType.FIRE;
 
-    public override float BaseDamageAmount
-    {
-        get { return 20.0f; }
-    }
+    public override float BaseDamageAmount => 20f;
+
+    public override WeaponType Type => WeaponType.MELEE;
 
     private bool isSwinging = false;
 

@@ -7,21 +7,13 @@ public class RangedWeapon : WeaponController
     private WeaponAnimator weaponAnimator;
     public ElementalSystem elementalSystem = new();
 
-    public override bool ShouldRotateToMousePosition
-    {
-        get { return true; }
-    }
+    public override bool ShouldRotateToMousePosition => true;
 
-    public override DamageType DamageType
-    {
-        get { return DamageType.ICE; }
-    }
+    public override DamageType DamageType => DamageType.ICE;
 
     // this is just a modifier for the projectile damage
-    public override float BaseDamageAmount
-    {
-        get { return 0.0f; }
-    }
+    public override float BaseDamageAmount => 0f;
+    public override WeaponType Type => WeaponType.RANGED;
 
     private bool isShooting = false;
 

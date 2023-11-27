@@ -7,6 +7,7 @@ public abstract class WeaponController : MonoBehaviour
     public abstract DamageType DamageType { get; }
 
     public abstract float BaseDamageAmount { get; }
+    public abstract WeaponType Type { get; }
 
     public abstract bool ShouldRotateToMousePosition { get; }
     public float AttackSpeed
@@ -51,5 +52,11 @@ public abstract class WeaponController : MonoBehaviour
     public void IncreaseAttackSpeed(float amountToIncrease)
     {
         attackSpeedModifier += amountToIncrease;
+    }
+
+    public enum WeaponType
+    {
+        MELEE,
+        RANGED
     }
 }
