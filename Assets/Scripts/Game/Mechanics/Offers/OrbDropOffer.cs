@@ -10,7 +10,7 @@ public class OrbDropOffer : OfferData
 
     public override string GetHelpText()
     {
-        return $"Drop ({Value} * player level) {orbType} orbs";
+        return $"Drop ({Value} * player level) {orbType} orbs; but they are worth 0 xp";
     }
 
     public override string GetName()

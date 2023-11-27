@@ -68,7 +68,10 @@ public abstract class GenericCharacterController : MonoBehaviour
         };
         elementalSystem.SetStateAndAnimate(state);
 
-        Debug.Log($"Applying {damageType} DOT to character");
+        if (state == EquilibriumManager.EquilibriumState.FROZEN)
+        {
+            StartCoroutine(SlowMovementSpeedForDuration(duration, 0.50f));
+        }
 
         StartCoroutine(DoDamageOverTime(damageType, duration, totalDamage));
     }
@@ -104,5 +107,18 @@ public abstract class GenericCharacterController : MonoBehaviour
 
         elementalSystem.StopAnimating();
         applyingStatusEffect = false;
+    }
+
+    private IEnumerator SlowMovementSpeedForDuration(
+        float durationSeconds,
+        float speedToSlowPercentage
+    )
+    {
+        // take speed down to 1/2 of what it is
+        var newSpeed = MovementSpeed * speedToSlowPercentage;
+        var speedToRemove = MovementSpeed - newSpeed;
+        AddToMovementSpeedModifier(-speedToRemove);
+        yield return new WaitForSeconds(durationSeconds);
+        AddToMovementSpeedModifier(speedToRemove);
     }
 }
