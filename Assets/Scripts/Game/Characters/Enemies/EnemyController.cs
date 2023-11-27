@@ -24,7 +24,7 @@ public abstract class EnemyController : GenericCharacterController
 
     protected virtual int GetMaxHp()
     {
-        return 400;
+        return 4000;
     }
 
     protected PlayerController player;
@@ -61,7 +61,6 @@ public abstract class EnemyController : GenericCharacterController
         containingRoom = GetComponentInParent<RoomManager>();
         damageTaken.TextElement = hpTextElement;
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
-        lastPosition = transform.position;
         weaponSlotController = new(this, 0.4f);
     }
 
@@ -105,54 +104,8 @@ public abstract class EnemyController : GenericCharacterController
         return createdEnemy;
     }
 
-    private float pathUpdateInterval = 0.2f; // Time in seconds between path updates
+    private readonly float pathUpdateInterval = 0.2f; // Time in seconds between path updates
     private float pathUpdateTimer;
-    private Vector3 lastPosition;
-    bool tryUnstuck = false;
-    UnstuckAttempt currentUnstuckAttempt;
-    private readonly float stuckThreshold = 0.05f; // Threshold to determine if stuck
-    private float stuckTime = 0f; // Time since the enemy is stuck
-
-    enum UnstuckAttempt
-    {
-        NOT_SET,
-        POSITIVE_X,
-        POSITIVE_Y,
-        NEGATIVE_X,
-        NEGATIVE_Y,
-    }
-
-    static Vector2 SetDirectionForUnstuckAttempt(UnstuckAttempt unstuckAttempt, Vector2 direction)
-    {
-        Vector2 modifiedDirection = direction;
-        switch (unstuckAttempt)
-        {
-            case UnstuckAttempt.POSITIVE_X:
-                Debug.Log("trying positive unstuck in X");
-                modifiedDirection.y = 0;
-                break;
-            case UnstuckAttempt.POSITIVE_Y:
-                Debug.Log("trying positive unstuck in Y");
-                modifiedDirection.x = 0;
-                break;
-            case UnstuckAttempt.NEGATIVE_X:
-                Debug.Log("trying negative unstuck in X");
-                modifiedDirection.y = 0;
-                modifiedDirection.x = -modifiedDirection.x;
-                break;
-            case UnstuckAttempt.NEGATIVE_Y:
-                Debug.Log("trying negative unstuck in Y");
-                modifiedDirection.x = 0;
-                modifiedDirection.y = -modifiedDirection.y;
-                break;
-            case UnstuckAttempt.NOT_SET:
-                return SetDirectionForUnstuckAttempt(UnstuckAttempt.POSITIVE_X, direction);
-            default:
-                Debug.LogErrorFormat("Unhandled unstuck attempt {0}", unstuckAttempt);
-                break;
-        }
-        return modifiedDirection;
-    }
 
     protected virtual void DoMovementActions()
     {
@@ -177,38 +130,11 @@ public abstract class EnemyController : GenericCharacterController
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
-                if (tryUnstuck)
-                {
-                    direction = SetDirectionForUnstuckAttempt(currentUnstuckAttempt, direction);
-                    currentUnstuckAttempt = (UnstuckAttempt)(
-                        ((int)currentUnstuckAttempt + 1)
-                        % System.Enum.GetNames(typeof(UnstuckAttempt)).Length
-                    );
-                }
-
                 // Set velocity in the direction of the next node
                 float speed = MovementSpeed * 80; // Adjust this speed as needed
                 rigidBody.velocity = direction * speed;
 
                 float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
-
-                // Handling stuck situations
-                if (Vector2.Distance(transform.position, lastPosition) < stuckThreshold)
-                {
-                    stuckTime += Time.fixedDeltaTime;
-                    if (stuckTime > 1f) // Consider stuck if it hasn't moved significantly for more than 1 second
-                    {
-                        Debug.Log("Let's try to unstuck");
-                        tryUnstuck = true;
-                    }
-                }
-                else
-                {
-                    stuckTime = 0f;
-                    tryUnstuck = false;
-                }
-
-                lastPosition = transform.position;
 
                 // Check if the node is reached or passed
                 if (distanceToNextNode <= speed * Time.fixedDeltaTime)
@@ -316,14 +242,13 @@ public abstract class EnemyController : GenericCharacterController
 
     void CalculatePath()
     {
-        // Convert world position to grid position
         Vector2Int start = containingRoom.Grid.WorldToGrid(transform.position);
         Vector2Int end = containingRoom.Grid.WorldToGrid(player.transform.position);
 
-        // Implement or call your A* pathfinding method here
         path = AStarPathfinding.FindPath(containingRoom.Grid, start, end);
         if (path is null)
         {
+            Debug.Log("Path is null!");
             // don't even try
             return;
         }
