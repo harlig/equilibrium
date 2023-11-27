@@ -69,12 +69,32 @@ public class MeleeWeapon : WeaponController
     void OnTriggerEnter2D(Collider2D other)
     {
         // the weapon has collided with some other game object, do damage if character
-        GenericCharacterController otherChar = other.GetComponent<GenericCharacterController>();
+        if (!other.TryGetComponent<GenericCharacterController>(out var otherChar))
+        {
+            return;
+        }
 
         // means we have collided with a character, apply damage, and no friendly fire on self
-        if (otherChar != null && otherChar.transform != transform.parent)
+        if (!IsFriendlyFire(otherChar))
         {
             ApplyCharacterDamage(otherChar, GetDamageModifierOfParentCharacter());
         }
+    }
+
+    bool IsFriendlyFire(GenericCharacterController otherChar)
+    {
+        if (otherChar is PlayerController)
+        {
+            return GetComponentInParent<PlayerController>() != null;
+        }
+        // if an enemy is hitting another enemy, it's friendly fire
+        if (otherChar is EnemyController)
+        {
+            return GetComponentInParent<EnemyController>() != null;
+        }
+
+        throw new System.Exception(
+            $"Melee weapon collided with something that's not a player or enemy! {otherChar.GetType()}"
+        );
     }
 }
