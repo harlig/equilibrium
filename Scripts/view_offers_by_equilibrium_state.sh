@@ -46,10 +46,10 @@ sort -t, -k1n,1 -k2n,2 "$TMP_FILE" | {
         # Check if this is a new Equilibrium State section
         if [ "$corresponding_state" -ne "$current_state" ]; then
             if [ "$current_state" -ne -1 ]; then
-                echo "#################"
+                echo "###################################################"
                 echo
             fi
-            echo "#################"
+            echo "###################################################"
             echo "EQUILIBRIUM STATE $state"
             echo "--------------"
             current_state=$corresponding_state
@@ -60,7 +60,7 @@ sort -t, -k1n,1 -k2n,2 "$TMP_FILE" | {
         echo "Offer Pool: $offer_pool"
         echo "---------------"
     done
-    echo "#################"
+    echo "###################################################"
     echo
 }
 

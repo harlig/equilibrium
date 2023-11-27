@@ -1,4 +1,4 @@
-#################
+###################################################
 EQUILIBRIUM STATE FROZEN
 --------------
 Name: Negative speed (small)
@@ -33,9 +33,9 @@ Name: drop fire orbs (high)
 Value: 6
 Offer Pool: 9
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 EQUILIBRIUM STATE COLD
 --------------
 Name: frostbite chance low
@@ -78,9 +78,9 @@ Name: Drop fire orbs (medium)
 Value: 4
 Offer Pool: 7
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 EQUILIBRIUM STATE BRISK
 --------------
 Name: Speed (small)
@@ -111,9 +111,9 @@ Name: increase orbiters speed (medium)
 Value: 20
 Offer Pool: 6
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 EQUILIBRIUM STATE NEUTRAL
 --------------
 Name: increase orbiters deflection chance (low)
@@ -140,9 +140,9 @@ Name: increase orbiters deflection chance (high)
 Value: 0.05
 Offer Pool: 8
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 EQUILIBRIUM STATE WARM
 --------------
 Name: Damage (low)
@@ -161,7 +161,7 @@ Name: Attack speed low
 Value: 0.5
 Offer Pool: 3
 ---------------
-Name: Drop ice orbs (low) 1
+Name: Drop ice orbs (low)
 Value: 3
 Offer Pool: 5
 ---------------
@@ -177,9 +177,9 @@ Name: increase orbiters elemental effect chance (high)
 Value: 0.02
 Offer Pool: 8
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 EQUILIBRIUM STATE HOT
 --------------
 Name: firestarter chance low
@@ -210,13 +210,13 @@ Name: Attack speed medium
 Value: 1
 Offer Pool: 5
 ---------------
-Name: Drop ice orbs (medium) 1
+Name: Drop ice orbs (medium)
 Value: 4
 Offer Pool: 7
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 EQUILIBRIUM STATE INFERNO
 --------------
 Name: firestarter chance medium
@@ -255,9 +255,9 @@ Name: Attack speed high
 Value: 2
 Offer Pool: 7
 ---------------
-Name: Drop ice orbs (high) 1
+Name: Drop ice orbs (high)
 Value: 6
 Offer Pool: 9
 ---------------
-#################
+###################################################
 

@@ -1,4 +1,4 @@
-#################
+###################################################
 OFFER POOL 0
 --------------
 Name: Negative speed (small)
@@ -13,9 +13,9 @@ Name: Damage (low)
 Value: 1
 Equilibrium State: WARM
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 1
 --------------
 Name: frostbite chance low
@@ -34,9 +34,9 @@ Name: firestarter chance low
 Value: 0.03
 Equilibrium State: HOT
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 2
 --------------
 Name: frostbite chance medium
@@ -67,9 +67,9 @@ Name: gain fire orbiter
 Value: 1
 Equilibrium State: HOT
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 3
 --------------
 Name: frostbite damage low
@@ -100,9 +100,9 @@ Name: firestarter chance medium
 Value: 0.05
 Equilibrium State: INFERNO
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 4
 --------------
 Name: frostbite chance high
@@ -141,9 +141,9 @@ Name: firestarter damage medium
 Value: 6
 Equilibrium State: INFERNO
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 5
 --------------
 Name: increase ice orbiter damage (high)
@@ -170,7 +170,7 @@ Name: increase orbiters distance (low)
 Value: 0.1
 Equilibrium State: NEUTRAL
 ---------------
-Name: Drop ice orbs (low) 1
+Name: Drop ice orbs (low)
 Value: 3
 Equilibrium State: WARM
 ---------------
@@ -186,9 +186,9 @@ Name: increase fire orbiter damage (high)
 Value: 3
 Equilibrium State: INFERNO
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 6
 --------------
 Name: frostbite duration high
@@ -215,9 +215,9 @@ Name: firestarter duration high
 Value: 3
 Equilibrium State: INFERNO
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 7
 --------------
 Name: increase orbiters speed (high)
@@ -236,7 +236,7 @@ Name: increase orbiters elemental effect chance (medium)
 Value: 0.012
 Equilibrium State: WARM
 ---------------
-Name: Drop ice orbs (medium) 1
+Name: Drop ice orbs (medium)
 Value: 4
 Equilibrium State: HOT
 ---------------
@@ -248,9 +248,9 @@ Name: Attack speed high
 Value: 2
 Equilibrium State: INFERNO
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 8
 --------------
 Name: increase orbiters deflection chance (high)
@@ -261,18 +261,18 @@ Name: increase orbiters elemental effect chance (high)
 Value: 0.02
 Equilibrium State: WARM
 ---------------
-#################
+###################################################
 
-#################
+###################################################
 OFFER POOL 9
 --------------
 Name: drop fire orbs (high)
 Value: 6
 Equilibrium State: FROZEN
 ---------------
-Name: Drop ice orbs (high) 1
+Name: Drop ice orbs (high)
 Value: 6
 Equilibrium State: INFERNO
 ---------------
-#################
+###################################################
 

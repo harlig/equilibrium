@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: -8550563063247925799}
   m_Layer: 0
-  m_Name: Drop ice orbs (low) 1
+  m_Name: Drop ice orbs (low)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
