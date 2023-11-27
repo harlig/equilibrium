@@ -54,10 +54,7 @@ public class OrbiterData : MonoBehaviour
                 enemy.ApplyKnockback(knockbackDirection, knockbackStrength);
             }
 
-            if (
-                orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType]
-                > Random.Range(0, 1.0f)
-            )
+            if (orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType] > Chance.Get())
             {
                 float damage = 0;
                 if (damageType == DamageType.FIRE)

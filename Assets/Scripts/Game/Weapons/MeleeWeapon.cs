@@ -56,7 +56,7 @@ public class MeleeWeapon : WeaponController
     {
         character.DealDamage(DamageType, BaseDamageAmount + damageModifier);
 
-        if (elementalSystem.Chance > Random.Range(0f, 1f))
+        if (elementalSystem.Chance > Chance.Get())
         {
             character.ApplyDamageOverTime(
                 DamageType.FIRE,
