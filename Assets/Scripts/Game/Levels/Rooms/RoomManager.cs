@@ -149,13 +149,13 @@ public class RoomManager : MonoBehaviour
             enemyController.FollowPlayer(player);
             spawnedEnemies.Add(enemyController);
         }
-        var rangedEnemy = EnemyController.Create(
-            rangedEnemyPrefab,
-            new Vector2(Grid.FloorWidth, Grid.FloorHeight),
-            player,
-            transform
-        );
-        spawnedEnemies.Add(rangedEnemy);
+        // var rangedEnemy = EnemyController.Create(
+        //     rangedEnemyPrefab,
+        //     new Vector2(Grid.FloorWidth, Grid.FloorHeight),
+        //     player,
+        //     transform
+        // );
+        // spawnedEnemies.Add(rangedEnemy);
 
         return spawnedEnemies;
     }
