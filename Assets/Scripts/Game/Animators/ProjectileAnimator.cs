@@ -27,8 +27,8 @@ public class ProjectileAnimator : MonoBehaviour
         updatesSinceLastSpriteChange++;
         if (updatesSinceLastSpriteChange >= animationSpeed)
         {
-            currentSpriteIndex = (currentSpriteIndex + 1) % orbiterAnimationArray.Length;
-            spriteRenderer.sprite = orbiterAnimationArray[currentSpriteIndex];
+            currentSpriteIndex = (currentSpriteIndex + 1) % projectileAnimationArray.Length;
+            spriteRenderer.sprite = projectileAnimationArray[currentSpriteIndex];
             updatesSinceLastSpriteChange = 0;
         }
     }
