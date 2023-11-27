@@ -1278,7 +1278,7 @@ PrefabInstance:
     - target: {fileID: 47226871428776916, guid: 0291b4a3d45014ff8b762dfa530cc0a2, type: 3}
       propertyPath: FloorTo
       value: 
-      objectReference: {fileID: 8098758381604308694, guid: 99bba8b2459ff4cf081318403edb6d26, type: 3}
+      objectReference: {fileID: 2867518633813803049, guid: 787398b5f6de24175a63ad9dc0f5fd2d, type: 3}
     - target: {fileID: 923533727346400770, guid: 0291b4a3d45014ff8b762dfa530cc0a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
