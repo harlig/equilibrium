@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 405455175635685949}
   - component: {fileID: 3850049155645364791}
   - component: {fileID: 1393283749133594303}
+  - component: {fileID: 778266696862122483}
   m_Layer: 0
   m_Name: BaseProjectile
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4aa2041afdf8948dca7060db7f8903a0, type: 3}
-  m_Color: {r: 0.8400018, g: 0.039649326, b: 0.9339623, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 68fdf6af8712348f097b00a1cba96330, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -160,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0014241934, y: -0.0014242083}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -171,5 +172,29 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.23378968, y: 0.2394863}
   m_EdgeRadius: 0
+--- !u!114 &778266696862122483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234184344447127454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b513b637b1947e3bd4662ae1881fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileAnimationArray:
+  - {fileID: 21300000, guid: 68fdf6af8712348f097b00a1cba96330, type: 3}
+  - {fileID: 21300000, guid: eab945362638744e9b1b86e6a8c3386f, type: 3}
+  - {fileID: 21300000, guid: 6d6273947df6043fdaac5fc1d1eed958, type: 3}
+  - {fileID: 21300000, guid: 3d87f00c9f2ac44dd9cec9a4bc80a63e, type: 3}
+  - {fileID: 21300000, guid: 231dcc4f6c6694faca90ea652eb906ea, type: 3}
+  - {fileID: 21300000, guid: 3894f6863ba134e229ff01e37cbd2783, type: 3}
+  - {fileID: 21300000, guid: cb6d3f24e5af24c6ba4ea173ee1de523, type: 3}
+  - {fileID: 21300000, guid: d9f4fb264bc9b4dd9be3b641404e7e09, type: 3}
+  - {fileID: 21300000, guid: fbddd5664a0fe4c5894077c787901f5e, type: 3}
+  - {fileID: 21300000, guid: 6996a1e0b020a49a7b2986a77d1296a4, type: 3}
+  - {fileID: 21300000, guid: ae0b32846676341b9a0bd7f350706b27, type: 3}
