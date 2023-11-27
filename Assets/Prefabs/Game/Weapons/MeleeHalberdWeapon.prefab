@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8539133962248501871}
   - component: {fileID: 7610561885038195982}
   m_Layer: 0
-  m_Name: MeleeWeapon
+  m_Name: MeleeHalberdWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09670353, y: -0.1367101}
+  m_Offset: {x: -0.043686032, y: -0.1326319}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7079468, y: 0.53629255}
+  m_Size: {x: 0.8139818, y: 0.740206}
   m_EdgeRadius: 0
 --- !u!114 &-7031157983985048254
 MonoBehaviour:
@@ -132,13 +132,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90467dcd62d3f40f7a887a45f586948c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalSprite: {fileID: 21300000, guid: a01156382ea1d4fa5ae2627e7d963df9, type: 3}
+  originalSprite: {fileID: 21300000, guid: 51a2db088cda0465bb0d91f4df7888b0, type: 3}
   attackSprites:
-  - {fileID: 21300000, guid: c5dfd499af66b41a8bcdf5aa010bf1a0, type: 3}
-  - {fileID: 21300000, guid: 5d2a9927280884d9491f1d4cb3b5e5cd, type: 3}
-  - {fileID: 21300000, guid: aebd7276837d4432d817d4d7ea3fbcb9, type: 3}
-  - {fileID: 21300000, guid: 463eb537fd38a4186b8f544384bf5cbc, type: 3}
-  - {fileID: 21300000, guid: 231390a1a711848269039ce9ab2c4a34, type: 3}
+  - {fileID: 21300000, guid: 0954a487897db4da7a27c0ccc51a9862, type: 3}
+  - {fileID: 21300000, guid: 6debe012ce63148569f6ffe98ef80a2a, type: 3}
+  - {fileID: 21300000, guid: f6f292a0d25c74edd948dc97c25efbac, type: 3}
+  - {fileID: 21300000, guid: f9e1afa5c702949c09b06dba20fd1b1a, type: 3}
+  - {fileID: 21300000, guid: 4753cbfdedc4e4b3c8ef7aa42f6a399f, type: 3}
+  - {fileID: 21300000, guid: 85ab790902f0542f888d76ab5d93f609, type: 3}
+  - {fileID: 21300000, guid: 6bc5dd76e65154a7fad133d43fdd7137, type: 3}
+  - {fileID: 21300000, guid: 01f120db7d5dc44d4ac122ec89d35475, type: 3}
+  - {fileID: 21300000, guid: 8481d404e0d744eae83e351071a5e654, type: 3}
+  - {fileID: 21300000, guid: 06c1912a21db04c0cb7a247bd1c69083, type: 3}
   animationSpeed: 3
 --- !u!1 &1002014847742495891
 GameObject:
@@ -213,7 +218,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a01156382ea1d4fa5ae2627e7d963df9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 51a2db088cda0465bb0d91f4df7888b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

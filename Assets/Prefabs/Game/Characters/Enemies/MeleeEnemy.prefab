@@ -346,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpTextElement: {fileID: 3555654630889757491}
   orbDropper: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}
-  meleeWeapon: {fileID: -7031157983985048254, guid: 0c2ebce90d1444cc28f5fad5361c9d42, type: 3}
+  meleeWeapon: {fileID: -7031157983985048254, guid: aab05d0a7aa5a482e840444ead0e3b67, type: 3}
   rangedWeapon: {fileID: 0}
 --- !u!114 &1364265004136779385
 MonoBehaviour:
