@@ -171,6 +171,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1774260109746295843, guid: ed98ceaf379ed461db612fea17489554, type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1774260109746295843, guid: ed98ceaf379ed461db612fea17489554, type: 3}
+      propertyPath: rangedWeapon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1774260109746295843, guid: ed98ceaf379ed461db612fea17489554, type: 3}
+      propertyPath: meleeWeaponPrefab
+      value: 
+      objectReference: {fileID: -7031157983985048254, guid: 0c2ebce90d1444cc28f5fad5361c9d42, type: 3}
+    - target: {fileID: 1774260109746295843, guid: ed98ceaf379ed461db612fea17489554, type: 3}
+      propertyPath: rangedWeaponPrefab
+      value: 
+      objectReference: {fileID: 553911553520147597, guid: 17e5089d75c7b4e88968018dac549edc, type: 3}
     - target: {fileID: 3245519410266135707, guid: ed98ceaf379ed461db612fea17489554, type: 3}
       propertyPath: m_Name
       value: GameManager
