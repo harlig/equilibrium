@@ -18,9 +18,10 @@ public class RangedWeapon : WeaponController
         get { return DamageType.ICE; }
     }
 
+    // this is just a modifier for the projectile damage
     public override float BaseDamageAmount
     {
-        get { return 20.0f; }
+        get { return 0.0f; }
     }
 
     private bool isShooting = false;
@@ -28,7 +29,7 @@ public class RangedWeapon : WeaponController
     void Awake()
     {
         weaponAnimator = GetComponent<WeaponAnimator>();
-        character = GetComponentInParent<CharacterController>();
+        character = GetComponentInParent<GenericCharacterController>();
     }
 
     public override void AttackAtPosition(Vector2 position)
@@ -56,10 +57,10 @@ public class RangedWeapon : WeaponController
 
         ProjectileBehavior.Create(
             projectilePrefab,
-            BaseDamageAmount,
             transform.localToWorldMatrix.GetPosition(),
             launchDirection,
-            character
+            character,
+            BaseDamageAmount
         );
     }
 }

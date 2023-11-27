@@ -7,7 +7,7 @@ public class StatusEffectAnimator : MonoBehaviour
     [SerializeField]
     private Sprite[] statusEffectAnimationArray;
 
-    private CharacterController character;
+    private GenericCharacterController character;
 
     private int updatesSinceLastSpriteChange = 0;
 
@@ -19,7 +19,7 @@ public class StatusEffectAnimator : MonoBehaviour
     private Color tintColor;
 
     public void DoAnimate(
-        CharacterController character,
+        GenericCharacterController character,
         SpriteRenderer spriteRenderer,
         Color tintColor
     )

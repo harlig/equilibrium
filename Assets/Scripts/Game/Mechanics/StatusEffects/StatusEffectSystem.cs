@@ -10,12 +10,12 @@ public class StatusEffectSystem : MonoBehaviour
         EquilibriumManager.EquilibriumState,
         StatusEffectData
     > equilibriumStateToStatusEffectMap = new();
-    private CharacterController character;
+    private GenericCharacterController character;
     private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
-        character = GetComponentInParent<CharacterController>();
+        character = GetComponentInParent<GenericCharacterController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         for (int ndx = 0; ndx < statusEffects.Length; ndx++)
         {

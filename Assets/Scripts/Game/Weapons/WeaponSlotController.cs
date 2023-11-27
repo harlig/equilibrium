@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WeaponSlotController
 {
-    protected CharacterController character;
+    protected GenericCharacterController character;
 
     private readonly float circleRadius;
 
@@ -10,7 +10,10 @@ public class WeaponSlotController
 
     private readonly float weaponOffsetAngle = 45f;
 
-    public WeaponSlotController(CharacterController character, float distanceFromCharacter = 0.7f)
+    public WeaponSlotController(
+        GenericCharacterController character,
+        float distanceFromCharacter = 0.7f
+    )
     {
         this.character = character;
         circleRadius = distanceFromCharacter;
@@ -25,11 +28,11 @@ public class WeaponSlotController
             MoveWeaponsAtPosition(mousePosition);
 
             // weapon controls
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButton(0))
             {
                 AttackAtPosition(0);
             }
-            else if (Input.GetMouseButtonUp(1))
+            else if (Input.GetMouseButton(1))
             {
                 AttackAtPosition(1, mousePosition);
             }

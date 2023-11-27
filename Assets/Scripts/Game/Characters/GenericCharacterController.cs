@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class CharacterController : MonoBehaviour
+public abstract class GenericCharacterController : MonoBehaviour
 {
     // public api for move speed
     public float MovementSpeed

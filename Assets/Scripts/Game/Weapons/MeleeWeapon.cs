@@ -51,7 +51,7 @@ public class MeleeWeapon : WeaponController
         });
     }
 
-    private void ApplyCharacterDamage(CharacterController character, float damageModifier)
+    private void ApplyCharacterDamage(GenericCharacterController character, float damageModifier)
     {
         character.DealDamage(DamageType, BaseDamageAmount + damageModifier);
 
@@ -68,7 +68,7 @@ public class MeleeWeapon : WeaponController
     void OnTriggerEnter2D(Collider2D other)
     {
         // the weapon has collided with some other game object, do damage if character
-        CharacterController otherChar = other.GetComponent<CharacterController>();
+        GenericCharacterController otherChar = other.GetComponent<GenericCharacterController>();
 
         // means we have collided with a character, apply damage, and no friendly fire on self
         if (otherChar != null && otherChar.transform != transform.parent)

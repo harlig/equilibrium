@@ -9,14 +9,14 @@ public class ProjectileBehavior : MonoBehaviour
     private bool canMove = false;
 
     public float DamageAmount;
-    private CharacterController CharacterFiredFrom { get; set; }
+    private GenericCharacterController CharacterFiredFrom { get; set; }
 
     public static ProjectileBehavior Create(
         ProjectileBehavior prefab,
-        float damageAmount,
         Vector3 position,
         Vector2 launchDirection,
-        CharacterController firedFrom
+        GenericCharacterController firedFrom,
+        float extraDamageAmount = 0f
     )
     {
         float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
@@ -25,8 +25,8 @@ public class ProjectileBehavior : MonoBehaviour
         var projectile = Instantiate(prefab, position, rotation);
 
         projectile.MoveInDirection(launchDirection);
-        projectile.DamageAmount = damageAmount;
         projectile.CharacterFiredFrom = firedFrom;
+        projectile.DamageAmount += extraDamageAmount;
 
         return projectile;
     }

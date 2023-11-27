@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
 {
-    protected CharacterController character;
+    protected GenericCharacterController character;
 
     public abstract DamageType DamageType { get; }
 
@@ -13,7 +13,7 @@ public abstract class WeaponController : MonoBehaviour
     public static WeaponController Create(
         WeaponController prefab,
         Vector2 position,
-        CharacterController character
+        GenericCharacterController character
     )
     {
         var createdWeapon = Instantiate(
@@ -31,11 +31,11 @@ public abstract class WeaponController : MonoBehaviour
     protected float GetDamageModifierOfParentCharacter()
     {
         // get damage modifier from the parent of this weapon if there is one
-        var parentCharacter = GetComponentInParent<CharacterController>();
+        var parentCharacter = GetComponentInParent<GenericCharacterController>();
         float damageModifer = 0;
         if (parentCharacter != null)
         {
-            damageModifer = GetComponentInParent<CharacterController>().DamageDealtModifier;
+            damageModifer = GetComponentInParent<GenericCharacterController>().DamageDealtModifier;
         }
         return damageModifer;
     }

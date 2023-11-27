@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class EnemyController : CharacterController
+public abstract class EnemyController : GenericCharacterController
 {
     private enum MoveDirection
     {

@@ -12,7 +12,10 @@ public class StatusEffectData : MonoBehaviour
 
     public EquilibriumManager.EquilibriumState EquilibriumState;
 
-    public void AnimateStatusEffect(CharacterController character, SpriteRenderer spriteRenderer)
+    public void AnimateStatusEffect(
+        GenericCharacterController character,
+        SpriteRenderer spriteRenderer
+    )
     {
         if (statusEffectAnimator != null)
         {

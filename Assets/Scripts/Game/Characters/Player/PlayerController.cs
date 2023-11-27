@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerController : CharacterController
+public class PlayerController : GenericCharacterController
 {
     // prefabs
     [SerializeField]

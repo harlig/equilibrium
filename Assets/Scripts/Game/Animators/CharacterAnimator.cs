@@ -48,7 +48,7 @@ public class CharacterAnimator : MonoBehaviour
     // TODO: this should be based on CharacterController.MovementSpeed
     [SerializeField]
     private float animationSpeed = 3;
-    private CharacterController character;
+    private GenericCharacterController character;
     private SpriteRenderer spriteRenderer;
     private Vector2 lastPosition;
     private MoveDirection? moveDirection = null;
@@ -56,7 +56,7 @@ public class CharacterAnimator : MonoBehaviour
 
     void Awake()
     {
-        character = GetComponent<CharacterController>();
+        character = GetComponent<GenericCharacterController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         lastPosition = transform.position;
     }
