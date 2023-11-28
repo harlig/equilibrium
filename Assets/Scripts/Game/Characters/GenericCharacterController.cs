@@ -35,6 +35,7 @@ public abstract class GenericCharacterController : MonoBehaviour
     protected bool applyingStatusEffect = false;
 
     protected StatusEffectSystem elementalSystem;
+    protected CharacterAnimator characterAnimator;
 
     protected virtual void Start()
     {
@@ -43,6 +44,7 @@ public abstract class GenericCharacterController : MonoBehaviour
             gameManager.ElementalDamageStatusEffectSystemPrefab;
         elementalSystem = Instantiate(elementalDamageStatusEffectSystemPrefab, transform)
             .GetComponent<StatusEffectSystem>();
+        characterAnimator = GetComponent<CharacterAnimator>();
     }
 
     private float CalculateDamagePerInterval(float duration, float interval, float? totalDamage)

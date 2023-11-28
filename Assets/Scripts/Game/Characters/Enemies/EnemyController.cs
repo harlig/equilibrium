@@ -240,7 +240,7 @@ public abstract class EnemyController : GenericCharacterController
         }
 
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
-        GetComponent<CharacterAnimator>().AnimateHurt();
+        characterAnimator.AnimateHurt();
 
         if (IsDead())
         {

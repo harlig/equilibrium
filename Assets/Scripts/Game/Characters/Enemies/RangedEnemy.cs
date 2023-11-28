@@ -15,14 +15,31 @@ public class RangedEnemy : EnemyController
         CreateRangedWeapon();
     }
 
+    private float elementalEffectTimer = 0f;
+    private const float ElementalEffectInterval = 5f; // 5 seconds
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
         if (!IsDead())
         {
-            // we can just constantly do this, the weapon will limit how fast it can be done
             FireProjectile();
+        }
+
+        // Update the timer
+        elementalEffectTimer += Time.fixedDeltaTime;
+
+        // Check if 5 seconds have passed
+        if (elementalEffectTimer >= ElementalEffectInterval)
+        {
+            if (TryGetComponent<ElementalEnemy>(out var elementalEnemy))
+            {
+                elementalEnemy.ToggleElementalEffect();
+            }
+
+            // Reset the timer
+            elementalEffectTimer = 0f;
         }
     }
 

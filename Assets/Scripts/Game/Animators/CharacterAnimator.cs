@@ -90,6 +90,10 @@ public class CharacterAnimator : MonoBehaviour
         {
             animationSprites = GetHurtAnimationSprites();
         }
+        else if (shouldUseOverrideSpritesForWalkAndIdle)
+        {
+            animationSprites = overrideSprites;
+        }
         // Check if the character is moving
         else if (currentPosition != lastPosition)
         {
@@ -237,5 +241,20 @@ public class CharacterAnimator : MonoBehaviour
             moveDirection =
                 currentPosition.y > lastPosition.y ? MoveDirection.Up : MoveDirection.Down;
         }
+    }
+
+    bool shouldUseOverrideSpritesForWalkAndIdle = false;
+    private Sprite[] overrideSprites;
+
+    public void UseCustomSpritesForWalkAndIdle(Sprite[] overrideSprites)
+    {
+        shouldUseOverrideSpritesForWalkAndIdle = true;
+        this.overrideSprites = overrideSprites;
+    }
+
+    public void StopUsingCustomSprites()
+    {
+        shouldUseOverrideSpritesForWalkAndIdle = false;
+        overrideSprites = null;
     }
 }
