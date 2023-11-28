@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 219655062684712697}
   - component: {fileID: 3927789621409669372}
   m_Layer: 0
-  m_Name: LanternEnemy
+  m_Name: LanternRangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
