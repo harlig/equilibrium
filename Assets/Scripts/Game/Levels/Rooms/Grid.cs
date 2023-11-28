@@ -124,7 +124,7 @@ public class Grid
         );
     }
 
-    public Node FindNearestWalkableNode(Vector2 targetPosition)
+    public Node FindNearestWalkableNode(Vector2 targetLocalPosition)
     {
         // Define the search radius
         int radius = 10;
@@ -135,8 +135,8 @@ public class Grid
             {
                 for (int y = -radius; y <= radius; y++)
                 {
-                    int checkX = Mathf.RoundToInt(targetPosition.x + x + GridOrigin.x);
-                    int checkY = Mathf.RoundToInt(targetPosition.y + y + GridOrigin.y);
+                    int checkX = Mathf.RoundToInt(targetLocalPosition.x + x + GridOrigin.x);
+                    int checkY = Mathf.RoundToInt(targetLocalPosition.y + y + GridOrigin.y);
 
                     // Ensure the checked position is within the grid bounds
                     if (
