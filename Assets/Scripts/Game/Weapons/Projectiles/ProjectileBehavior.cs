@@ -90,6 +90,7 @@ public class ProjectileBehavior : MonoBehaviour
 
         if (damageDealerEffectPrefab != null)
         {
+            // TODO: this should instead be instantiated at the point of contact of the projectile with the other character
             DamageDealerEffect damageDealerEffect = Instantiate(
                     damageDealerEffectPrefab,
                     character.transform

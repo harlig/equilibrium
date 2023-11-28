@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseAttackSpeed: 3
+  damageDealerEffectPrefab: {fileID: 2705254619957844959, guid: 33e30302bcb2e475aaecba7112369a0e, type: 3}
 --- !u!50 &8539133962248501871
 Rigidbody2D:
   serializedVersion: 4

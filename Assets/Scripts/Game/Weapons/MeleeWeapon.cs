@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class MeleeWeapon : WeaponController
 {
+    [SerializeField]
+    DamageDealerEffect damageDealerEffectPrefab;
     private WeaponAnimator weaponAnimator;
     private BoxCollider2D boxCollider;
     public ElementalSystem elementalSystem = new(5f);
@@ -79,6 +81,17 @@ public class MeleeWeapon : WeaponController
         if (!IsFriendlyFire(otherChar))
         {
             ApplyCharacterDamage(otherChar, GetDamageModifierOfParentCharacter());
+
+            if (damageDealerEffectPrefab != null)
+            {
+                // TODO: this should instead be instantiated at the point of contact of the projectile with the other character
+                DamageDealerEffect damageDealerEffect = Instantiate(
+                        damageDealerEffectPrefab,
+                        otherChar.transform
+                    )
+                    .GetComponent<DamageDealerEffect>();
+                damageDealerEffect.OnHit();
+            }
         }
     }
 
