@@ -16,6 +16,8 @@ public class Grid
     private const float GRID_OFFSET_X = 0.5f;
     private const float GRID_OFFSET_Y = 0.5f;
 
+    public List<Vector2Int> WalkableNodesIndices { get; private set; }
+
     private readonly float parentX,
         parentY;
 
@@ -43,6 +45,7 @@ public class Grid
         FloorHeight = bounds.size.y;
 
         nodes = new Node[FloorWidth, FloorHeight];
+        WalkableNodesIndices = new();
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)
         {
@@ -78,6 +81,11 @@ public class Grid
                     localPlace.x,
                     localPlace.y
                 );
+
+                if (isWalkable)
+                {
+                    WalkableNodesIndices.Add(new(xIndex, yIndex));
+                }
             }
         }
     }
@@ -125,8 +133,6 @@ public class Grid
     {
         // Define the search radius
         int radius = 10;
-
-        Debug.Log(GridOrigin);
 
         while (true)
         {

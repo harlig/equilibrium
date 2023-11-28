@@ -13,6 +13,8 @@ public class RoomManager : MonoBehaviour
     public Grid Grid { get; private set; }
     public bool HasClearedRoom { get; private set; } = false;
 
+    private List<Vector2Int> generatedVectors;
+
     void Awake()
     {
         Grid = new Grid(
@@ -90,26 +92,27 @@ public class RoomManager : MonoBehaviour
 
     public void SetAsActiveRoom(
         PlayerController player,
-        List<Vector2> meleeEnemySpawnLocations,
+        (int, int) numberOfEnemies,
         MeleeEnemy meleeEnemyPrefab,
         RangedEnemy rangedEnemyPrefab
     )
     {
         SetActiveAllChildren(true);
 
-        if (meleeEnemySpawnLocations.Count == 0)
+        if (numberOfEnemies.Item1 + numberOfEnemies.Item2 <= 0)
         {
             // if there are no enemies to spawn, room is cleared
             HasClearedRoom = true;
         }
 
         player.CurrentRoom = this;
+        generatedVectors = new();
 
         if (!HasClearedRoom)
         {
             enemies = SpawnEnemies(
                 player,
-                meleeEnemySpawnLocations,
+                numberOfEnemies,
                 meleeEnemyPrefab,
                 rangedEnemyPrefab
             );
@@ -118,41 +121,20 @@ public class RoomManager : MonoBehaviour
 
     List<EnemyController> SpawnEnemies(
         PlayerController player,
-        List<Vector2> meleeEnemySpawnLocations,
+        (int, int) numberOfEnemies,
         MeleeEnemy meleeEnemyPrefab,
         RangedEnemy rangedEnemyPrefab
     )
     {
         List<EnemyController> spawnedEnemies = new();
-        foreach (var enemySpawnLocation in meleeEnemySpawnLocations)
+        for (int x = 0; x < numberOfEnemies.Item1; x++)
         {
-            Debug.LogFormat("Enemy spawn: {0}", enemySpawnLocation);
-            var spawnLocation = Grid.FindNearestWalkableNode(enemySpawnLocation);
-            Debug.LogFormat("Spawn loc: {0}", spawnLocation);
-            // var spawnLocation = enemySpawnLocation;
-            // if (spawnLocation.x < 1)
-            // {
-            //     spawnLocation.x = 1;
-            // }
-            // else if (spawnLocation.x > Grid.FloorWidth)
-            // {
-            //     spawnLocation.x = Grid.FloorWidth;
-            // }
-
-            // if (spawnLocation.y < 1)
-            // {
-            //     spawnLocation.y = 1;
-            // }
-            // else if (spawnLocation.y > Grid.FloorHeight)
-            // {
-            //     spawnLocation.y = Grid.FloorHeight;
-            // }
-
+            var meleeSpawnLoc = GenerateRandomRoomLocation();
             // create new enemy at location
             MeleeEnemy enemyController = (MeleeEnemy)
                 EnemyController.Create(
                     meleeEnemyPrefab,
-                    spawnLocation.LocalPosition,
+                    meleeSpawnLoc.LocalPosition,
                     player,
                     transform
                 );
@@ -171,16 +153,31 @@ public class RoomManager : MonoBehaviour
             enemyController.PatrolArea(Grid.FindNearestWalkableTile(new Vector2(10, 1)));
             spawnedEnemies.Add(enemyController);
         }
-        var rangedEnemy = EnemyController.Create(
-            rangedEnemyPrefab,
-            Grid.FindNearestWalkableNode(
-                new Vector2(Grid.FloorWidth, Grid.FloorHeight)
-            ).LocalPosition,
-            player,
-            transform
-        );
-        spawnedEnemies.Add(rangedEnemy);
 
+        for (int y = 0; y < numberOfEnemies.Item2; y++)
+        {
+            var rangedSpawnLoc = GenerateRandomRoomLocation();
+            var rangedEnemy = EnemyController.Create(
+                rangedEnemyPrefab,
+                rangedSpawnLoc.LocalPosition,
+                player,
+                transform
+            );
+            spawnedEnemies.Add(rangedEnemy);
+        }
         return spawnedEnemies;
+    }
+
+    private Node GenerateRandomRoomLocation()
+    {
+        Vector2Int randomVector;
+        // make sure we don't generate the same vector twice
+        do {
+            int randomIdx = Random.Range(0, Grid.WalkableNodesIndices.Count); 
+            randomVector = Grid.WalkableNodesIndices[randomIdx];
+        } while (generatedVectors.Contains(randomVector));
+
+        generatedVectors.Add(randomVector);
+        return Grid.nodes[randomVector.x, randomVector.y];
     }
 }
