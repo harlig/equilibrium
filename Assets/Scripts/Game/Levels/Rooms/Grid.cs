@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,7 +9,7 @@ public class Grid
 
     public int FloorWidth { get; private set; }
     public int FloorHeight { get; private set; }
-    private Vector3 gridOrigin;
+    public Vector2 GridOrigin { get; private set; }
     private readonly Tilemap floorTilemap,
         obstaclesTilemap;
     private readonly InteractableBehavior[] interactables;
@@ -26,7 +27,7 @@ public class Grid
         float y
     )
     {
-        gridOrigin = CalculateGridOrigin(floorTilemap);
+        GridOrigin = CalculateGridOrigin(floorTilemap);
         this.floorTilemap = floorTilemap;
         this.obstaclesTilemap = obstaclesTilemap;
         this.interactables = interactables;
@@ -73,7 +74,9 @@ public class Grid
                     globalPos.x,
                     globalPos.y,
                     xIndex,
-                    yIndex
+                    yIndex,
+                    localPlace.x,
+                    localPlace.y
                 );
             }
         }
@@ -118,10 +121,12 @@ public class Grid
         );
     }
 
-    public Vector2 FindNearestWalkableTile(Vector2 targetPosition)
+    public Node FindNearestWalkableNode(Vector2 targetPosition)
     {
         // Define the search radius
-        int radius = 1;
+        int radius = 10;
+
+        Debug.Log(GridOrigin);
 
         while (true)
         {
@@ -129,8 +134,8 @@ public class Grid
             {
                 for (int y = -radius; y <= radius; y++)
                 {
-                    int checkX = Mathf.RoundToInt(targetPosition.x + x);
-                    int checkY = Mathf.RoundToInt(targetPosition.y + y);
+                    int checkX = Mathf.RoundToInt(targetPosition.x + x + GridOrigin.x);
+                    int checkY = Mathf.RoundToInt(targetPosition.y + y + GridOrigin.y);
 
                     // Ensure the checked position is within the grid bounds
                     if (
@@ -140,9 +145,10 @@ public class Grid
                         && checkY < nodes.GetLength(1)
                     )
                     {
-                        if (nodes[checkX, checkY].Walkable)
+                        var node = nodes[checkX, checkY];
+                        if (node.Walkable)
                         {
-                            return new Vector2(checkX, checkY);
+                            return node;
                         }
                     }
                 }
@@ -159,6 +165,10 @@ public class Node
     public float WorldY;
     public int IndexX;
     public int IndexY;
+    public int LocalX;
+    public int LocalY;
+    public Vector2 WorldPosition;
+    public Vector2 LocalPosition;
 
     // A* specific properties
     public int GCost; // Cost from start node
@@ -170,7 +180,7 @@ public class Node
         get { return GCost + HCost; }
     } // Total cost (G + H)
 
-    public Node(bool walkable, float x, float y, int xIndex, int yIndex)
+    public Node(bool walkable, float x, float y, int xIndex, int yIndex, int localX, int localY)
     {
         Walkable = walkable;
         WorldX = x;
@@ -180,6 +190,10 @@ public class Node
         GCost = int.MaxValue;
         HCost = 0;
         Parent = null;
+        LocalX = localX;
+        LocalY = localY;
+        WorldPosition = new Vector2(WorldX, WorldY);
+        LocalPosition = new Vector2(LocalX, LocalY);
     }
 
     public string PositionString()
