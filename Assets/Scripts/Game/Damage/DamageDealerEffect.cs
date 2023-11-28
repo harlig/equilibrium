@@ -10,7 +10,8 @@ public class DamageDealerEffect : MonoBehaviour
     {
         onHitAnimator = new OnHitAnimator(GetComponent<SpriteRenderer>())
         {
-            OnHitAnimationArray = damageDealingSprites
+            OnHitAnimationArray = damageDealingSprites,
+            TicksPerAnimationChange = 3
         };
     }
 

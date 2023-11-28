@@ -16,7 +16,7 @@ public class StatusEffectAnimator : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
     private bool shouldAnimate = false;
-    private Color tintColor;
+    public Color TintColor { get; private set; }
 
     public void DoAnimate(
         GenericCharacterController character,
@@ -25,7 +25,7 @@ public class StatusEffectAnimator : MonoBehaviour
     )
     {
         this.character = character;
-        this.tintColor = tintColor;
+        TintColor = tintColor;
         this.spriteRenderer = spriteRenderer;
         shouldAnimate = true;
     }
@@ -55,7 +55,7 @@ public class StatusEffectAnimator : MonoBehaviour
 
     void TrySetCharacterSpriteColor()
     {
-        character.gameObject.GetComponent<SpriteRenderer>().color = tintColor;
+        character.gameObject.GetComponent<SpriteRenderer>().color = TintColor;
     }
 
     public void StopAnimating()

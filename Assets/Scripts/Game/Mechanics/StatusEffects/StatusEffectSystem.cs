@@ -12,6 +12,7 @@ public class StatusEffectSystem : MonoBehaviour
     > equilibriumStateToStatusEffectMap = new();
     private GenericCharacterController character;
     private SpriteRenderer spriteRenderer;
+    public StatusEffectData CurrentStatusEffect { get; private set; }
 
     void Awake()
     {
@@ -56,5 +57,6 @@ public class StatusEffectSystem : MonoBehaviour
             spriteRenderer.color.b,
             0.5f
         );
+        CurrentStatusEffect = statusEffect;
     }
 }
