@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4120311608130049365}
   - component: {fileID: 2705254619957844959}
-  - component: {fileID: 1334442358086494993}
   - component: {fileID: -1788758865557819524}
   m_Layer: 0
   m_Name: FireDamageEffect
@@ -46,19 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c75c78f1eb524b7a9d3c4335e28729f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1334442358086494993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724457147627855141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff3fb5784ed74688827e91567a973a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHitAnimationArray:
+  damageDealingSprites:
   - {fileID: 21300000, guid: 9cd7e6a5e02284ac9a2e4d42eea68d06, type: 3}
   - {fileID: 21300000, guid: 35bfb1633e8384a739a069356450976f, type: 3}
   - {fileID: 21300000, guid: 3b0a7e79ea43b4da2b9d89e56de275d1, type: 3}

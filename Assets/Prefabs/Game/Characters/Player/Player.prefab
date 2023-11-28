@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d15ad1e552a642328d33ad26e6ce36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageReceiverEffectPrefab: {fileID: -5858923611870083532, guid: af66e8a3805954c8b9b59fdf0bad469d, type: 3}
+  damageReceiverEffectPrefab: {fileID: 4667276820557644304, guid: af66e8a3805954c8b9b59fdf0bad469d, type: 3}
   meleeWeaponPrefab: {fileID: -7031157983985048254, guid: 0c2ebce90d1444cc28f5fad5361c9d42, type: 3}
   rangedWeaponPrefab: {fileID: 553911553520147597, guid: 17e5089d75c7b4e88968018dac549edc, type: 3}
 --- !u!50 &9078893335377086729

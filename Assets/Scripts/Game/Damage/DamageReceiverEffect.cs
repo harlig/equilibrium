@@ -1,14 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(OnHitAnimator))]
 public class DamageReceiverEffect : MonoBehaviour
 {
     private OnHitAnimator onHitAnimator;
 
     void Awake()
     {
-        onHitAnimator = GetComponent<OnHitAnimator>();
-        onHitAnimator.TicksPerAnimationChange = 2;
+        onHitAnimator = new OnHitAnimator(GetComponent<SpriteRenderer>())
+        {
+            TicksPerAnimationChange = 2
+        };
     }
 
     // TODO: needs to take into account move direction
@@ -16,6 +17,11 @@ public class DamageReceiverEffect : MonoBehaviour
     public void OnHit()
     {
         Debug.Log("animating on hit");
-        onHitAnimator.StartAnimation();
+        // onHitAnimator.StartAnimation();
+    }
+
+    void FixedUpdate()
+    {
+        onHitAnimator.FixedUpdate();
     }
 }

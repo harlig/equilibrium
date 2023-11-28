@@ -1,10 +1,9 @@
 using System;
 using UnityEngine;
 
-public class OnHitAnimator : MonoBehaviour
+public class OnHitAnimator
 {
-    [SerializeField]
-    private Sprite[] onHitAnimationArray;
+    public Sprite[] OnHitAnimationArray { get; set; }
 
     private int updatesSinceLastSpriteChange = 0;
 
@@ -16,13 +15,13 @@ public class OnHitAnimator : MonoBehaviour
     private bool animateOnce = false; // Flag to control the animation
     private Action afterAnimationAction;
 
-    void Awake()
+    public OnHitAnimator(SpriteRenderer spriteRenderer)
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        this.spriteRenderer = spriteRenderer;
         spriteRenderer.enabled = false;
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         if (animateOnce)
         {
@@ -44,7 +43,7 @@ public class OnHitAnimator : MonoBehaviour
         updatesSinceLastSpriteChange++;
         if (updatesSinceLastSpriteChange >= TicksPerAnimationChange)
         {
-            if (currentSpriteIndex >= onHitAnimationArray.Length)
+            if (currentSpriteIndex >= OnHitAnimationArray.Length)
             {
                 // Animation completed, stop and reset
                 spriteRenderer.enabled = false;
@@ -55,7 +54,7 @@ public class OnHitAnimator : MonoBehaviour
             else
             {
                 // Update sprite and continue animation
-                spriteRenderer.sprite = onHitAnimationArray[currentSpriteIndex];
+                spriteRenderer.sprite = OnHitAnimationArray[currentSpriteIndex];
             }
             currentSpriteIndex++;
             updatesSinceLastSpriteChange = 0;

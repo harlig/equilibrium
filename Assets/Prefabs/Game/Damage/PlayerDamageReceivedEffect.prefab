@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4120311608130049365}
   - component: {fileID: -1788758865557819524}
-  - component: {fileID: 5942633633554292346}
-  - component: {fileID: -5858923611870083532}
+  - component: {fileID: 4667276820557644304}
   m_Layer: 0
   m_Name: PlayerDamageReceivedEffect
   m_TagString: Untagged
@@ -86,21 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5942633633554292346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724457147627855141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff3fb5784ed74688827e91567a973a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHitAnimationArray:
-  - {fileID: 21300000, guid: 5aed5bf44f1064321a7d1eaf99efdd55, type: 3}
---- !u!114 &-5858923611870083532
+--- !u!114 &4667276820557644304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

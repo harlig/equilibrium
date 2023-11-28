@@ -1,13 +1,17 @@
 using UnityEngine;
 
-[RequireComponent(typeof(OnHitAnimator))]
 public class DamageDealerEffect : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite[] damageDealingSprites;
     private OnHitAnimator onHitAnimator;
 
     void Awake()
     {
-        onHitAnimator = GetComponent<OnHitAnimator>();
+        onHitAnimator = new OnHitAnimator(GetComponent<SpriteRenderer>())
+        {
+            OnHitAnimationArray = damageDealingSprites
+        };
     }
 
     public void OnHit()
@@ -16,5 +20,10 @@ public class DamageDealerEffect : MonoBehaviour
         {
             Destroy(gameObject);
         });
+    }
+
+    void FixedUpdate()
+    {
+        onHitAnimator.FixedUpdate();
     }
 }
