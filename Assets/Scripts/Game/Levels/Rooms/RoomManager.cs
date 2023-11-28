@@ -124,24 +124,27 @@ public class RoomManager : MonoBehaviour
         List<EnemyController> spawnedEnemies = new();
         foreach (var enemySpawnLocation in meleeEnemySpawnLocations)
         {
-            var spawnLocation = enemySpawnLocation;
-            if (spawnLocation.x < 1)
-            {
-                spawnLocation.x = 1;
-            }
-            else if (spawnLocation.x > Grid.FloorWidth)
-            {
-                spawnLocation.x = Grid.FloorWidth;
-            }
+            Debug.Log(enemySpawnLocation);
+            var spawnLocation = Grid.FindNearestWalkableTile(enemySpawnLocation);
+            Debug.Log(spawnLocation);
+            // var spawnLocation = enemySpawnLocation;
+            // if (spawnLocation.x < 1)
+            // {
+            //     spawnLocation.x = 1;
+            // }
+            // else if (spawnLocation.x > Grid.FloorWidth)
+            // {
+            //     spawnLocation.x = Grid.FloorWidth;
+            // }
 
-            if (spawnLocation.y < 1)
-            {
-                spawnLocation.y = 1;
-            }
-            else if (spawnLocation.y > Grid.FloorHeight)
-            {
-                spawnLocation.y = Grid.FloorHeight;
-            }
+            // if (spawnLocation.y < 1)
+            // {
+            //     spawnLocation.y = 1;
+            // }
+            // else if (spawnLocation.y > Grid.FloorHeight)
+            // {
+            //     spawnLocation.y = Grid.FloorHeight;
+            // }
 
             // create new enemy at location
             MeleeEnemy enemyController = (MeleeEnemy)
