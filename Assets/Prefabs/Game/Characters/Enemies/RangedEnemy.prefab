@@ -393,5 +393,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 37857a9e751e84b0592447f5a29db649, type: 3}
   idleAnimationSpritesWest:
   - {fileID: 21300000, guid: c142aae31784844a696d804335211e9c, type: 3}
+  hurtSpritesEast:
+  - {fileID: 21300000, guid: 85fd281460baf44f491db9747452b264, type: 3}
+  hurtSpritesNorth:
+  - {fileID: 21300000, guid: 8671a7616230d4c25a521620c36ae37b, type: 3}
+  hurtSpritesSouth:
+  - {fileID: 21300000, guid: 378795b2317cd4186af6906404809196, type: 3}
+  hurtSpritesWest:
+  - {fileID: 21300000, guid: 7195113c28bb34c70a627a14d0408900, type: 3}
   deathSprite: {fileID: 21300000, guid: eb80d059aeefb40e1a52fc6f498a16f9, type: 3}
   animationSpeed: 4
