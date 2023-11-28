@@ -41,11 +41,22 @@ public class CharacterAnimator : MonoBehaviour
     private Sprite[] idleAnimationSpritesWest;
 
     [SerializeField]
+    private Sprite[] hurtSpritesEast;
+
+    [SerializeField]
+    private Sprite[] hurtSpritesNorth;
+
+    [SerializeField]
+    private Sprite[] hurtSpritesSouth;
+
+    [SerializeField]
+    private Sprite[] hurtSpritesWest;
+
+    [SerializeField]
     private Sprite deathSprite;
 
     private int updatesSinceLastSpriteChange = 0;
 
-    // TODO: this should be based on CharacterController.MovementSpeed
     [SerializeField]
     private float animationSpeed = 3;
     private GenericCharacterController character;
@@ -53,6 +64,8 @@ public class CharacterAnimator : MonoBehaviour
     private Vector2 lastPosition;
     private MoveDirection? moveDirection = null;
     private int currentSpriteIndex = 0;
+    private bool animatingHurt = false;
+    private float oldAnimationSpeed;
 
     void Awake()
     {
@@ -72,24 +85,40 @@ public class CharacterAnimator : MonoBehaviour
 
         Vector2 currentPosition = transform.position;
 
+        Sprite[] animationSprites;
+        if (animatingHurt)
+        {
+            animationSprites = GetHurtAnimationSprites();
+        }
         // Check if the character is moving
-        if (currentPosition != lastPosition)
+        else if (currentPosition != lastPosition)
         {
             SetMoveDirection(currentPosition, lastPosition);
-            AnimateWalk();
+            animationSprites = GetWalkAnimationSprites();
         }
         else
         {
-            AnimateIdle();
+            animationSprites = GetIdleAnimationSprites();
         }
+
+        if (updatesSinceLastSpriteChange >= animationSpeed)
+        {
+            if (animatingHurt && currentSpriteIndex == animationSprites.Length - 1)
+            {
+                animatingHurt = false;
+                animationSpeed = oldAnimationSpeed;
+            }
+            currentSpriteIndex = (currentSpriteIndex + 1) % animationSprites.Length;
+            spriteRenderer.sprite = animationSprites[currentSpriteIndex];
+            updatesSinceLastSpriteChange = 0;
+        }
+        updatesSinceLastSpriteChange++;
 
         lastPosition = currentPosition;
     }
 
-    void AnimateWalk()
+    Sprite[] GetWalkAnimationSprites()
     {
-        updatesSinceLastSpriteChange++;
-
         Sprite[] walkAnimationArray = null;
         switch (moveDirection)
         {
@@ -117,18 +146,11 @@ public class CharacterAnimator : MonoBehaviour
                 break;
         }
 
-        if (updatesSinceLastSpriteChange >= animationSpeed)
-        {
-            currentSpriteIndex = (currentSpriteIndex + 1) % walkAnimationArray.Length;
-            spriteRenderer.sprite = walkAnimationArray[currentSpriteIndex];
-            updatesSinceLastSpriteChange = 0;
-        }
+        return walkAnimationArray;
     }
 
-    void AnimateIdle()
+    Sprite[] GetIdleAnimationSprites()
     {
-        updatesSinceLastSpriteChange++;
-
         Sprite[] idleAnimationArray = null;
         switch (moveDirection)
         {
@@ -155,13 +177,46 @@ public class CharacterAnimator : MonoBehaviour
                 );
                 break;
         }
+        return idleAnimationArray;
+    }
 
-        if (updatesSinceLastSpriteChange >= animationSpeed)
+    public void AnimateHurt()
+    {
+        animatingHurt = true;
+        oldAnimationSpeed = animationSpeed;
+        animationSpeed = 2;
+        currentSpriteIndex = 0;
+    }
+
+    private Sprite[] GetHurtAnimationSprites()
+    {
+        Sprite[] hurtAnimationSprites = null;
+        switch (moveDirection)
         {
-            currentSpriteIndex = (currentSpriteIndex + 1) % idleAnimationArray.Length;
-            spriteRenderer.sprite = idleAnimationArray[currentSpriteIndex];
-            updatesSinceLastSpriteChange = 0;
+            case MoveDirection.Down:
+                hurtAnimationSprites = hurtSpritesSouth;
+                break;
+            case MoveDirection.Left:
+                hurtAnimationSprites = hurtSpritesWest;
+                break;
+            case MoveDirection.Up:
+                hurtAnimationSprites = hurtSpritesNorth;
+                break;
+            case MoveDirection.Right:
+                hurtAnimationSprites = hurtSpritesEast;
+                break;
+            // unset, just use south
+            case null:
+                hurtAnimationSprites = hurtSpritesSouth;
+                break;
+            default:
+                Debug.LogErrorFormat(
+                    "Unhandled move direction for idle animation {0}",
+                    moveDirection
+                );
+                break;
         }
+        return hurtAnimationSprites;
     }
 
     public void SetMoveDirection(Vector2 currentPosition, Vector2 lastPosition)

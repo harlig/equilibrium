@@ -262,7 +262,7 @@ public class PlayerController : GenericCharacterController
         GetComponentInParent<GameManager>().AudioManager.PlayHurtSound();
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining);
 
-        damageReceiverEffect.OnHit();
+        GetComponent<CharacterAnimator>().AnimateHurt();
 
         StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
     }

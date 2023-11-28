@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d15ad1e552a642328d33ad26e6ce36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageReceiverEffectPrefab: {fileID: 4667276820557644304, guid: af66e8a3805954c8b9b59fdf0bad469d, type: 3}
   meleeWeaponPrefab: {fileID: -7031157983985048254, guid: 0c2ebce90d1444cc28f5fad5361c9d42, type: 3}
   rangedWeaponPrefab: {fileID: 553911553520147597, guid: 17e5089d75c7b4e88968018dac549edc, type: 3}
 --- !u!50 &9078893335377086729
@@ -269,6 +268,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 10d03d97cea084d5e987c637df216216, type: 3}
   - {fileID: 21300000, guid: 8e31a4e7589d24b358cf8244548a7ac2, type: 3}
   - {fileID: 21300000, guid: 2f1417cef45c947419d4a477652a29e8, type: 3}
+  hurtSpritesEast:
+  - {fileID: 21300000, guid: 2210628031e454c14bbb79d6e00c71bd, type: 3}
+  hurtSpritesNorth:
+  - {fileID: 21300000, guid: d787512ec000c41aca0918bb32c8fbfc, type: 3}
+  hurtSpritesSouth:
+  - {fileID: 21300000, guid: 5aed5bf44f1064321a7d1eaf99efdd55, type: 3}
+  hurtSpritesWest:
+  - {fileID: 21300000, guid: 3eec616b887244806ae25471405962f5, type: 3}
   deathSprite: {fileID: 21300000, guid: 458f4499c03e1412385b36a4fec227bf, type: 3}
   animationSpeed: 3
 --- !u!1001 &3199498486208654080

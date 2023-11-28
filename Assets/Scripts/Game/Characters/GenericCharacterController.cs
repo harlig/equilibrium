@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Video;
 
+[RequireComponent(typeof(CharacterAnimator))]
 public abstract class GenericCharacterController : MonoBehaviour
 {
     // public api for move speed
@@ -36,10 +36,6 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     protected StatusEffectSystem elementalSystem;
 
-    [SerializeField]
-    private DamageReceiverEffect damageReceiverEffectPrefab;
-    protected DamageReceiverEffect damageReceiverEffect;
-
     protected virtual void Start()
     {
         var gameManager = GetComponentInParent<GameManager>();
@@ -47,10 +43,6 @@ public abstract class GenericCharacterController : MonoBehaviour
             gameManager.ElementalDamageStatusEffectSystemPrefab;
         elementalSystem = Instantiate(elementalDamageStatusEffectSystemPrefab, transform)
             .GetComponent<StatusEffectSystem>();
-        if (damageReceiverEffectPrefab != null)
-        {
-            damageReceiverEffect = Instantiate(damageReceiverEffectPrefab, transform);
-        }
     }
 
     private float CalculateDamagePerInterval(float duration, float interval, float? totalDamage)

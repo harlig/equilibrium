@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageReceiverEffect : MonoBehaviour
+public class DamageOnCharacterEffect : MonoBehaviour
 {
     private OnHitAnimator onHitAnimator;
 
