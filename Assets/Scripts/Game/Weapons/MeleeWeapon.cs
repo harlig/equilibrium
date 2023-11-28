@@ -85,15 +85,9 @@ public class MeleeWeapon : WeaponController
 
             if (damageDealerEffectPrefab != null)
             {
-                // Use the center of the collider as the approximate collision point
-                Vector2 collisionPoint = other.bounds.center;
-
                 // Instantiate the damage dealer effect at the approximate collision point
-                DamageDealerEffect damageDealerEffect = Instantiate(
-                        damageDealerEffectPrefab,
-                        collisionPoint, // Use the collision point as the position
-                        Quaternion.identity // Default rotation
-                    )
+                DamageDealerEffect damageDealerEffect = DamageDealerEffect
+                    .Create(damageDealerEffectPrefab, other, otherChar.transform)
                     .GetComponent<DamageDealerEffect>();
                 damageDealerEffect.OnHit();
             }

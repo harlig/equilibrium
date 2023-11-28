@@ -91,17 +91,8 @@ public class ProjectileBehavior : MonoBehaviour
 
         if (damageDealerEffectPrefab != null)
         {
-            // Use the center of the collider as the approximate collision point
-            Vector2 collisionPoint = otherCollider.bounds.center;
-
-            Debug.LogFormat("Spawning damage dealer effect at {0}", collisionPoint);
-
-            // Instantiate the damage dealer effect at the approximate collision point
-            DamageDealerEffect damageDealerEffect = Instantiate(
-                    damageDealerEffectPrefab,
-                    collisionPoint, // Use the collision point as the position
-                    Quaternion.identity // Default rotation
-                )
+            DamageDealerEffect damageDealerEffect = DamageDealerEffect
+                .Create(damageDealerEffectPrefab, otherCollider, character.transform)
                 .GetComponent<DamageDealerEffect>();
             damageDealerEffect.OnHit();
         }
