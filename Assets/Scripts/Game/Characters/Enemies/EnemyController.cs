@@ -77,22 +77,7 @@ public abstract class EnemyController : GenericCharacterController
         {
             createdEnemy = Instantiate(prefab);
         }
-        var containingRoom = createdEnemy.GetComponentInParent<RoomManager>();
-
-        // Ensure the position is within the grid bounds
-        position.x = Mathf.Clamp(position.x, 0, containingRoom.Grid.nodes.GetLength(0) - 1);
-        position.y = Mathf.Clamp(position.y, 0, containingRoom.Grid.nodes.GetLength(1) - 1);
-
-        if (
-            !containingRoom.Grid.nodes[
-                Mathf.RoundToInt(position.x),
-                Mathf.RoundToInt(position.y)
-            ].Walkable
-        )
-        {
-            position = containingRoom.Grid.FindNearestWalkableTile(position);
-        }
-
+        
         createdEnemy.transform.localPosition = position;
         createdEnemy.player = player;
 
