@@ -80,7 +80,7 @@ public abstract class EnemyController : GenericCharacterController
         {
             createdEnemy = Instantiate(prefab);
         }
-        
+
         createdEnemy.transform.localPosition = position;
         createdEnemy.player = player;
 
@@ -196,12 +196,12 @@ public abstract class EnemyController : GenericCharacterController
     private bool isPatrolling = false;
 
     public void PatrolArea(
-        Vector2 endPosition,
+        Vector2 endLocalPosition,
         float overrideDetectionRadius = DEFAULT_DETECTION_RADIUS
     )
     {
         patrolStartPosition = transform.position;
-        patrolEndPosition = endPosition;
+        patrolEndPosition = endLocalPosition;
         detectionRadius = overrideDetectionRadius;
         startFollowing = false;
         patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
