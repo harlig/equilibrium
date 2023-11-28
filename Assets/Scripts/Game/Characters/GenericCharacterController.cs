@@ -36,18 +36,21 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     protected StatusEffectSystem elementalSystem;
 
+    [SerializeField]
+    private DamageReceiverEffect damageReceiverEffectPrefab;
     protected DamageReceiverEffect damageReceiverEffect;
-
-    protected virtual void Awake()
-    {
-        damageReceiverEffect = GetComponent<DamageReceiverEffect>();
-    }
 
     protected virtual void Start()
     {
         var gameManager = GetComponentInParent<GameManager>();
-        var prefab = gameManager.ElementalDamageStatusEffectSystemPrefab;
-        elementalSystem = Instantiate(prefab, transform).GetComponent<StatusEffectSystem>();
+        var elementalDamageStatusEffectSystemPrefab =
+            gameManager.ElementalDamageStatusEffectSystemPrefab;
+        elementalSystem = Instantiate(elementalDamageStatusEffectSystemPrefab, transform)
+            .GetComponent<StatusEffectSystem>();
+        if (damageReceiverEffectPrefab != null)
+        {
+            damageReceiverEffect = Instantiate(damageReceiverEffectPrefab, transform);
+        }
     }
 
     private float CalculateDamagePerInterval(float duration, float interval, float? totalDamage)

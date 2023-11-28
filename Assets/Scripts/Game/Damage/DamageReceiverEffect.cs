@@ -8,14 +8,14 @@ public class DamageReceiverEffect : MonoBehaviour
     void Awake()
     {
         onHitAnimator = GetComponent<OnHitAnimator>();
-        onHitAnimator.TicksPerAnimationChange = 20;
+        onHitAnimator.TicksPerAnimationChange = 2;
     }
+
+    // TODO: needs to take into account move direction
 
     public void OnHit()
     {
-        onHitAnimator.StartAnimation(() =>
-        {
-            Destroy(gameObject);
-        });
+        Debug.Log("animating on hit");
+        onHitAnimator.StartAnimation();
     }
 }

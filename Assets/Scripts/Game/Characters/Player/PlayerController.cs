@@ -58,9 +58,8 @@ public class PlayerController : GenericCharacterController
     public OrbitSystem OrbitSystem { get; private set; }
     public RoomManager CurrentRoom { get; set; }
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         OrbController.OrbType[] orbsToSupport =
         {
@@ -262,6 +261,8 @@ public class PlayerController : GenericCharacterController
 
         GetComponentInParent<GameManager>().AudioManager.PlayHurtSound();
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining);
+
+        damageReceiverEffect.OnHit();
 
         StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
     }

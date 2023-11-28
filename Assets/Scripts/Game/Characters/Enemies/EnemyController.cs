@@ -56,9 +56,8 @@ public abstract class EnemyController : GenericCharacterController
 
     private RangedWeapon rangedWeapon;
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
         containingRoom = GetComponentInParent<RoomManager>();
         damageTaken.TextElement = hpTextElement;
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());

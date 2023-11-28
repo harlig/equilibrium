@@ -30,7 +30,7 @@ public class OnHitAnimator : MonoBehaviour
         }
     }
 
-    public void StartAnimation(Action afterAnimationAction)
+    public void StartAnimation(Action afterAnimationAction = null)
     {
         animateOnce = true;
         currentSpriteIndex = 0; // Reset the sprite index
@@ -44,7 +44,6 @@ public class OnHitAnimator : MonoBehaviour
         updatesSinceLastSpriteChange++;
         if (updatesSinceLastSpriteChange >= TicksPerAnimationChange)
         {
-            currentSpriteIndex++;
             if (currentSpriteIndex >= onHitAnimationArray.Length)
             {
                 // Animation completed, stop and reset
@@ -58,6 +57,7 @@ public class OnHitAnimator : MonoBehaviour
                 // Update sprite and continue animation
                 spriteRenderer.sprite = onHitAnimationArray[currentSpriteIndex];
             }
+            currentSpriteIndex++;
             updatesSinceLastSpriteChange = 0;
         }
     }
