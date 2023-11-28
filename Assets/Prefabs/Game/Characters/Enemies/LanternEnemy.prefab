@@ -348,8 +348,7 @@ MonoBehaviour:
   hpTextElement: {fileID: 3555654630889757491}
   orbDropper: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}
   meleeWeaponPrefab: {fileID: 0}
-  rangedWeaponPrefab: {fileID: 553911553520147597, guid: 7b63a01d3509b48c3b4c1be3a3a3c512, type: 3}
-  projectilePrefab: {fileID: 7094162529331737584, guid: 77195ba3539754deaa747f0e18469cc0, type: 3}
+  rangedWeaponPrefab: {fileID: 553911553520147597, guid: 121f90defb3324aaa96991225a50273e, type: 3}
 --- !u!114 &219655062684712697
 MonoBehaviour:
   m_ObjectHideFlags: 0

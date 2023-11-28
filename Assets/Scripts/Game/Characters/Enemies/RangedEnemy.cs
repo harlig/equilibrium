@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class RangedEnemy : EnemyController
 {
-    [SerializeField]
-    private ProjectileBehavior projectilePrefab;
-
     private Vector2 spawnPosition;
 
     new void Start()
