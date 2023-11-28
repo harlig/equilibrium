@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class ProjectileBehavior : MonoBehaviour
 {
+    [SerializeField]
+    DamageDealerEffect damageDealerEffectPrefab;
     public float Speed = 8.5f;
 
     private Vector2 direction;
@@ -83,6 +86,16 @@ public class ProjectileBehavior : MonoBehaviour
                 elementalSystem.Duration,
                 elementalSystem.Damage
             );
+        }
+
+        if (damageDealerEffectPrefab != null)
+        {
+            DamageDealerEffect damageDealerEffect = Instantiate(
+                    damageDealerEffectPrefab,
+                    character.transform
+                )
+                .GetComponent<DamageDealerEffect>();
+            damageDealerEffect.OnHit();
         }
     }
 
