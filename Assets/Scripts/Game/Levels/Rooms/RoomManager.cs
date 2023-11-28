@@ -68,6 +68,8 @@ public class RoomManager : MonoBehaviour
 
         Min = new(minX, minY);
         Max = new(maxX, maxY);
+
+        Debug.LogFormat("Min: {0}, Max: {1}", Min, Max);
     }
 
     private bool AllEnemiesDead()
@@ -124,9 +126,9 @@ public class RoomManager : MonoBehaviour
         List<EnemyController> spawnedEnemies = new();
         foreach (var enemySpawnLocation in meleeEnemySpawnLocations)
         {
-            Debug.Log(enemySpawnLocation);
-            var spawnLocation = Grid.FindNearestWalkableTile(enemySpawnLocation);
-            Debug.Log(spawnLocation);
+            Debug.LogFormat("Enemy spawn: {0}", enemySpawnLocation);
+            var spawnLocation = Grid.FindNearestWalkableNode(enemySpawnLocation);
+            Debug.LogFormat("Spawn loc: {0}", spawnLocation);
             // var spawnLocation = enemySpawnLocation;
             // if (spawnLocation.x < 1)
             // {
@@ -148,25 +150,32 @@ public class RoomManager : MonoBehaviour
 
             // create new enemy at location
             MeleeEnemy enemyController = (MeleeEnemy)
-                EnemyController.Create(meleeEnemyPrefab, spawnLocation, player, transform);
-            enemyController.FollowPlayer(player);
-            spawnedEnemies.Add(enemyController);
-
-            enemyController = (MeleeEnemy)
                 EnemyController.Create(
                     meleeEnemyPrefab,
-                    spawnLocation + Vector2.up,
+                    spawnLocation.LocalPosition,
                     player,
                     transform
                 );
+            enemyController.FollowPlayer(player);
+            spawnedEnemies.Add(enemyController);
+
+            // enemyController = (MeleeEnemy)
+            //     EnemyController.Create(
+            //         meleeEnemyPrefab,
+            //         spawnLocation + Vector2.up,
+            //         player,
+            //         transform
+            //     );
 
             // TODO: this should work once Sam's changes to the grid local position are fixed, but until then this needs to be something which is definitely reachable within the grid
-            enemyController.PatrolArea(Grid.FindNearestWalkableTile(new Vector2(10, 1)));
-            spawnedEnemies.Add(enemyController);
+            // enemyController.PatrolArea(Grid.FindNearestWalkableTile(new Vector2(10, 1)));
+            // spawnedEnemies.Add(enemyController);
         }
         var rangedEnemy = EnemyController.Create(
             rangedEnemyPrefab,
-            new Vector2(Grid.FloorWidth - 2, Grid.FloorHeight),
+            Grid.FindNearestWalkableNode(
+                new Vector2(Grid.FloorWidth, Grid.FloorHeight)
+            ).LocalPosition,
             player,
             transform
         );
