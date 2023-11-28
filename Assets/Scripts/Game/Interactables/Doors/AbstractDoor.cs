@@ -59,26 +59,26 @@ public abstract class AbstractDoor : InteractableBehavior
         {
             case DoorType.LEFT:
                 newLocations.PlayerLocation = new(
-                    newRoom.Max.x - newRoomStartingBuffer.x,
+                    newDoor.transform.position.x - newRoomStartingBuffer.x,
                     newDoor.transform.position.y
                 );
                 break;
             case DoorType.UP:
                 newLocations.PlayerLocation = new(
                     newDoor.transform.position.x,
-                    newRoom.Min.y + newRoomStartingBuffer.y
+                    newDoor.transform.position.y + newRoomStartingBuffer.y
                 );
                 break;
             case DoorType.RIGHT:
                 newLocations.PlayerLocation = new(
-                    newRoom.Min.x + newRoomStartingBuffer.x,
+                    newDoor.transform.position.x + newRoomStartingBuffer.x,
                     newDoor.transform.position.y
                 );
                 break;
             case DoorType.DOWN:
                 newLocations.PlayerLocation = new(
                     newDoor.transform.position.x,
-                    newRoom.Max.y - newRoomStartingBuffer.y
+                    newDoor.transform.position.y - newRoomStartingBuffer.y
                 );
                 break;
             default:
