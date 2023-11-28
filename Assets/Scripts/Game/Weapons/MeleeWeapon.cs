@@ -5,6 +5,7 @@ public class MeleeWeapon : WeaponController
 {
     [SerializeField]
     DamageDealerEffect damageDealerEffectPrefab;
+
     private WeaponAnimator weaponAnimator;
     private BoxCollider2D boxCollider;
     public ElementalSystem elementalSystem = new(5f);
@@ -57,7 +58,7 @@ public class MeleeWeapon : WeaponController
 
     private void ApplyCharacterDamage(GenericCharacterController character, float damageModifier)
     {
-        character.DealDamage(DamageType, BaseDamageAmount + damageModifier);
+        character.TakeDamage(DamageType, BaseDamageAmount + damageModifier);
 
         if (elementalSystem.Chance > Chance.Get())
         {

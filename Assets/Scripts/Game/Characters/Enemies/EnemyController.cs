@@ -56,8 +56,9 @@ public abstract class EnemyController : GenericCharacterController
 
     private RangedWeapon rangedWeapon;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         containingRoom = GetComponentInParent<RoomManager>();
         damageTaken.TextElement = hpTextElement;
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
@@ -188,10 +189,8 @@ public abstract class EnemyController : GenericCharacterController
         CalculatePath();
     }
 
-    public override void DealDamage(DamageType damageType, float damage)
+    public override void TakeDamage(DamageType damageType, float damage)
     {
-        // use DamageType enum here
-        // maintain amount of damage dealt with certain types of orb
         switch (damageType)
         {
             case DamageType.FIRE:

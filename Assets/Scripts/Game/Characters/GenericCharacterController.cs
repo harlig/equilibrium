@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Video;
 
 public abstract class GenericCharacterController : MonoBehaviour
 {
@@ -29,11 +30,18 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     public abstract bool IsDead();
 
-    public abstract void DealDamage(DamageType damageType, float damageTaken);
+    public abstract void TakeDamage(DamageType damageType, float damageTaken);
 
     protected bool applyingStatusEffect = false;
 
     protected StatusEffectSystem elementalSystem;
+
+    protected DamageReceiverEffect damageReceiverEffect;
+
+    protected virtual void Awake()
+    {
+        damageReceiverEffect = GetComponent<DamageReceiverEffect>();
+    }
 
     protected virtual void Start()
     {
@@ -102,7 +110,7 @@ public abstract class GenericCharacterController : MonoBehaviour
             }
 
             duration -= DamageOverTimeSystem.DOT_INTERVAL;
-            DealDamage(damageType, damagePerInterval);
+            TakeDamage(damageType, damagePerInterval);
         }
 
         elementalSystem.StopAnimating();

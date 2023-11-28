@@ -8,7 +8,7 @@ public class OnHitAnimator : MonoBehaviour
 
     private int updatesSinceLastSpriteChange = 0;
 
-    private readonly float animationSpeed = 6;
+    public float TicksPerAnimationChange { get; set; } = 6;
 
     private SpriteRenderer spriteRenderer;
     private int currentSpriteIndex = 0;
@@ -42,7 +42,7 @@ public class OnHitAnimator : MonoBehaviour
     {
         spriteRenderer.enabled = true;
         updatesSinceLastSpriteChange++;
-        if (updatesSinceLastSpriteChange >= animationSpeed)
+        if (updatesSinceLastSpriteChange >= TicksPerAnimationChange)
         {
             currentSpriteIndex++;
             if (currentSpriteIndex >= onHitAnimationArray.Length)

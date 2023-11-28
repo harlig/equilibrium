@@ -58,8 +58,9 @@ public class PlayerController : GenericCharacterController
     public OrbitSystem OrbitSystem { get; private set; }
     public RoomManager CurrentRoom { get; set; }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         OrbController.OrbType[] orbsToSupport =
         {
@@ -246,7 +247,7 @@ public class PlayerController : GenericCharacterController
         return hpRemaining <= 0;
     }
 
-    public override void DealDamage(DamageType damageType, float damageTaken)
+    public override void TakeDamage(DamageType damageType, float damageTaken)
     {
         hpRemaining -= damageTaken;
 

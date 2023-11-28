@@ -78,7 +78,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void DealDamage(GenericCharacterController character)
     {
-        character.DealDamage(DamageType.ICE, DamageAmount);
+        character.TakeDamage(DamageType.ICE, DamageAmount);
         if (elementalSystem.Chance > Chance.Get())
         {
             character.ApplyDamageOverTime(

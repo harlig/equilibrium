@@ -43,7 +43,7 @@ public class OrbiterData : MonoBehaviour
         if (other.TryGetComponent<EnemyController>(out var enemy))
         {
             // TODO: this should be replaced with something specific to the orbiter and probably a system per-type of orbiter
-            enemy.DealDamage(damageType, damageAmount);
+            enemy.TakeDamage(damageType, damageAmount);
 
             // TODO: knockback is broken
             if (!enemy.IsDead() && other.attachedRigidbody != null)
