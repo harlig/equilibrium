@@ -47,36 +47,37 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (
-            other.GetComponent<PlayerController>() != null
-            && CharacterFiredFrom is not PlayerController
-        )
+        // Check for collision with Player or Enemy and ensure the projectile was not fired by the same type of character
+        var playerController = other.GetComponent<PlayerController>();
+        var enemyController = other.GetComponent<EnemyController>();
+
+        if (playerController != null && CharacterFiredFrom is not PlayerController)
         {
-            DealDamage(other.GetComponent<PlayerController>());
+            DealDamage(playerController, other);
             Destroy(gameObject);
         }
-        else if (
-            other.GetComponent<EnemyController>() != null
-            && CharacterFiredFrom is not EnemyController
-        )
+        else if (enemyController != null && CharacterFiredFrom is not EnemyController)
         {
-            DealDamage(other.GetComponent<EnemyController>());
+            DealDamage(enemyController, other);
             Destroy(gameObject);
         }
-        else if (other.GetComponent<TilemapCollider2D>() != null)
+        else if (other.GetComponent<TilemapCollider2D>() != null || ShouldDestroyByOrbiter(other))
         {
+            // Destroy the game object if it hits a tilemap or is deflected by an orbiter
             Destroy(gameObject);
-        }
-        else if (other.GetComponent<OrbiterData>() != null)
-        {
-            if (other.GetComponentInParent<OrbitSystem>().ShouldDeflectProjectile())
-            {
-                Destroy(gameObject);
-            }
         }
     }
 
-    private void DealDamage(GenericCharacterController character)
+    private bool ShouldDestroyByOrbiter(Collider2D collider)
+    {
+        if (collider.TryGetComponent<OrbiterData>(out _))
+        {
+            return collider.GetComponentInParent<OrbitSystem>().ShouldDeflectProjectile();
+        }
+        return false;
+    }
+
+    private void DealDamage(GenericCharacterController character, Collider2D otherCollider)
     {
         character.TakeDamage(DamageType.ICE, DamageAmount);
         if (elementalSystem.Chance > Chance.Get())
@@ -90,10 +91,16 @@ public class ProjectileBehavior : MonoBehaviour
 
         if (damageDealerEffectPrefab != null)
         {
-            // TODO: this should instead be instantiated at the point of contact of the projectile with the other character
+            // Use the center of the collider as the approximate collision point
+            Vector2 collisionPoint = otherCollider.bounds.center;
+
+            Debug.LogFormat("Spawning damage dealer effect at {0}", collisionPoint);
+
+            // Instantiate the damage dealer effect at the approximate collision point
             DamageDealerEffect damageDealerEffect = Instantiate(
                     damageDealerEffectPrefab,
-                    character.transform
+                    collisionPoint, // Use the collision point as the position
+                    Quaternion.identity // Default rotation
                 )
                 .GetComponent<DamageDealerEffect>();
             damageDealerEffect.OnHit();

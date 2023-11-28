@@ -72,23 +72,27 @@ public class MeleeWeapon : WeaponController
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // the weapon has collided with some other game object, do damage if character
+        // The weapon has collided with some other game object, do damage if character
         if (!other.TryGetComponent<GenericCharacterController>(out var otherChar))
         {
             return;
         }
 
-        // means we have collided with a character, apply damage, and no friendly fire on self
+        // Means we have collided with a character, apply damage, and no friendly fire on self
         if (!IsFriendlyFire(otherChar))
         {
             ApplyCharacterDamage(otherChar, GetDamageModifierOfParentCharacter());
 
             if (damageDealerEffectPrefab != null)
             {
-                // TODO: this should instead be instantiated at the point of contact of the projectile with the other character
+                // Use the center of the collider as the approximate collision point
+                Vector2 collisionPoint = other.bounds.center;
+
+                // Instantiate the damage dealer effect at the approximate collision point
                 DamageDealerEffect damageDealerEffect = Instantiate(
                         damageDealerEffectPrefab,
-                        otherChar.transform
+                        collisionPoint, // Use the collision point as the position
+                        Quaternion.identity // Default rotation
                     )
                     .GetComponent<DamageDealerEffect>();
                 damageDealerEffect.OnHit();
