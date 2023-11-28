@@ -143,10 +143,24 @@ public abstract class EnemyController : GenericCharacterController
                 }
             }
         }
-        else
+        else if (isPatrolling)
         {
-            // Stop the movement when not following
-            rigidBody.velocity = Vector2.zero;
+            Vector2 targetPosition =
+                patrolDirection == MoveDirection.TOWARDS_PATROL_POSITION
+                    ? patrolEndPosition
+                    : patrolStartPosition;
+            Vector2 direction = (targetPosition - rigidBody.position).normalized;
+            float speed = MovementSpeed * 80;
+            rigidBody.velocity = direction * speed;
+
+            if (Vector2.Distance(rigidBody.position, targetPosition) < 0.2f)
+            {
+                // Switch direction when the target position is reached
+                patrolDirection =
+                    patrolDirection == MoveDirection.TOWARDS_PATROL_POSITION
+                        ? MoveDirection.TOWARDS_START_POSITION
+                        : MoveDirection.TOWARDS_PATROL_POSITION;
+            }
         }
     }
 
@@ -181,11 +195,32 @@ public abstract class EnemyController : GenericCharacterController
     {
         this.player = player;
         startFollowing = true;
+        isPatrolling = false;
 
         float randomSpeedBoost = Random.Range(0f, 0.05f);
         AddToMovementSpeedModifier(randomSpeedBoost);
 
         CalculatePath();
+    }
+
+    private Vector2 patrolStartPosition;
+    private Vector2 patrolEndPosition;
+    private MoveDirection patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
+    private const float DEFAULT_DETECTION_RADIUS = 3f;
+    private float detectionRadius = DEFAULT_DETECTION_RADIUS;
+    private bool isPatrolling = false;
+
+    public void PatrolArea(
+        Vector2 endPosition,
+        float overrideDetectionRadius = DEFAULT_DETECTION_RADIUS
+    )
+    {
+        patrolStartPosition = transform.position;
+        patrolEndPosition = endPosition;
+        detectionRadius = overrideDetectionRadius;
+        startFollowing = false;
+        patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
+        isPatrolling = true;
     }
 
     public override void TakeDamage(DamageType damageType, float damage)
@@ -263,6 +298,16 @@ public abstract class EnemyController : GenericCharacterController
         if (!IsDead())
         {
             weaponSlotController.MoveWeaponsAtPosition(player.transform.position);
+
+            // if we get too close to the player, get em!
+            if (
+                !startFollowing
+                && Vector2.Distance(transform.position, player.transform.position)
+                    <= detectionRadius
+            )
+            {
+                FollowPlayer(player);
+            }
         }
     }
 

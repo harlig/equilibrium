@@ -148,6 +148,18 @@ public class RoomManager : MonoBehaviour
                 EnemyController.Create(meleeEnemyPrefab, spawnLocation, player, transform);
             enemyController.FollowPlayer(player);
             spawnedEnemies.Add(enemyController);
+
+            enemyController = (MeleeEnemy)
+                EnemyController.Create(
+                    meleeEnemyPrefab,
+                    spawnLocation + Vector2.up,
+                    player,
+                    transform
+                );
+
+            // TODO: this should work once Sam's changes to the grid local position are fixed, but until then this needs to be something which is definitely reachable within the grid
+            enemyController.PatrolArea(Grid.FindNearestWalkableTile(new Vector2(10, 1)));
+            spawnedEnemies.Add(enemyController);
         }
         var rangedEnemy = EnemyController.Create(
             rangedEnemyPrefab,
