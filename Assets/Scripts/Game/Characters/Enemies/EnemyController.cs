@@ -225,6 +225,10 @@ public abstract class EnemyController : GenericCharacterController
 
     public override void TakeDamage(DamageType damageType, float damage)
     {
+        if (isPatrolling)
+        {
+            FollowPlayer(player);
+        }
         switch (damageType)
         {
             case DamageType.FIRE:
