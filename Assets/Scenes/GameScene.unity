@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6063935873461095191, guid: ed98ceaf379ed461db612fea17489554, type: 3}
+      propertyPath: startingFloorPrefab
+      value: 
+      objectReference: {fileID: 2867518633813803049, guid: 787398b5f6de24175a63ad9dc0f5fd2d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
