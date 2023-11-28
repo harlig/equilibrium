@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class IntroFloor : FloorManager
 {
-    public override List<Vector2> MeleeEnemySpawnLocations => new() { new(10, 2), };
+    public override List<(int, int)> EnemySpawnLocations => new() { (2, 2), (1, 4) };
 }
