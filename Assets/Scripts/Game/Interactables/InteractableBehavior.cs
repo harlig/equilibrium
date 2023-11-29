@@ -12,7 +12,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     protected abstract void OnPlayerHit(PlayerController player);
     protected abstract string GetHelpText();
 
-    protected bool PlayerCanInteractWithThis { get; set; } = false;
+    protected virtual bool PlayerCanInteractWithThis { get; set; } = false;
     PlayerController playerController;
     HeadsUpDisplayController hudController;
     AudioManager audioManager;
@@ -51,7 +51,6 @@ public abstract class InteractableBehavior : MonoBehaviour
         hudController.DisableInteractableHelpText();
     }
 
-    // if an interactable is getting hit twice, does it have two rigidbodies?
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<PlayerController>() != null)

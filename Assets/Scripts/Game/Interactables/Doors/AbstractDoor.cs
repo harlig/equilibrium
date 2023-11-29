@@ -27,6 +27,11 @@ public abstract class AbstractDoor : InteractableBehavior
         }
     }
 
+    protected override bool PlayerCanInteractWithThis
+    {
+        get => base.PlayerCanInteractWithThis && CanGoThroughDoor();
+    }
+
     private bool CanGoThroughDoor()
     {
         return GetComponentInParent<RoomManager>().HasClearedRoom;
