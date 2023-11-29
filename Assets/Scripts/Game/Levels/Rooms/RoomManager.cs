@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static FloorManager;
 
 public class RoomManager : MonoBehaviour
 {
@@ -92,14 +93,14 @@ public class RoomManager : MonoBehaviour
 
     public void SetAsActiveRoom(
         PlayerController player,
-        (int, int) numberOfEnemies,
+        EnemyConfiguration enemyConfig,
         MeleeEnemy meleeEnemyPrefab,
         RangedEnemy rangedEnemyPrefab
     )
     {
         SetActiveAllChildren(true);
 
-        if (numberOfEnemies.Item1 + numberOfEnemies.Item2 <= 0)
+        if (enemyConfig.TotalNumEnemies <= 0)
         {
             // if there are no enemies to spawn, room is cleared
             HasClearedRoom = true;
@@ -110,24 +111,19 @@ public class RoomManager : MonoBehaviour
 
         if (!HasClearedRoom)
         {
-            enemies = SpawnEnemies(
-                player,
-                numberOfEnemies,
-                meleeEnemyPrefab,
-                rangedEnemyPrefab
-            );
+            enemies = SpawnEnemies(player, enemyConfig, meleeEnemyPrefab, rangedEnemyPrefab);
         }
     }
 
     List<EnemyController> SpawnEnemies(
         PlayerController player,
-        (int, int) numberOfEnemies,
+        EnemyConfiguration enemyConfig,
         MeleeEnemy meleeEnemyPrefab,
         RangedEnemy rangedEnemyPrefab
     )
     {
         List<EnemyController> spawnedEnemies = new();
-        for (int x = 0; x < numberOfEnemies.Item1; x++)
+        for (int x = 0; x < enemyConfig.MeleeEnemyCount; x++)
         {
             var meleeSpawnLoc = GenerateRandomRoomLocation();
             // create new enemy at location
@@ -154,7 +150,7 @@ public class RoomManager : MonoBehaviour
             // spawnedEnemies.Add(enemyController);
         }
 
-        for (int y = 0; y < numberOfEnemies.Item2; y++)
+        for (int y = 0; y < enemyConfig.RangedEnemyCount; y++)
         {
             var rangedSpawnLoc = GenerateRandomRoomLocation();
             var rangedEnemy = EnemyController.Create(
@@ -172,8 +168,9 @@ public class RoomManager : MonoBehaviour
     {
         Vector2Int randomVector;
         // make sure we don't generate the same vector twice
-        do {
-            int randomIdx = Random.Range(0, Grid.WalkableNodesIndices.Count); 
+        do
+        {
+            int randomIdx = Random.Range(0, Grid.WalkableNodesIndices.Count);
             randomVector = Grid.WalkableNodesIndices[randomIdx];
         } while (generatedVectors.Contains(randomVector));
 

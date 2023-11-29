@@ -12,15 +12,32 @@ public abstract class FloorManager : MonoBehaviour
     private RangedEnemy rangedEnemyPrefab;
 
     public RoomManager startingRoom;
-    private RoomManager activeRoom;
     private bool shouldSpawnEnemies = true;
     private PlayerController playerController;
     private CameraController cameraController;
     private HeadsUpDisplayController hudController;
 
-    public abstract List<(int, int)> EnemySpawnLocations { get; }
+    public abstract List<EnemyConfiguration> EnemySpawnLocations { get; }
 
-    public RoundRobinSelector<(int, int)> enemySpawnLocationsRoundRobin;
+    public RoundRobinSelector<EnemyConfiguration> enemySpawnLocationsRoundRobin;
+
+    public class EnemyConfiguration
+    {
+        public int MeleeEnemyCount { get; private set; }
+        public int RangedEnemyCount { get; private set; }
+
+        public int TotalNumEnemies
+        {
+            get => MeleeEnemyCount + RangedEnemyCount;
+        }
+
+        public static EnemyConfiguration Create(int numMeleeEnemies = 0, int numRangedEnemies = 0)
+        {
+            EnemyConfiguration config =
+                new() { MeleeEnemyCount = numMeleeEnemies, RangedEnemyCount = numRangedEnemies };
+            return config;
+        }
+    }
 
     public static FloorManager Create(
         FloorManager floorPrefab,
@@ -56,11 +73,12 @@ public abstract class FloorManager : MonoBehaviour
 
     public void SetActiveRoom(RoomManager newActiveRoom)
     {
-        activeRoom = newActiveRoom;
         newActiveRoom.SetAsActiveRoom(
             playerController,
             // escape hatch
-            shouldSpawnEnemies ? enemySpawnLocationsRoundRobin.PickNext() : (0, 0),
+            shouldSpawnEnemies
+                ? enemySpawnLocationsRoundRobin.PickNext()
+                : EnemyConfiguration.Create(),
             meleeEnemyPrefab,
             rangedEnemyPrefab
         );

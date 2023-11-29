@@ -3,5 +3,6 @@ using UnityEngine;
 
 public class SecondFloor : FloorManager
 {
-    public override List<(int, int)> EnemySpawnLocations => new() { (2, 2), (1, 4) };
+    public override List<EnemyConfiguration> EnemySpawnLocations =>
+        new() { EnemyConfiguration.Create(2, 2), EnemyConfiguration.Create(1, 4) };
 }
