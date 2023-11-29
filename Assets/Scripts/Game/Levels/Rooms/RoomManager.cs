@@ -16,6 +16,9 @@ public class RoomManager : MonoBehaviour
 
     private List<Vector2Int> generatedVectors;
 
+    private const float ATTEMPTS_TO_FIND_SPAWNABLE_LOCATION = 10;
+    private const float ENEMY_SPAWN_FROM_PLAYER_BUFFER_DISTANCE = 4f;
+
     void Awake()
     {
         Grid = new Grid(
@@ -125,7 +128,14 @@ public class RoomManager : MonoBehaviour
         List<EnemyController> spawnedEnemies = new();
         for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount; ndx++)
         {
-            var meleeSpawnLoc = GenerateRandomRoomLocation();
+            var meleeSpawnLoc = GenerateRandomEnemySpawnNode(player);
+            if (meleeSpawnLoc == null)
+            {
+                Debug.LogWarning(
+                    "Failed to find position to spawn enemy, not spawning any more melee enemies which follow player"
+                );
+                break;
+            }
             // create new enemy at location
             MeleeEnemy enemyController = (MeleeEnemy)
                 EnemyController.Create(
@@ -140,7 +150,14 @@ public class RoomManager : MonoBehaviour
 
         for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount; ndx++)
         {
-            var meleeSpawnLoc = GenerateRandomRoomLocation();
+            var meleeSpawnLoc = GenerateRandomEnemySpawnNode(player);
+            if (meleeSpawnLoc == null)
+            {
+                Debug.LogWarning(
+                    "Failed to find position to spawn enemy, not spawning any more melee enemies which patrol"
+                );
+                break;
+            }
             // create new enemy at location
             MeleeEnemy enemyController = (MeleeEnemy)
                 EnemyController.Create(
@@ -149,13 +166,20 @@ public class RoomManager : MonoBehaviour
                     player,
                     transform
                 );
-            enemyController.PatrolArea(GenerateRandomRoomLocation().WorldPosition);
+            enemyController.PatrolArea(GenerateRandomEnemySpawnNode(player).WorldPosition);
             spawnedEnemies.Add(enemyController);
         }
 
         for (int ndx = 0; ndx < enemyConfig.RangedEnemyCount; ndx++)
         {
-            var rangedSpawnLoc = GenerateRandomRoomLocation();
+            var rangedSpawnLoc = GenerateRandomEnemySpawnNode(player);
+            if (rangedSpawnLoc == null)
+            {
+                Debug.LogWarning(
+                    "Failed to find position to spawn ranged enemy, not spawning any more ranged enemies"
+                );
+                break;
+            }
             var rangedEnemy = EnemyController.Create(
                 rangedEnemyPrefab,
                 rangedSpawnLoc.LocalPosition,
@@ -167,17 +191,36 @@ public class RoomManager : MonoBehaviour
         return spawnedEnemies;
     }
 
-    private Node GenerateRandomRoomLocation()
+    private Node GenerateRandomEnemySpawnNode(PlayerController player)
     {
         Vector2Int randomVector;
         // make sure we don't generate the same vector twice
+        float distanceToPlayer;
+        Node potentialNode;
+        int numAttempts = 0;
+
         do
         {
             int randomIdx = Random.Range(0, Grid.WalkableNodesIndices.Count);
             randomVector = Grid.WalkableNodesIndices[randomIdx];
-        } while (generatedVectors.Contains(randomVector));
+            potentialNode = Grid.nodes[randomVector.x, randomVector.y];
+            distanceToPlayer = Vector2.Distance(
+                potentialNode.WorldPosition,
+                player.LocationAsVector2()
+            );
+            if (
+                numAttempts++
+                >= Grid.WalkableNodesIndices.Count * ATTEMPTS_TO_FIND_SPAWNABLE_LOCATION
+            )
+            {
+                return null;
+            }
+        } while (
+            generatedVectors.Contains(randomVector)
+            || distanceToPlayer < ENEMY_SPAWN_FROM_PLAYER_BUFFER_DISTANCE
+        );
 
         generatedVectors.Add(randomVector);
-        return Grid.nodes[randomVector.x, randomVector.y];
+        return potentialNode;
     }
 }

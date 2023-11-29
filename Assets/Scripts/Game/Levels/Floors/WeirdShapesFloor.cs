@@ -6,7 +6,7 @@ public class WeirdShapesFloor : FloorManager
         new()
         {
             EnemyConfiguration.Create(20, 2),
-            EnemyConfiguration.Create(5, 1),
-            EnemyConfiguration.Create(10, 3)
+            // EnemyConfiguration.Create(5, 1),
+            // EnemyConfiguration.Create(10, 3)
         };
 }

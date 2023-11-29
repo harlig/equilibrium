@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 6063935873461095191, guid: ed98ceaf379ed461db612fea17489554, type: 3}
       propertyPath: startingFloorPrefab
       value: 
-      objectReference: {fileID: 2867518633813803049, guid: f2add7b68d08148e6b290231272be576, type: 3}
+      objectReference: {fileID: 6098243811190715971, guid: 5724ba6c7b9b24ea7abc50c589bea6af, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
