@@ -126,7 +126,8 @@ public class RoomManager : MonoBehaviour
     )
     {
         List<EnemyController> spawnedEnemies = new();
-        for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount; ndx++)
+        var numMeleeEnemiesFollowingPlayer = Random.Range(0, enemyConfig.MeleeEnemyCount);
+        for (int ndx = 0; ndx < numMeleeEnemiesFollowingPlayer; ndx++)
         {
             var meleeSpawnLoc = GenerateRandomEnemySpawnNode(player);
             if (meleeSpawnLoc == null)
@@ -148,7 +149,7 @@ public class RoomManager : MonoBehaviour
             spawnedEnemies.Add(enemyController);
         }
 
-        for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount; ndx++)
+        for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount - numMeleeEnemiesFollowingPlayer; ndx++)
         {
             var meleeSpawnLoc = GenerateRandomEnemySpawnNode(player);
             if (meleeSpawnLoc == null)
