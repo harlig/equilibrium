@@ -64,28 +64,21 @@ public class OfferSystem : MonoBehaviour
         for (int ndx = 0; ndx < numOffersToRetrieve; ndx++)
         {
             int poolIndex = SelectPoolIndex(playerLevel);
-            OfferData offerPrefab = SelectOfferFromPool(poolIndex, currentEquilibriumState);
+            OfferData offerPrefab = SelectOfferFromPool(
+                poolIndex,
+                currentEquilibriumState,
+                acquisitionManager.OfferAcquisitions
+            );
 
             // if we can't get an offer from this pool, try from the pool below
             while (offerPrefab == null && poolIndex >= 0)
             {
                 poolIndex--;
-                offerPrefab = SelectOfferFromPool(poolIndex, currentEquilibriumState);
-            }
-
-            if (offerPrefab != null)
-            {
-                if (offerPrefab.AreAllPrerequisitesMet(acquisitionManager))
-                {
-                    selectedOffers.Add(OfferData.Create(offerPrefab, transform));
-                }
-                else
-                {
-                    Debug.LogFormat(
-                        "Would have added offer named {0} but prereqs weren't met",
-                        offerPrefab.name
-                    );
-                }
+                offerPrefab = SelectOfferFromPool(
+                    poolIndex,
+                    currentEquilibriumState,
+                    acquisitionManager.OfferAcquisitions
+                );
             }
         }
 
@@ -152,7 +145,8 @@ public class OfferSystem : MonoBehaviour
 
     private OfferData SelectOfferFromPool(
         int poolIndex,
-        EquilibriumManager.EquilibriumState equilibriumState
+        EquilibriumManager.EquilibriumState equilibriumState,
+        List<OfferData> offersAcquired
     )
     {
         if (poolIndex >= offerPools.Length)
@@ -165,6 +159,15 @@ public class OfferSystem : MonoBehaviour
 
         foreach (OfferData offer in pool)
         {
+            if (!offer.PrerequisitesMet(offersAcquired))
+            {
+                Debug.LogFormat(
+                    "Would have added offer named {0} but prereqs weren't met",
+                    offer.name
+                );
+                continue;
+            }
+
             // each offer gets somewhere between 0 and MAX_ENTRIES_FOR_OFFER entries in the raffle
             int numEntiresForThisOffer = Mathf.RoundToInt(
                 CalculateWeight(offer.CorrespondingState, equilibriumState) * MAX_ENTIRES_FOR_OFFER

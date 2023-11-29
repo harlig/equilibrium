@@ -13,11 +13,6 @@ public abstract class OfferData : MonoBehaviour
 
     public Sprite Sprite;
 
-    // Delegate type for prerequisites
-    public delegate bool PrerequisitesMet(List<OfferData> offer);
-
-    protected PrerequisitesMet PrerequisiteMetFunction;
-
     public static OfferData Create(OfferData prefab, Transform parent)
     {
         var instance = Instantiate(prefab, parent);
@@ -31,12 +26,8 @@ public abstract class OfferData : MonoBehaviour
 
     public abstract void ApplyToPlayer(PlayerController player);
 
-    public bool AreAllPrerequisitesMet(AcquisitionManager manager)
+    public virtual bool PrerequisitesMet(List<OfferData> offers)
     {
-        if (PrerequisiteMetFunction == null)
-        {
-            return true;
-        }
-        return PrerequisiteMetFunction(manager.OfferAcquisitions);
+        return true;
     }
 }
