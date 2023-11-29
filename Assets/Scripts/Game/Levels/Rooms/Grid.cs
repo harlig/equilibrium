@@ -18,9 +18,6 @@ public class Grid
 
     public List<Vector2Int> WalkableNodesIndices { get; private set; }
 
-    private readonly float parentX,
-        parentY;
-
     public Grid(
         Tilemap floorTilemap,
         Tilemap obstaclesTilemap,
@@ -33,8 +30,6 @@ public class Grid
         this.floorTilemap = floorTilemap;
         this.obstaclesTilemap = obstaclesTilemap;
         this.interactables = interactables;
-        this.parentX = x;
-        this.parentY = y;
         InitializeGrid();
     }
 
@@ -78,8 +73,8 @@ public class Grid
                     globalPos.y,
                     xIndex,
                     yIndex,
-                    localPlace.x,
-                    localPlace.y
+                    localPlace.x + GRID_OFFSET_X,
+                    localPlace.y + GRID_OFFSET_Y
                 );
 
                 if (isWalkable)
@@ -171,8 +166,8 @@ public class Node
     public float WorldY;
     public int IndexX;
     public int IndexY;
-    public int LocalX;
-    public int LocalY;
+    public float LocalX;
+    public float LocalY;
     public Vector2 WorldPosition;
     public Vector2 LocalPosition;
 
@@ -186,11 +181,19 @@ public class Node
         get { return GCost + HCost; }
     } // Total cost (G + H)
 
-    public Node(bool walkable, float x, float y, int xIndex, int yIndex, int localX, int localY)
+    public Node(
+        bool walkable,
+        float worldX,
+        float worldY,
+        int xIndex,
+        int yIndex,
+        float localX,
+        float localY
+    )
     {
         Walkable = walkable;
-        WorldX = x;
-        WorldY = y;
+        WorldX = worldX;
+        WorldY = worldY;
         IndexX = xIndex;
         IndexY = yIndex;
         GCost = int.MaxValue;

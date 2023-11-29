@@ -125,7 +125,7 @@ public abstract class FloorManager : MonoBehaviour
 
 public class RoundRobinSelector<T>
 {
-    private List<T> elements;
+    private readonly List<T> elements;
     private int currentIndex;
 
     public RoundRobinSelector(List<T> elements)
