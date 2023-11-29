@@ -55,7 +55,8 @@ public class OfferSystem : MonoBehaviour
     public List<OfferData> GetOffers(
         int numOffersToRetrieve,
         int playerLevel,
-        EquilibriumManager.EquilibriumState currentEquilibriumState
+        EquilibriumManager.EquilibriumState currentEquilibriumState,
+        AcquisitionManager acquisitionManager
     )
     {
         List<OfferData> selectedOffers = new();
@@ -74,7 +75,17 @@ public class OfferSystem : MonoBehaviour
 
             if (offerPrefab != null)
             {
-                selectedOffers.Add(OfferData.Create(offerPrefab, transform));
+                if (offerPrefab.AreAllPrerequisitesMet(acquisitionManager))
+                {
+                    selectedOffers.Add(OfferData.Create(offerPrefab, transform));
+                }
+                else
+                {
+                    Debug.LogFormat(
+                        "Would have added offer named {0} but prereqs weren't met",
+                        offerPrefab.name
+                    );
+                }
             }
         }
 

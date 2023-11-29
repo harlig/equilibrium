@@ -31,7 +31,8 @@ public class ChestController : InteractableBehavior
         List<OfferData> chestHitOffers = gameManager.OfferSystem.GetOffers(
             NUM_OFFERS,
             player.PlayerLevel,
-            player.EquilibriumState
+            player.EquilibriumState,
+            gameManager.AcquisitionManager
         );
 
         GameManager.PauseGame();

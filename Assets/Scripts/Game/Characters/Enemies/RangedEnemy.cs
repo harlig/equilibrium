@@ -30,7 +30,7 @@ public class RangedEnemy : EnemyController
         // Check if 5 seconds have passed
         if (elementalEffectTimer >= ElementalEffectInterval)
         {
-            if (TryGetComponent<ElementalEnemy>(out var elementalEnemy))
+            if (!IsDead() && TryGetComponent<ElementalEnemy>(out var elementalEnemy))
             {
                 elementalEnemy.ToggleElementalEffect();
             }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class AcquisitionManager
 {
     public readonly List<Acquisition> Acquisitions = new();
+    public readonly List<OfferData> OfferAcquisitions = new();
 
     private readonly PlayerController player;
 
@@ -17,6 +18,8 @@ public class AcquisitionManager
     public void AcquireOffer(OfferData offer)
     {
         Acquisitions.Add(Acquisition.FromOffer(offer));
+        OfferAcquisitions.Add(offer);
+
         offer.ApplyToPlayer(player);
     }
 }

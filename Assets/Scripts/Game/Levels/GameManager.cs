@@ -42,12 +42,12 @@ public class GameManager : MonoBehaviour
     public CameraController CameraController { get; private set; }
     public AudioManager AudioManager { get; private set; }
 
-    private AcquisitionManager acquisitionManager;
+    public AcquisitionManager AcquisitionManager { get; private set; }
     private LevelUpBehavior levelUpBehavior;
 
     void Awake()
     {
-        acquisitionManager = new(player);
+        AcquisitionManager = new(player);
     }
 
     void Start()
@@ -106,7 +106,8 @@ public class GameManager : MonoBehaviour
         List<OfferData> levelUpOffers = OfferSystem.GetOffers(
             numOffersToGet,
             newLevel,
-            player.EquilibriumState
+            player.EquilibriumState,
+            AcquisitionManager
         );
 
         levelUpBehavior.LevelUp(
@@ -120,8 +121,8 @@ public class GameManager : MonoBehaviour
 
     public void OnOfferSelected(OfferData offerSelected)
     {
-        acquisitionManager.AcquireOffer(offerSelected);
-        HudController.SetAcquisitions(acquisitionManager.Acquisitions);
+        AcquisitionManager.AcquireOffer(offerSelected);
+        HudController.SetAcquisitions(AcquisitionManager.Acquisitions);
     }
 
     void OnPlayerOrbCollected(OrbController orbCollected, float newPlayerXp)
