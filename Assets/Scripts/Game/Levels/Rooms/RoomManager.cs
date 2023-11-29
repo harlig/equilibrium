@@ -62,20 +62,21 @@ public class RoomManager : MonoBehaviour
 
     void CalculateGridDimensions()
     {
-        BoundsInt bounds = obstaclesTilemap.cellBounds;
+        BoundsInt obstacleBounds = obstaclesTilemap.cellBounds;
+        Vector3 obstaclesMinWorld = obstaclesTilemap.GetCellCenterWorld(obstacleBounds.min);
+        Vector3 obstaclesMaxWorld = obstaclesTilemap.GetCellCenterWorld(obstacleBounds.max);
 
-        Vector3 minWorld = obstaclesTilemap.GetCellCenterWorld(bounds.min);
-        Vector3 maxWorld = obstaclesTilemap.GetCellCenterWorld(bounds.max);
+        BoundsInt groundBounds = floorTilemap.cellBounds;
+        Vector3 groundMinWorld = floorTilemap.GetCellCenterWorld(groundBounds.min);
+        Vector3 groundMaxWorld = floorTilemap.GetCellCenterWorld(groundBounds.max);
 
-        var minX = Mathf.FloorToInt(minWorld.x);
-        var minY = Mathf.FloorToInt(minWorld.y);
-        var maxX = Mathf.CeilToInt(maxWorld.x);
-        var maxY = Mathf.CeilToInt(maxWorld.y);
+        var minX = Mathf.FloorToInt(Mathf.Min(obstaclesMinWorld.x, groundMinWorld.x));
+        var minY = Mathf.FloorToInt(Mathf.Min(obstaclesMinWorld.y, groundMinWorld.y));
+        var maxX = Mathf.CeilToInt(Mathf.Max(obstaclesMaxWorld.x, groundMaxWorld.x));
+        var maxY = Mathf.CeilToInt(Mathf.Max(obstaclesMaxWorld.y, groundMaxWorld.y));
 
         Min = new(minX, minY);
         Max = new(maxX, maxY);
-
-        Debug.LogFormat("Min: {0}, Max: {1}", Min, Max);
     }
 
     private bool AllEnemiesDead()
