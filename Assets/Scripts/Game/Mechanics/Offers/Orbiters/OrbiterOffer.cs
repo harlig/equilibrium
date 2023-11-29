@@ -20,4 +20,16 @@ public abstract class OrbiterOffer : OfferData
     {
         ApplyToOrbitSystem(player.OrbitSystem);
     }
+
+    public override bool PrerequisitesMet(List<OfferData> offers)
+    {
+        foreach (var offer in offers)
+        {
+            if (offer is GainOrbiterOffer)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
