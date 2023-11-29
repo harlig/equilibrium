@@ -171,10 +171,6 @@ public class OfferSystem : MonoBehaviour
         {
             if (!offer.PrerequisitesMet(offersAcquired))
             {
-                Debug.LogFormat(
-                    "Would have added offer named {0} but prereqs weren't met",
-                    offer.name
-                );
                 continue;
             }
 
