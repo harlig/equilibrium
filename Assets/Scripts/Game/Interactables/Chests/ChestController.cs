@@ -12,8 +12,9 @@ public class ChestController : InteractableBehavior
     // chests always give 3 offers
     private const int NUM_OFFERS = 3;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         gameManager = GetComponentInParent<GameManager>();
     }
 

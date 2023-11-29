@@ -17,7 +17,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     HeadsUpDisplayController hudController;
     AudioManager audioManager;
 
-    void Start()
+    protected virtual void Awake()
     {
         hudController = GetComponentInParent<GameManager>().HudController;
         audioManager = GetComponentInParent<GameManager>().AudioManager;
