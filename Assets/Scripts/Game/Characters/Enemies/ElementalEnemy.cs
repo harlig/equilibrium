@@ -5,6 +5,9 @@ public class ElementalEnemy : MonoBehaviour
 {
     [SerializeField]
     private Sprite[] elementalSprites;
+
+    [SerializeField]
+    private ProjectileBehavior elementalProjectilePrefab;
     private CharacterAnimator characterAnimator;
     private bool elementalActivated = false;
 
@@ -31,11 +34,13 @@ public class ElementalEnemy : MonoBehaviour
     {
         elementalActivated = true;
         characterAnimator.UseCustomSpritesForWalkAndIdle(elementalSprites);
+        GetComponentInChildren<RangedWeapon>().OverrideProjectile = elementalProjectilePrefab;
     }
 
     private void DectivateElementalEffect()
     {
         elementalActivated = false;
         characterAnimator.StopUsingCustomSprites();
+        GetComponentInChildren<RangedWeapon>().OverrideProjectile = null;
     }
 }

@@ -17,6 +17,8 @@ public class RangedWeapon : WeaponController
 
     private bool isShooting = false;
 
+    public ProjectileBehavior OverrideProjectile { private get; set; } = null;
+
     void Awake()
     {
         weaponAnimator = GetComponent<WeaponAnimator>();
@@ -54,7 +56,7 @@ public class RangedWeapon : WeaponController
         Vector2 launchDirection = new Vector2(directionX, directionY).normalized;
 
         ProjectileBehavior.Create(
-            projectilePrefab,
+            OverrideProjectile != null ? OverrideProjectile : projectilePrefab,
             transform.localToWorldMatrix.GetPosition(),
             launchDirection,
             character,

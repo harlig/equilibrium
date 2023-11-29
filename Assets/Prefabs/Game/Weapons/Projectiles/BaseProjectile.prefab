@@ -77,7 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageDealerEffectPrefab: {fileID: 2705254619957844959, guid: 0f015f4a64c594520a3d3fe0d0c8716c, type: 3}
   Speed: 8
-  DamageAmount: 10
+  DamageAmount: 50
 --- !u!61 &1393283749133594303
 BoxCollider2D:
   m_ObjectHideFlags: 0
