@@ -5,8 +5,11 @@ public class WeirdShapesFloor : FloorManager
     public override List<EnemyConfiguration> EnemySpawnLocations =>
         new()
         {
-            EnemyConfiguration.Create(20, 2),
-            // EnemyConfiguration.Create(5, 1),
-            // EnemyConfiguration.Create(10, 3)
+            EnemyConfiguration.Create(5, 2),
+            // EnemyConfiguration.Create(10, 3),
+            EnemyConfiguration.Create(2, 1),
+            // EnemyConfiguration.Create(10, 3),
+            EnemyConfiguration.Create(1, 1),
+            EnemyConfiguration.Create(2, 2),
         };
 }

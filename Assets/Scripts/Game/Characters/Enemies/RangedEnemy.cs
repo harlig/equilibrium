@@ -15,6 +15,11 @@ public class RangedEnemy : EnemyController
     private float elementalEffectTimer = 0f;
     private const float ElementalEffectInterval = 5f; // 5 seconds
 
+    protected override int GetMaxHp()
+    {
+        return 20;
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -70,10 +75,5 @@ public class RangedEnemy : EnemyController
             WeaponController.WeaponType.RANGED,
             player.transform.position
         );
-    }
-
-    protected override int GetMaxHp()
-    {
-        return 200;
     }
 }

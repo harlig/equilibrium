@@ -24,7 +24,7 @@ public abstract class EnemyController : GenericCharacterController
 
     protected virtual int GetMaxHp()
     {
-        return 100;
+        return 10;
     }
 
     protected PlayerController player;

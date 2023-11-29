@@ -19,6 +19,19 @@ public abstract class AbstractDoor : InteractableBehavior
     // how many grid units into the room the unit should be moved
     private Vector2 newRoomStartingBuffer = new(2.5f, 2.5f);
 
+    void Awake()
+    {
+        if (DoorTo == null)
+        {
+            throw new Exception($"Door {name} had no DoorTo set");
+        }
+    }
+
+    protected override bool PlayerCanInteractWithThis
+    {
+        get => base.PlayerCanInteractWithThis && CanGoThroughDoor();
+    }
+
     private bool CanGoThroughDoor()
     {
         return GetComponentInParent<RoomManager>().HasClearedRoom;
@@ -55,6 +68,7 @@ public abstract class AbstractDoor : InteractableBehavior
     {
         var newRoom = newDoor.GetContainingRoom();
         PlayerAndCameraLocation newLocations = new();
+        // switch should be switching on new door
         switch (GetDoorType())
         {
             case DoorType.LEFT:

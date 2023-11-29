@@ -141,6 +141,7 @@ public class RoundRobinSelector<T>
             return default;
         }
 
+        // we should randomly pick something we havne't yet picked
         T selectedElement = elements[currentIndex];
         currentIndex = (currentIndex + 1) % elements.Count;
         return selectedElement;

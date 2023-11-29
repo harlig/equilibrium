@@ -14,6 +14,11 @@ public class StairsController : InteractableBehavior
         return "You must clear the room to descend the stairs";
     }
 
+    protected override bool PlayerCanInteractWithThis
+    {
+        get => base.PlayerCanInteractWithThis && CanDescendStairs();
+    }
+
     private bool CanDescendStairs()
     {
         return GetComponentInParent<RoomManager>().HasClearedRoom;
