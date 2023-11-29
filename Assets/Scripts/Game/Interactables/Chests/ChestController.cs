@@ -42,6 +42,8 @@ public class ChestController : InteractableBehavior
             {
                 gameManager.OnOfferSelected(offerSelected);
                 GameManager.UnpauseGame();
+                // can walk through chest once opened
+                GetComponent<BoxCollider2D>().enabled = false;
             },
             "Chest opened!"
         );
