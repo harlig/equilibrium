@@ -56,7 +56,11 @@ public abstract class GenericCharacterController : MonoBehaviour
         return (float)(totalDamage / (duration / interval));
     }
 
-    public void ApplyDamageOverTime(DamageType damageType, float duration, float totalDamage = 0)
+    public void ApplyEffectsForDamageType(
+        DamageType damageType,
+        float duration,
+        float totalDamage = 0
+    )
     {
         if (applyingStatusEffect || IsDead() || damageType == DamageType.NEUTRAL)
         {

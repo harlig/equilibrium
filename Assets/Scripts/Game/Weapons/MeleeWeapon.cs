@@ -60,7 +60,7 @@ public class MeleeWeapon : WeaponController
 
         if (elementalSystem.Chance > Chance.Get())
         {
-            character.ApplyDamageOverTime(
+            character.ApplyEffectsForDamageType(
                 DamageType,
                 elementalSystem.Duration,
                 elementalSystem.Damage

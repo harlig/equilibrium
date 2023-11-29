@@ -83,7 +83,7 @@ public class ProjectileBehavior : MonoBehaviour
         character.TakeDamage(DamageType, DamageAmount);
         if (elementalSystem.Chance > Chance.Get())
         {
-            character.ApplyDamageOverTime(
+            character.ApplyEffectsForDamageType(
                 DamageType,
                 elementalSystem.Duration,
                 elementalSystem.Damage

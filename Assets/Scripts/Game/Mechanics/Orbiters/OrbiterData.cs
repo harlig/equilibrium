@@ -61,7 +61,7 @@ public class OrbiterData : MonoBehaviour
                 {
                     damage = 3f;
                 }
-                enemy.ApplyDamageOverTime(damageType, 3.0f, damage);
+                enemy.ApplyEffectsForDamageType(damageType, 3.0f, damage);
             }
         }
     }

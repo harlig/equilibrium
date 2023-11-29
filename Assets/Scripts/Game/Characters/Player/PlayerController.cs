@@ -287,7 +287,7 @@ public class PlayerController : GenericCharacterController
         var oldState = EquilibriumState;
         if (newState == EquilibriumManager.EquilibriumState.INFERNO)
         {
-            ApplyDamageOverTime(DamageType.FIRE, int.MaxValue);
+            ApplyEffectsForDamageType(DamageType.FIRE, int.MaxValue);
         }
         else if (oldState == EquilibriumManager.EquilibriumState.INFERNO)
         {
