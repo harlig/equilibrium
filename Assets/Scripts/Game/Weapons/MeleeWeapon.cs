@@ -12,8 +12,6 @@ public class MeleeWeapon : WeaponController
 
     public override bool ShouldRotateToMousePosition => false;
 
-    public override DamageType DamageType => DamageType.FIRE;
-
     public override float BaseDamageAmount => 20f;
 
     public override WeaponType Type => WeaponType.MELEE;
@@ -63,7 +61,7 @@ public class MeleeWeapon : WeaponController
         if (elementalSystem.Chance > Chance.Get())
         {
             character.ApplyDamageOverTime(
-                DamageType.FIRE,
+                DamageType,
                 elementalSystem.Duration,
                 elementalSystem.Damage
             );

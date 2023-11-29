@@ -4,7 +4,7 @@ public abstract class WeaponController : MonoBehaviour
 {
     protected GenericCharacterController character;
 
-    public abstract DamageType DamageType { get; }
+    public DamageType DamageType;
 
     public abstract float BaseDamageAmount { get; }
     public abstract WeaponType Type { get; }

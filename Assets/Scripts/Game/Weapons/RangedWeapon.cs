@@ -9,8 +9,6 @@ public class RangedWeapon : WeaponController
 
     public override bool ShouldRotateToMousePosition => true;
 
-    public override DamageType DamageType => DamageType.ICE;
-
     // this is just a modifier for the projectile damage
     public override float BaseDamageAmount => 0f;
     public override WeaponType Type => WeaponType.RANGED;

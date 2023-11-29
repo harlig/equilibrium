@@ -6,6 +6,7 @@ public class ProjectileBehavior : MonoBehaviour
 {
     [SerializeField]
     DamageDealerEffect damageDealerEffectPrefab;
+    public DamageType DamageType;
     public float Speed = 8.5f;
 
     private Vector2 direction;
@@ -79,11 +80,11 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void DealDamage(GenericCharacterController character, Collider2D otherCollider)
     {
-        character.TakeDamage(DamageType.ICE, DamageAmount);
+        character.TakeDamage(DamageType, DamageAmount);
         if (elementalSystem.Chance > Chance.Get())
         {
             character.ApplyDamageOverTime(
-                DamageType.ICE,
+                DamageType,
                 elementalSystem.Duration,
                 elementalSystem.Damage
             );

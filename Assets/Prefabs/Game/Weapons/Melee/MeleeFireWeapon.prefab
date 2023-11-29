@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e849689ba204fe1a584982948aa7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageType: 1
   BaseAttackSpeed: 3
   damageDealerEffectPrefab: {fileID: 2705254619957844959, guid: 33e30302bcb2e475aaecba7112369a0e, type: 3}
 --- !u!50 &8539133962248501871

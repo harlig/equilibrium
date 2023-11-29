@@ -5,10 +5,16 @@ public class DamageTaken
 {
     public float FireDamage { get; set; }
     public float IceDamage { get; set; }
+    public float NeutralDamage { get; set; }
 
     public TextMeshPro TextElement { get; set; }
 
     public float TotalDamage()
+    {
+        return FireDamage + IceDamage + NeutralDamage;
+    }
+
+    public float TotalElementalDamage()
     {
         return FireDamage + IceDamage;
     }
@@ -39,7 +45,7 @@ public class OrbDropper : MonoBehaviour
 
     private static bool ShouldDropFireOrb(DamageTaken damageTaken)
     {
-        float fireProbability = damageTaken.FireDamage / damageTaken.TotalDamage();
+        float fireProbability = damageTaken.FireDamage / damageTaken.TotalElementalDamage();
 
         return Random.Range(0.0f, 1.0f)
             < Mathf.Clamp(fireProbability, 1.0f - MAX_PROBABILITY, MAX_PROBABILITY);

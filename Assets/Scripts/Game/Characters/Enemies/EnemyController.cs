@@ -237,6 +237,9 @@ public abstract class EnemyController : GenericCharacterController
             case DamageType.ICE:
                 damageTaken.IceDamage += damage;
                 break;
+            case DamageType.NEUTRAL:
+                damageTaken.NeutralDamage += damage;
+                break;
         }
 
         damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());

@@ -58,7 +58,7 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     public void ApplyDamageOverTime(DamageType damageType, float duration, float totalDamage = 0)
     {
-        if (applyingStatusEffect || IsDead())
+        if (applyingStatusEffect || IsDead() || damageType == DamageType.NEUTRAL)
         {
             return;
         }
@@ -69,7 +69,7 @@ public abstract class GenericCharacterController : MonoBehaviour
         {
             DamageType.FIRE => EquilibriumManager.EquilibriumState.INFERNO,
             DamageType.ICE => EquilibriumManager.EquilibriumState.FROZEN,
-            _ => throw new System.Exception($"Unhandled damage type {damageType}")
+            _ => throw new System.Exception($"Unhandled damage type for DOT {damageType}")
         };
         elementalSystem.SetStateAndAnimate(state);
 

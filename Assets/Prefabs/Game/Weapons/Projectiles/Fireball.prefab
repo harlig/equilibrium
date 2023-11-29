@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageDealerEffectPrefab: {fileID: 0}
+  DamageType: 1
   Speed: 6
   DamageAmount: 10
 --- !u!61 &1393283749133594303
