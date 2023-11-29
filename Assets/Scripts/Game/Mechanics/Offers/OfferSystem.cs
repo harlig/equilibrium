@@ -80,6 +80,16 @@ public class OfferSystem : MonoBehaviour
                     acquisitionManager.OfferAcquisitions
                 );
             }
+
+            if (offerPrefab != null)
+            {
+                selectedOffers.Add(OfferData.Create(offerPrefab, transform));
+            }
+        }
+
+        if (selectedOffers.Count == 0)
+        {
+            throw new Exception("Found no offers! Can't keep going");
         }
 
         return selectedOffers;
