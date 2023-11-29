@@ -104,7 +104,7 @@ public abstract class EnemyController : GenericCharacterController
                 || (path != null && currentPathIndex == path.Count)
             )
             {
-                CalculatePath();
+                CalculateFollowPlayerPath();
                 pathUpdateTimer = 0;
             }
 
@@ -130,21 +130,32 @@ public abstract class EnemyController : GenericCharacterController
         }
         else if (isPatrolling)
         {
-            Vector2 targetPosition =
-                patrolDirection == MoveDirection.TOWARDS_PATROL_POSITION
-                    ? patrolEndPosition
-                    : patrolStartPosition;
-            Vector2 direction = (targetPosition - rigidBody.position).normalized;
-            float speed = MovementSpeed * 80;
-            rigidBody.velocity = direction * speed;
-
-            if (Vector2.Distance(rigidBody.position, targetPosition) < 0.2f)
+            if (path != null && currentPathIndex < path.Count)
             {
-                // Switch direction when the target position is reached
-                patrolDirection =
-                    patrolDirection == MoveDirection.TOWARDS_PATROL_POSITION
-                        ? MoveDirection.TOWARDS_START_POSITION
-                        : MoveDirection.TOWARDS_PATROL_POSITION;
+                Node nextNode = path[currentPathIndex];
+                Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
+                Vector2 direction = (nextPosition - rigidBody.position).normalized;
+                float speed = MovementSpeed * 80; // Adjust this speed as needed
+                rigidBody.velocity = direction * speed;
+
+                if (Vector2.Distance(rigidBody.position, nextPosition) < 0.2f)
+                {
+                    currentPathIndex++;
+                    if (currentPathIndex >= path.Count)
+                    {
+                        // Switch target position and recalculate path
+                        if (patrolDirection == MoveDirection.TOWARDS_PATROL_POSITION)
+                        {
+                            patrolDirection = MoveDirection.TOWARDS_START_POSITION;
+                            CalculatePatrolPath(patrolStartWorldPosition); // Recalculate path back to the start
+                        }
+                        else
+                        {
+                            patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
+                            CalculatePatrolPath(patrolEndWorldPosition); // Recalculate path to the end position
+                        }
+                    }
+                }
             }
         }
     }
@@ -185,27 +196,34 @@ public abstract class EnemyController : GenericCharacterController
         float randomSpeedBoost = Random.Range(0f, 0.05f);
         AddToMovementSpeedModifier(randomSpeedBoost);
 
-        CalculatePath();
+        CalculateFollowPlayerPath();
     }
 
-    private Vector2 patrolStartPosition;
-    private Vector2 patrolEndPosition;
+    private Vector2 patrolStartWorldPosition;
+    private Vector2 patrolEndWorldPosition;
     private MoveDirection patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
     private const float DEFAULT_DETECTION_RADIUS = 3f;
     private float detectionRadius = DEFAULT_DETECTION_RADIUS;
     private bool isPatrolling = false;
 
     public void PatrolArea(
-        Vector2 endLocalPosition,
+        Vector2 endWorldPosition,
         float overrideDetectionRadius = DEFAULT_DETECTION_RADIUS
     )
     {
-        patrolStartPosition = transform.position;
-        patrolEndPosition = endLocalPosition;
+        patrolStartWorldPosition = transform.position;
+        patrolEndWorldPosition = endWorldPosition;
+        Debug.LogFormat(
+            "patrolling from {0} to {1}",
+            patrolStartWorldPosition,
+            patrolEndWorldPosition
+        );
         detectionRadius = overrideDetectionRadius;
         startFollowing = false;
         patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
         isPatrolling = true;
+
+        CalculatePatrolPath(patrolEndWorldPosition);
     }
 
     public override void TakeDamage(DamageType damageType, float damage)
@@ -266,7 +284,7 @@ public abstract class EnemyController : GenericCharacterController
         return damageTaken.TotalDamage() >= GetMaxHp();
     }
 
-    void CalculatePath()
+    void CalculateFollowPlayerPath()
     {
         Vector2Int start = containingRoom.Grid.WorldToGrid(transform.position);
         Vector2Int end = containingRoom.Grid.WorldToGrid(player.transform.position);
@@ -279,6 +297,18 @@ public abstract class EnemyController : GenericCharacterController
             return;
         }
 
+        if (path != null && path.Count > 0)
+        {
+            currentPathIndex = 0;
+        }
+    }
+
+    void CalculatePatrolPath(Vector2 targetPosition)
+    {
+        Vector2Int start = containingRoom.Grid.WorldToGrid(transform.position);
+        Vector2Int end = containingRoom.Grid.WorldToGrid(targetPosition);
+
+        path = AStarPathfinding.FindPath(containingRoom.Grid, start, end);
         if (path != null && path.Count > 0)
         {
             currentPathIndex = 0;

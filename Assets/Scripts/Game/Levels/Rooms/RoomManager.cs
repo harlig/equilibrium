@@ -123,7 +123,7 @@ public class RoomManager : MonoBehaviour
     )
     {
         List<EnemyController> spawnedEnemies = new();
-        for (int x = 0; x < enemyConfig.MeleeEnemyCount; x++)
+        for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount; ndx++)
         {
             var meleeSpawnLoc = GenerateRandomRoomLocation();
             // create new enemy at location
@@ -136,22 +136,24 @@ public class RoomManager : MonoBehaviour
                 );
             enemyController.FollowPlayer(player);
             spawnedEnemies.Add(enemyController);
+        }
 
-            enemyController = (MeleeEnemy)
+        for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount; ndx++)
+        {
+            var meleeSpawnLoc = GenerateRandomRoomLocation();
+            // create new enemy at location
+            MeleeEnemy enemyController = (MeleeEnemy)
                 EnemyController.Create(
                     meleeEnemyPrefab,
-                    Grid.FindNearestWalkableNode(
-                        meleeSpawnLoc.LocalPosition + Vector2.up
-                    ).LocalPosition,
+                    meleeSpawnLoc.LocalPosition,
                     player,
                     transform
                 );
-
-            enemyController.PatrolArea(GenerateRandomRoomLocation().LocalPosition);
+            enemyController.PatrolArea(GenerateRandomRoomLocation().WorldPosition);
             spawnedEnemies.Add(enemyController);
         }
 
-        for (int y = 0; y < enemyConfig.RangedEnemyCount; y++)
+        for (int ndx = 0; ndx < enemyConfig.RangedEnemyCount; ndx++)
         {
             var rangedSpawnLoc = GenerateRandomRoomLocation();
             var rangedEnemy = EnemyController.Create(
