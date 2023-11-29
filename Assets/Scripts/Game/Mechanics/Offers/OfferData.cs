@@ -14,10 +14,9 @@ public abstract class OfferData : MonoBehaviour
     public Sprite Sprite;
 
     // Delegate type for prerequisites
-    public delegate bool Prerequisite(OfferData offer);
+    public delegate bool PrerequisitesMet(List<OfferData> offer);
 
-    // List of prerequisite functions
-    protected List<Prerequisite> Prerequisites = new();
+    protected PrerequisitesMet PrerequisiteMetFunction;
 
     public static OfferData Create(OfferData prefab, Transform parent)
     {
@@ -34,14 +33,10 @@ public abstract class OfferData : MonoBehaviour
 
     public bool AreAllPrerequisitesMet(AcquisitionManager manager)
     {
-        foreach (var prerequisite in Prerequisites)
+        if (PrerequisiteMetFunction == null)
         {
-            foreach (var acquiredOffer in manager.OfferAcquisitions)
-                if (!prerequisite(acquiredOffer))
-                {
-                    return false;
-                }
+            return true;
         }
-        return true;
+        return PrerequisiteMetFunction(manager.OfferAcquisitions);
     }
 }
