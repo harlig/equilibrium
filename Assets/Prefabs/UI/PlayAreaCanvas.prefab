@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 236605444880999379}
   - component: {fileID: 725671102672746429}
   m_Layer: 5
-  m_Name: XP collected
+  m_Name: HP remaining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
