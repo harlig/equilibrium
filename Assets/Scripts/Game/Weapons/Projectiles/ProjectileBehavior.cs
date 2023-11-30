@@ -80,7 +80,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void DealDamage(GenericCharacterController character, Collider2D otherCollider)
     {
-        character.TakeDamage(DamageType, DamageAmount);
+        character.TakeDamage(DamageType, DamageAmount * CharacterFiredFrom.DamageDealtMultiplier);
         if (elementalSystem.Chance > Chance.Get())
         {
             character.ApplyEffectsForDamageType(

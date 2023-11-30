@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class GenericCharacterController : MonoBehaviour
 {
     private const float MIN_MOVEMENT_SPEED = 0.01f;
+    private const float BASE_MOVEMENT_SPEED_MULTIPLIER = 1f;
+    public const float BASE_DAMAGE_DEALT_MULTIPLIER = 1f;
 
     // public api for move speed
     public float MovementSpeed
@@ -23,8 +25,8 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     public abstract float HpRemaining { get; }
 
-    private float movementSpeedMultiplier = 1f;
-    public float DamageDealtMultiplier { get; private set; } = 1f;
+    private float movementSpeedMultiplier = BASE_MOVEMENT_SPEED_MULTIPLIER;
+    public float DamageDealtMultiplier { get; private set; } = BASE_DAMAGE_DEALT_MULTIPLIER;
 
     // TODO: update what uses this
     public void AddToMovementSpeedModifier(float speedToMultiply)

@@ -40,9 +40,11 @@ public abstract class WeaponController : MonoBehaviour
 
     protected float GetDamageModifierOfParentCharacter()
     {
+        float damageModifer = GenericCharacterController.BASE_DAMAGE_DEALT_MULTIPLIER;
+
+        // TODO: why would there ever not be a character parent?
         // get damage modifier from the parent of this weapon if there is one
         var parentCharacter = GetComponentInParent<GenericCharacterController>();
-        float damageModifer = 0;
         if (parentCharacter != null)
         {
             damageModifer =
