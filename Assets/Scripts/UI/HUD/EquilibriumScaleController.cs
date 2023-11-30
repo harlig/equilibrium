@@ -19,7 +19,10 @@ public class EquilibriumScaleController : MonoBehaviour
         float rightBasketInitialX = rightBasket.anchoredPosition.x;
 
         // Calculate vertical offset based on the rotation angle
-        float barHalfWidth = centerBar.rect.width / 2;
+        // subtract by distance from one edge of sprite to the edge of the bar
+        float barHalfWidth = (float)(centerBar.rect.width / 2 - (centerBar.rect.width * 0.1778));
+        // float barHalfWidth = (rightBasket.anchoredPosition.x - leftBasket.anchoredPosition.x) / 2;
+
         float verticalOffset = Mathf.Sin(angle * Mathf.Deg2Rad) * barHalfWidth;
 
         // Update positions
