@@ -25,6 +25,12 @@ public class OfferSystem : MonoBehaviour
             {
                 numPools.Add(offer.OfferPool);
             }
+            if (offer.Sprite == null)
+            {
+                throw new Exception(
+                    $"Offer named {offer.name} has no image! Set an image on this offer or remove it from the offer system"
+                );
+            }
         }
 
         // arrays are fast but idk if it's worth the extra effort to loop over allOffers twice
