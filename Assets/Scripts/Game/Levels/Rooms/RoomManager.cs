@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static FloorManager;
@@ -127,70 +128,90 @@ public class RoomManager : MonoBehaviour
     )
     {
         List<EnemyController> spawnedEnemies = new();
-        var numMeleeEnemiesFollowingPlayer = Random.Range(0, enemyConfig.MeleeEnemyCount);
-        for (int ndx = 0; ndx < numMeleeEnemiesFollowingPlayer; ndx++)
+
+        Dictionary<EnemyController.EnemyType, int> enemyCounts =
+            new()
+            {
+                // Initialize enemy counts
+                [EnemyController.EnemyType.Ranged] = enemyConfig.RangedEnemyCount,
+                [EnemyController.EnemyType.MeleeFollowing] = Random.Range(
+                    0,
+                    enemyConfig.MeleeEnemyCount
+                )
+            };
+        enemyCounts[EnemyController.EnemyType.MeleePatrolling] =
+            enemyConfig.MeleeEnemyCount - enemyCounts[EnemyController.EnemyType.MeleeFollowing];
+
+        while (HasEnemiesToSpawn(enemyCounts))
         {
-            var meleeSpawnLoc = GenerateRandomEnemySpawnNode(player);
-            if (meleeSpawnLoc == null)
+            var remainingTypes = enemyCounts.Where(e => e.Value > 0).Select(e => e.Key).ToList();
+            int randomIndex = Random.Range(0, remainingTypes.Count);
+            EnemyController.EnemyType enemyType = remainingTypes[randomIndex];
+            var spawnLoc = GenerateRandomEnemySpawnNode(player);
+
+            if (spawnLoc == null)
             {
                 Debug.LogWarning(
-                    "Failed to find position to spawn enemy, not spawning any more melee enemies which follow player"
+                    $"Failed to find position to spawn {enemyType} enemy, not spawning any more of this type"
                 );
-                break;
+                enemyCounts[enemyType]--;
+                continue;
             }
-            // create new enemy at location
-            MeleeEnemy enemyController = (MeleeEnemy)
-                EnemyController.Create(
-                    meleeEnemyPrefab,
-                    meleeSpawnLoc.LocalPosition,
-                    player,
-                    transform
-                );
-            enemyController.FollowPlayer(player);
-            spawnedEnemies.Add(enemyController);
+
+            EnemyController enemyController = null;
+
+            switch (enemyType)
+            {
+                case EnemyController.EnemyType.MeleeFollowing:
+                    enemyController = (MeleeEnemy)
+                        EnemyController.Create(
+                            meleeEnemyPrefab,
+                            spawnLoc.LocalPosition,
+                            player,
+                            transform
+                        );
+                    ((MeleeEnemy)enemyController).FollowPlayer(player);
+                    break;
+                case EnemyController.EnemyType.MeleePatrolling:
+                    enemyController = (MeleeEnemy)
+                        EnemyController.Create(
+                            meleeEnemyPrefab,
+                            spawnLoc.LocalPosition,
+                            player,
+                            transform
+                        );
+                    ((MeleeEnemy)enemyController).PatrolArea(spawnLoc.WorldPosition);
+                    break;
+                case EnemyController.EnemyType.Ranged:
+                    enemyController = EnemyController.Create(
+                        rangedEnemyPrefab,
+                        spawnLoc.LocalPosition,
+                        player,
+                        transform
+                    );
+                    break;
+            }
+
+            if (enemyController != null)
+            {
+                spawnedEnemies.Add(enemyController);
+                enemyCounts[enemyType]--;
+            }
         }
 
-        for (int ndx = 0; ndx < enemyConfig.MeleeEnemyCount - numMeleeEnemiesFollowingPlayer; ndx++)
-        {
-            var meleeSpawnLoc = GenerateRandomEnemySpawnNode(player);
-            if (meleeSpawnLoc == null)
-            {
-                Debug.LogWarning(
-                    "Failed to find position to spawn enemy, not spawning any more melee enemies which patrol"
-                );
-                break;
-            }
-            // create new enemy at location
-            MeleeEnemy enemyController = (MeleeEnemy)
-                EnemyController.Create(
-                    meleeEnemyPrefab,
-                    meleeSpawnLoc.LocalPosition,
-                    player,
-                    transform
-                );
-            enemyController.PatrolArea(GenerateRandomEnemySpawnNode(player).WorldPosition);
-            spawnedEnemies.Add(enemyController);
-        }
-
-        for (int ndx = 0; ndx < enemyConfig.RangedEnemyCount; ndx++)
-        {
-            var rangedSpawnLoc = GenerateRandomEnemySpawnNode(player);
-            if (rangedSpawnLoc == null)
-            {
-                Debug.LogWarning(
-                    "Failed to find position to spawn ranged enemy, not spawning any more ranged enemies"
-                );
-                break;
-            }
-            var rangedEnemy = EnemyController.Create(
-                rangedEnemyPrefab,
-                rangedSpawnLoc.LocalPosition,
-                player,
-                transform
-            );
-            spawnedEnemies.Add(rangedEnemy);
-        }
         return spawnedEnemies;
+    }
+
+    bool HasEnemiesToSpawn(Dictionary<EnemyController.EnemyType, int> enemyCounts)
+    {
+        foreach (var pair in enemyCounts)
+        {
+            if (pair.Value > 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Node GenerateRandomEnemySpawnNode(PlayerController player)

@@ -5,6 +5,13 @@ using UnityEngine;
 
 public abstract class EnemyController : GenericCharacterController
 {
+    public enum EnemyType
+    {
+        MeleeFollowing,
+        MeleePatrolling,
+        Ranged
+    }
+
     private enum MoveDirection
     {
         TOWARDS_START_POSITION,
@@ -213,11 +220,6 @@ public abstract class EnemyController : GenericCharacterController
     {
         patrolStartWorldPosition = transform.position;
         patrolEndWorldPosition = endWorldPosition;
-        Debug.LogFormat(
-            "patrolling from {0} to {1}",
-            patrolStartWorldPosition,
-            patrolEndWorldPosition
-        );
         detectionRadius = overrideDetectionRadius;
         startFollowing = false;
         patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;

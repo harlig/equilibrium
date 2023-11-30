@@ -4,5 +4,5 @@ using UnityEngine;
 public class SecondFloor : FloorManager
 {
     public override List<EnemyConfiguration> EnemySpawnLocations =>
-        new() { EnemyConfiguration.Create(2, 2), EnemyConfiguration.Create(1, 4) };
+        new() { EnemyConfiguration.Create(20, 20), EnemyConfiguration.Create(10, 40) };
 }

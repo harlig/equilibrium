@@ -34,9 +34,14 @@ public class StairsController : InteractableBehavior
                 Debug.LogError("Stairs were interacted with which had no FloorTo set!");
                 return;
             }
-            if (FloorTo.GetComponent<FirstFloor>() != null)
+            if (
+                FloorTo.GetComponent<FirstFloor>() != null
+                && GetComponentInParent<IntroFloor>() != null
+            )
             {
-                Debug.Log("hit first floor, gonna go ahead and load next build index");
+                Debug.Log(
+                    "hit first floor from intro level, gonna go ahead and load next build index"
+                );
                 SceneManager.LoadSceneAsync(
                     SceneManager.GetActiveScene().buildIndex + 1,
                     LoadSceneMode.Single
