@@ -48,6 +48,6 @@ MonoBehaviour:
   OfferPool: 9
   Color: {r: 0.93333334, g: 0.45956373, b: 0.37254897, a: 1}
   Value: 6
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: b502a8223f4bf47d8a05e4c9f6aee331, type: 3}
   orbType: 0
   orbDropperPrefab: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}

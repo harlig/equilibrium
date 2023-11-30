@@ -48,4 +48,5 @@ MonoBehaviour:
   OfferPool: 3
   Color: {r: 0.9339623, g: 0.54187435, b: 0.54187435, a: 1}
   Value: 4
+  Sprite: {fileID: 21300000, guid: 5eaf2bceb119d41abbf1116a90b3d0e2, type: 3}
   augmentation: 1

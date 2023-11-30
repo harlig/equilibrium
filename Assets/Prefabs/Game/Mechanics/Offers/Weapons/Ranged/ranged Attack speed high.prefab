@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: -4602556075324142313}
   m_Layer: 0
-  m_Name: Attack speed high
+  m_Name: ranged Attack speed high
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25370cd8eb97414cb583aee48d4be68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorrespondingState: 6
+  CorrespondingState: 0
   OfferPool: 7
   Color: {r: 0.9410302, g: 1, b: 0.3537736, a: 1}
   Value: 2
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 7610692d6afb7491393089df59cc581f, type: 3}
   affectedWeaponType: 1

@@ -48,4 +48,4 @@ MonoBehaviour:
   OfferPool: 7
   Color: {r: 0.96296287, g: 1, b: 0, a: 1}
   Value: 30
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: f5386dfa7787841298683c2c0701108c, type: 3}
