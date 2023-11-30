@@ -100,6 +100,11 @@ public class Grid
 
     private bool IsInteractableWalkable(InteractableBehavior interactable)
     {
+        // doors aren't walkable
+        if (interactable is AbstractDoor)
+        {
+            return false;
+        }
         // Return true if the collider of the interactable is a trigger (walkable)
         // Return false if it's a non-trigger collider (non-walkable)
         return interactable.GetComponent<Collider2D>().isTrigger;
