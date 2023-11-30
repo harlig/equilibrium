@@ -13,7 +13,7 @@ public abstract class GenericCharacterController : MonoBehaviour
     {
         get
         {
-            float totalMovementSpeed = BaseMovementSpeed + movementSpeedMultiplier;
+            float totalMovementSpeed = BaseMovementSpeed * movementSpeedMultiplier;
             return totalMovementSpeed < MIN_MOVEMENT_SPEED
                 ? MIN_MOVEMENT_SPEED
                 : totalMovementSpeed;
