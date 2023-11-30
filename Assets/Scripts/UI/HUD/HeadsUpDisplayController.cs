@@ -97,7 +97,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     }
 
     // TODO: should this also disable all of the other HUD elements? can do this once Omar gives HUD art
-    public void OnGameOver(GameOverStatus gameOverStatus)
+    public void OnGameOver(GameOverStatus gameOverStatus, StatisticsTracker statisticsTracker)
     {
         gameOverMenuController.gameObject.SetActive(true);
         if (gameOverStatus == GameOverStatus.FAIL)
@@ -105,5 +105,6 @@ public class HeadsUpDisplayController : MonoBehaviour
             SetPlayerHp(0);
         }
         gameOverMenuController.SetText(gameOverStatus);
+        gameOverMenuController.SetStats(statisticsTracker);
     }
 }

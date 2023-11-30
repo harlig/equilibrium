@@ -20,7 +20,7 @@ public class FirestarterOffer : SystemOffer
 
     public override string GetName()
     {
-        return $"Firestarter {augmentation.ToString().ToLowerInvariant()}";
+        return $"Firestarter {augmentation.ToString().ToLower()}";
     }
 
     public override string GetHelpText()

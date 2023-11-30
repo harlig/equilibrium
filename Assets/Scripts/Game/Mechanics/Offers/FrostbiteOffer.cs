@@ -26,7 +26,7 @@ public class FrostbiteOffer : SystemOffer
 
     public override string GetName()
     {
-        return $"Frostbite {augmentation.ToString().ToLowerInvariant()}";
+        return $"Frostbite {augmentation.ToString().ToLower()}";
     }
 
     public override string GetHelpText()

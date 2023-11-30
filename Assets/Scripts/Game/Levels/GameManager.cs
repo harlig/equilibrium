@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     public AcquisitionManager AcquisitionManager { get; private set; }
     private LevelUpBehavior levelUpBehavior;
+
+    public StatisticsTracker statisticsTracker = new();
 
     void Awake()
     {
@@ -149,6 +150,6 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver(GameOverStatus gameOverStatus)
     {
-        HudController.OnGameOver(gameOverStatus);
+        HudController.OnGameOver(gameOverStatus, statisticsTracker);
     }
 }
