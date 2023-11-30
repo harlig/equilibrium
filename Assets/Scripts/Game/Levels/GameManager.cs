@@ -140,4 +140,15 @@ public class GameManager : MonoBehaviour
         HudController.SetPlayerXp(newPlayerXp);
         HudController.SetOrbsCollected();
     }
+
+    public enum GameOverStatus
+    {
+        WIN,
+        FAIL
+    }
+
+    public void OnGameOver(GameOverStatus gameOverStatus)
+    {
+        HudController.OnGameOver(gameOverStatus);
+    }
 }

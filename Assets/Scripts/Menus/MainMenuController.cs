@@ -57,4 +57,9 @@ public class MainMenuController : MonoBehaviour
             .GetComponent<UnityEngine.EventSystems.EventSystem>()
             .SetSelectedGameObject(null);
     }
+
+    public static void ToMainMenu()
+    {
+        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+    }
 }

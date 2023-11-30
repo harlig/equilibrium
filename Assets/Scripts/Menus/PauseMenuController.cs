@@ -56,6 +56,6 @@ public class PauseMenuController : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        MainMenuController.ToMainMenu();
     }
 }

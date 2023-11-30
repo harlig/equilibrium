@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static GameManager;
 
 public class PlayerController : GenericCharacterController
 {
@@ -42,7 +43,7 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
-    public override float MaxHp => 3000;
+    public override float MaxHp => 50;
 
     protected override float BaseMovementSpeed => 0.15f;
 
@@ -242,7 +243,7 @@ public class PlayerController : GenericCharacterController
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
 
-        GetComponentInParent<GameManager>().HudController.OnPlayerDeath();
+        GetComponentInParent<GameManager>().OnGameOver(GameOverStatus.FAIL);
     }
 
     public override void TakeDamage(DamageType damageType, float damageTaken)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static GameManager;
 
 public class HeadsUpDisplayController : MonoBehaviour
 {
@@ -26,8 +27,9 @@ public class HeadsUpDisplayController : MonoBehaviour
     private TextMeshProUGUI interactableHelpText;
 
     private OrbCollector playerOrbCollector;
-    private AcquisitionsDisplayController acquisitionsDisplayController;
     public OfferAreaManager OfferAreaManager { get; private set; }
+    private AcquisitionsDisplayController acquisitionsDisplayController;
+    private GameOverMenuController gameOverMenuController;
 
     void Awake()
     {
@@ -43,8 +45,11 @@ public class HeadsUpDisplayController : MonoBehaviour
 
         playerOrbCollector = player.OrbCollector;
         acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
+        gameOverMenuController = GetComponentInChildren<GameOverMenuController>();
+
         SetOrbsCollected();
         DisableInteractableHelpText();
+        gameOverMenuController.gameObject.SetActive(false);
     }
 
     public void SetPlayerLevel(int newPlayerLevel)
@@ -91,9 +96,14 @@ public class HeadsUpDisplayController : MonoBehaviour
         interactableHelpText.gameObject.SetActive(false);
     }
 
-    public void OnPlayerDeath()
+    // TODO: should this also disable all of the other HUD elements? can do this once Omar gives HUD art
+    public void OnGameOver(GameOverStatus gameOverStatus)
     {
-        SetPlayerHp(0);
-        // TODO: set some menu showing how much shit you collected and a button to go home
+        gameOverMenuController.gameObject.SetActive(true);
+        if (gameOverStatus == GameOverStatus.FAIL)
+        {
+            SetPlayerHp(0);
+        }
+        gameOverMenuController.SetText(gameOverStatus);
     }
 }
