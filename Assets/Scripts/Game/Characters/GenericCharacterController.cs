@@ -31,6 +31,7 @@ public abstract class GenericCharacterController : MonoBehaviour
     public abstract bool IsDead();
 
     public abstract void TakeDamage(DamageType damageType, float damageTaken);
+    protected abstract void OnDeath();
 
     protected bool applyingStatusEffect = false;
 

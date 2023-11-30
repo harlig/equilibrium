@@ -90,4 +90,10 @@ public class HeadsUpDisplayController : MonoBehaviour
     {
         interactableHelpText.gameObject.SetActive(false);
     }
+
+    public void OnPlayerDeath()
+    {
+        SetPlayerHp(0);
+        // TODO: set some menu showing how much shit you collected and a button to go home
+    }
 }

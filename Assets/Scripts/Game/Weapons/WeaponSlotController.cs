@@ -11,6 +11,8 @@ public class WeaponSlotController
 
     private readonly float weaponOffsetAngle = 45f;
 
+    private bool attackingEnabled = true;
+
     public WeaponSlotController(
         GenericCharacterController character,
         float distanceFromCharacter = 0.7f
@@ -22,7 +24,7 @@ public class WeaponSlotController
 
     public void ManageWeapons()
     {
-        if (character is PlayerController player)
+        if (attackingEnabled && character is PlayerController player)
         {
             // if a player, move based on mouse position
             Vector2 mousePosition = player.MainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -150,5 +152,10 @@ public class WeaponSlotController
         float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) - 90; // subtract 90 to account for tan angle
 
         weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    public void DisableAttacking()
+    {
+        attackingEnabled = false;
     }
 }

@@ -256,7 +256,7 @@ public abstract class EnemyController : GenericCharacterController
         }
     }
 
-    void OnDeath()
+    protected override void OnDeath()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().freezeRotation = true;

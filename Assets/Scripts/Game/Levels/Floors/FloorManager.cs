@@ -103,17 +103,9 @@ public abstract class FloorManager : MonoBehaviour
     {
         float xPos = (startingRoom.GroundMaxPositions.x + startingRoom.GroundMinPositions.x) / 2.0f;
         float yPos = (startingRoom.GroundMaxPositions.y + startingRoom.GroundMinPositions.y) / 2.0f;
-        Debug.LogFormat("Can we spawn player at {0}, {1}", xPos, yPos);
         InteractableBehavior.PlayerAndCameraLocation newLocations = new() { };
         var PlayerLocation = startingRoom.Grid.FindNearestWalkableNode(new Vector2(xPos, yPos));
-        Debug.LogFormat("Player location {0}", PlayerLocation);
         newLocations.PlayerLocation = PlayerLocation.WorldPosition;
-
-        Debug.LogFormat(
-            "New floor starting room is at [{0}, {1}]",
-            startingRoom.RoomMinPositions,
-            startingRoom.RoomMaxPositions
-        );
 
         newLocations.CameraBounds = new(
             startingRoom.RoomMinPositions,

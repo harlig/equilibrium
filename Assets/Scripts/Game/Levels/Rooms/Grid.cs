@@ -127,8 +127,6 @@ public class Grid
         // First check the node at the target position
         int targetX = Mathf.RoundToInt(targetLocalPosition.x - GridOrigin.x);
         int targetY = Mathf.RoundToInt(targetLocalPosition.y - GridOrigin.y);
-        Debug.LogFormat("grid origin {0}", GridOrigin);
-        Debug.LogFormat("targets {0}; {1}", targetX, targetY);
 
         if (
             targetX >= 0
@@ -138,7 +136,6 @@ public class Grid
         )
         {
             var targetNode = nodes[targetX, targetY];
-            Debug.LogFormat("tgot target! walkable {0}", targetNode.Walkable);
             if (targetNode.Walkable)
             {
                 return targetNode;

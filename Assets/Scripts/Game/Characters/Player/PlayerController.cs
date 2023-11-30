@@ -42,8 +42,6 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
-    private const float WEAPON_OFFSET = 0.40f;
-
     public override float MaxHp => 3000;
 
     protected override float BaseMovementSpeed => 0.15f;
@@ -234,16 +232,26 @@ public class PlayerController : GenericCharacterController
         return hpRemaining <= 0;
     }
 
+    protected override void OnDeath()
+    {
+        _canMove = false;
+        weaponSlotController.DisableAttacking();
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        // no longer collide with it
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        GetComponentInParent<GameManager>().HudController.OnPlayerDeath();
+    }
+
     public override void TakeDamage(DamageType damageType, float damageTaken)
     {
         hpRemaining -= damageTaken;
 
         if (IsDead())
         {
-            // TODO: game over
-            _canMove = false;
-            // don't want to call WaitBeforeTakingDmg so we don't take more dmg
-            GetComponent<BoxCollider2D>().enabled = false;
+            OnDeath();
             return;
         }
 
