@@ -12,12 +12,15 @@ public abstract class AbstractDoor : InteractableBehavior
     }
 
     [SerializeField]
+    private bool CanAlwaysGoThroughDoor = false;
+
+    [SerializeField]
     private AbstractDoor DoorTo;
 
     public abstract DoorType GetDoorType();
 
     // how many grid units into the room the unit should be moved
-    private Vector2 newRoomStartingBuffer = new(2.5f, 2.5f);
+    private Vector2 newRoomStartingBuffer = new(1f, 1f);
 
     protected override void Awake()
     {
@@ -35,7 +38,7 @@ public abstract class AbstractDoor : InteractableBehavior
 
     private bool CanGoThroughDoor()
     {
-        return GetComponentInParent<RoomManager>().HasClearedRoom;
+        return CanAlwaysGoThroughDoor || GetComponentInParent<RoomManager>().HasClearedRoom;
     }
 
     protected override string GetHelpText()
@@ -65,7 +68,7 @@ public abstract class AbstractDoor : InteractableBehavior
         }
     }
 
-    private PlayerAndCameraLocation GetNewRoomPlayerAndCameraLocation(AbstractDoor newDoor)
+    private PlayerAndCameraLocation GetNewDoorPlayerAndCameraLocation(AbstractDoor newDoor)
     {
         var newRoom = newDoor.GetContainingRoom();
         PlayerAndCameraLocation newLocations = new();
@@ -118,7 +121,7 @@ public abstract class AbstractDoor : InteractableBehavior
         {
             throw new Exception("Door was interacted with which had no DoorTo set!");
         }
-        var newLocations = GetNewRoomPlayerAndCameraLocation(DoorTo);
+        var newLocations = GetNewDoorPlayerAndCameraLocation(DoorTo);
         playerController.MovePlayerToLocation(newLocations.PlayerLocation);
         cameraController.SetCameraBounds(
             newLocations.CameraBounds.Item1,

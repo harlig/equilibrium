@@ -17,6 +17,7 @@ public class RoomManager : MonoBehaviour
     private List<EnemyController> enemies;
     public Grid Grid { get; private set; }
     public bool HasClearedRoom { get; private set; } = false;
+    public bool HasRoomBeenVisited { get; private set; } = false;
 
     private List<Vector2Int> generatedVectors;
 
@@ -125,10 +126,11 @@ public class RoomManager : MonoBehaviour
         player.CurrentRoom = this;
         generatedVectors = new();
 
-        if (!HasClearedRoom)
+        if (!HasRoomBeenVisited)
         {
             enemies = SpawnEnemies(player, enemyConfig, meleeEnemyPrefab, rangedEnemyPrefab);
         }
+        HasRoomBeenVisited = true;
     }
 
     List<EnemyController> SpawnEnemies(

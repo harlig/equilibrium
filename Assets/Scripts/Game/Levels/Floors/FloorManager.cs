@@ -75,7 +75,6 @@ public abstract class FloorManager : MonoBehaviour
     {
         newActiveRoom.SetAsActiveRoom(
             playerController,
-            // escape hatch
             shouldSpawnEnemies
                 ? enemySpawnLocationsRoundRobin.PickNext()
                 : EnemyConfiguration.Create(),
