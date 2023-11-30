@@ -30,6 +30,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     public OfferAreaManager OfferAreaManager { get; private set; }
     private AcquisitionsDisplayController acquisitionsDisplayController;
     private GameOverMenuController gameOverMenuController;
+    public EquilibriumScaleController equilibriumScaleController;
 
     void Awake()
     {
@@ -46,6 +47,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         playerOrbCollector = player.OrbCollector;
         acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
         gameOverMenuController = GetComponentInChildren<GameOverMenuController>();
+        equilibriumScaleController = GetComponentInChildren<EquilibriumScaleController>();
 
         SetOrbsCollected();
         DisableInteractableHelpText();
