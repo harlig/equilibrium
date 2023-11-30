@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DifficultySystem;
 
 public abstract class FloorManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public abstract class FloorManager : MonoBehaviour
     private PlayerController playerController;
     private CameraController cameraController;
     private HeadsUpDisplayController hudController;
+    private Difficulty difficulty;
 
     public abstract List<EnemyConfiguration> EnemySpawnLocations { get; }
 
@@ -44,13 +46,15 @@ public abstract class FloorManager : MonoBehaviour
         Transform parent,
         PlayerController playerController,
         CameraController cameraController,
-        HeadsUpDisplayController hudController
+        HeadsUpDisplayController hudController,
+        Difficulty difficulty
     )
     {
         var createdFloor = Instantiate(floorPrefab, parent);
         createdFloor.playerController = playerController;
         createdFloor.cameraController = cameraController;
         createdFloor.hudController = hudController;
+        createdFloor.difficulty = difficulty;
         return createdFloor;
     }
 
@@ -95,7 +99,8 @@ public abstract class FloorManager : MonoBehaviour
             GetComponentInParent<GameManager>().transform,
             playerController,
             cameraController,
-            hudController
+            hudController,
+            GetComponentInParent<GameManager>().difficultySystem.GetDifficulty()
         );
         newFloor.SetupFloor();
 

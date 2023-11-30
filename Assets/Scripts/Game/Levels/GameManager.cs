@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     private LevelUpBehavior levelUpBehavior;
 
     public StatisticsTracker statisticsTracker = new();
+    public DifficultySystem difficultySystem = new();
 
     void Awake()
     {
@@ -71,7 +72,14 @@ public class GameManager : MonoBehaviour
         AudioManager = GetComponentInChildren<AudioManager>();
 
         FloorManager
-            .Create(startingFloorPrefab, transform, player, CameraController, HudController)
+            .Create(
+                startingFloorPrefab,
+                transform,
+                player,
+                CameraController,
+                HudController,
+                difficultySystem.GetDifficulty()
+            )
             .SetupFloor();
 
         player.OnLevelUpAction += OnPlayerLevelUp;
