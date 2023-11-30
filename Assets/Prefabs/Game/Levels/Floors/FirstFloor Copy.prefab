@@ -46,7 +46,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6464257299837599545}
-  - component: {fileID: 8098758381604308694}
+  - component: {fileID: 2001460159357152637}
   m_Layer: 0
   m_Name: FirstFloor Copy
   m_TagString: Untagged
@@ -71,7 +71,7 @@ Transform:
   - {fileID: 3754021191177827117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8098758381604308694
+--- !u!114 &2001460159357152637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,11 +80,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8215355381012573117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ce0d262df77469ca7daaf51c4552eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fd8584b795234ec1a94058045b080f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meleeEnemyPrefab: {fileID: 5352518838595410912, guid: ca6f3de5263ca42f9b40d931e5fe0991, type: 3}
-  rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 9bd82abb793cf4868bd99ae15735a373, type: 3}
+  rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 772b2c912fc0f49ab8bb45ced08bf0fa, type: 3}
   startingRoom: {fileID: 7873521119488606941}
 --- !u!1001 &139376366489897368
 PrefabInstance:
@@ -25214,7 +25214,7 @@ PrefabInstance:
     - target: {fileID: 47226871428776916, guid: 0291b4a3d45014ff8b762dfa530cc0a2, type: 3}
       propertyPath: FloorTo
       value: 
-      objectReference: {fileID: 6098243811190715971, guid: 5724ba6c7b9b24ea7abc50c589bea6af, type: 3}
+      objectReference: {fileID: 5377677893822394410, guid: f2add7b68d08148e6b290231272be576, type: 3}
     - target: {fileID: 923533727346400770, guid: 0291b4a3d45014ff8b762dfa530cc0a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.5
