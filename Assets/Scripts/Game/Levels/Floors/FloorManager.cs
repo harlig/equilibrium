@@ -26,6 +26,9 @@ public abstract class FloorManager : MonoBehaviour
 
     public RoundRobinSelector<EnemyConfiguration> enemySpawnLocationsRoundRobin;
 
+    // needs to be nullable in case we don't specify from a floor manager
+    public Vector2? PlayerSpawnLocation { get; private set; }
+
     public class EnemyConfiguration
     {
         public int MeleeEnemyCount { get; private set; }
@@ -132,6 +135,16 @@ public abstract class FloorManager : MonoBehaviour
     {
         float xPos = (startingRoom.GroundMaxPositions.x + startingRoom.GroundMinPositions.x) / 2.0f;
         float yPos = (startingRoom.GroundMaxPositions.y + startingRoom.GroundMinPositions.y) / 2.0f;
+
+        if (PlayerSpawnLocation.HasValue)
+        {
+            // if it hasn't been set yet, set it to middle of room
+            xPos = (float)(PlayerSpawnLocation?.x);
+            yPos = (float)(PlayerSpawnLocation?.y);
+        }
+
+        Debug.LogFormat("{0}, {1}", xPos, yPos);
+        Debug.LogFormat("Can we spawn player at {0}, {1}", xPos, yPos);
         InteractableBehavior.PlayerAndCameraLocation newLocations = new() { };
         var PlayerLocation = startingRoom.Grid.FindNearestWalkableNode(new Vector2(xPos, yPos));
         newLocations.PlayerLocation = PlayerLocation.WorldPosition;
@@ -141,6 +154,11 @@ public abstract class FloorManager : MonoBehaviour
             startingRoom.RoomMaxPositions
         );
         return newLocations;
+    }
+
+    public void SetPlayerSpawnLocation(Vector2 spawnLoc)
+    {
+        PlayerSpawnLocation = spawnLoc;
     }
 }
 
