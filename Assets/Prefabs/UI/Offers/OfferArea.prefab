@@ -105,8 +105,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'This tells you about offers '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f4b32cf9e060440b4912f8ec09943251, type: 2}
+  m_sharedMaterial: {fileID: 5788154542641237949, guid: f4b32cf9e060440b4912f8ec09943251, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -239,8 +239,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Select one offer:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f4b32cf9e060440b4912f8ec09943251, type: 2}
+  m_sharedMaterial: {fileID: 5788154542641237949, guid: f4b32cf9e060440b4912f8ec09943251, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -373,8 +373,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: congrats
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f4b32cf9e060440b4912f8ec09943251, type: 2}
+  m_sharedMaterial: {fileID: 5788154542641237949, guid: f4b32cf9e060440b4912f8ec09943251, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
