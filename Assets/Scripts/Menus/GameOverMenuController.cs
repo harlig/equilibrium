@@ -39,4 +39,9 @@ public class GameOverMenuController : MonoBehaviour
 
         statsText.text = statsString;
     }
+
+    public void GoToMainMenu()
+    {
+        MainMenuController.ToMainMenu();
+    }
 }

@@ -24,8 +24,16 @@ public class AudioManager : MonoBehaviour
 
         audioPreferences = new();
         UpdateAudioLevels();
+    }
 
+    void OnEnable()
+    {
         SettingsManager.OnSettingsUpdated += UpdateAudioLevels;
+    }
+
+    void OnDisable()
+    {
+        SettingsManager.OnSettingsUpdated -= UpdateAudioLevels;
     }
 
     void UpdateAudioLevels()
