@@ -58,7 +58,6 @@ public class HeadsUpDisplayController : MonoBehaviour
 
     public void SetPlayerLevel(int newPlayerLevel)
     {
-        playerLevelText.text = $"lvl {newPlayerLevel}";
         SetPlayerXp(playerOrbCollector.XpCollected, newPlayerLevel);
     }
 
@@ -71,7 +70,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     {
         if (curPlayerLevel >= XpNeededForLevelUpAtIndex.Count)
         {
-            xpBar.SetPercentUntilLevel(1);
+            xpBar.SetPercentUntilLevel(1, curPlayerLevel);
             return;
         }
         var xpNeededForNextLevel = XpNeededForLevelUpAtIndex[curPlayerLevel];
@@ -81,7 +80,8 @@ public class HeadsUpDisplayController : MonoBehaviour
             xpNeededForLastLevel = XpNeededForLevelUpAtIndex[curPlayerLevel - 1];
         }
         xpBar.SetPercentUntilLevel(
-            (curPlayerXp - xpNeededForLastLevel) / (xpNeededForNextLevel - xpNeededForLastLevel)
+            (curPlayerXp - xpNeededForLastLevel) / (xpNeededForNextLevel - xpNeededForLastLevel),
+            curPlayerLevel
         );
     }
 
