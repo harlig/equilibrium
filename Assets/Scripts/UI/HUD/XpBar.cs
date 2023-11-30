@@ -20,11 +20,11 @@ public class XpBar : MonoBehaviour
         SetLevelText(0);
     }
 
-    public void SetPercentUntilLevel(float xpPercent, int totalXpCollected)
+    public void SetPercentUntilLevel(float xpPercent, float totalXpCollected)
     {
         xpPercent = Mathf.Clamp01(xpPercent);
         xpBar.anchorMax = new Vector2(xpBar.anchorMax.x, originalAnchorMaxY * xpPercent);
-        xpText.text = $"{totalXpCollected}xp";
+        xpText.text = $"{string.Format("{0:N0}", totalXpCollected)}xp";
     }
 
     public void SetLevelText(int newLevel)
