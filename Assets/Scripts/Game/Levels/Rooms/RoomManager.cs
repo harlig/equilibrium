@@ -41,10 +41,18 @@ public class RoomManager : MonoBehaviour
 
     void Update()
     {
-        if (enemies != null && AllEnemiesDead())
+        if (enemies != null && AllEnemiesDead() && !HasClearedRoom)
         {
-            HasClearedRoom = true;
+            MarkRoomCleared();
         }
+    }
+
+    private void MarkRoomCleared()
+    {
+        HasClearedRoom = true;
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.ROOMS_CLEARED
+        );
     }
 
     void SetActiveAllChildren(bool shouldSetActive)
@@ -117,10 +125,10 @@ public class RoomManager : MonoBehaviour
     {
         SetActiveAllChildren(true);
 
+        // if there are no enemies to spawn, room is cleared
         if (enemyConfig.TotalNumEnemies <= 0)
         {
-            // if there are no enemies to spawn, room is cleared
-            HasClearedRoom = true;
+            MarkRoomCleared();
         }
 
         player.CurrentRoom = this;

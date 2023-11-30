@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        AcquisitionManager = new(player);
+        AcquisitionManager = new(player, statisticsTracker);
     }
 
     void Start()

@@ -24,13 +24,19 @@ public class GameOverMenuController : MonoBehaviour
     public void SetStats(StatisticsTracker statisticsTracker)
     {
         string statsString = "";
-        for (int ndx = 0; ndx < statisticsTracker.statistics.Count; ndx++)
+        int ndx = 0;
+
+        // Iterate over the dictionary
+        foreach (var pair in statisticsTracker.statistics)
         {
-            statsString += statisticsTracker.statistics[ndx].ToStatString();
-            if (ndx != statisticsTracker.statistics.Count)
+            statsString += pair.Value.ToStatString();
+            if (ndx != statisticsTracker.statistics.Count - 1)
             {
-                statsString += "\\n";
+                statsString += "\n";
             }
+            ndx++;
         }
+
+        statsText.text = statsString;
     }
 }

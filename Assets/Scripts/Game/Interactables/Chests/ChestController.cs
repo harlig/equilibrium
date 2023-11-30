@@ -51,6 +51,7 @@ public class ChestController : InteractableBehavior
 
         hasBeenOpened = true;
         GetComponent<SpriteRenderer>().sprite = openedChestSprite;
+        gameManager.statisticsTracker.Increment(StatisticsTracker.StatisticType.CHESTS_OPENED);
     }
 
     protected override string GetHelpText()

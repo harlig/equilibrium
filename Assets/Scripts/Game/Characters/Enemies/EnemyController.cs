@@ -254,6 +254,11 @@ public abstract class EnemyController : GenericCharacterController
         {
             OnDeath();
         }
+
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.DAMAGE_DEALT,
+            damage
+        );
     }
 
     protected override void OnDeath()

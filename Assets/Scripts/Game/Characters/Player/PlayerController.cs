@@ -188,6 +188,14 @@ public class PlayerController : GenericCharacterController
         OrbCollector.Collect(orb);
         OnOrbCollectedAction?.Invoke(orb, OrbCollector.XpCollected);
 
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.ORBS_COLLECTED
+        );
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.XP_COLLECTED,
+            orb.Xp
+        );
+
         TryLevelUp();
     }
 

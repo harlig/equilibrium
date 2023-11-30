@@ -69,6 +69,10 @@ public abstract class FloorManager : MonoBehaviour
 
         enemySpawnLocationsRoundRobin = new(EnemySpawnLocations);
         SetActiveRoom(startingRoom);
+
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.FLOORS_VISITED
+        );
     }
 
     public void SetActiveRoom(RoomManager newActiveRoom)

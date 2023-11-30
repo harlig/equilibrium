@@ -1,9 +1,25 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
 public class StatisticsTracker
 {
-    public List<Statistic> statistics = new();
+    public readonly Dictionary<StatisticType, Statistic> statistics;
+
+    public StatisticsTracker()
+    {
+        Dictionary<StatisticType, Statistic> registeredStats = new();
+        foreach (StatisticType statType in Enum.GetValues(typeof(StatisticType)))
+        {
+            registeredStats[statType] = new Statistic(statType);
+        }
+        statistics = registeredStats;
+    }
+
+    public void Increment(StatisticType statType, float value = 1)
+    {
+        statistics[statType].StatValue += value;
+    }
 
     public class Statistic
     {
@@ -28,7 +44,7 @@ public class StatisticsTracker
                 );
             }
 
-            return $"{string.Join(" ", statTypeWords)}: {string.Format("0:N0", StatValue)}";
+            return $"{string.Join(" ", statTypeWords)}: {string.Format("{0:N0}", StatValue)}";
         }
     }
 
@@ -38,8 +54,8 @@ public class StatisticsTracker
         XP_COLLECTED,
         ORBS_COLLECTED,
         OFFERS_COLLECTED,
-        CHESTS_FOUND,
+        CHESTS_OPENED,
         ROOMS_CLEARED,
-        FLOORS_CLEARED
+        FLOORS_VISITED
     }
 }

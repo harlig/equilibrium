@@ -9,10 +9,12 @@ public class AcquisitionManager
     public readonly List<OfferData> OfferAcquisitions = new();
 
     private readonly PlayerController player;
+    private readonly StatisticsTracker statsTracker;
 
-    public AcquisitionManager(PlayerController player)
+    public AcquisitionManager(PlayerController player, StatisticsTracker statsTracker)
     {
         this.player = player;
+        this.statsTracker = statsTracker;
     }
 
     public void AcquireOffer(OfferData offer)
@@ -21,6 +23,7 @@ public class AcquisitionManager
         OfferAcquisitions.Add(offer);
 
         offer.ApplyToPlayer(player);
+        statsTracker.Increment(StatisticsTracker.StatisticType.OFFERS_COLLECTED);
     }
 }
 
