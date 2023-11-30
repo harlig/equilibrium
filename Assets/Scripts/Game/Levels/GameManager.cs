@@ -134,12 +134,12 @@ public class GameManager : MonoBehaviour
         {
             // TODO: play some animation saying "NEW STATE ENTERED"
             player.SetEquilibriumState(equilibriumState);
-            HudController.SetEquilibriumState(equilibriumState);
 
             player.StatusEffectSystem.SetStateAndAnimate(equilibriumState);
         }
         HudController.SetPlayerXp(newPlayerXp);
         HudController.SetOrbsCollected();
+        HudController.SetScaleStateBasedOnOrbs(player.OrbCollector);
     }
 
     public enum GameOverStatus

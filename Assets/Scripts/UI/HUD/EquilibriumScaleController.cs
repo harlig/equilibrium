@@ -7,8 +7,6 @@ public class EquilibriumScaleController : MonoBehaviour
     public RectTransform leftBasket;
     public RectTransform rightBasket;
 
-    private readonly float tipAngle = 20f;
-
     void Start()
     {
         Center();
@@ -35,13 +33,25 @@ public class EquilibriumScaleController : MonoBehaviour
         UpdateBasketPositions(0);
     }
 
-    public void SetScaleState(EquilibriumState equilibriumState)
-    {
-        // Calculate the number of steps away from the neutral state
-        int stepsFromNeutral = equilibriumState - EquilibriumState.NEUTRAL;
+    private const float MaxTiltAngle = 30f; // Maximum angle of rotation
 
-        // Calculate the tipping angle
-        float angle = stepsFromNeutral * tipAngle;
+    public void SetScaleStateBasedOnOrbs(OrbCollector orbCollector)
+    {
+        // Get the percentage of Fire orbs
+        float? fireOrbPercentage = orbCollector.PercTypeOrbsCollectedOfTotal(
+            OrbController.OrbType.FIRE
+        );
+
+        float angle = 0;
+
+        if (fireOrbPercentage.HasValue)
+        {
+            // Calculate the difference from 50% (neutral)
+            float balance = fireOrbPercentage.Value - 50;
+
+            // Map this difference to the angle, considering the max tilt angle
+            angle = balance / 50 * MaxTiltAngle;
+        }
 
         // Set the scale's rotation
         centerBar.localEulerAngles = new Vector3(0, 0, angle);

@@ -80,7 +80,11 @@ public class HeadsUpDisplayController : MonoBehaviour
     public void SetEquilibriumState(EquilibriumManager.EquilibriumState equilibriumState)
     {
         equilibriumStateTextElement.text = $"{equilibriumState}";
-        equilibriumScaleController.SetScaleState(equilibriumState);
+    }
+
+    public void SetScaleStateBasedOnOrbs(OrbCollector orbCollector)
+    {
+        equilibriumScaleController.SetScaleStateBasedOnOrbs(orbCollector);
     }
 
     public void SetAcquisitions(List<Acquisition> acquisitions)
