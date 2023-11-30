@@ -30,7 +30,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     public OfferAreaManager OfferAreaManager { get; private set; }
     private AcquisitionsDisplayController acquisitionsDisplayController;
     private GameOverMenuController gameOverMenuController;
-    public EquilibriumScaleController equilibriumScaleController;
+    private EquilibriumScaleController equilibriumScaleController;
 
     void Awake()
     {
@@ -39,18 +39,18 @@ public class HeadsUpDisplayController : MonoBehaviour
 
     public void Setup(PlayerController player)
     {
-        SetPlayerLevel(player.PlayerLevel);
-        SetPlayerHp(player.HpRemaining);
-        SetPlayerXp(player.XpCollected());
-        SetEquilibriumState(player.EquilibriumState);
-
         playerOrbCollector = player.OrbCollector;
         acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
         gameOverMenuController = GetComponentInChildren<GameOverMenuController>();
         equilibriumScaleController = GetComponentInChildren<EquilibriumScaleController>();
 
+        SetPlayerLevel(player.PlayerLevel);
+        SetPlayerHp(player.HpRemaining);
+        SetPlayerXp(player.XpCollected());
+        SetEquilibriumState(player.EquilibriumState);
         SetOrbsCollected();
         DisableInteractableHelpText();
+
         gameOverMenuController.gameObject.SetActive(false);
     }
 
@@ -80,6 +80,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     public void SetEquilibriumState(EquilibriumManager.EquilibriumState equilibriumState)
     {
         equilibriumStateTextElement.text = $"{equilibriumState}";
+        equilibriumScaleController.SetScaleState(equilibriumState);
     }
 
     public void SetAcquisitions(List<Acquisition> acquisitions)

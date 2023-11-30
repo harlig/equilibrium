@@ -1,46 +1,52 @@
 using UnityEngine;
+using static EquilibriumManager;
 
 public class EquilibriumScaleController : MonoBehaviour
 {
-    public Transform centerBar;
-    public Transform leftBasket;
-    public Transform rightBasket;
+    public RectTransform centerBar;
+    public RectTransform leftBasket;
+    public RectTransform rightBasket;
 
-    private float tipAngle = 45f;
+    private readonly float tipAngle = 20f;
 
     void Start()
     {
-        // Initialize the scale to be centered
         Center();
     }
 
-    public void TipLeft()
+    private void UpdateBasketPositions(float angle)
     {
-        // Rotate the center bar
-        centerBar.eulerAngles = new Vector3(0, 0, tipAngle);
+        // Get the initial horizontal positions
+        float leftBasketInitialX = leftBasket.anchoredPosition.x;
+        float rightBasketInitialX = rightBasket.anchoredPosition.x;
 
-        // Adjust baskets
-        leftBasket.localPosition = new Vector3(-20, -20, 0); // Drastic position change
-        rightBasket.localPosition = new Vector3(20, 20, 0); // Drastic position change
-    }
+        // Calculate vertical offset based on the rotation angle
+        float barHalfWidth = centerBar.rect.width / 2;
+        float verticalOffset = Mathf.Sin(angle * Mathf.Deg2Rad) * barHalfWidth;
 
-    public void TipRight()
-    {
-        // Rotate the center bar
-        centerBar.eulerAngles = new Vector3(0, 0, -tipAngle);
-
-        // Adjust baskets
-        leftBasket.localPosition = new Vector3(-20, 20, 0); // Drastic position change
-        rightBasket.localPosition = new Vector3(20, -20, 0); // Drastic position change
+        // Update positions
+        leftBasket.anchoredPosition = new Vector2(leftBasketInitialX, -verticalOffset);
+        rightBasket.anchoredPosition = new Vector2(rightBasketInitialX, verticalOffset);
     }
 
     public void Center()
     {
-        // Rotate the center bar to center
-        centerBar.eulerAngles = Vector3.zero;
+        centerBar.localEulerAngles = Vector3.zero;
+        UpdateBasketPositions(0);
+    }
 
-        // Adjust baskets to centered position
-        leftBasket.localPosition = new Vector3(-20, 0, 0); // Drastic position change
-        rightBasket.localPosition = new Vector3(20, 0, 0); // Drastic position change
+    public void SetScaleState(EquilibriumState equilibriumState)
+    {
+        // Calculate the number of steps away from the neutral state
+        int stepsFromNeutral = equilibriumState - EquilibriumState.NEUTRAL;
+
+        // Calculate the tipping angle
+        float angle = stepsFromNeutral * tipAngle;
+
+        // Set the scale's rotation
+        centerBar.localEulerAngles = new Vector3(0, 0, angle);
+
+        // Update basket positions
+        UpdateBasketPositions(angle);
     }
 }

@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
         player.OnOrbCollectedAction += OnPlayerOrbCollected;
 
         HudController.Setup(player);
-        HudController.equilibriumScaleController.TipLeft();
         AudioManager.PlayMusic();
 
         UnpauseGame();
