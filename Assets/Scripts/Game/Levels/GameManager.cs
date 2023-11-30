@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
 
             player.StatusEffectSystem.SetStateAndAnimate(equilibriumState);
         }
-        HudController.SetPlayerXp(newPlayerXp);
+        HudController.SetPlayerXp(newPlayerXp, player.PlayerLevel);
         HudController.SetOrbsCollected();
         HudController.SetScaleStateBasedOnOrbs(player.OrbCollector);
     }

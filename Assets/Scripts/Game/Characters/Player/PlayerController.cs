@@ -204,9 +204,9 @@ public class PlayerController : GenericCharacterController
     void TryLevelUp()
     {
         // you can only possibly level up if you aren't yet at the last level
-        if (PlayerLevel < GameManager.XpNeededForLevelUpAtIndex.Count)
+        if (PlayerLevel < XpNeededForLevelUpAtIndex.Count)
         {
-            var xpForLevelUp = GameManager.XpNeededForLevelUpAtIndex[PlayerLevel];
+            var xpForLevelUp = XpNeededForLevelUpAtIndex[PlayerLevel];
             if (OrbCollector.XpCollected >= xpForLevelUp)
             {
                 PlayerLevel++;

@@ -9,6 +9,7 @@ public class HealthBar : MonoBehaviour
     {
         // Save the original right-side anchor position
         originalAnchorMaxX = hpBar.anchorMax.x;
+        SetHealth(1);
     }
 
     public void SetHealth(float healthPercent)

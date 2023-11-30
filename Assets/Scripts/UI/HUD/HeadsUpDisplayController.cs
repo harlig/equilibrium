@@ -32,6 +32,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     private GameOverMenuController gameOverMenuController;
     private EquilibriumScaleController equilibriumScaleController;
     private HealthBar healthBar;
+    private XpBar xpBar;
 
     void Awake()
     {
@@ -45,10 +46,11 @@ public class HeadsUpDisplayController : MonoBehaviour
         gameOverMenuController = GetComponentInChildren<GameOverMenuController>(true);
         equilibriumScaleController = GetComponentInChildren<EquilibriumScaleController>();
         healthBar = GetComponentInChildren<HealthBar>();
+        xpBar = GetComponentInChildren<XpBar>();
 
         SetPlayerLevel(player.PlayerLevel);
         SetPlayerHp(player.HpRemaining, player.MaxHp);
-        SetPlayerXp(player.XpCollected());
+        SetPlayerXp(player.XpCollected(), player.PlayerLevel);
         SetEquilibriumState(player.EquilibriumState);
         SetOrbsCollected();
         DisableInteractableHelpText();
@@ -57,6 +59,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     public void SetPlayerLevel(int newPlayerLevel)
     {
         playerLevelText.text = $"lvl {newPlayerLevel}";
+        SetPlayerXp(playerOrbCollector.XpCollected, newPlayerLevel);
     }
 
     public void SetPlayerHp(float curPlayerHp, float maxPlayerHp)
@@ -64,9 +67,22 @@ public class HeadsUpDisplayController : MonoBehaviour
         healthBar.SetHealth(curPlayerHp / maxPlayerHp);
     }
 
-    public void SetPlayerXp(float newPlayerXp)
+    public void SetPlayerXp(float curPlayerXp, int curPlayerLevel)
     {
-        playerXpText.text = string.Format("{0:N0} XP", newPlayerXp);
+        if (curPlayerLevel >= XpNeededForLevelUpAtIndex.Count)
+        {
+            xpBar.SetPercentUntilLevel(1);
+            return;
+        }
+        var xpNeededForNextLevel = XpNeededForLevelUpAtIndex[curPlayerLevel];
+        int xpNeededForLastLevel = 0;
+        if (curPlayerLevel > 0)
+        {
+            xpNeededForLastLevel = XpNeededForLevelUpAtIndex[curPlayerLevel - 1];
+        }
+        xpBar.SetPercentUntilLevel(
+            (curPlayerXp - xpNeededForLastLevel) / (xpNeededForNextLevel - xpNeededForLastLevel)
+        );
     }
 
     public void SetOrbsCollected()
