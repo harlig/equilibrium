@@ -59,4 +59,9 @@ public class EquilibriumScaleController : MonoBehaviour
         // Update basket positions
         UpdateBasketPositions(angle);
     }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }

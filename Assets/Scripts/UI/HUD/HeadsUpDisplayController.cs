@@ -113,5 +113,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         }
         gameOverMenuController.SetText(gameOverStatus);
         gameOverMenuController.SetStats(statisticsTracker);
+
+        equilibriumScaleController.Hide();
     }
 }
