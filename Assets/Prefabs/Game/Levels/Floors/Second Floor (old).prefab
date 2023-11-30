@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6464257299837599545}
   - component: {fileID: 7076228449667198943}
   m_Layer: 0
-  m_Name: SecondFloor
+  m_Name: Second Floor (old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
