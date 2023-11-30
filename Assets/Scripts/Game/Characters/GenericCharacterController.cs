@@ -4,10 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterAnimator))]
 public abstract class GenericCharacterController : MonoBehaviour
 {
+    private const float MIN_MOVEMENT_SPEED = 0.01f;
+
     // public api for move speed
     public float MovementSpeed
     {
-        get => BaseMovementSpeed + movementSpeedModifier;
+        get
+        {
+            float totalMovementSpeed = BaseMovementSpeed + movementSpeedModifier;
+            return totalMovementSpeed < MIN_MOVEMENT_SPEED
+                ? MIN_MOVEMENT_SPEED
+                : totalMovementSpeed;
+        }
     }
     protected abstract float BaseMovementSpeed { get; }
 

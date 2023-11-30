@@ -15,9 +15,9 @@ public class RangedEnemy : EnemyController
     private float elementalEffectTimer = 0f;
     private const float ElementalEffectInterval = 5f; // 5 seconds
 
-    protected override int GetMaxHp()
+    protected override float GetMaxHp()
     {
-        return 20;
+        return 2 * localMaxHp;
     }
 
     protected override void FixedUpdate()

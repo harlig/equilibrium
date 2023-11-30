@@ -29,10 +29,12 @@ public abstract class EnemyController : GenericCharacterController
     private List<Node> path;
     private int currentPathIndex;
 
-    protected virtual int GetMaxHp()
+    protected virtual float GetMaxHp()
     {
-        return 10;
+        return localMaxHp;
     }
+
+    protected float localMaxHp = 10;
 
     protected PlayerController player;
 
@@ -200,9 +202,6 @@ public abstract class EnemyController : GenericCharacterController
         startFollowing = true;
         isPatrolling = false;
 
-        float randomSpeedBoost = Random.Range(0f, 0.05f);
-        AddToMovementSpeedModifier(randomSpeedBoost);
-
         CalculateFollowPlayerPath();
     }
 
@@ -352,5 +351,10 @@ public abstract class EnemyController : GenericCharacterController
         var weapon = WeaponController.Create(meleeWeaponPrefab, transform.position, this);
         weaponSlotController.AssignWeaponSlot(weapon, 0);
         meleeWeapon = (MeleeWeapon)weapon;
+    }
+
+    public void SetMaxHp(float newMaxHp)
+    {
+        localMaxHp = newMaxHp;
     }
 }

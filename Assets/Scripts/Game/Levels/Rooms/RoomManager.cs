@@ -120,7 +120,8 @@ public class RoomManager : MonoBehaviour
         PlayerController player,
         EnemyConfiguration enemyConfig,
         MeleeEnemy meleeEnemyPrefab,
-        RangedEnemy rangedEnemyPrefab
+        RangedEnemy rangedEnemyPrefab,
+        DifficultySystem.Difficulty roomDifficulty
     )
     {
         SetActiveAllChildren(true);
@@ -136,7 +137,13 @@ public class RoomManager : MonoBehaviour
 
         if (!HasRoomBeenVisited)
         {
-            enemies = SpawnEnemies(player, enemyConfig, meleeEnemyPrefab, rangedEnemyPrefab);
+            enemies = SpawnEnemies(
+                player,
+                enemyConfig,
+                meleeEnemyPrefab,
+                rangedEnemyPrefab,
+                roomDifficulty
+            );
         }
         HasRoomBeenVisited = true;
     }
@@ -145,7 +152,8 @@ public class RoomManager : MonoBehaviour
         PlayerController player,
         EnemyConfiguration enemyConfig,
         MeleeEnemy meleeEnemyPrefab,
-        RangedEnemy rangedEnemyPrefab
+        RangedEnemy rangedEnemyPrefab,
+        DifficultySystem.Difficulty roomDifficulty
     )
     {
         List<EnemyController> spawnedEnemies = new();

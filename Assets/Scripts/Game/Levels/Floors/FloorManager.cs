@@ -17,7 +17,7 @@ public abstract class FloorManager : MonoBehaviour
     private PlayerController playerController;
     private CameraController cameraController;
     private HeadsUpDisplayController hudController;
-    private Difficulty difficulty;
+    private FloorDifficulty difficulty;
 
     public abstract List<EnemyConfiguration> EnemySpawnLocations { get; }
 
@@ -47,7 +47,7 @@ public abstract class FloorManager : MonoBehaviour
         PlayerController playerController,
         CameraController cameraController,
         HeadsUpDisplayController hudController,
-        Difficulty difficulty
+        FloorDifficulty difficulty
     )
     {
         var createdFloor = Instantiate(floorPrefab, parent);
@@ -87,7 +87,8 @@ public abstract class FloorManager : MonoBehaviour
                 ? enemySpawnLocationsRoundRobin.PickNext()
                 : EnemyConfiguration.Create(),
             meleeEnemyPrefab,
-            rangedEnemyPrefab
+            rangedEnemyPrefab,
+            difficulty.GetRoomDifficulty()
         );
         playerController.CurrentRoom = newActiveRoom;
     }
@@ -100,7 +101,7 @@ public abstract class FloorManager : MonoBehaviour
             playerController,
             cameraController,
             hudController,
-            GetComponentInParent<GameManager>().difficultySystem.GetDifficulty()
+            GetComponentInParent<GameManager>().difficultySystem.GetFloorDifficulty()
         );
         newFloor.SetupFloor();
 
