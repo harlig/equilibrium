@@ -11,7 +11,7 @@ public abstract class GenericCharacterController : MonoBehaviour
     {
         get
         {
-            float totalMovementSpeed = BaseMovementSpeed + movementSpeedModifier;
+            float totalMovementSpeed = BaseMovementSpeed + movementSpeedMultiplier;
             return totalMovementSpeed < MIN_MOVEMENT_SPEED
                 ? MIN_MOVEMENT_SPEED
                 : totalMovementSpeed;
@@ -23,17 +23,19 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     public abstract float HpRemaining { get; }
 
-    private float movementSpeedModifier = 0;
-    public float DamageDealtModifier { get; private set; } = 0;
+    private float movementSpeedMultiplier = 1f;
+    public float DamageDealtMultiplier { get; private set; } = 1f;
 
-    public void AddToMovementSpeedModifier(float speedToAdd)
+    // TODO: update what uses this
+    public void AddToMovementSpeedModifier(float speedToMultiply)
     {
-        movementSpeedModifier += speedToAdd;
+        movementSpeedMultiplier += speedToMultiply;
     }
 
-    public void AddToDamageDealtModifier(float extraDamageDealt)
+    // TODO: update what uses this
+    public void AddToDamageDealtModifier(float extraDamageDealtModifier)
     {
-        DamageDealtModifier += extraDamageDealt;
+        DamageDealtMultiplier += extraDamageDealtModifier;
     }
 
     public abstract bool IsDead();

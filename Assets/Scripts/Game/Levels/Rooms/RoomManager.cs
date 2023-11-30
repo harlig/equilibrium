@@ -225,6 +225,7 @@ public class RoomManager : MonoBehaviour
 
             if (enemyController != null)
             {
+                roomDifficulty.ApplyToEnemy(enemyController);
                 spawnedEnemies.Add(enemyController);
                 enemyCounts[enemyType]--;
             }

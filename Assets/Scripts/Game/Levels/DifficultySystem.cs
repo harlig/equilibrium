@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DifficultySystem : MonoBehaviour
+public class DifficultySystem
 {
     public FloorDifficulty GetFloorDifficulty()
     {
@@ -29,21 +29,32 @@ public class DifficultySystem : MonoBehaviour
 
         public float GenerateDifficultyModifier()
         {
-            // get a difficulty between 90% and 110% of this difficulty
-            return Random.Range(OverallModifier * 0.9f, OverallModifier * 1.1f);
+            // get a difficulty between 80% and 120% of this difficulty
+            return Random.Range(OverallModifier * 0.8f, OverallModifier * 1.2f);
         }
 
         public void ApplyToEnemy(EnemyController enemy)
         {
+            var originalMaxHp = enemy.MaxHp;
+            // Adjusting Max HP based on difficulty
             enemy.SetMaxHp(enemy.MaxHp * GenerateDifficultyModifier());
-            enemy.AddToMovementSpeedModifier(
-                (GenerateDifficultyModifier() * enemy.MovementSpeed) - enemy.MovementSpeed
-            );
+
+            // Scaling Damage based on difficulty and new Max HP
             enemy.AddToDamageDealtModifier(
-                (GenerateDifficultyModifier() * enemy.DamageDealtModifier)
-                    - enemy.DamageDealtModifier
+                enemy.MaxHp * GenerateDifficultyModifier() / originalMaxHp
             );
+
+            // Scaling Movement Speed
+            float movementSpeedModifier = GenerateDifficultyModifier();
+            float newMovementSpeed = enemy.MovementSpeed * movementSpeedModifier;
+
+            // Ensuring new movement speed does not exceed 2.5 times the original speed
+            if (newMovementSpeed > enemy.MovementSpeed * 2.5f)
+            {
+                newMovementSpeed = enemy.MovementSpeed * 2.5f;
+            }
+
+            enemy.AddToMovementSpeedModifier(newMovementSpeed - enemy.MovementSpeed);
         }
     }
-    //
 }

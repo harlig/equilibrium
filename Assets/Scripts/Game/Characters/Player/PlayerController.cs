@@ -256,6 +256,7 @@ public class PlayerController : GenericCharacterController
 
     public override void TakeDamage(DamageType damageType, float damageTaken)
     {
+        Debug.LogFormat("took damage {0}", damageTaken);
         hpRemaining -= damageTaken;
 
         if (IsDead())

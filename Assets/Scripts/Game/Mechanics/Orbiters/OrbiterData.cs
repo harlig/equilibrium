@@ -6,10 +6,11 @@ public class OrbiterData : MonoBehaviour
     private Color color;
     private DamageType damageType;
     public OrbitSystem.OrbiterType OrbiterType;
-    private float damageAmount = 5.0f;
-    private readonly float knockbackStrength = 10.0f;
+    private float damageMultiplier = 1f;
     private PlayerController player;
     private OrbitSystem orbitSystem;
+    private const float BASE_DAMAGE_AMOUNT = 5.0f;
+    private const float KNOCKBACK_STRENGTH = 10.0f;
 
     public static OrbiterData Create(
         OrbiterData prefab,
@@ -43,7 +44,7 @@ public class OrbiterData : MonoBehaviour
         if (other.TryGetComponent<EnemyController>(out var enemy))
         {
             // TODO: this should be replaced with something specific to the orbiter and probably a system per-type of orbiter
-            enemy.TakeDamage(damageType, damageAmount);
+            enemy.TakeDamage(damageType, BASE_DAMAGE_AMOUNT * damageMultiplier);
 
             // TODO: knockback is broken
             if (!enemy.IsDead() && other.attachedRigidbody != null)
@@ -51,7 +52,7 @@ public class OrbiterData : MonoBehaviour
                 Vector2 knockbackDirection = (
                     other.transform.position - player.transform.position
                 ).normalized;
-                enemy.ApplyKnockback(knockbackDirection, knockbackStrength);
+                enemy.ApplyKnockback(knockbackDirection, KNOCKBACK_STRENGTH);
             }
 
             if (orbitSystem.ChanceOfOrbiterTypeDoingElementalEffect[OrbiterType] > Chance.Get())
@@ -66,8 +67,8 @@ public class OrbiterData : MonoBehaviour
         }
     }
 
-    public void AddToDamage(float damage)
+    public void AddToDamage(float damageMultiplierAddition)
     {
-        damageAmount += damage;
+        damageMultiplier += damageMultiplierAddition;
     }
 }

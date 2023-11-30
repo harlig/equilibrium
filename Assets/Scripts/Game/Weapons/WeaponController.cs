@@ -45,7 +45,8 @@ public abstract class WeaponController : MonoBehaviour
         float damageModifer = 0;
         if (parentCharacter != null)
         {
-            damageModifer = GetComponentInParent<GenericCharacterController>().DamageDealtModifier;
+            damageModifer =
+                GetComponentInParent<GenericCharacterController>().DamageDealtMultiplier;
         }
         return damageModifer;
     }

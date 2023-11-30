@@ -54,9 +54,9 @@ public class MeleeWeapon : WeaponController
         boxCollider.enabled = false;
     }
 
-    private void ApplyCharacterDamage(GenericCharacterController character, float damageModifier)
+    private void ApplyCharacterDamage(GenericCharacterController character, float damageMultiplier)
     {
-        character.TakeDamage(DamageType, BaseDamageAmount + damageModifier);
+        character.TakeDamage(DamageType, BaseDamageAmount * damageMultiplier);
 
         if (elementalSystem.Chance > Chance.Get())
         {

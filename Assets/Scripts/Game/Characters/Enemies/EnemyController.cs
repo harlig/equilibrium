@@ -326,6 +326,7 @@ public abstract class EnemyController : GenericCharacterController
         if (!IsDead())
         {
             weaponSlotController.MoveWeaponsAtPosition(player.transform.position);
+            damageTaken.SetDamageTakenTextOnTextElement(GetMaxHp());
 
             // if we get too close to the player, get em!
             if (
