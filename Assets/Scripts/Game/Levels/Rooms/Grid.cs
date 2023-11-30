@@ -9,7 +9,7 @@ public class Grid
 
     public int FloorWidth { get; private set; }
     public int FloorHeight { get; private set; }
-    public Vector2 GridOrigin { get; private set; }
+    private Vector2 GridOrigin { get; set; }
     private readonly Tilemap floorTilemap,
         obstaclesTilemap;
     private readonly InteractableBehavior[] interactables;
@@ -26,7 +26,8 @@ public class Grid
         float y
     )
     {
-        GridOrigin = CalculateGridOrigin(floorTilemap);
+        // this should be calculated from the obstacles tilemap since obstacles will always surround floor
+        GridOrigin = CalculateGridOrigin(obstaclesTilemap);
         this.floorTilemap = floorTilemap;
         this.obstaclesTilemap = obstaclesTilemap;
         this.interactables = interactables;
@@ -62,15 +63,12 @@ public class Grid
 
                 int xIndex = x - bounds.xMin;
                 int yIndex = y - bounds.yMin;
-
                 Vector3 globalPos = floorTilemap.CellToWorld(localPlace);
-                globalPos.x += GRID_OFFSET_X;
-                globalPos.y += GRID_OFFSET_Y;
 
                 nodes[xIndex, yIndex] = new Node(
                     isWalkable,
-                    globalPos.x,
-                    globalPos.y,
+                    globalPos.x + GRID_OFFSET_X,
+                    globalPos.y + GRID_OFFSET_Y,
                     xIndex,
                     yIndex,
                     localPlace.x + GRID_OFFSET_X,
@@ -126,19 +124,41 @@ public class Grid
 
     public Node FindNearestWalkableNode(Vector2 targetLocalPosition)
     {
-        // Define the search radius
-        int radius = 10;
+        // First check the node at the target position
+        int targetX = Mathf.RoundToInt(targetLocalPosition.x - GridOrigin.x);
+        int targetY = Mathf.RoundToInt(targetLocalPosition.y - GridOrigin.y);
+        Debug.LogFormat("grid origin {0}", GridOrigin);
+        Debug.LogFormat("targets {0}; {1}", targetX, targetY);
 
-        while (true)
+        if (
+            targetX >= 0
+            && targetX < nodes.GetLength(0)
+            && targetY >= 0
+            && targetY < nodes.GetLength(1)
+        )
+        {
+            var targetNode = nodes[targetX, targetY];
+            Debug.LogFormat("tgot target! walkable {0}", targetNode.Walkable);
+            if (targetNode.Walkable)
+            {
+                return targetNode;
+            }
+        }
+
+        // If the target node is not walkable, search the surrounding area
+        Node closestNode = null;
+        float closestDistanceSqr = float.MaxValue;
+        int radius = 1;
+
+        while (closestNode == null && radius <= 10)
         {
             for (int x = -radius; x <= radius; x++)
             {
                 for (int y = -radius; y <= radius; y++)
                 {
-                    int checkX = Mathf.RoundToInt(targetLocalPosition.x + x + GridOrigin.x);
-                    int checkY = Mathf.RoundToInt(targetLocalPosition.y + y + GridOrigin.y);
+                    int checkX = Mathf.RoundToInt(targetLocalPosition.x + x - GridOrigin.x);
+                    int checkY = Mathf.RoundToInt(targetLocalPosition.y + y - GridOrigin.y);
 
-                    // Ensure the checked position is within the grid bounds
                     if (
                         checkX >= 0
                         && checkX < nodes.GetLength(0)
@@ -149,13 +169,22 @@ public class Grid
                         var node = nodes[checkX, checkY];
                         if (node.Walkable)
                         {
-                            return node;
+                            float distanceSqr = (
+                                new Vector2(checkX, checkY) - targetLocalPosition
+                            ).sqrMagnitude;
+                            if (distanceSqr < closestDistanceSqr)
+                            {
+                                closestNode = node;
+                                closestDistanceSqr = distanceSqr;
+                            }
                         }
                     }
                 }
             }
             radius++;
         }
+
+        return closestNode;
     }
 }
 
@@ -208,5 +237,12 @@ public class Node
     public string PositionString()
     {
         return string.Format("[{0}, {1}] with indexes [{2}, {3}]", WorldX, WorldY, IndexX, IndexY);
+    }
+
+    public override string ToString()
+    {
+        return $"Node: {{ Walkable: {Walkable}, WorldPosition: [{WorldX}, {WorldY}], LocalPosition: [{LocalX}, {LocalY}], "
+            + $"Index: [{IndexX}, {IndexY}], GCost: {GCost}, HCost: {HCost}, FCost: {FCost}, "
+            + $"Parent: {(Parent != null ? Parent.PositionString() : "null")} }}";
     }
 }

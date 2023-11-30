@@ -99,9 +99,13 @@ public abstract class AbstractDoor : InteractableBehavior
                 throw new Exception($"Unhandled door type {GetDoorType()}");
         }
 
-        Debug.LogFormat("New room is at [{0}, {1}]", newRoom.Min, newRoom.Max);
+        Debug.LogFormat(
+            "New room is at [{0}, {1}]",
+            newRoom.RoomMinPositions,
+            newRoom.RoomMaxPositions
+        );
 
-        newLocations.CameraBounds = new(newRoom.Min, newRoom.Max);
+        newLocations.CameraBounds = new(newRoom.RoomMinPositions, newRoom.RoomMaxPositions);
         return newLocations;
     }
 

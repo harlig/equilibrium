@@ -9,8 +9,11 @@ public class RoomManager : MonoBehaviour
     public Tilemap floorTilemap;
     public Tilemap obstaclesTilemap;
 
-    public Vector2 Min,
-        Max;
+    public Vector2 RoomMinPositions,
+        RoomMaxPositions;
+
+    public Vector2 GroundMinPositions,
+        GroundMaxPositions;
     private List<EnemyController> enemies;
     public Grid Grid { get; private set; }
     public bool HasClearedRoom { get; private set; } = false;
@@ -71,13 +74,21 @@ public class RoomManager : MonoBehaviour
         Vector3 groundMinWorld = floorTilemap.GetCellCenterWorld(groundBounds.min);
         Vector3 groundMaxWorld = floorTilemap.GetCellCenterWorld(groundBounds.max);
 
-        var minX = Mathf.FloorToInt(Mathf.Min(obstaclesMinWorld.x, groundMinWorld.x));
-        var minY = Mathf.FloorToInt(Mathf.Min(obstaclesMinWorld.y, groundMinWorld.y));
-        var maxX = Mathf.CeilToInt(Mathf.Max(obstaclesMaxWorld.x, groundMaxWorld.x));
-        var maxY = Mathf.CeilToInt(Mathf.Max(obstaclesMaxWorld.y, groundMaxWorld.y));
+        var roomMinX = Mathf.FloorToInt(Mathf.Min(obstaclesMinWorld.x, groundMinWorld.x));
+        var roomMinY = Mathf.FloorToInt(Mathf.Min(obstaclesMinWorld.y, groundMinWorld.y));
+        var roomMaxX = Mathf.CeilToInt(Mathf.Max(obstaclesMaxWorld.x, groundMaxWorld.x));
+        var roomMaxY = Mathf.CeilToInt(Mathf.Max(obstaclesMaxWorld.y, groundMaxWorld.y));
 
-        Min = new(minX, minY);
-        Max = new(maxX, maxY);
+        RoomMinPositions = new(roomMinX, roomMinY);
+        RoomMaxPositions = new(roomMaxX, roomMaxY);
+
+        var groundMinX = Mathf.FloorToInt(groundMinWorld.x);
+        var groundMinY = Mathf.FloorToInt(groundMinWorld.y);
+        var groundMaxX = Mathf.CeilToInt(groundMaxWorld.x);
+        var groundMaxY = Mathf.CeilToInt(groundMaxWorld.y);
+
+        GroundMinPositions = new(groundMinX, groundMinY);
+        GroundMaxPositions = new(groundMaxX, groundMaxY);
     }
 
     private bool AllEnemiesDead()
@@ -180,7 +191,9 @@ public class RoomManager : MonoBehaviour
                             player,
                             transform
                         );
-                    ((MeleeEnemy)enemyController).PatrolArea(spawnLoc.WorldPosition);
+                    ((MeleeEnemy)enemyController).PatrolArea(
+                        GenerateRandomEnemySpawnNode(player).WorldPosition
+                    );
                     break;
                 case EnemyController.EnemyType.Ranged:
                     enemyController = EnemyController.Create(
