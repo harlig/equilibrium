@@ -43,7 +43,7 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
-    public override float MaxHp => 50;
+    public override float MaxHp => 500;
 
     protected override float BaseMovementSpeed => 0.15f;
 
@@ -265,7 +265,7 @@ public class PlayerController : GenericCharacterController
         }
 
         GetComponentInParent<GameManager>().AudioManager.PlayHurtSound();
-        GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining);
+        GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining, MaxHp);
 
         characterAnimator.AnimateHurt();
 

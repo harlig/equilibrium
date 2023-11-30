@@ -31,6 +31,7 @@ public class HeadsUpDisplayController : MonoBehaviour
     private AcquisitionsDisplayController acquisitionsDisplayController;
     private GameOverMenuController gameOverMenuController;
     private EquilibriumScaleController equilibriumScaleController;
+    private HealthBar healthBar;
 
     void Awake()
     {
@@ -41,17 +42,16 @@ public class HeadsUpDisplayController : MonoBehaviour
     {
         playerOrbCollector = player.OrbCollector;
         acquisitionsDisplayController = GetComponentInChildren<AcquisitionsDisplayController>();
-        gameOverMenuController = GetComponentInChildren<GameOverMenuController>();
+        gameOverMenuController = GetComponentInChildren<GameOverMenuController>(true);
         equilibriumScaleController = GetComponentInChildren<EquilibriumScaleController>();
+        healthBar = GetComponentInChildren<HealthBar>();
 
         SetPlayerLevel(player.PlayerLevel);
-        SetPlayerHp(player.HpRemaining);
+        SetPlayerHp(player.HpRemaining, player.MaxHp);
         SetPlayerXp(player.XpCollected());
         SetEquilibriumState(player.EquilibriumState);
         SetOrbsCollected();
         DisableInteractableHelpText();
-
-        gameOverMenuController.gameObject.SetActive(false);
     }
 
     public void SetPlayerLevel(int newPlayerLevel)
@@ -59,9 +59,9 @@ public class HeadsUpDisplayController : MonoBehaviour
         playerLevelText.text = $"lvl {newPlayerLevel}";
     }
 
-    public void SetPlayerHp(float newPlayerHp)
+    public void SetPlayerHp(float curPlayerHp, float maxPlayerHp)
     {
-        playerHpText.text = string.Format("{0:N1} HP", newPlayerHp);
+        healthBar.SetHealth(curPlayerHp / maxPlayerHp);
     }
 
     public void SetPlayerXp(float newPlayerXp)
@@ -109,7 +109,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         gameOverMenuController.gameObject.SetActive(true);
         if (gameOverStatus == GameOverStatus.FAIL)
         {
-            SetPlayerHp(0);
+            SetPlayerHp(0, 1);
         }
         gameOverMenuController.SetText(gameOverStatus);
         gameOverMenuController.SetStats(statisticsTracker);
