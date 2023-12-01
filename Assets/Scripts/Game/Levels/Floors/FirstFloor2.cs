@@ -10,6 +10,7 @@ public class FirstFloor2 : FloorManager
             EnemyConfiguration.Create(2, 2),
             EnemyConfiguration.Create(1, 4),
             EnemyConfiguration.Create(4, 1),
-            EnemyConfiguration.Create(1, 5)
+            EnemyConfiguration.Create(1, 5),
+            EnemyConfiguration.Create(3, 5)
         };
 }
