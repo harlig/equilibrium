@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public AudioManager AudioManager { get; private set; }
 
     public AcquisitionManager AcquisitionManager { get; private set; }
-    public bool IsPausingAllowed { get; set; }
+    public bool IsPausingAllowed { get; set; } = true;
     private LevelUpBehavior levelUpBehavior;
 
     public StatisticsTracker statisticsTracker = new();
