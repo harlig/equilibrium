@@ -14,13 +14,18 @@ public class BossEnemy : EnemyController
         CreateMeleeWeapon();
         CreateRangedWeapon();
 
-        FollowPlayer(player);
-        isFollowingPlayer = true;
+        PatrolArea(containingRoom.GenerateRandomEnemyWalkableNode(player).WorldPosition);
+        isFollowingPlayer = false;
 
         // boss is strong af
         SetMaxHp(MaxHp * 10);
         AddToDamageDealtModifier(10f);
         AddToMovementSpeedModifier(1.5f);
+
+        if (GetComponent<ElementalEnemy>() != null)
+        {
+            GetComponent<ElementalEnemy>().ElementalAlwaysActivated = true;
+        }
     }
 
     protected override void FixedUpdate()

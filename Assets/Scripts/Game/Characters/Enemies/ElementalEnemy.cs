@@ -10,6 +10,7 @@ public class ElementalEnemy : MonoBehaviour
     private ProjectileBehavior elementalProjectilePrefab;
     private CharacterAnimator characterAnimator;
     private bool elementalActivated = false;
+    public bool ElementalAlwaysActivated { private get; set; } = false;
 
     void Awake()
     {
@@ -17,10 +18,20 @@ public class ElementalEnemy : MonoBehaviour
         characterAnimator = GetComponent<EnemyController>().GetComponent<CharacterAnimator>();
     }
 
-    public void ToggleElementalEffect()
+    void Start()
+    {
+        ToggleElementalEffect(elementalActivated);
+    }
+
+    public void ToggleElementalEffect(bool? elementalActivatedOverride = null)
     {
         elementalActivated = !elementalActivated;
-        if (elementalActivated)
+        if (elementalActivatedOverride != null)
+        {
+            elementalActivated = elementalActivatedOverride.Value;
+        }
+
+        if (elementalActivated || ElementalAlwaysActivated)
         {
             ActivateElementalEffect();
         }
