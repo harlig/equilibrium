@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class BossFloor : FloorManager
 {
-    // TODO: spawn boss enemy logic
     public override List<EnemyConfiguration> EnemySpawnLocations =>
-        new() { EnemyConfiguration.Create(1, 0), };
+        new() { EnemyConfiguration.Create(0, 0, 2) };
 
     void Awake()
     {
-        SetPlayerSpawnLocation(new Vector2(5, -10));
+        SetPlayerSpawnLocation(new Vector2(20, 20));
     }
 }

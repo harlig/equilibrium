@@ -88,6 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeEnemyPrefab: {fileID: 5352518838595410912, guid: ca6f3de5263ca42f9b40d931e5fe0991, type: 3}
   rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 772b2c912fc0f49ab8bb45ced08bf0fa, type: 3}
+  bossEnemyPrefab: {fileID: 0}
   startingRoom: {fileID: 2871919138461654397}
 --- !u!1001 &369213672262824970
 PrefabInstance:
@@ -73603,7 +73604,7 @@ PrefabInstance:
     - target: {fileID: 47226871428776916, guid: 0291b4a3d45014ff8b762dfa530cc0a2, type: 3}
       propertyPath: FloorTo
       value: 
-      objectReference: {fileID: 7076228449667198943, guid: c490394d9071f4dd49a8d89f98d352d3, type: 3}
+      objectReference: {fileID: 4461172399305554281, guid: c490394d9071f4dd49a8d89f98d352d3, type: 3}
     - target: {fileID: 923533727346400770, guid: 0291b4a3d45014ff8b762dfa530cc0a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.5

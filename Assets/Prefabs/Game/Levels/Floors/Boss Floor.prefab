@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeEnemyPrefab: {fileID: 5352518838595410912, guid: ca6f3de5263ca42f9b40d931e5fe0991, type: 3}
   rangedEnemyPrefab: {fileID: 1805855582052065654, guid: 772b2c912fc0f49ab8bb45ced08bf0fa, type: 3}
+  bossEnemyPrefab: {fileID: 529306168427828081, guid: a4a3db96ad29348dfa3c2b1ff5e95719, type: 3}
   startingRoom: {fileID: 5505261521944187624}
 --- !u!1001 &2363802118341302701
 PrefabInstance:
