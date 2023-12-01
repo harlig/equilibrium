@@ -229,9 +229,13 @@ public class CharacterAnimator : MonoBehaviour
         float xDifference = Mathf.Abs(currentPosition.x - lastPosition.x);
         float yDifference = Mathf.Abs(currentPosition.y - lastPosition.y);
 
-        if (xDifference > yDifference)
+        // Bias towards horizontal movement by reducing the yDifference
+        // in the comparison.
+        float biasFactor = 0.95f;
+
+        if (xDifference >= yDifference * biasFactor)
         {
-            // Movement is primarily horizontal
+            // Movement is primarily or equally horizontal
             moveDirection =
                 currentPosition.x > lastPosition.x ? MoveDirection.Right : MoveDirection.Left;
         }
