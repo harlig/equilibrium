@@ -24,7 +24,7 @@ public abstract class EnemyController : GenericCharacterController
     [SerializeField]
     private OrbDropper orbDropper;
 
-    private RoomManager containingRoom;
+    protected RoomManager containingRoom;
 
     private List<Node> path;
     private int currentPathIndex;

@@ -26,7 +26,7 @@ public class RangedEnemy : EnemyController
 
         if (!IsDead())
         {
-            FireProjectile();
+            TryFireProjectile(weaponSlotController, player);
         }
 
         // Update the timer
@@ -69,7 +69,10 @@ public class RangedEnemy : EnemyController
         }
     }
 
-    void FireProjectile()
+    public static void TryFireProjectile(
+        WeaponSlotController weaponSlotController,
+        PlayerController player
+    )
     {
         weaponSlotController.AttackAtPosition(
             WeaponController.WeaponType.RANGED,

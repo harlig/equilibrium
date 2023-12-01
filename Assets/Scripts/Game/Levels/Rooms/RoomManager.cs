@@ -176,7 +176,7 @@ public class RoomManager : MonoBehaviour
             var remainingTypes = enemyCounts.Where(e => e.Value > 0).Select(e => e.Key).ToList();
             int randomIndex = Random.Range(0, remainingTypes.Count);
             EnemyController.EnemyType enemyType = remainingTypes[randomIndex];
-            var spawnLoc = GenerateRandomEnemySpawnNode(player);
+            var spawnLoc = GenerateRandomEnemyWalkableNode(player);
 
             if (spawnLoc == null)
             {
@@ -210,7 +210,7 @@ public class RoomManager : MonoBehaviour
                             transform
                         );
                     ((MeleeEnemy)enemyController).PatrolArea(
-                        GenerateRandomEnemySpawnNode(player).WorldPosition
+                        GenerateRandomEnemyWalkableNode(player).WorldPosition
                     );
                     break;
                 case EnemyController.EnemyType.Ranged:
@@ -246,23 +246,25 @@ public class RoomManager : MonoBehaviour
         return false;
     }
 
-    private Node GenerateRandomEnemySpawnNode(PlayerController player)
+    public Node GenerateRandomEnemyWalkableNode(PlayerController player = null)
     {
         Vector2Int randomVector;
-        // make sure we don't generate the same vector twice
-        float distanceToPlayer;
         Node potentialNode;
         int numAttempts = 0;
+        float distanceToPlayer = 0;
 
         do
         {
             int randomIdx = Random.Range(0, Grid.WalkableNodesIndices.Count);
             randomVector = Grid.WalkableNodesIndices[randomIdx];
             potentialNode = Grid.nodes[randomVector.x, randomVector.y];
-            distanceToPlayer = Vector2.Distance(
-                potentialNode.WorldPosition,
-                player.LocationAsVector2()
-            );
+            if (player != null)
+            {
+                distanceToPlayer = Vector2.Distance(
+                    potentialNode.WorldPosition,
+                    player.LocationAsVector2()
+                );
+            }
             if (
                 numAttempts++
                 >= Grid.WalkableNodesIndices.Count * ATTEMPTS_TO_FIND_SPAWNABLE_LOCATION
@@ -272,7 +274,7 @@ public class RoomManager : MonoBehaviour
             }
         } while (
             generatedVectors.Contains(randomVector)
-            || distanceToPlayer < ENEMY_SPAWN_FROM_PLAYER_BUFFER_DISTANCE
+            || (player != null && distanceToPlayer < ENEMY_SPAWN_FROM_PLAYER_BUFFER_DISTANCE)
         );
 
         generatedVectors.Add(randomVector);
