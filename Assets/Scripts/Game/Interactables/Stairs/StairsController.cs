@@ -5,6 +5,15 @@ public class StairsController : InteractableBehavior
 {
     public FloorManager FloorTo;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        if (FloorTo == null)
+        {
+            throw new System.Exception("Stairs exist which have no floor to!");
+        }
+    }
+
     protected override string GetHelpText()
     {
         if (CanDescendStairs())
