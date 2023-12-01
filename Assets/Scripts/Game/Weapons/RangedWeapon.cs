@@ -37,7 +37,7 @@ public class RangedWeapon : WeaponController
             AttackSpeed,
             () =>
             {
-                FireProjectile(getPosition());
+                FireProjectile(getPosition);
                 isShooting = false;
             }
         );
@@ -48,8 +48,9 @@ public class RangedWeapon : WeaponController
         weaponAnimator.StopAnimate();
     }
 
-    void FireProjectile(Vector2 firePosition)
+    void FireProjectile(Func<Vector2> getPosition)
     {
+        Vector2 firePosition = getPosition();
         var directionX = firePosition.x - transform.position.x;
         var directionY = firePosition.y - transform.position.y;
         Vector2 launchDirection = new Vector2(directionX, directionY).normalized;
