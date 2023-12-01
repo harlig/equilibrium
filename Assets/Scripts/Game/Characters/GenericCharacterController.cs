@@ -53,7 +53,7 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     protected bool applyingStatusEffect = false;
 
-    protected StatusEffectSystem elementalSystem;
+    protected StatusEffectSystem elementalStatusEffectSystem;
     protected CharacterAnimator characterAnimator;
 
     protected virtual void Start()
@@ -61,7 +61,10 @@ public abstract class GenericCharacterController : MonoBehaviour
         var gameManager = GetComponentInParent<GameManager>();
         var elementalDamageStatusEffectSystemPrefab =
             gameManager.ElementalDamageStatusEffectSystemPrefab;
-        elementalSystem = Instantiate(elementalDamageStatusEffectSystemPrefab, transform)
+        elementalStatusEffectSystem = Instantiate(
+                elementalDamageStatusEffectSystemPrefab,
+                transform
+            )
             .GetComponent<StatusEffectSystem>();
         characterAnimator = GetComponent<CharacterAnimator>();
     }
@@ -99,7 +102,7 @@ public abstract class GenericCharacterController : MonoBehaviour
             DamageType.ICE => EquilibriumManager.EquilibriumState.FROZEN,
             _ => throw new System.Exception($"Unhandled damage type for DOT {damageType}")
         };
-        elementalSystem.SetStateAndAnimate(state);
+        elementalStatusEffectSystem.SetStateAndAnimate(state);
 
         if (state == EquilibriumManager.EquilibriumState.FROZEN)
         {
@@ -122,7 +125,7 @@ public abstract class GenericCharacterController : MonoBehaviour
         {
             if (IsDead())
             {
-                elementalSystem.StopAnimating();
+                elementalStatusEffectSystem.StopAnimating();
                 yield break;
             }
 
@@ -130,7 +133,7 @@ public abstract class GenericCharacterController : MonoBehaviour
 
             if (IsDead())
             {
-                elementalSystem.StopAnimating();
+                elementalStatusEffectSystem.StopAnimating();
                 yield break;
             }
 
@@ -138,7 +141,7 @@ public abstract class GenericCharacterController : MonoBehaviour
             TakeDamage(damageType, damagePerInterval);
         }
 
-        elementalSystem.StopAnimating();
+        elementalStatusEffectSystem.StopAnimating();
         applyingStatusEffect = false;
     }
 

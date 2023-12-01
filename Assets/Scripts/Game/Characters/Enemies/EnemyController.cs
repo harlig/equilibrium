@@ -292,7 +292,7 @@ public abstract class EnemyController : GenericCharacterController
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
 
-        elementalSystem.StopAnimating();
+        elementalStatusEffectSystem.StopAnimating();
         damageTaken.HideTextElement();
 
         if (meleeWeapon != null)
@@ -383,6 +383,18 @@ public abstract class EnemyController : GenericCharacterController
         if (meleeWeapon != null)
         {
             meleeWeapon.IncreaseAttackSpeedMultiplier(modifierToAdd);
+        }
+    }
+
+    public void IncreaseElementalSystemChance(float amountToIncrease)
+    {
+        if (rangedWeapon != null)
+        {
+            rangedWeapon.elementalSystem.Chance += amountToIncrease;
+        }
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.elementalSystem.Chance += amountToIncrease;
         }
     }
 

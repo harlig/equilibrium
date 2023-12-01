@@ -99,6 +99,14 @@ public class DifficultySystem
 
             float attackSpeedMultiplier = CalculateAttackSpeedMultiplier(OverallModifier, enemy);
             enemy.IncreaseAllWeaponsAttackSpeedMultiplier(attackSpeedMultiplier);
+
+            if (enemy.GetComponent<ElementalEnemy>() != null)
+            {
+                float elementalChanceMultiplier = CalculateElementalChanceMultiplier(
+                    OverallModifier
+                );
+                enemy.IncreaseElementalSystemChance(elementalChanceMultiplier);
+            }
         }
 
         private float CalculateAttackSpeedMultiplier(
@@ -124,6 +132,17 @@ public class DifficultySystem
                 float logValue = Mathf.Log(normalizedDifficulty, logBase);
                 multiplier = Mathf.Clamp(logValue / logBase, 0, 1);
             }
+
+            return multiplier;
+        }
+
+        private float CalculateElementalChanceMultiplier(float difficultyModifier)
+        {
+            const float logBase = 10;
+            float normalizedDifficulty = Mathf.Clamp(difficultyModifier, 1, float.MaxValue);
+            float adjustedDifficulty = Mathf.Sqrt(normalizedDifficulty); // Slows down the rate of increase
+            float logValue = Mathf.Log(adjustedDifficulty, logBase);
+            float multiplier = Mathf.Clamp(logValue / logBase, 0, 1); // Caps the multiplier at 1
 
             return multiplier;
         }
