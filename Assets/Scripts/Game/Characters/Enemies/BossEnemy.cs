@@ -20,7 +20,7 @@ public class BossEnemy : EnemyController
         // boss is strong af
         SetMaxHp(MaxHp * 10);
         AddToDamageDealtModifier(10f);
-        AddToMovementSpeedModifier(10f);
+        AddToMovementSpeedModifier(1.5f);
     }
 
     protected override void FixedUpdate()

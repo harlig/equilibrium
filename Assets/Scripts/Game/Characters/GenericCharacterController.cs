@@ -20,7 +20,7 @@ public abstract class GenericCharacterController : MonoBehaviour
                 : totalMovementSpeed;
         }
     }
-    protected abstract float BaseMovementSpeed { get; }
+    public abstract float BaseMovementSpeed { get; }
 
     public abstract float MaxHp { get; }
 

@@ -90,9 +90,9 @@ public class DifficultySystem
             float newMovementSpeed = enemy.MovementSpeed * movementSpeedModifier;
 
             // Ensuring new movement speed does not exceed 2.5 times the original speed
-            if (newMovementSpeed > enemy.MovementSpeed * 2.5f)
+            if (newMovementSpeed > enemy.BaseMovementSpeed * 2.5f)
             {
-                newMovementSpeed = enemy.MovementSpeed * 2.5f;
+                newMovementSpeed = enemy.BaseMovementSpeed * 2.5f;
             }
 
             enemy.AddToMovementSpeedModifier(newMovementSpeed - enemy.MovementSpeed);
