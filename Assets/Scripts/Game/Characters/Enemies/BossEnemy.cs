@@ -20,7 +20,7 @@ public class BossEnemy : EnemyController
         // boss is strong af
         SetMaxHp(MaxHp * 10);
         AddToDamageDealtModifier(10f);
-        AddToMovementSpeedModifier(1.3f);
+        AddToMovementSpeedModifier(1.2f);
         IncreaseAllWeaponsAttackSpeedMultiplier(1f);
 
         if (GetComponent<ElementalEnemy>() != null)
