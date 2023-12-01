@@ -27,8 +27,8 @@ public class EquilibriumManager
     > percentageTotalOrbsAreFireOrbsToEquilibriumStateMapping =
         GeneratePercentageTotalOrbsAreFireOrbsToEquilibriumStateMapping();
 
-    private const float NUM_ORBS_FOR_UNLOCK_HOT = 5;
-    private const float NUM_ORBS_FOR_UNLOCK_INFERNO = 10;
+    private const float NUM_ORBS_FOR_UNLOCK_HOT = 50;
+    private const float NUM_ORBS_FOR_UNLOCK_INFERNO = 100;
 
     private static Dictionary<
         (float, float),
