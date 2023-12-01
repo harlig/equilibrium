@@ -292,6 +292,10 @@ public abstract class EnemyController : GenericCharacterController
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
 
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.ENEMIES_DEFEATED
+        );
+
         elementalStatusEffectSystem.StopAnimating();
         damageTaken.HideTextElement();
 

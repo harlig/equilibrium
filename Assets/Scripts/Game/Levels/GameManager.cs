@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     {
         var xpNeededPerLevel = new List<int>();
         int baseXpForFirstLevel = 100; // Base XP for the first floor
-        float xpScaleFactor = 1.55f; // Adjust this to change the scaling rate
+        float xpScaleFactor = 1.48f; // Adjust this to change the scaling rate
 
         for (int level = 1; level <= levelsToCreate; level++)
         {
