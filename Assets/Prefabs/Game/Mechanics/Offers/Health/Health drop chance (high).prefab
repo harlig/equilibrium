@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: 7437142848942090283}
   m_Layer: 0
-  m_Name: Health (medium)
+  m_Name: Health drop chance (high)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CorrespondingState: 3
-  OfferPool: 6
+  OfferPool: 8
   Color: {r: 0.514151, g: 1, b: 0.5231296, a: 1}
-  Value: 0.015
+  Value: 0.02
   Sprite: {fileID: 21300000, guid: 123b3725f20604a4f912b2b35b459673, type: 3}
