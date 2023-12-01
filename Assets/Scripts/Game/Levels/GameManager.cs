@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
             afterLevelUpAction,
             HudController
         );
+        HudController.SetPlayerHp(player.HpRemaining, player.MaxHp);
     }
 
     public void OnOfferSelected(OfferData offerSelected)

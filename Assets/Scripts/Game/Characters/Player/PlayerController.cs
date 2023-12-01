@@ -43,9 +43,9 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
-    public override float MaxHp => LocalMaxHp * LocalMaxHpModifier;
+    public override float MaxHp => BASE_MAX_HP * LocalMaxHpModifier;
 
-    private float LocalMaxHp { get; set; } = 1500;
+    private const float BASE_MAX_HP = 3000;
     public float LocalMaxHpModifier { get; set; } = 1f;
 
     public override float BaseMovementSpeed => 0.11f;
@@ -203,13 +203,23 @@ public class PlayerController : GenericCharacterController
 
     void TryLevelUp()
     {
-        // you can only possibly level up if you aren't yet at the last level
-        if (PlayerLevel < XpNeededForLevelUpAtIndex.Count)
+        int totalLevels = XpNeededForLevelUpAtIndex.Count;
+        float targetMaxHp = 15000f;
+        float finalModifier = targetMaxHp / BASE_MAX_HP;
+        float powerFactor = 2f; // Adjust this to control the curve's steepness
+
+        if (PlayerLevel < totalLevels)
         {
             var xpForLevelUp = XpNeededForLevelUpAtIndex[PlayerLevel];
             if (OrbCollector.XpCollected >= xpForLevelUp)
             {
                 PlayerLevel++;
+
+                // Apply power curve for HP scaling
+                LocalMaxHpModifier =
+                    Mathf.Pow(PlayerLevel / (float)(totalLevels - 1), powerFactor)
+                        * (finalModifier - 1f)
+                    + 1f;
 
                 // can't collect more orbs until we finish the level up
                 canCollectOrbs = false;
@@ -246,7 +256,7 @@ public class PlayerController : GenericCharacterController
     public void Respawn()
     {
         // respawn with 50% hp
-        LocalMaxHp /= 2;
+        LocalMaxHpModifier /= 2;
         hpRemaining = MaxHp;
         EnablePlayer();
         SetEquilibriumState(EquilibriumManager.ManageEquilibrium(OrbCollector));
