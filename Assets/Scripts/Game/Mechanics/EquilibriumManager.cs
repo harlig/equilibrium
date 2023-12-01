@@ -35,21 +35,17 @@ public class EquilibriumManager
         EquilibriumState
     > GeneratePercentageTotalOrbsAreFireOrbsToEquilibriumStateMapping()
     {
-        var enumValues = Enum.GetValues(typeof(EquilibriumState));
-        int totalValues = enumValues.Length;
-        Dictionary<(float, float), EquilibriumState> mapping = new();
-
-        float rangeSize = 100.0f / totalValues; // Distribute the range from 0 to 100 evenly.
-
-        for (int i = 0; i < totalValues; i++)
-        {
-            float startPercentage = i * rangeSize;
-            float endPercentage = (i + 1) * rangeSize;
-
-            EquilibriumState state = (EquilibriumState)enumValues.GetValue(i);
-
-            mapping.Add((startPercentage, endPercentage), state);
-        }
+        Dictionary<(float, float), EquilibriumState> mapping =
+            new()
+            {
+                { (0.0f, 25.0f), EquilibriumState.FROZEN },
+                { (25.0f, 35.0f), EquilibriumState.COLD },
+                { (35.0f, 45.0f), EquilibriumState.BRISK },
+                { (45.0f, 55.0f), EquilibriumState.NEUTRAL },
+                { (55.0f, 65.0f), EquilibriumState.WARM },
+                { (65.0f, 75.0f), EquilibriumState.HOT },
+                { (75.0f, 100.0f), EquilibriumState.INFERNO }
+            };
 
         return mapping;
     }
