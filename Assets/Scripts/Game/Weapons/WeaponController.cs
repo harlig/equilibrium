@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
@@ -10,6 +11,7 @@ public abstract class WeaponController : MonoBehaviour
     public abstract WeaponType Type { get; }
 
     public abstract bool ShouldRotateToMousePosition { get; }
+
     public float AttackSpeed
     {
         get => BaseAttackSpeed * attackSpeedMultiplier;
@@ -35,7 +37,7 @@ public abstract class WeaponController : MonoBehaviour
         return createdWeapon;
     }
 
-    public abstract void AttackAtPosition(Vector2 position);
+    public abstract void AttackAtPosition(Func<Vector2> getPositionCallback);
     public abstract void StopAttacking();
 
     protected float GetDamageModifierOfParentCharacter()

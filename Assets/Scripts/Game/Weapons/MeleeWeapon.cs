@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ public class MeleeWeapon : WeaponController
         boxCollider.enabled = false;
     }
 
-    public override void AttackAtPosition(Vector2 position)
+    public override void AttackAtPosition(Func<Vector2> getPosition)
     {
         if (isSwinging)
         {
