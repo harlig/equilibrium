@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        optionsMenu = GetComponentInChildren<OptionsMenuController>();
+        optionsMenu = GetComponentInChildren<OptionsMenuController>(true);
         SetActiveMenu();
     }
 

@@ -261,6 +261,7 @@ public class PlayerController : GenericCharacterController
     public void Heal(float amountToHeal)
     {
         hpRemaining += amountToHeal;
+        hpRemaining = Mathf.Clamp(hpRemaining, 0, MaxHp);
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining, MaxHp);
     }
 
