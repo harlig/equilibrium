@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
                 player,
                 CameraController,
                 HudController,
-                difficultySystem.GetFloorDifficulty()
+                difficultySystem.GenerateNextFloorDifficulty()
             )
             .SetupFloor();
 

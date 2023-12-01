@@ -58,8 +58,7 @@ public class RangedWeapon : WeaponController
             transform.localToWorldMatrix.GetPosition(),
             launchDirection,
             character,
-            elementalSystem,
-            BaseDamageAmount + GetDamageModifierOfParentCharacter()
+            elementalSystem
         );
     }
 }

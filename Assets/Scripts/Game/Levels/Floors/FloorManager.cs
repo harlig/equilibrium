@@ -101,7 +101,7 @@ public abstract class FloorManager : MonoBehaviour
             playerController,
             cameraController,
             hudController,
-            GetComponentInParent<GameManager>().difficultySystem.GetFloorDifficulty()
+            GetComponentInParent<GameManager>().difficultySystem.GenerateNextFloorDifficulty()
         );
         newFloor.SetupFloor();
 

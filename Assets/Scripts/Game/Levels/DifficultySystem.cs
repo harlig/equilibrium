@@ -3,23 +3,64 @@ using UnityEngine;
 
 public class DifficultySystem
 {
-    public FloorDifficulty GetFloorDifficulty()
+    public List<FloorDifficulty> floorDifficulties = new();
+
+    const float NEXT_FLOOR_DIFFICULTY_MULTIPLIER = 1.3f;
+    const int NUM_ROOM_DIFFICULTIES_TO_GENERATE = 5;
+    const float ROOM_DIFFICULTY_INCREMENT = 0.04f; // Increment factor for each subsequent room
+
+    public FloorDifficulty GenerateNextFloorDifficulty()
     {
-        var floorDifficulty = new FloorDifficulty();
-        // TODO: how to register
-        floorDifficulty.RoomDifficulties.Add(new Difficulty { OverallModifier = 1 });
+        // Calculate the base difficulty for the new floor
+        float lastFloorModifier =
+            floorDifficulties.Count > 0 ? floorDifficulties[^1].OverallModifier : 1;
+        float newFloorModifier = lastFloorModifier * NEXT_FLOOR_DIFFICULTY_MULTIPLIER;
+
+        // Ensuring the first room of the new floor is at least as difficult as the last room of the prior floor
+        if (floorDifficulties.Count > 0)
+        {
+            FloorDifficulty lastFloor = floorDifficulties[^1];
+            Difficulty lastRoomOfLastFloor = lastFloor.RoomDifficulties[^1];
+            newFloorModifier = Mathf.Max(newFloorModifier, lastRoomOfLastFloor.OverallModifier);
+        }
+
+        var floorDifficulty = new FloorDifficulty() { OverallModifier = newFloorModifier };
+
+        // Adding progressively harder rooms
+        for (int ndx = 0; ndx < NUM_ROOM_DIFFICULTIES_TO_GENERATE; ndx++)
+        {
+            float roomDifficultyModifier = newFloorModifier * (1 + ndx * ROOM_DIFFICULTY_INCREMENT);
+            floorDifficulty.RoomDifficulties.Add(
+                new Difficulty { OverallModifier = roomDifficultyModifier }
+            );
+        }
+
+        floorDifficulties.Add(floorDifficulty);
 
         return floorDifficulty;
     }
 
     public class FloorDifficulty
     {
-        public List<Difficulty> RoomDifficulties { get; private set; } = new();
+        public float OverallModifier { get; set; }
+        public List<Difficulty> RoomDifficulties { get; private set; } = new List<Difficulty>();
 
-        // TODO: system needs to pick these in order
+        private int nextRoomIndex = 0;
+
         public Difficulty GetRoomDifficulty()
         {
-            return RoomDifficulties[0];
+            // Ensure there is at least one room difficulty to return
+            if (RoomDifficulties.Count == 0)
+            {
+                throw new System.Exception(
+                    "Tried to get room difficulty but none were registered. What the heck?"
+                );
+            }
+
+            Difficulty difficulty = RoomDifficulties[nextRoomIndex];
+            nextRoomIndex = (nextRoomIndex + 1) % RoomDifficulties.Count; // Loop back to the start
+
+            return difficulty;
         }
     }
 

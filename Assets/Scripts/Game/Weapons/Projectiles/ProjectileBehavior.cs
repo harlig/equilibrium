@@ -21,8 +21,7 @@ public class ProjectileBehavior : MonoBehaviour
         Vector3 position,
         Vector2 launchDirection,
         GenericCharacterController firedFrom,
-        ElementalSystem elementalSystem,
-        float extraDamageAmount = 0f
+        ElementalSystem elementalSystem
     )
     {
         float angle = Mathf.Atan2(launchDirection.y, launchDirection.x) * Mathf.Rad2Deg - 90;
@@ -32,7 +31,6 @@ public class ProjectileBehavior : MonoBehaviour
 
         projectile.MoveInDirection(launchDirection);
         projectile.CharacterFiredFrom = firedFrom;
-        projectile.DamageAmount += extraDamageAmount;
         projectile.elementalSystem = elementalSystem;
 
         return projectile;
