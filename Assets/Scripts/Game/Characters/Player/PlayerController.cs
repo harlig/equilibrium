@@ -160,11 +160,6 @@ public class PlayerController : GenericCharacterController
         AutomoveLocation = position;
     }
 
-    // player can only take damage every DMG_FREQUENCY_INTERVAL seconds
-    private const float DMG_FREQUENCY_INTERVAL = 0.5f;
-
-    private bool canTakeDmg = true;
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<OrbController>() != null)
@@ -230,16 +225,6 @@ public class PlayerController : GenericCharacterController
         }
     }
 
-    private IEnumerator WaitBeforeTakingDmg(float waitTime, bool forceDmg = false)
-    {
-        // weird edge case?
-        if (canTakeDmg && !forceDmg)
-            yield break;
-
-        yield return new WaitForSeconds(waitTime);
-        canTakeDmg = true;
-    }
-
     public override bool IsDead()
     {
         return hpRemaining <= 0;
@@ -280,8 +265,6 @@ public class PlayerController : GenericCharacterController
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining, MaxHp);
 
         characterAnimator.AnimateHurt();
-
-        StartCoroutine(WaitBeforeTakingDmg(DMG_FREQUENCY_INTERVAL));
     }
 
     private void CreateRangedWeapon()
