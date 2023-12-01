@@ -30,14 +30,14 @@ public abstract class GenericCharacterController : MonoBehaviour
     public float DamageDealtMultiplier { get; private set; } = BASE_DAMAGE_DEALT_MULTIPLIER;
 
     // TODO: update what uses this
-    public void AddToMovementSpeedModifier(float percSpeedToAdd)
+    public void AddToMovementSpeedModifier(float moveSpeedModifierToAdd)
     {
-        movementSpeedMultiplier += percSpeedToAdd;
+        movementSpeedMultiplier += moveSpeedModifierToAdd;
     }
 
-    public void MultiplyToMovementSpeedModifier(float percSpeedToMultiply)
+    public void MultiplyToMovementSpeedModifier(float moveSpeedModifierToMultiply)
     {
-        movementSpeedMultiplier *= percSpeedToMultiply;
+        movementSpeedMultiplier *= moveSpeedModifierToMultiply;
     }
 
     // TODO: update what uses this

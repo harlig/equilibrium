@@ -16,6 +16,11 @@ public class BossEnemy : EnemyController
 
         FollowPlayer(player);
         isFollowingPlayer = true;
+
+        // boss is strong af
+        SetMaxHp(MaxHp * 10);
+        AddToDamageDealtModifier(10f);
+        AddToMovementSpeedModifier(10f);
     }
 
     protected override void FixedUpdate()
