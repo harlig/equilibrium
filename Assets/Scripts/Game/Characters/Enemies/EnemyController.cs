@@ -46,7 +46,7 @@ public abstract class EnemyController : GenericCharacterController
         get { return GetMaxHp(); }
     }
 
-    protected override float BaseMovementSpeed => 0.01f;
+    protected override float BaseMovementSpeed => 0.05f;
 
     public override float HpRemaining
     {
@@ -98,7 +98,8 @@ public abstract class EnemyController : GenericCharacterController
         return createdEnemy;
     }
 
-    private readonly float pathUpdateInterval = 0.2f; // Time in seconds between path updates
+    const float pathUpdateInterval = 0.2f; // Time in seconds between path updates
+    const float movementSpeedModifierWhenPatrolling = 0.5f;
     private float pathUpdateTimer;
 
     protected virtual void DoMovementActions()
@@ -124,14 +125,11 @@ public abstract class EnemyController : GenericCharacterController
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
 
-                // Set velocity in the direction of the next node
-                float speed = MovementSpeed * 80; // Adjust this speed as needed
-                rigidBody.velocity = direction * speed;
-
-                float distanceToNextNode = Vector2.Distance(rigidBody.position, nextPosition);
+                var newPosition = rigidBody.position + direction.normalized * MovementSpeed;
+                rigidBody.MovePosition(newPosition);
 
                 // Check if the node is reached or passed
-                if (distanceToNextNode <= speed * Time.fixedDeltaTime)
+                if (Vector2.Distance(rigidBody.position, nextPosition) <= 0.5f)
                 {
                     currentPathIndex++;
                 }
@@ -144,8 +142,11 @@ public abstract class EnemyController : GenericCharacterController
                 Node nextNode = path[currentPathIndex];
                 Vector2 nextPosition = new(nextNode.WorldX, nextNode.WorldY);
                 Vector2 direction = (nextPosition - rigidBody.position).normalized;
-                float speed = MovementSpeed * 80; // Adjust this speed as needed
-                rigidBody.velocity = direction * speed;
+
+                var newPosition =
+                    rigidBody.position
+                    + MovementSpeed * movementSpeedModifierWhenPatrolling * direction.normalized;
+                rigidBody.MovePosition(newPosition);
 
                 if (Vector2.Distance(rigidBody.position, nextPosition) < 0.2f)
                 {

@@ -45,7 +45,7 @@ public class PlayerController : GenericCharacterController
 
     public override float MaxHp => 10000;
 
-    protected override float BaseMovementSpeed => 0.15f;
+    protected override float BaseMovementSpeed => 0.08f;
 
     public override float HpRemaining
     {

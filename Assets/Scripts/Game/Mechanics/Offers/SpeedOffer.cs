@@ -21,6 +21,6 @@ public class SpeedOffer : OfferData
 
     public override string GetValue()
     {
-        return $"{Value}";
+        return string.Format("{0:N0}", Value * 10000);
     }
 }
