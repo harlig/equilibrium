@@ -188,6 +188,11 @@ public class Grid
 
         return closestNode;
     }
+
+    public Vector2 ToWorldPosition(Vector2 localPosition)
+    {
+        return localPosition + GridOrigin;
+    }
 }
 
 public class Node

@@ -138,9 +138,12 @@ public abstract class FloorManager : MonoBehaviour
 
         if (PlayerSpawnLocation.HasValue)
         {
+            xPos = (float)PlayerSpawnLocation?.x;
+            yPos = (float)PlayerSpawnLocation?.y;
             // if it hasn't been set yet, set it to middle of room
-            xPos = (float)(PlayerSpawnLocation?.x);
-            yPos = (float)(PlayerSpawnLocation?.y);
+            var localPos = startingRoom.Grid.ToWorldPosition(new Vector2(xPos, yPos));
+            xPos = localPos.x;
+            yPos = localPos.y;
         }
 
         Debug.LogFormat("{0}, {1}", xPos, yPos);
