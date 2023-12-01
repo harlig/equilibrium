@@ -60,6 +60,7 @@ public class OfferAreaManager : MonoBehaviour
         congratsText.text = textForOFfer;
         congratsText.gameObject.SetActive(true);
         chooseOfferText.SetActive(true);
+        GetComponentInParent<GameManager>().IsPausingAllowed = false;
 
         // Calculate the button size and spacing based on the parent panel's width and the number of offers
         float maxButtonSize = offerButtonArea.rect.width * 0.25f; // Maximum size a button can be is 25% of parent width
@@ -121,6 +122,7 @@ public class OfferAreaManager : MonoBehaviour
         }
         DisableElements();
 
+        GetComponentInParent<GameManager>().IsPausingAllowed = true;
         onOfferSelectedAction?.Invoke(offer);
     }
 }

@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public AudioManager AudioManager { get; private set; }
 
     public AcquisitionManager AcquisitionManager { get; private set; }
+    public bool IsPausingAllowed { get; set; }
     private LevelUpBehavior levelUpBehavior;
 
     public StatisticsTracker statisticsTracker = new();
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (IsPausingAllowed && Input.GetKeyDown(KeyCode.Escape))
         {
             GetComponentInChildren<PauseMenuController>(true).TogglePause();
         }
