@@ -45,7 +45,7 @@ public class HeadsUpDisplayController : MonoBehaviour
 
     public void SetPlayerHp(float curPlayerHp, float maxPlayerHp)
     {
-        healthBar.SetHealth(curPlayerHp , maxPlayerHp);
+        healthBar.SetHealth(curPlayerHp, maxPlayerHp);
     }
 
     public void SetPlayerXp(float curPlayerXp, int curPlayerLevel)
@@ -88,13 +88,16 @@ public class HeadsUpDisplayController : MonoBehaviour
         interactableHelpText.gameObject.SetActive(false);
     }
 
-    // TODO: should this also disable all of the other HUD elements? can do this once Omar gives HUD art
-    public void OnGameOver(GameOverStatus gameOverStatus, StatisticsTracker statisticsTracker)
+    public void OnGameOver(
+        GameOverStatus gameOverStatus,
+        StatisticsTracker statisticsTracker,
+        PlayerController player
+    )
     {
         gameOverMenuController.gameObject.SetActive(true);
         if (gameOverStatus == GameOverStatus.FAIL)
         {
-            SetPlayerHp(0, 1);
+            SetPlayerHp(0, player.MaxHp);
         }
         gameOverMenuController.SetText(gameOverStatus);
         gameOverMenuController.SetStats(statisticsTracker);
