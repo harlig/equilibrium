@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -281,8 +280,7 @@ public abstract class EnemyController : GenericCharacterController
             HealthDropController.Create(
                 GetComponentInParent<GameManager>().healthDropPrefab,
                 transform,
-                // TODO: derive this better
-                player.MaxHp * 0.10f
+                player.MaxHp * HealthDropController.DEFAULT_PERC_PLAYER_HP_TO_HEAL
             );
         }
 
