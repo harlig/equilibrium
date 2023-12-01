@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6a9eff0cb7548598750c403c863153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorrespondingState: 4
+  CorrespondingState: 6
   OfferPool: 0
   Color: {r: 0.9528302, g: 0.57978815, b: 0.79719955, a: 1}
   Value: 0.1

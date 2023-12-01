@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6a9eff0cb7548598750c403c863153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CorrespondingState: 4
+  CorrespondingState: 6
   OfferPool: 8
   Color: {r: 0.990566, g: 0.014017418, b: 0.63656694, a: 1}
-  Value: 0.5
+  Value: 0.3
   Sprite: {fileID: 21300000, guid: bf9037e3df701484aae90c49f5083be6, type: 3}

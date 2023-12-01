@@ -134,14 +134,9 @@ public class OfferSystem : MonoBehaviour
         {
             poolChances[ndx] += poolChances[ndx - 1];
         }
-        string poolchances = "";
-        for (int ndx = 0; ndx < poolChances.Count; ndx++)
-        {
-            poolchances += $"pool {ndx}, chances {poolChances[ndx]}; ";
-        }
 
         // Generate a random number
-        int randomNumber = random.Next(poolChances[poolChances.Count - 1]);
+        int randomNumber = random.Next(poolChances[^1]);
 
         // Use the cumulative distribution to select the pool
         for (int ndx = 0; ndx < poolChances.Count; ndx++)
