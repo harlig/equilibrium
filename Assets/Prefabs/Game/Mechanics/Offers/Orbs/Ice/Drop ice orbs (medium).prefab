@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: -8550563063247925799}
   m_Layer: 0
-  m_Name: drop ice orbs (medium)
+  m_Name: Drop ice orbs (medium)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   CorrespondingState: 5
   OfferPool: 7
   Color: {r: 0.374466, g: 0.9339623, b: 0.9004392, a: 1}
-  Value: 4
+  Value: 20
   Sprite: {fileID: 21300000, guid: 63599943820aa4900893667ef723840f, type: 3}
   orbType: 1
   orbDropperPrefab: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}

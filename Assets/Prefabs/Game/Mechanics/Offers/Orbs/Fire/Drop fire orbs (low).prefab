@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137452742242942633}
   - component: {fileID: -8550563063247925799}
   m_Layer: 0
-  m_Name: drop fire orbs (low)
+  m_Name: Drop fire orbs (low)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   CorrespondingState: 2
   OfferPool: 5
   Color: {r: 0.93333334, g: 0.477717, b: 0.37254897, a: 1}
-  Value: 3
+  Value: 10
   Sprite: {fileID: 21300000, guid: 528b06d282f9f4fc1a5371d8fdf8c2cb, type: 3}
   orbType: 0
   orbDropperPrefab: {fileID: 8163560292457517429, guid: a78832f9f48e24df58d1cbd4c5a44ca3, type: 3}
