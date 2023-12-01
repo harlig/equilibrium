@@ -65,7 +65,8 @@ public class OfferSystem : MonoBehaviour
         AcquisitionManager acquisitionManager
     )
     {
-        List<OfferData> selectedOffers = new();
+        List<OfferData> selectedOffersInstantiated = new();
+        HashSet<OfferData> alreadySelectedOfferPrefabs = new();
 
         for (int ndx = 0; ndx < numOffersToRetrieve; ndx++)
         {
@@ -73,7 +74,8 @@ public class OfferSystem : MonoBehaviour
             OfferData offerPrefab = SelectOfferFromPool(
                 poolIndex,
                 currentEquilibriumState,
-                acquisitionManager.OfferAcquisitions
+                acquisitionManager.OfferAcquisitions,
+                alreadySelectedOfferPrefabs
             );
 
             // if we can't get an offer from this pool, try from the pool below
@@ -83,22 +85,24 @@ public class OfferSystem : MonoBehaviour
                 offerPrefab = SelectOfferFromPool(
                     poolIndex,
                     currentEquilibriumState,
-                    acquisitionManager.OfferAcquisitions
+                    acquisitionManager.OfferAcquisitions,
+                    alreadySelectedOfferPrefabs
                 );
             }
 
             if (offerPrefab != null)
             {
-                selectedOffers.Add(OfferData.Create(offerPrefab, transform));
+                selectedOffersInstantiated.Add(OfferData.Create(offerPrefab, transform));
+                alreadySelectedOfferPrefabs.Add(offerPrefab);
             }
         }
 
-        if (selectedOffers.Count == 0)
+        if (selectedOffersInstantiated.Count == 0)
         {
             throw new Exception("Found no offers! Can't keep going");
         }
 
-        return selectedOffers;
+        return selectedOffersInstantiated;
     }
 
     private int SelectPoolIndex(int playerLevel)
@@ -157,7 +161,8 @@ public class OfferSystem : MonoBehaviour
     private OfferData SelectOfferFromPool(
         int poolIndex,
         EquilibriumManager.EquilibriumState equilibriumState,
-        List<OfferData> offersAcquired
+        List<OfferData> offersAcquired,
+        HashSet<OfferData> alreadySelectedOffers
     )
     {
         if (poolIndex >= offerPools.Length)
@@ -165,17 +170,16 @@ public class OfferSystem : MonoBehaviour
             return null;
         }
 
-        List<OfferData> pool = offerPools[poolIndex];
+        List<OfferData> pool = new List<OfferData>(offerPools[poolIndex]);
         List<OfferData> offerEntriesInRaffle = new();
 
         foreach (OfferData offer in pool)
         {
-            if (!offer.PrerequisitesMet(offersAcquired))
+            if (!offer.PrerequisitesMet(offersAcquired) || alreadySelectedOffers.Contains(offer))
             {
                 continue;
             }
 
-            // each offer gets somewhere between 0 and MAX_ENTRIES_FOR_OFFER entries in the raffle
             int numEntiresForThisOffer = Mathf.RoundToInt(
                 CalculateWeight(offer.CorrespondingState, equilibriumState) * MAX_ENTIRES_FOR_OFFER
             );
@@ -185,18 +189,14 @@ public class OfferSystem : MonoBehaviour
             }
         }
 
-        // do the raffle for an offer
         if (offerEntriesInRaffle.Count > 0)
         {
             int randomIndex = random.Next(offerEntriesInRaffle.Count);
-            return offerEntriesInRaffle[randomIndex];
+            OfferData selectedOffer = offerEntriesInRaffle[randomIndex];
+            alreadySelectedOffers.Add(selectedOffer); // Add the selected offer to the already selected list
+            return selectedOffer;
         }
 
-        Debug.LogWarningFormat(
-            "Was not able to select any offer from pool {0} with equilibriumState {1}",
-            poolIndex,
-            equilibriumState
-        );
         return null;
     }
 
