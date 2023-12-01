@@ -6,24 +6,6 @@ using static GameManager;
 public class HeadsUpDisplayController : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI playerLevelText;
-
-    [SerializeField]
-    private TextMeshProUGUI playerHpText;
-
-    [SerializeField]
-    private TextMeshProUGUI playerXpText;
-
-    [SerializeField]
-    private TextMeshProUGUI equilibriumStateTextElement;
-
-    [SerializeField]
-    private TextMeshProUGUI fireOrbsTextElement;
-
-    [SerializeField]
-    private TextMeshProUGUI iceOrbsTextElement;
-
-    [SerializeField]
     private TextMeshProUGUI interactableHelpText;
 
     private OrbCollector playerOrbCollector;
@@ -51,8 +33,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         SetPlayerLevel(player.PlayerLevel);
         SetPlayerHp(player.HpRemaining, player.MaxHp);
         SetPlayerXp(player.XpCollected(), player.PlayerLevel);
-        SetEquilibriumState(player.EquilibriumState);
-        SetOrbsCollected();
+
         DisableInteractableHelpText();
     }
 
@@ -84,19 +65,6 @@ public class HeadsUpDisplayController : MonoBehaviour
             (curPlayerXp - xpNeededForLastLevel) / (xpNeededForNextLevel - xpNeededForLastLevel),
             curPlayerXp
         );
-    }
-
-    public void SetOrbsCollected()
-    {
-        fireOrbsTextElement.text =
-            $"{playerOrbCollector.NumOrbsCollectedForType(OrbController.OrbType.FIRE)}";
-        iceOrbsTextElement.text =
-            $"{playerOrbCollector.NumOrbsCollectedForType(OrbController.OrbType.ICE)}";
-    }
-
-    public void SetEquilibriumState(EquilibriumManager.EquilibriumState equilibriumState)
-    {
-        equilibriumStateTextElement.text = $"{equilibriumState}";
     }
 
     public void SetScaleStateBasedOnOrbs(OrbCollector orbCollector)
