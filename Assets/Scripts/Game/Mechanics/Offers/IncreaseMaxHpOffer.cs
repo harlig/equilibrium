@@ -9,7 +9,7 @@ public class IncreaseMaxHpOffer : OfferData
 
     public override string GetHelpText()
     {
-        return $"Chance that enemies drop HP on death";
+        return $"Increase max hp and heal by {GetValue()}";
     }
 
     public override string GetName()

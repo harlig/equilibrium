@@ -45,7 +45,7 @@ public class HeadsUpDisplayController : MonoBehaviour
 
     public void SetPlayerHp(float curPlayerHp, float maxPlayerHp)
     {
-        healthBar.SetHealth(curPlayerHp / maxPlayerHp);
+        healthBar.SetHealth(curPlayerHp , maxPlayerHp);
     }
 
     public void SetPlayerXp(float curPlayerXp, int curPlayerLevel)

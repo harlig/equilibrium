@@ -11,7 +11,7 @@ public class HealthOffer : OfferData
 
     public override string GetHelpText()
     {
-        return $"Chance that enemies drop HP on death";
+        return $"Increase chance that enemies drop HP on death by {GetValue()}";
     }
 
     public override string GetName()
