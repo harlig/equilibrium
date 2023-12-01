@@ -278,7 +278,6 @@ public class PlayerController : GenericCharacterController
         {
             return;
         }
-        Debug.LogFormat("took damage {0}", damageTaken);
         hpRemaining -= damageTaken;
 
         if (IsDead())

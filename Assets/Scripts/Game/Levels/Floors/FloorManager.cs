@@ -146,8 +146,6 @@ public abstract class FloorManager : MonoBehaviour
             yPos = localPos.y;
         }
 
-        Debug.LogFormat("{0}, {1}", xPos, yPos);
-        Debug.LogFormat("Can we spawn player at {0}, {1}", xPos, yPos);
         InteractableBehavior.PlayerAndCameraLocation newLocations = new() { };
         var PlayerLocation = startingRoom.Grid.FindNearestWalkableNode(new Vector2(xPos, yPos));
         newLocations.PlayerLocation = PlayerLocation.WorldPosition;

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private static List<int> InitializeXpList(int levelsToCreate)
     {
         var xpNeededPerLevel = new List<int>();
-        int baseXpForFirstLevel = 100; // Base XP for the first floor
+        int baseXpForFirstLevel = Mathf.RoundToInt(10 * EnemyController.BASE_HP); // Base XP for the first floor
         float xpScaleFactor = 1.48f; // Adjust this to change the scaling rate
 
         for (int level = 1; level <= levelsToCreate; level++)

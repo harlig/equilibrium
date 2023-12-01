@@ -35,7 +35,9 @@ public abstract class EnemyController : GenericCharacterController
         return localMaxHp;
     }
 
-    protected float localMaxHp = 20;
+    public const float BASE_HP = 20;
+
+    protected float localMaxHp = BASE_HP;
 
     protected PlayerController player;
 
@@ -273,13 +275,8 @@ public abstract class EnemyController : GenericCharacterController
         // TODO: maybe we should drop a number of orbs depending on how many hits the enemy took?
         orbDropper.DoOrbDrop(damageTaken, GetMaxHp(), containingRoom);
 
-        Debug.LogFormat(
-            "Checking if player with chance of {0} will make me drop hp",
-            player.HpDropOnKillChance
-        );
         if (player.HpDropOnKillChance > Random.Range(0, 1f))
         {
-            Debug.Log("Dropping health!");
             // drop HP interactable
             HealthDropController.Create(
                 GetComponentInParent<GameManager>().healthDropPrefab,
