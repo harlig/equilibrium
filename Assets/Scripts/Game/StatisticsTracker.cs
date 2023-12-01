@@ -51,6 +51,9 @@ public class StatisticsTracker
     public enum StatisticType
     {
         DAMAGE_DEALT,
+        FIRE_DAMAGE_DEALT,
+        ICE_DAMAGE_DEALT,
+        NEUTRAL_DAMAGE_DEALT,
         ENEMIES_DEFEATED,
         XP_COLLECTED,
         ORBS_COLLECTED,

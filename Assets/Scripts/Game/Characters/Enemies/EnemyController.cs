@@ -263,6 +263,34 @@ public abstract class EnemyController : GenericCharacterController
             StatisticsTracker.StatisticType.DAMAGE_DEALT,
             damage
         );
+
+        switch (damageType)
+        {
+            case DamageType.NEUTRAL:
+                GetComponentInParent<GameManager>().statisticsTracker.Increment(
+                    StatisticsTracker.StatisticType.NEUTRAL_DAMAGE_DEALT,
+                    damage
+                );
+                break;
+            case DamageType.FIRE:
+                GetComponentInParent<GameManager>().statisticsTracker.Increment(
+                    StatisticsTracker.StatisticType.FIRE_DAMAGE_DEALT,
+                    damage
+                );
+                break;
+            case DamageType.ICE:
+                GetComponentInParent<GameManager>().statisticsTracker.Increment(
+                    StatisticsTracker.StatisticType.ICE_DAMAGE_DEALT,
+                    damage
+                );
+                break;
+            default:
+                Debug.LogErrorFormat(
+                    "Failed to add statistic for damage dealt of type {0}",
+                    damageType
+                );
+                break;
+        }
     }
 
     protected override void OnDeath()
