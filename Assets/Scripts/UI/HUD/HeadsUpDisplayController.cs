@@ -103,4 +103,11 @@ public class HeadsUpDisplayController : MonoBehaviour
 
         equilibriumScaleController.Hide();
     }
+
+    public void OnPlayerRespawn(PlayerController player)
+    {
+        gameOverMenuController.gameObject.SetActive(false);
+        SetPlayerHp(player.HpRemaining, player.MaxHp);
+        equilibriumScaleController.Show();
+    }
 }

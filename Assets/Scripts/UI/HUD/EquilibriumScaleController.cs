@@ -66,4 +66,9 @@ public class EquilibriumScaleController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
 }

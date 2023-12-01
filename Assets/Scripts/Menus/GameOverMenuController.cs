@@ -64,7 +64,35 @@ public class GameOverMenuController : MonoBehaviour
     private void ShowKeepPlayingButton()
     {
         keepPlayingButton.gameObject.SetActive(true);
-        // TODO: need to center this and toMenu button so they take up equal space and are center aligned in parent
+
+        // Assuming parent's width is sufficient to hold both buttons side by side.
+        // Get the width of the toMenuButton
+        float buttonWidth = toMenuButton.GetComponent<RectTransform>().rect.width;
+
+        // Calculate new positions
+        float halfButtonWidth = buttonWidth / 2;
+        float centerPosition = 0; // Assuming the parent is centered
+
+        // Position the toMenuButton
+        RectTransform toMenuButtonRect = toMenuButton.GetComponent<RectTransform>();
+        toMenuButtonRect.anchoredPosition = new Vector2(
+            centerPosition - halfButtonWidth,
+            toMenuButtonRect.anchoredPosition.y
+        );
+
+        // Set keepPlayingButton size to be the same as toMenuButton
+        RectTransform keepPlayingButtonRect = keepPlayingButton.GetComponent<RectTransform>();
+        keepPlayingButtonRect.sizeDelta = new Vector2(buttonWidth, toMenuButtonRect.sizeDelta.y);
+
+        // Position the keepPlayingButton
+        keepPlayingButtonRect.anchoredPosition = new Vector2(
+            centerPosition + halfButtonWidth,
+            keepPlayingButtonRect.anchoredPosition.y
+        );
+        keepPlayingButton.onClick.AddListener(() =>
+        {
+            GetComponentInParent<GameManager>().RespawnPlayer();
+        });
     }
 
     public void GoToMainMenu()

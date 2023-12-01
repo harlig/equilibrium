@@ -169,17 +169,25 @@ public class GameManager : MonoBehaviour
         FAIL
     }
 
+    private GameOverStatus? gameOverStatus = null;
+
     public void OnGameOver(GameOverStatus gameOverStatus)
     {
+        this.gameOverStatus = gameOverStatus;
+
         levelUpBehavior.ShouldShowUI = false;
         player.DisablePlayer();
         HudController.OnGameOver(gameOverStatus, statisticsTracker, player);
     }
 
-    public void OnRespawnPlayer()
+    public void RespawnPlayer()
     {
+        if (gameOverStatus == null)
+        {
+            throw new Exception("Cannot respawn player because game has not ended!");
+        }
         levelUpBehavior.ShouldShowUI = true;
         player.Respawn();
-        HudController.OnGameOver(gameOverStatus, statisticsTracker, player);
+        HudController.OnGameOver(gameOverStatus.Value, statisticsTracker, player);
     }
 }

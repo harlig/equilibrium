@@ -239,6 +239,8 @@ public class PlayerController : GenericCharacterController
 
     public void Respawn()
     {
+        // respawn with 50% hp
+        hpRemaining = MaxHp / 2f;
         EnablePlayer();
     }
 
