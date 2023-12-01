@@ -35,7 +35,7 @@ public abstract class EnemyController : GenericCharacterController
         return localMaxHp;
     }
 
-    protected float localMaxHp = 10;
+    protected float localMaxHp = 20;
 
     protected PlayerController player;
 

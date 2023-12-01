@@ -82,7 +82,7 @@ public class DifficultySystem
 
             // Scaling Damage based on difficulty and new Max HP
             enemy.AddToDamageDealtModifier(
-                enemy.MaxHp * GenerateDifficultyModifier() / originalMaxHp
+                enemy.MaxHp * GenerateDifficultyModifier() / originalMaxHp * 0.75f
             );
 
             // Scaling Movement Speed
