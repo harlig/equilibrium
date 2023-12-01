@@ -103,6 +103,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public static bool IsGamePaused()
+    {
+        return Time.timeScale == 0;
+    }
+
     void OnPlayerLevelUp(int newLevel, Action afterLevelUpAction)
     {
         // TODO: how many offers should player get?

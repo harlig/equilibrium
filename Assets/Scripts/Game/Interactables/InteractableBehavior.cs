@@ -27,7 +27,7 @@ public abstract class InteractableBehavior : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E))
         {
-            if (PlayerCanInteractWithThis)
+            if (PlayerCanInteractWithThis && !GameManager.IsGamePaused())
             {
                 OnPlayerHit(playerController);
                 hudController.DisableInteractableHelpText();
