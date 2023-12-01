@@ -316,20 +316,22 @@ public class PlayerController : GenericCharacterController
         };
     }
 
+    protected const float PLAYER_FIRE_SPEED_MULTIPLIER = 1.33f;
+
     public void SetEquilibriumState(EquilibriumManager.EquilibriumState newState)
     {
         var oldState = EquilibriumState;
         if (newState == EquilibriumManager.EquilibriumState.INFERNO)
         {
             ApplyEffectsForDamageType(DamageType.FIRE, int.MaxValue);
-            MultiplyToMovementSpeedModifier(1 / FROZEN_SPEED_MULTIPLIER);
+            MultiplyToMovementSpeedModifier(PLAYER_FIRE_SPEED_MULTIPLIER);
         }
         else if (oldState == EquilibriumManager.EquilibriumState.INFERNO)
         {
             // transitioning out of inferno should stop DOT
             // TODO: we should remove this if the player can take DOT from sources other than this
             applyingStatusEffect = false;
-            MultiplyToMovementSpeedModifier(FROZEN_SPEED_MULTIPLIER);
+            MultiplyToMovementSpeedModifier(1 / PLAYER_FIRE_SPEED_MULTIPLIER);
         }
 
         if (newState == EquilibriumManager.EquilibriumState.FROZEN)
