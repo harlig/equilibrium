@@ -52,14 +52,43 @@ public class GameManager : MonoBehaviour
 
     public HealthDropController healthDropPrefab;
 
+    private int numFloors = 0;
+
     void Awake()
     {
         AcquisitionManager = new(player, statisticsTracker);
     }
 
+    readonly HashSet<FloorManager> allFloors = new();
+
     void Start()
     {
         SetupGame();
+        allFloors.Add(startingFloorPrefab);
+        var firstFloorStairs = GetComponentsInChildren<StairsController>(true);
+        foreach (StairsController stair in firstFloorStairs)
+        {
+            allFloors.Add(stair.FloorTo);
+            AddConnectedFloors(stair.FloorTo);
+        }
+        numFloors = allFloors.Count; // Update numFloors to reflect the total number of unique floors
+        Debug.LogFormat("num floors we found {0}", numFloors);
+    }
+
+    void AddConnectedFloors(FloorManager floor)
+    {
+        if (floor != null)
+        {
+            var stairsInFloor = floor.GetComponentsInChildren<StairsController>(true);
+            foreach (StairsController stair in stairsInFloor)
+            {
+                if (!allFloors.Contains(stair.FloorTo))
+                {
+                    allFloors.Add(stair.FloorTo);
+                    AddConnectedFloors(stair.FloorTo); // Recursive call to handle multiple floor connections
+                }
+            }
+        }
     }
 
     void Update()
