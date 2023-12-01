@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CorrespondingState: 2
-  OfferPool: 4
+  OfferPool: 6
   Color: {r: 0.8396226, g: 0.81260186, b: 0.2811944, a: 1}
-  Value: 0.3
+  Value: 0.05
   Sprite: {fileID: 21300000, guid: da3eb2ca103c64d4494897e681c35962, type: 3}
