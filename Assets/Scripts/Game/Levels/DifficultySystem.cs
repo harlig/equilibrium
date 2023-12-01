@@ -102,9 +102,7 @@ public class DifficultySystem
 
             if (enemy.GetComponent<ElementalEnemy>() != null)
             {
-                float elementalChanceMultiplier = CalculateElementalChanceMultiplier(
-                    OverallModifier
-                );
+                float elementalChanceMultiplier = CalculateElementalChanceMultiplier();
                 enemy.IncreaseElementalSystemChance(elementalChanceMultiplier);
             }
         }
@@ -136,15 +134,9 @@ public class DifficultySystem
             return multiplier;
         }
 
-        private float CalculateElementalChanceMultiplier(float difficultyModifier)
+        private float CalculateElementalChanceMultiplier()
         {
-            const float logBase = 10;
-            float normalizedDifficulty = Mathf.Clamp(difficultyModifier, 1, float.MaxValue);
-            float adjustedDifficulty = Mathf.Sqrt(normalizedDifficulty); // Slows down the rate of increase
-            float logValue = Mathf.Log(adjustedDifficulty, logBase);
-            float multiplier = Mathf.Clamp(logValue / logBase, 0, 1); // Caps the multiplier at 1
-
-            return multiplier;
+            return Random.Range(0.1f, 0.3f);
         }
     }
 }
