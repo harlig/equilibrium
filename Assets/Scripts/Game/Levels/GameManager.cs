@@ -171,8 +171,15 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver(GameOverStatus gameOverStatus)
     {
-        levelUpBehavior.Disable();
-        player.Stop();
+        levelUpBehavior.ShouldShowUI = false;
+        player.DisablePlayer();
+        HudController.OnGameOver(gameOverStatus, statisticsTracker, player);
+    }
+
+    public void OnRespawnPlayer()
+    {
+        levelUpBehavior.ShouldShowUI = true;
+        player.Respawn();
         HudController.OnGameOver(gameOverStatus, statisticsTracker, player);
     }
 }

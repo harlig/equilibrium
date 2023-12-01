@@ -7,7 +7,7 @@ public class LevelUpBehavior : MonoBehaviour
 {
     [SerializeField]
     LevelUpUIElements levelUpUIElements;
-    private bool _shouldShowUI = true;
+    public bool ShouldShowUI { private get; set; } = true;
 
     public void LevelUp(
         int newPlayerLevel,
@@ -17,7 +17,7 @@ public class LevelUpBehavior : MonoBehaviour
         HeadsUpDisplayController hudController
     )
     {
-        if (!_shouldShowUI)
+        if (!ShouldShowUI)
         {
             return;
         }
@@ -50,10 +50,5 @@ public class LevelUpBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(0.04f);
         afterLevelUpAction.Invoke();
-    }
-
-    public void Disable()
-    {
-        _shouldShowUI = false;
     }
 }

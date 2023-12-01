@@ -11,7 +11,7 @@ public class WeaponSlotController
 
     private readonly float weaponOffsetAngle = -45f;
 
-    private bool attackingEnabled = true;
+    public bool attackingEnabled { private get; set; } = true;
 
     public WeaponSlotController(
         GenericCharacterController character,
@@ -37,10 +37,14 @@ public class WeaponSlotController
             }
             else if (Input.GetMouseButton(1))
             {
-                AttackAtPosition(WeaponController.WeaponType.RANGED, () => {
-                    // recalculate mouse position in the callback for accurate projectiles
-                    return player.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-                });
+                AttackAtPosition(
+                    WeaponController.WeaponType.RANGED,
+                    () =>
+                    {
+                        // recalculate mouse position in the callback for accurate projectiles
+                        return player.MainCamera.ScreenToWorldPoint(Input.mousePosition);
+                    }
+                );
             }
         }
     }
@@ -71,7 +75,8 @@ public class WeaponSlotController
 
         if (attackPositionCallback == null)
         {
-            equippedWeapon.AttackAtPosition(() => {
+            equippedWeapon.AttackAtPosition(() =>
+            {
                 return equippedWeapon.transform.position;
             });
         }
@@ -157,10 +162,5 @@ public class WeaponSlotController
         float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) - 90; // subtract 90 to account for tan angle
 
         weapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-
-    public void DisableAttacking()
-    {
-        attackingEnabled = false;
     }
 }

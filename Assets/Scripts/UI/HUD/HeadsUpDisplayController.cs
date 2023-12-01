@@ -99,8 +99,7 @@ public class HeadsUpDisplayController : MonoBehaviour
         {
             SetPlayerHp(0, player.MaxHp);
         }
-        gameOverMenuController.SetText(gameOverStatus);
-        gameOverMenuController.SetStats(statisticsTracker);
+        gameOverMenuController.SetGameOver(gameOverStatus, statisticsTracker);
 
         equilibriumScaleController.Hide();
     }

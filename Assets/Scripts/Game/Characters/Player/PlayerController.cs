@@ -232,15 +232,14 @@ public class PlayerController : GenericCharacterController
 
     protected override void OnDeath()
     {
-        Stop();
-
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        GetComponent<Rigidbody2D>().freezeRotation = true;
-
-        // no longer collide with it
-        GetComponent<BoxCollider2D>().enabled = false;
+        DisablePlayer();
 
         GetComponentInParent<GameManager>().OnGameOver(GameOverStatus.FAIL);
+    }
+
+    public void Respawn()
+    {
+        EnablePlayer();
     }
 
     public void Heal(float amountToHeal)
@@ -316,9 +315,25 @@ public class PlayerController : GenericCharacterController
         EquilibriumState = newState;
     }
 
-    public void Stop()
+    public void DisablePlayer()
     {
-        weaponSlotController.DisableAttacking();
+        weaponSlotController.attackingEnabled = false;
         _canMove = false;
+
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        // no longer collide with it
+        GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void EnablePlayer()
+    {
+        weaponSlotController.attackingEnabled = true;
+        _canMove = true;
+
+        GetComponent<Rigidbody2D>().freezeRotation = false;
+
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 }
