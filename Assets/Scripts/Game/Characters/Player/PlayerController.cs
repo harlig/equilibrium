@@ -43,9 +43,10 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
 
-    public override float MaxHp => LocalMaxHp;
+    public override float MaxHp => LocalMaxHp * LocalMaxHpModifier;
 
-    public float LocalMaxHp { get; set; } = 1500;
+    private float LocalMaxHp { get; set; } = 1500;
+    public float LocalMaxHpModifier { get; set; } = 1f;
 
     public override float BaseMovementSpeed => 0.11f;
 

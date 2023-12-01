@@ -75,9 +75,8 @@ public abstract class GenericCharacterController : MonoBehaviour
         {
             // damage .3% of player max hp every tick
             return (float)(
-                GetComponentInParent<GameManager>()
-                    .GetComponentInChildren<PlayerController>()
-                    .LocalMaxHp * 0.003
+                GetComponentInParent<GameManager>().GetComponentInChildren<PlayerController>().MaxHp
+                * 0.003
             );
         }
         return (float)(totalDamage / (duration / interval));

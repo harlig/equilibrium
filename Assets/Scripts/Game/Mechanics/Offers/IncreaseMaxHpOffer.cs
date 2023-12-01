@@ -2,9 +2,9 @@ public class IncreaseMaxHpOffer : OfferData
 {
     public override void ApplyToPlayer(PlayerController player)
     {
-        var playerMaxHpBeforeModification = player.LocalMaxHp;
-        player.LocalMaxHp *= Value;
-        player.Heal(player.LocalMaxHp - playerMaxHpBeforeModification);
+        var playerMaxHpBeforeModification = player.MaxHp;
+        player.LocalMaxHpModifier += Value;
+        player.Heal(player.MaxHp - playerMaxHpBeforeModification);
     }
 
     public override string GetHelpText()
