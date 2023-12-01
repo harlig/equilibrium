@@ -11,7 +11,7 @@ public class DamageOffer : OfferData
 
     public override string GetHelpText()
     {
-        return $"Increases your damage by {Value}";
+        return $"Increases your damage multiplier by {GetValue()}%";
     }
 
     public override string GetName()
@@ -21,6 +21,6 @@ public class DamageOffer : OfferData
 
     public override string GetValue()
     {
-        return $"{Value}";
+        return $"{Mathf.CeilToInt(Value * 100)}";
     }
 }

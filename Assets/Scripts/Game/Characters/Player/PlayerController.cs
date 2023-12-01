@@ -335,7 +335,7 @@ public class PlayerController : GenericCharacterController
         {
             MultiplyToMovementSpeedModifier(FROZEN_SPEED_MULTIPLIER);
         }
-        else if (oldState == EquilibriumManager.EquilibriumState.INFERNO)
+        else if (oldState == EquilibriumManager.EquilibriumState.FROZEN)
         {
             MultiplyToMovementSpeedModifier(1 / FROZEN_SPEED_MULTIPLIER);
         }
