@@ -54,7 +54,7 @@ public class PlayerController : GenericCharacterController
         get { return hpRemaining; }
     }
 
-    public float HpDropOnKillChance = 0.05f;
+    public float HpDropOnKillChance { get; set; } = 0.05f;
 
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;

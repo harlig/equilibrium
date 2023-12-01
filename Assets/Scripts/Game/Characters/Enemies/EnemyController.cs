@@ -279,6 +279,7 @@ public abstract class EnemyController : GenericCharacterController
         );
         if (player.HpDropOnKillChance > Random.Range(0, 1f))
         {
+            Debug.Log("Dropping health!");
             // drop HP interactable
             HealthDropController.Create(
                 GetComponentInParent<GameManager>().healthDropPrefab,
