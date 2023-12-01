@@ -71,7 +71,7 @@ public class RangedEnemy : EnemyController
     {
         weaponSlotController.AttackAtPosition(
             WeaponController.WeaponType.RANGED,
-            player.transform.position
+            () => player.transform.position
         );
     }
 }

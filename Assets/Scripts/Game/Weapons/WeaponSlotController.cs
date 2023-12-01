@@ -37,14 +37,17 @@ public class WeaponSlotController
             }
             else if (Input.GetMouseButton(1))
             {
-                AttackAtPosition(WeaponController.WeaponType.RANGED, mousePosition);
+                AttackAtPosition(WeaponController.WeaponType.RANGED, () => {
+                    // recalculate mouse position in the callback for accurate projectiles
+                    return player.MainCamera.ScreenToWorldPoint(Input.mousePosition);
+                });
             }
         }
     }
 
     public void AttackAtPosition(
         WeaponController.WeaponType weaponType,
-        Vector2? attackPosition = null
+        Func<Vector2> attackPositionCallback = null
     )
     {
         WeaponController equippedWeapon = null;
@@ -66,13 +69,15 @@ public class WeaponSlotController
             return;
         }
 
-        if (attackPosition == null)
+        if (attackPositionCallback == null)
         {
-            equippedWeapon.AttackAtPosition(equippedWeapon.transform.position);
+            equippedWeapon.AttackAtPosition(() => {
+                return equippedWeapon.transform.position;
+            });
         }
         else
         {
-            equippedWeapon.AttackAtPosition((Vector2)attackPosition);
+            equippedWeapon.AttackAtPosition(attackPositionCallback);
         }
     }
 

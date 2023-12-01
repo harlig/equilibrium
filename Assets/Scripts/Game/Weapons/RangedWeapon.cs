@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class RangedWeapon : WeaponController
@@ -23,7 +24,7 @@ public class RangedWeapon : WeaponController
         character = GetComponentInParent<GenericCharacterController>();
     }
 
-    public override void AttackAtPosition(Vector2 position)
+    public override void AttackAtPosition(Func<Vector2> getPosition)
     {
         if (isShooting)
         {
@@ -36,7 +37,7 @@ public class RangedWeapon : WeaponController
             AttackSpeed,
             () =>
             {
-                FireProjectile(position);
+                FireProjectile(getPosition());
                 isShooting = false;
             }
         );
