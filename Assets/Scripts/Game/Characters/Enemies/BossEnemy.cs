@@ -4,7 +4,7 @@ public class BossEnemy : EnemyController
 {
     private float switchBehaviorTimer = 0f;
     private bool isFollowingPlayer;
-    private const float SwitchBehaviorIntervalSeconds = 8f;
+    private const float SwitchBehaviorIntervalSeconds = 5f;
 
     // TODO: add something that is like ExtraActions that can be called, so the boss can spawn other enemies in the room but it would be set by the room manager
 
@@ -20,7 +20,8 @@ public class BossEnemy : EnemyController
         // boss is strong af
         SetMaxHp(MaxHp * 10);
         AddToDamageDealtModifier(10f);
-        AddToMovementSpeedModifier(1.5f);
+        AddToMovementSpeedModifier(1.3f);
+        IncreaseAllWeaponsAttackSpeedMultiplier(1f);
 
         if (GetComponent<ElementalEnemy>() != null)
         {

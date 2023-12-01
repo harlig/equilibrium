@@ -358,6 +358,18 @@ public abstract class EnemyController : GenericCharacterController
         meleeWeapon = (MeleeWeapon)weapon;
     }
 
+    public void IncreaseAllWeaponsAttackSpeedMultiplier(float modifierToAdd)
+    {
+        if (rangedWeapon != null)
+        {
+            rangedWeapon.IncreaseAttackSpeedMultiplier(modifierToAdd);
+        }
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.IncreaseAttackSpeedMultiplier(modifierToAdd);
+        }
+    }
+
     public void SetMaxHp(float newMaxHp)
     {
         localMaxHp = newMaxHp;

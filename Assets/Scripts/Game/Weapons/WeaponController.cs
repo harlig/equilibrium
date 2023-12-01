@@ -12,12 +12,12 @@ public abstract class WeaponController : MonoBehaviour
     public abstract bool ShouldRotateToMousePosition { get; }
     public float AttackSpeed
     {
-        get => BaseAttackSpeed + attackSpeedModifier;
+        get => BaseAttackSpeed * attackSpeedMultiplier;
     }
 
     [SerializeField]
     protected float BaseAttackSpeed = 3f;
-    private float attackSpeedModifier = 0;
+    private float attackSpeedMultiplier = 1f;
 
     public static WeaponController Create(
         WeaponController prefab,
@@ -53,9 +53,9 @@ public abstract class WeaponController : MonoBehaviour
         return damageModifer;
     }
 
-    public void IncreaseAttackSpeed(float amountToIncrease)
+    public void IncreaseAttackSpeedMultiplier(float amountToIncrease)
     {
-        attackSpeedModifier += amountToIncrease;
+        attackSpeedMultiplier += amountToIncrease;
     }
 
     public enum WeaponType

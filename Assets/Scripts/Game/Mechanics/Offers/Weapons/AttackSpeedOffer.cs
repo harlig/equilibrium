@@ -18,12 +18,12 @@ public class AttackSpeedOffer : OfferData
             );
             return;
         }
-        weapon.IncreaseAttackSpeed(Value);
+        weapon.IncreaseAttackSpeedMultiplier(Value);
     }
 
     public override string GetHelpText()
     {
-        return $"Increases the attack speed of your {affectedWeaponType.ToString().ToLower()} weapon by {Value}";
+        return $"Increases the base attack speed of your {affectedWeaponType.ToString().ToLower()} weapon by {GetValue()}%";
     }
 
     public override string GetName()
@@ -33,6 +33,6 @@ public class AttackSpeedOffer : OfferData
 
     public override string GetValue()
     {
-        return $"{Value}";
+        return $"{string.Format("{0:N0}", Value * 100)}";
     }
 }

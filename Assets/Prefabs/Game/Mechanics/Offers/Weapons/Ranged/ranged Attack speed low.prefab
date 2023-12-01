@@ -47,6 +47,6 @@ MonoBehaviour:
   CorrespondingState: 2
   OfferPool: 3
   Color: {r: 0.9410302, g: 1, b: 0.3537736, a: 1}
-  Value: 0.5
+  Value: 0.1
   Sprite: {fileID: 21300000, guid: 422a41c246c0341c68e2f906efaa7e26, type: 3}
   affectedWeaponType: 1
