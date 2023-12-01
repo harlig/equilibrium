@@ -141,6 +141,7 @@ public abstract class GenericCharacterController : MonoBehaviour
             }
 
             duration -= DamageOverTimeSystem.DOT_INTERVAL;
+            // TODO: if we're applying DOT for player in inferno state (totalDamage is 0), we need to recalculate the damagePerInterval every loop because player max HP might change
             TakeDamage(damageType, damagePerInterval, true);
         }
 
