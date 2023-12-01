@@ -96,6 +96,20 @@ public class DifficultySystem
             }
 
             enemy.AddToMovementSpeedModifier(newMovementSpeed - enemy.MovementSpeed);
+
+            float attackSpeedMultiplier = CalculateAttackSpeedMultiplier(OverallModifier);
+            enemy.IncreaseAllWeaponsAttackSpeedMultiplier(attackSpeedMultiplier);
+        }
+
+        private float CalculateAttackSpeedMultiplier(float difficultyModifier)
+        {
+            // Adjusting the base of the logarithm to scale the value appropriately
+            const float logBase = 10; // You can tweak this base to change the scaling
+            float normalizedDifficulty = Mathf.Clamp(difficultyModifier, 1, float.MaxValue);
+            float logValue = Mathf.Log(normalizedDifficulty, logBase);
+
+            // Normalize to range [0, 1]
+            return Mathf.Clamp(logValue / logBase, 0, 1);
         }
     }
 }

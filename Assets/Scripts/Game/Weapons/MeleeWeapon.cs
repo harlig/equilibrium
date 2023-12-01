@@ -12,7 +12,7 @@ public class MeleeWeapon : WeaponController
 
     public override bool ShouldRotateToMousePosition => false;
 
-    public override float BaseDamageAmount => 20f;
+    public override float BaseDamageAmount => 10f;
 
     public override WeaponType Type => WeaponType.MELEE;
 

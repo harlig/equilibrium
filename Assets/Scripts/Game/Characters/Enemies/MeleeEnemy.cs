@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class MeleeEnemy : EnemyController
 {
+    protected override float GetMaxHp()
+    {
+        return 2 * localMaxHp;
+    }
+
     protected override void Start()
     {
         base.Start();

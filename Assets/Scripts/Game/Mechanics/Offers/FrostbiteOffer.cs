@@ -5,11 +5,6 @@ public class FrostbiteOffer : SystemOffer
 {
     public override void ApplyToPlayer(PlayerController player)
     {
-        Debug.LogFormat(
-            "applying frostbite ofer {0} to player with value {1}",
-            augmentation,
-            Value
-        );
         switch (augmentation)
         {
             case Augmentation.CHANCE:
