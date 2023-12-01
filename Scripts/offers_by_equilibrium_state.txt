@@ -1,10 +1,6 @@
 ###################################################
 EQUILIBRIUM STATE FROZEN
 --------------
-Name: Negative speed (small)
-Value: -3
-Offer Pool: 0
----------------
 Name: frostbite damage low
 Value: 1
 Offer Pool: 3
@@ -17,6 +13,10 @@ Name: frostbite duration medium
 Value: 2
 Offer Pool: 4
 ---------------
+Name: Negative speed (small)
+Value: -0.3
+Offer Pool: 5
+---------------
 Name: increase ice orbiter damage (high)
 Value: 3
 Offer Pool: 5
@@ -28,6 +28,10 @@ Offer Pool: 5
 Name: frostbite duration high
 Value: 3
 Offer Pool: 6
+---------------
+Name: ranged Attack speed high
+Value: 0.5
+Offer Pool: 7
 ---------------
 Name: drop fire orbs (high)
 Value: 6
@@ -66,15 +70,15 @@ Name: frostbite damage medium
 Value: 2
 Offer Pool: 4
 ---------------
-Name: Attack speed medium
-Value: 1
+Name: ranged Attack speed medium
+Value: 0.3
 Offer Pool: 5
 ---------------
 Name: increase orbiters speed (high)
 Value: 30
 Offer Pool: 7
 ---------------
-Name: Drop fire orbs (medium)
+Name: drop fire orbs (medium)
 Value: 4
 Offer Pool: 7
 ---------------
@@ -84,45 +88,61 @@ Offer Pool: 7
 EQUILIBRIUM STATE BRISK
 --------------
 Name: Speed (small)
-Value: 3
+Value: 0.03
 Offer Pool: 0
 ---------------
-Name: Speed (medium)
-Value: 5
-Offer Pool: 1
----------------
-Name: Speed (large)
-Value: 7
-Offer Pool: 2
----------------
-Name: Attack speed low
-Value: 0.5
+Name: ranged Attack speed low
+Value: 0.1
 Offer Pool: 3
 ---------------
 Name: increase orbiters speed (low)
 Value: 10
 Offer Pool: 5
 ---------------
-Name: Drop fire orbs (low)
+Name: drop fire orbs (low)
 Value: 3
 Offer Pool: 5
+---------------
+Name: Speed (medium)
+Value: 0.05
+Offer Pool: 6
 ---------------
 Name: increase orbiters speed (medium)
 Value: 20
 Offer Pool: 6
+---------------
+Name: Speed (large)
+Value: 0.1
+Offer Pool: 10
 ---------------
 ###################################################
 
 ###################################################
 EQUILIBRIUM STATE NEUTRAL
 --------------
+Name: Health (low)
+Value: 0.005
+Offer Pool: 3
+---------------
+Name: Max HP Increased low
+Value: 0.03
+Offer Pool: 3
+---------------
 Name: increase orbiters deflection chance (low)
 Value: 0.01
 Offer Pool: 4
 ---------------
+Name: Max HP Increased medium
+Value: 0.06
+Offer Pool: 5
+---------------
 Name: increase orbiters distance (low)
 Value: 0.1
 Offer Pool: 5
+---------------
+Name: Health (medium)
+Value: 0.01
+Offer Pool: 6
 ---------------
 Name: increase orbiters deflection chance (medium)
 Value: 0.03
@@ -136,8 +156,16 @@ Name: increase orbiters distance (high)
 Value: 0.5
 Offer Pool: 7
 ---------------
+Name: Health (high)
+Value: 0.015
+Offer Pool: 8
+---------------
 Name: increase orbiters deflection chance (high)
 Value: 0.05
+Offer Pool: 8
+---------------
+Name: Max HP Increased high
+Value: 0.1
 Offer Pool: 8
 ---------------
 ###################################################
@@ -146,22 +174,18 @@ Offer Pool: 8
 EQUILIBRIUM STATE WARM
 --------------
 Name: Damage (low)
-Value: 1
+Value: 0.1
 Offer Pool: 0
 ---------------
-Name: Damage (medium)
-Value: 1.5
-Offer Pool: 1
----------------
-Name: Damage (high)
-Value: 2
-Offer Pool: 2
----------------
 Name: Attack speed low
-Value: 0.5
+Value: 0.1
 Offer Pool: 3
 ---------------
-Name: Drop ice orbs (low)
+Name: Damage (medium)
+Value: 0.3
+Offer Pool: 4
+---------------
+Name: drop ice orbs (low)
 Value: 3
 Offer Pool: 5
 ---------------
@@ -175,6 +199,10 @@ Offer Pool: 7
 ---------------
 Name: increase orbiters elemental effect chance (high)
 Value: 0.02
+Offer Pool: 8
+---------------
+Name: Damage (high)
+Value: 0.5
 Offer Pool: 8
 ---------------
 ###################################################
@@ -207,10 +235,10 @@ Value: 1.5
 Offer Pool: 4
 ---------------
 Name: Attack speed medium
-Value: 1
+Value: 0.3
 Offer Pool: 5
 ---------------
-Name: Drop ice orbs (medium)
+Name: drop ice orbs (medium)
 Value: 4
 Offer Pool: 7
 ---------------
@@ -248,14 +276,10 @@ Value: 3
 Offer Pool: 6
 ---------------
 Name: Attack speed high
-Value: 2
+Value: 0.5
 Offer Pool: 7
 ---------------
-Name: Attack speed high
-Value: 2
-Offer Pool: 7
----------------
-Name: Drop ice orbs (high)
+Name: drop ice orbs (high)
 Value: 6
 Offer Pool: 9
 ---------------
