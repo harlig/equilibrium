@@ -232,7 +232,7 @@ public abstract class EnemyController : GenericCharacterController
         CalculatePatrolPath(patrolEndWorldPosition);
     }
 
-    public override void TakeDamage(DamageType damageType, float damage)
+    public override void TakeDamage(DamageType damageType, float damage, bool _ = false)
     {
         if (isPatrolling)
         {

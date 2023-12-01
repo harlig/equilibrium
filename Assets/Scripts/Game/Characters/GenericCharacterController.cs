@@ -48,7 +48,11 @@ public abstract class GenericCharacterController : MonoBehaviour
 
     public abstract bool IsDead();
 
-    public abstract void TakeDamage(DamageType damageType, float damageTaken);
+    public abstract void TakeDamage(
+        DamageType damageType,
+        float damageTaken,
+        bool isDamageFromDOT = false
+    );
     protected abstract void OnDeath();
 
     protected bool applyingStatusEffect = false;
@@ -137,7 +141,7 @@ public abstract class GenericCharacterController : MonoBehaviour
             }
 
             duration -= DamageOverTimeSystem.DOT_INTERVAL;
-            TakeDamage(damageType, damagePerInterval);
+            TakeDamage(damageType, damagePerInterval, true);
         }
 
         elementalStatusEffectSystem.StopAnimating();

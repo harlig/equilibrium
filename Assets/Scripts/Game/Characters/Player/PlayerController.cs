@@ -286,7 +286,11 @@ public class PlayerController : GenericCharacterController
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining, MaxHp);
     }
 
-    public override void TakeDamage(DamageType damageType, float damageTaken)
+    public override void TakeDamage(
+        DamageType damageType,
+        float damageTaken,
+        bool isDamageFromDOT = false
+    )
     {
         if (!canTakeDmg)
         {
@@ -300,7 +304,14 @@ public class PlayerController : GenericCharacterController
             return;
         }
 
-        GetComponentInParent<GameManager>().AudioManager.PlayHurtSound();
+        if (isDamageFromDOT && damageTaken != 0)
+        {
+            GetComponentInParent<GameManager>().AudioManager.PlayDOTSound();
+        }
+        else if (damageTaken != 0)
+        {
+            GetComponentInParent<GameManager>().AudioManager.PlayHurtSound();
+        }
         GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining, MaxHp);
 
         characterAnimator.AnimateHurt();
