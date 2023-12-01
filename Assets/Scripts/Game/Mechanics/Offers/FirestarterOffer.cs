@@ -10,10 +10,10 @@ public class FirestarterOffer : SystemOffer
                 player.MeleeWeapon.elementalSystem.Chance += Value;
                 return;
             case Augmentation.DAMAGE:
-                player.MeleeWeapon.elementalSystem.Damage += Value;
+                player.MeleeWeapon.elementalSystem.DamageModifier += Value;
                 return;
             case Augmentation.DURATION:
-                player.MeleeWeapon.elementalSystem.Damage += Value;
+                player.MeleeWeapon.elementalSystem.Duration += Value;
                 return;
         }
     }

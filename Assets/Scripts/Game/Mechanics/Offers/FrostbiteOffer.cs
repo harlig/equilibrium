@@ -11,7 +11,7 @@ public class FrostbiteOffer : SystemOffer
                 player.RangedWeapon.elementalSystem.Chance += Value;
                 return;
             case Augmentation.DAMAGE:
-                player.RangedWeapon.elementalSystem.Damage += Value;
+                player.RangedWeapon.elementalSystem.DamageModifier += Value;
                 return;
             case Augmentation.DURATION:
                 player.RangedWeapon.elementalSystem.Duration += Value;
