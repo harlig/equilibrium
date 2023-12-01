@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static FloorManager;
+using static GameManager;
 
 public class RoomManager : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class RoomManager : MonoBehaviour
         if (enemies != null && AllEnemiesDead() && !HasClearedRoom)
         {
             MarkRoomCleared();
+            bool hasBosses = enemies.Any(enemy => enemy is BossEnemy);
+            if (hasBosses)
+            {
+                GetComponentInParent<GameManager>().OnGameOver(GameOverStatus.WIN);
+            }
         }
     }
 

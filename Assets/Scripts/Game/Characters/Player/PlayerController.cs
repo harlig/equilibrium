@@ -244,8 +244,8 @@ public class PlayerController : GenericCharacterController
 
     protected override void OnDeath()
     {
-        _canMove = false;
-        weaponSlotController.DisableAttacking();
+        Stop();
+
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().freezeRotation = true;
 
@@ -321,5 +321,11 @@ public class PlayerController : GenericCharacterController
             MultiplyToMovementSpeedModifier(1 / FROZEN_SPEED_MULTIPLIER);
         }
         EquilibriumState = newState;
+    }
+
+    public void Stop()
+    {
+        weaponSlotController.DisableAttacking();
+        _canMove = false;
     }
 }
