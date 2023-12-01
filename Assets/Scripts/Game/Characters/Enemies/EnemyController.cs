@@ -200,6 +200,7 @@ public abstract class EnemyController : GenericCharacterController
     public void FollowPlayer(PlayerController player)
     {
         this.player = player;
+
         startFollowing = true;
         isPatrolling = false;
 
@@ -221,8 +222,9 @@ public abstract class EnemyController : GenericCharacterController
         patrolStartWorldPosition = transform.position;
         patrolEndWorldPosition = endWorldPosition;
         detectionRadius = overrideDetectionRadius;
-        startFollowing = false;
         patrolDirection = MoveDirection.TOWARDS_PATROL_POSITION;
+
+        startFollowing = false;
         isPatrolling = true;
 
         CalculatePatrolPath(patrolEndWorldPosition);
