@@ -38,13 +38,13 @@ public class EquilibriumManager
         Dictionary<(float, float), EquilibriumState> mapping =
             new()
             {
-                { (0.0f, 25.0f), EquilibriumState.FROZEN },
-                { (25.0f, 35.0f), EquilibriumState.COLD },
-                { (35.0f, 45.0f), EquilibriumState.BRISK },
+                { (0.0f, 30.0f), EquilibriumState.FROZEN },
+                { (30.0f, 38.0f), EquilibriumState.COLD },
+                { (38.0f, 45.0f), EquilibriumState.BRISK },
                 { (45.0f, 55.0f), EquilibriumState.NEUTRAL },
-                { (55.0f, 65.0f), EquilibriumState.WARM },
-                { (65.0f, 75.0f), EquilibriumState.HOT },
-                { (75.0f, 100.0f), EquilibriumState.INFERNO }
+                { (55.0f, 62.0f), EquilibriumState.WARM },
+                { (62.0f, 70.0f), EquilibriumState.HOT },
+                { (70.0f, 100.0f), EquilibriumState.INFERNO }
             };
 
         return mapping;
