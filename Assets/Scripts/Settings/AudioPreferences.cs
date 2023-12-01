@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class AudioPreferences
 {
-    public float mainVolume = 0.5f;
-    public float musicVolume = 1.0f;
-    public float sfxVolume = 1.0f;
+    const float MAIN_VOLUME_DEFAULT = 0.5f;
+    const float MUSIC_VOLUME_DEFAULT = 1.0f;
+    const float SFX_VOLUME_DEFAULT = 0.2f;
+    public float mainVolume = MAIN_VOLUME_DEFAULT;
+    public float musicVolume = MUSIC_VOLUME_DEFAULT;
+    public float sfxVolume = SFX_VOLUME_DEFAULT;
 
     public AudioPreferences()
     {
@@ -21,8 +24,8 @@ public class AudioPreferences
 
     public void LoadPreferences()
     {
-        mainVolume = PlayerPrefs.GetFloat("MainVolume", 0.5f);
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
-        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
+        mainVolume = PlayerPrefs.GetFloat("MainVolume", MAIN_VOLUME_DEFAULT);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", MUSIC_VOLUME_DEFAULT);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", SFX_VOLUME_DEFAULT);
     }
 }
