@@ -45,7 +45,7 @@ public class PlayerController : GenericCharacterController
 
     public override float MaxHp => LocalMaxHp;
 
-    public float LocalMaxHp { get; set; } = 15000;
+    public float LocalMaxHp { get; set; } = 1500;
 
     public override float BaseMovementSpeed => 0.11f;
 
@@ -248,6 +248,7 @@ public class PlayerController : GenericCharacterController
         LocalMaxHp /= 2;
         hpRemaining = MaxHp;
         EnablePlayer();
+        SetEquilibriumState(EquilibriumManager.ManageEquilibrium(OrbCollector));
 
         // Start invulnerability coroutine
         StartCoroutine(InvulnerabilityDelay());
@@ -350,6 +351,7 @@ public class PlayerController : GenericCharacterController
 
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
+        applyingStatusEffect = false;
     }
 
     public void EnablePlayer()
