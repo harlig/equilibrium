@@ -97,19 +97,35 @@ public class DifficultySystem
 
             enemy.AddToMovementSpeedModifier(newMovementSpeed - enemy.MovementSpeed);
 
-            float attackSpeedMultiplier = CalculateAttackSpeedMultiplier(OverallModifier);
+            float attackSpeedMultiplier = CalculateAttackSpeedMultiplier(OverallModifier, enemy);
             enemy.IncreaseAllWeaponsAttackSpeedMultiplier(attackSpeedMultiplier);
         }
 
-        private float CalculateAttackSpeedMultiplier(float difficultyModifier)
+        private float CalculateAttackSpeedMultiplier(
+            float difficultyModifier,
+            EnemyController enemy
+        )
         {
             // Adjusting the base of the logarithm to scale the value appropriately
-            const float logBase = 10; // You can tweak this base to change the scaling
+            const float logBase = 10;
             float normalizedDifficulty = Mathf.Clamp(difficultyModifier, 1, float.MaxValue);
-            float logValue = Mathf.Log(normalizedDifficulty, logBase);
 
-            // Normalize to range [0, 1]
-            return Mathf.Clamp(logValue / logBase, 0, 1);
+            float multiplier;
+
+            if (enemy is MeleeEnemy)
+            {
+                // Slower scaling for melee enemies
+                float logValue = Mathf.Log(normalizedDifficulty, logBase);
+                multiplier = Mathf.Clamp(logValue / (logBase * 2), 0, 2); // Adjust the divisor to control scaling rate
+            }
+            else
+            {
+                // Different or existing scaling for other enemy types
+                float logValue = Mathf.Log(normalizedDifficulty, logBase);
+                multiplier = Mathf.Clamp(logValue / logBase, 0, 1);
+            }
+
+            return multiplier;
         }
     }
 }
