@@ -176,6 +176,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6063935873461095191, guid: ed98ceaf379ed461db612fea17489554, type: 3}
+      propertyPath: healthDropPrefab
+      value: 
+      objectReference: {fileID: 9191318882843996298, guid: 496dd55b9898143a0ab883ba46b518c1, type: 3}
+    - target: {fileID: 6063935873461095191, guid: ed98ceaf379ed461db612fea17489554, type: 3}
       propertyPath: startingFloorPrefab
       value: 
       objectReference: {fileID: 2001460159357152637, guid: def484471f75347a2a94cef8b221edac, type: 3}

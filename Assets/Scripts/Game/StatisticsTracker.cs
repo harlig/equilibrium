@@ -54,6 +54,7 @@ public class StatisticsTracker
         XP_COLLECTED,
         ORBS_COLLECTED,
         OFFERS_COLLECTED,
+        HP_DROPS_COLLECTED,
         CHESTS_OPENED,
         ROOMS_CLEARED,
         FLOORS_VISITED

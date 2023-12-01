@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     public StatisticsTracker statisticsTracker = new();
     public DifficultySystem difficultySystem = new();
 
+    public HealthDropController healthDropPrefab;
+
     void Awake()
     {
         AcquisitionManager = new(player, statisticsTracker);

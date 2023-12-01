@@ -273,6 +273,17 @@ public abstract class EnemyController : GenericCharacterController
         // TODO: maybe we should drop a number of orbs depending on how many hits the enemy took?
         orbDropper.DoOrbDrop(damageTaken, GetMaxHp(), containingRoom);
 
+        if (player.HpDropOnKillChance < Random.Range(0, 1f))
+        {
+            // drop HP interactable
+            HealthDropController.Create(
+                GetComponentInParent<GameManager>().healthDropPrefab,
+                transform,
+                // TODO: derive this better
+                player.MaxHp * 0.10f
+            );
+        }
+
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
 

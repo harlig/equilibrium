@@ -42,7 +42,7 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
-    public const float MAX_HP = 20000;
+    public const float MAX_HP = 2000; //00;
 
     public override float MaxHp => MAX_HP;
 
@@ -52,6 +52,8 @@ public class PlayerController : GenericCharacterController
     {
         get { return hpRemaining; }
     }
+
+    public float HpDropOnKillChance = 1f;
 
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;
@@ -253,6 +255,12 @@ public class PlayerController : GenericCharacterController
         GetComponent<BoxCollider2D>().enabled = false;
 
         GetComponentInParent<GameManager>().OnGameOver(GameOverStatus.FAIL);
+    }
+
+    public void Heal(float amountToHeal)
+    {
+        hpRemaining += amountToHeal;
+        GetComponentInParent<GameManager>().HudController.SetPlayerHp(hpRemaining, MaxHp);
     }
 
     public override void TakeDamage(DamageType damageType, float damageTaken)
