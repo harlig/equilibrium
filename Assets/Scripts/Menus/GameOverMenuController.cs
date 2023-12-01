@@ -6,16 +6,24 @@ using UnityEngine.UI;
 public class GameOverMenuController : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI gameOverText;
+    private TextMeshProUGUI gameOverText;
 
     [SerializeField]
-    TextMeshProUGUI statsText;
+    private TextMeshProUGUI statsText;
 
     [SerializeField]
-    Button toMenuButton;
+    private Button toMenuButton;
 
     [SerializeField]
-    Button keepPlayingButton;
+    private Button keepPlayingButton;
+
+    private Vector2 originalToMenuButtonPosition; // To store the original position
+
+    private void Start()
+    {
+        // Store the original position of the toMenuButton
+        originalToMenuButtonPosition = toMenuButton.GetComponent<RectTransform>().anchoredPosition;
+    }
 
     public void SetGameOver(GameOverStatus gameOverStatus, StatisticsTracker statisticsTracker)
     {
@@ -28,6 +36,7 @@ public class GameOverMenuController : MonoBehaviour
         }
         else
         {
+            ResetToMenuButtonPosition();
             keepPlayingButton.gameObject.SetActive(false);
         }
     }
@@ -47,7 +56,6 @@ public class GameOverMenuController : MonoBehaviour
         string statsString = "";
         int ndx = 0;
 
-        // Iterate over the dictionary
         foreach (var pair in statisticsTracker.statistics)
         {
             statsString += pair.Value.ToStatString();
@@ -64,35 +72,50 @@ public class GameOverMenuController : MonoBehaviour
     private void ShowKeepPlayingButton()
     {
         keepPlayingButton.gameObject.SetActive(true);
+        keepPlayingButton.onClick.AddListener(() =>
+        {
+            GetComponentInParent<GameManager>().RespawnPlayer();
+            keepPlayingButton.onClick.RemoveAllListeners();
+        });
 
-        // Assuming parent's width is sufficient to hold both buttons side by side.
+        PositionButtonsForGameOver();
+    }
+
+    private void PositionButtonsForGameOver()
+    {
+        // Assuming that the parent's RectTransform is properly set
+        RectTransform parentRect = toMenuButton.transform.parent.GetComponent<RectTransform>();
+        float parentWidth = parentRect.rect.width;
+
         // Get the width of the toMenuButton
-        float buttonWidth = toMenuButton.GetComponent<RectTransform>().rect.width;
-
-        // Calculate new positions
-        float halfButtonWidth = buttonWidth / 2;
-        float centerPosition = 0; // Assuming the parent is centered
-
-        // Position the toMenuButton
         RectTransform toMenuButtonRect = toMenuButton.GetComponent<RectTransform>();
-        toMenuButtonRect.anchoredPosition = new Vector2(
-            centerPosition - halfButtonWidth,
-            toMenuButtonRect.anchoredPosition.y
-        );
+        float buttonWidth = toMenuButtonRect.rect.width;
 
         // Set keepPlayingButton size to be the same as toMenuButton
         RectTransform keepPlayingButtonRect = keepPlayingButton.GetComponent<RectTransform>();
         keepPlayingButtonRect.sizeDelta = new Vector2(buttonWidth, toMenuButtonRect.sizeDelta.y);
 
+        // Calculate the space between the buttons and the parent's sides
+        float spaceBetween = (parentWidth - 2 * buttonWidth) / 3;
+
+        // Position the toMenuButton
+        toMenuButtonRect.anchoredPosition = new Vector2(
+            spaceBetween - parentWidth / 2 + buttonWidth / 2,
+            toMenuButtonRect.anchoredPosition.y
+        );
+
         // Position the keepPlayingButton
         keepPlayingButtonRect.anchoredPosition = new Vector2(
-            centerPosition + halfButtonWidth,
+            parentWidth / 2 - spaceBetween - buttonWidth / 2,
             keepPlayingButtonRect.anchoredPosition.y
         );
-        keepPlayingButton.onClick.AddListener(() =>
-        {
-            GetComponentInParent<GameManager>().RespawnPlayer();
-        });
+    }
+
+    private void ResetToMenuButtonPosition()
+    {
+        // Reset the toMenuButton position to its original position
+        RectTransform toMenuButtonRect = toMenuButton.GetComponent<RectTransform>();
+        toMenuButtonRect.anchoredPosition = originalToMenuButtonPosition;
     }
 
     public void GoToMainMenu()

@@ -188,6 +188,6 @@ public class GameManager : MonoBehaviour
         }
         levelUpBehavior.ShouldShowUI = true;
         player.Respawn();
-        HudController.OnGameOver(gameOverStatus.Value, statisticsTracker, player);
+        HudController.OnPlayerRespawn(player);
     }
 }

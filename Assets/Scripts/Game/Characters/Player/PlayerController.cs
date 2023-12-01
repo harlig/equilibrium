@@ -45,7 +45,7 @@ public class PlayerController : GenericCharacterController
 
     public override float MaxHp => LocalMaxHp;
 
-    public float LocalMaxHp { get; set; } = 10000;
+    public float LocalMaxHp { get; set; } = 100;
 
     public override float BaseMovementSpeed => 0.11f;
 
@@ -233,15 +233,36 @@ public class PlayerController : GenericCharacterController
     protected override void OnDeath()
     {
         DisablePlayer();
-
+        GetComponentInParent<GameManager>().statisticsTracker.Increment(
+            StatisticsTracker.StatisticType.NUM_DEATHS
+        );
         GetComponentInParent<GameManager>().OnGameOver(GameOverStatus.FAIL);
+        canTakeDmg = false;
     }
+
+    bool canTakeDmg = true;
 
     public void Respawn()
     {
         // respawn with 50% hp
-        hpRemaining = MaxHp / 2f;
+        LocalMaxHp /= 2;
+        hpRemaining = MaxHp;
         EnablePlayer();
+
+        // Start invulnerability coroutine
+        StartCoroutine(InvulnerabilityDelay());
+    }
+
+    private IEnumerator InvulnerabilityDelay()
+    {
+        // Set canTakeDmg to false to prevent damage
+        canTakeDmg = false;
+
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3);
+
+        // After 3 seconds, allow taking damage again
+        canTakeDmg = true;
     }
 
     public void Heal(float amountToHeal)
@@ -253,6 +274,10 @@ public class PlayerController : GenericCharacterController
 
     public override void TakeDamage(DamageType damageType, float damageTaken)
     {
+        if (!canTakeDmg)
+        {
+            return;
+        }
         Debug.LogFormat("took damage {0}", damageTaken);
         hpRemaining -= damageTaken;
 
@@ -323,7 +348,6 @@ public class PlayerController : GenericCharacterController
         _canMove = false;
 
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        GetComponent<Rigidbody2D>().freezeRotation = true;
 
         // no longer collide with it
         GetComponent<BoxCollider2D>().enabled = false;
@@ -333,8 +357,6 @@ public class PlayerController : GenericCharacterController
     {
         weaponSlotController.attackingEnabled = true;
         _canMove = true;
-
-        GetComponent<Rigidbody2D>().freezeRotation = false;
 
         GetComponent<BoxCollider2D>().enabled = true;
     }

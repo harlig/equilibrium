@@ -57,6 +57,7 @@ public class StatisticsTracker
         HP_DROPS_COLLECTED,
         CHESTS_OPENED,
         ROOMS_CLEARED,
-        FLOORS_VISITED
+        FLOORS_VISITED,
+        NUM_DEATHS
     }
 }
