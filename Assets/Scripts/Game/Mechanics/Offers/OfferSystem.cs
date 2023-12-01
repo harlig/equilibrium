@@ -79,7 +79,7 @@ public class OfferSystem : MonoBehaviour
             );
 
             // if we can't get an offer from this pool, try from the pool below
-            while (offerPrefab == null && poolIndex >= 0)
+            while (offerPrefab == null && poolIndex > 0)
             {
                 poolIndex--;
                 offerPrefab = SelectOfferFromPool(
@@ -93,7 +93,6 @@ public class OfferSystem : MonoBehaviour
             if (offerPrefab != null)
             {
                 selectedOffersInstantiated.Add(OfferData.Create(offerPrefab, transform));
-                alreadySelectedOfferPrefabs.Add(offerPrefab);
             }
         }
 
@@ -170,6 +169,11 @@ public class OfferSystem : MonoBehaviour
             return null;
         }
 
+        Debug.LogFormat(
+            "Getting offer pool for pool {0} with ofer pools list of {1}",
+            poolIndex,
+            offerPools.Length
+        );
         List<OfferData> pool = new List<OfferData>(offerPools[poolIndex]);
         List<OfferData> offerEntriesInRaffle = new();
 
