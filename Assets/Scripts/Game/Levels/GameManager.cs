@@ -7,28 +7,30 @@ public class GameManager : MonoBehaviour
     // if you are at level 0, you need 1 xp to level up. if you are at level 1, you need 10, etc.
     public static List<int> XpNeededForLevelUpAtIndex { get; private set; } = InitializeXpList(10);
 
-    private static List<int> InitializeXpList(int supportedLevels)
+    private static List<int> InitializeXpList(int levelsToCreate)
     {
         var xpNeededPerLevel = new List<int>();
+        int baseXpForFirstLevel = 100; // Base XP for the first floor
+        float xpScaleFactor = 1.55f; // Adjust this to change the scaling rate
 
-        for (int level = 1; level <= supportedLevels; level++)
+        for (int level = 1; level <= levelsToCreate; level++)
         {
-            int xpRequired = CalculateXpForLevel(level);
+            int xpRequired = CalculateXpForLevel(level, baseXpForFirstLevel, xpScaleFactor);
             xpNeededPerLevel.Add(xpRequired);
         }
 
-        Debug.LogFormat("xp needed per level {0}", xpNeededPerLevel);
+        Debug.Log("xp needed per level");
+        foreach (int xpNeeded in xpNeededPerLevel)
+        {
+            Debug.LogFormat("xp needed: {0}", xpNeeded);
+        }
         return xpNeededPerLevel;
     }
 
-    private static int CalculateXpForLevel(int level)
+    private static int CalculateXpForLevel(int level, int baseXp, float scaleFactor)
     {
-        float baseXP = 20f;
-        float growthFactor = 1.2f;
-        float levelFactor = 2.0f;
-
-        // non-linear scaling: Increases XP requirement more at lower levels
-        return (int)(baseXP * Mathf.Pow(growthFactor + Mathf.Log(level, levelFactor), level - 1));
+        // Assuming exponential growth in XP requirements
+        return (int)(baseXp * Math.Pow(scaleFactor, level - 1));
     }
 
     [SerializeField]
