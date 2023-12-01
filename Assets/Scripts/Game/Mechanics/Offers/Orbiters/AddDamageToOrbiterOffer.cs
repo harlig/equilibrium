@@ -11,6 +11,11 @@ public class AddDamageToOrbiterOffer : SpecificTypeOfOrbiterOffer
 
     public override string GetHelpText()
     {
-        return $"Your {orbiterType.ToString().ToLower()} orbiters each deal {Value} additional damage";
+        return $"Your {orbiterType.ToString().ToLower()} orbiters each deal {GetValue()}% additional damage";
+    }
+
+    public override string GetValue()
+    {
+        return $"{Mathf.CeilToInt(Value * 100)}";
     }
 }

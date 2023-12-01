@@ -11,6 +11,6 @@ public class IncreaseOrbitSystemProjectileDeflectionChanceOffer : OrbiterOffer
 
     public override string GetHelpText()
     {
-        return $"Orbiters have a {Value * 100}% increased chance of deflecting enemy projectiles";
+        return $"Orbiters have a {Mathf.CeilToInt(Value * 100)}% increased chance of deflecting enemy projectiles";
     }
 }

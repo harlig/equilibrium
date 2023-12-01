@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class FirestarterOffer : SystemOffer
 {
@@ -27,7 +28,8 @@ public class FirestarterOffer : SystemOffer
     {
         return augmentation switch
         {
-            Augmentation.CHANCE => "Chance to set enemies on fire with your melee weapon",
+            Augmentation.CHANCE
+                => $"Increased chance to set enemies on fire with your melee weapon by {Mathf.CeilToInt(Value * 100)}%",
             Augmentation.DAMAGE => "Increase damage done over time when setting enemies on fire",
             Augmentation.DURATION => "Increase duration of enemies being on fire",
             _ => throw new Exception($"Couldn't handle this augmentation {augmentation}"),

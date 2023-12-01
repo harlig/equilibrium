@@ -33,6 +33,6 @@ public class AttackSpeedOffer : OfferData
 
     public override string GetValue()
     {
-        return $"{string.Format("{0:N0}", Value * 100)}";
+        return $"{Mathf.CeilToInt(Value * 100)}";
     }
 }

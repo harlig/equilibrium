@@ -28,7 +28,8 @@ public class FrostbiteOffer : SystemOffer
     {
         return augmentation switch
         {
-            Augmentation.CHANCE => "Chance to freeze enemies with your ranged weapon",
+            Augmentation.CHANCE
+                => $"Increased chance to freeze enemies with your ranged weapon by {Mathf.CeilToInt(Value * 100)}%",
             Augmentation.DAMAGE => "Increase intensity of slow applied to frozen enemies",
             Augmentation.DURATION => "Increase duration of enemies being frozen",
             _ => throw new Exception($"Couldn't handle this augmentation {augmentation}"),

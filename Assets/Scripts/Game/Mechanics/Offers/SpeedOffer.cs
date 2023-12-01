@@ -11,7 +11,7 @@ public class SpeedOffer : OfferData
 
     public override string GetHelpText()
     {
-        return $"Increases your speed by {GetValue()}";
+        return $"Increases your speed by {GetValue()}%";
     }
 
     public override string GetName()
