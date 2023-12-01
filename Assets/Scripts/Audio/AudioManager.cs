@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     private AudioClip musicTrack;
 
     [SerializeField]
+    private AudioClip damageOverTimeTickSound;
+
+    [SerializeField]
     private AudioClip menuClickSound;
 
     private AudioSource sfxAudioSource; // AudioSource for sound effects
@@ -64,6 +67,11 @@ public class AudioManager : MonoBehaviour
     public void PlayHurtSound()
     {
         PlayEffect(hurtSounds[Random.Range(0, hurtSounds.Length)]);
+    }
+
+    public void PlayDOTSound()
+    {
+        PlayEffect(damageOverTimeTickSound);
     }
 
     public void PlayMenuClickSound()
