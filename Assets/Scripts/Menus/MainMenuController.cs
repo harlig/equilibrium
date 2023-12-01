@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -11,13 +10,21 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField]
     private GameObject hasSavedGameMenu;
+    public AudioManager AudioManager { get; private set; }
 
     private OptionsMenuController optionsMenu;
+
+    void Awake()
+    {
+        AudioManager = GetComponentInChildren<AudioManager>();
+    }
 
     void Start()
     {
         optionsMenu = GetComponentInChildren<OptionsMenuController>(true);
         SetActiveMenu();
+
+        AudioManager.PlayMusic();
     }
 
     public void SetActiveMenu()
@@ -32,11 +39,14 @@ public class MainMenuController : MonoBehaviour
         freshGameMenu.SetActive(false);
         hasSavedGameMenu.SetActive(false);
         optionsMenu.Show();
+
+        AudioManager.PlayMenuClickSound();
     }
 
     public void PlayGame()
     {
         Debug.LogFormat("If play button is not working, is the first level right after menu?");
+        AudioManager.PlayMenuClickSound();
         SceneManager.LoadSceneAsync(
             SceneManager.GetActiveScene().buildIndex + 1,
             LoadSceneMode.Single

@@ -51,7 +51,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d16320e5afbff4ff791e7352529a40b2, type: 3}
   - {fileID: 8300000, guid: 665e995bdbf0a460ba9b68991ba3a19f, type: 3}
   weaponSwingSounds: []
-  musicTrack: {fileID: 8300000, guid: a49cc7da213b84ea7b0706b790c997a3, type: 3}
+  musicTrack: {fileID: 8300000, guid: 291a1d0e14c9c44d698cc9e78b4c104c, type: 3}
+  menuClickSound: {fileID: 8300000, guid: a49cc7da213b84ea7b0706b790c997a3, type: 3}
 --- !u!82 &8450634466693832122
 AudioSource:
   m_ObjectHideFlags: 0

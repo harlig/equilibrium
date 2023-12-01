@@ -25,6 +25,19 @@ public class OptionsMenuController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void OnBackButtonClicked()
+    {
+        Hide();
+        if (GetComponentInParent<GameManager>() != null)
+        {
+            GetComponent<GameManager>().AudioManager.PlayMenuClickSound();
+        }
+        else if (GetComponentInParent<MainMenuController>() != null)
+        {
+            GetComponent<MainMenuController>().AudioManager.PlayMenuClickSound();
+        }
+    }
+
     public void Hide()
     {
         gameObject.SetActive(false);

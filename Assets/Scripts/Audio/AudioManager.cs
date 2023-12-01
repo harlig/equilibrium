@@ -11,6 +11,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioClip musicTrack;
 
+    [SerializeField]
+    private AudioClip menuClickSound;
+
     private AudioSource sfxAudioSource; // AudioSource for sound effects
     private AudioSource musicAudioSource; // Separate AudioSource for music
     private AudioPreferences audioPreferences;
@@ -24,11 +27,19 @@ public class AudioManager : MonoBehaviour
 
         audioPreferences = new();
         UpdateAudioLevels();
+
+        // always keep this around
+        // DontDestroyOnLoad(gameObject);
     }
 
     void OnEnable()
     {
         SettingsManager.OnSettingsUpdated += UpdateAudioLevels;
+    }
+
+    void OnDisable()
+    {
+        SettingsManager.OnSettingsUpdated -= UpdateAudioLevels;
     }
 
     void UpdateAudioLevels()
@@ -53,6 +64,11 @@ public class AudioManager : MonoBehaviour
     public void PlayHurtSound()
     {
         PlayEffect(hurtSounds[Random.Range(0, hurtSounds.Length)]);
+    }
+
+    public void PlayMenuClickSound()
+    {
+        PlayEffect(menuClickSound);
     }
 
     public void PlayMusic()
