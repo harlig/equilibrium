@@ -9,7 +9,7 @@ public class WeaponSlotController
 
     private readonly WeaponController[] equippedWeapons = new WeaponController[2];
 
-    private readonly float weaponOffsetAngle = 45f;
+    private readonly float weaponOffsetAngle = -45f;
 
     private bool attackingEnabled = true;
 
