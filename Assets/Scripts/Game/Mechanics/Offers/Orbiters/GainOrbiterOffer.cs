@@ -9,7 +9,7 @@ public class GainOrbiterOffer : SpecificTypeOfOrbiterOffer
 
     public override string GetHelpText()
     {
-        return $"Gain {Value} {orbiterType.ToString().ToLower()} orbiter{(Value > 1 ? "s" : "")}";
+        return $"Gain {Value} {orbiterType.ToString().ToLower()} orbiter{(Value > 1 ? "s" : "")} which deal damage to enemies";
     }
 
     // can always get a gain orbiter offer
