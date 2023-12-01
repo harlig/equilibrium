@@ -14,6 +14,6 @@ public class MazeFloor : FloorManager
 
     void Awake()
     {
-        SetPlayerSpawnLocation(new Vector2(8, 11));
+        SetPlayerSpawnLocation(new Vector2(30, 11));
     }
 }
