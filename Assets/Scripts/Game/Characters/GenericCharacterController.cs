@@ -69,15 +69,15 @@ public abstract class GenericCharacterController : MonoBehaviour
         characterAnimator = GetComponent<CharacterAnimator>();
     }
 
-    private float CalculateDamagePerInterval(float duration, float interval, float? totalDamage)
+    private float CalculateDamagePerInterval(float duration, float interval, float totalDamage)
     {
-        if (totalDamage == null)
+        if (totalDamage == 0)
         {
-            // damage .5% of player max hp every tick
+            // damage .3% of player max hp every tick
             return (float)(
                 GetComponentInParent<GameManager>()
                     .GetComponentInChildren<PlayerController>()
-                    .LocalMaxHp * 0.005
+                    .LocalMaxHp * 0.003
             );
         }
         return (float)(totalDamage / (duration / interval));
