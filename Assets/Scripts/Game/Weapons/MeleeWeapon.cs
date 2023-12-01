@@ -63,7 +63,7 @@ public class MeleeWeapon : WeaponController
             character.ApplyEffectsForDamageType(
                 DamageType,
                 elementalSystem.Duration,
-                elementalSystem.Damage
+                elementalSystem.Damage * damageMultiplier
             );
         }
     }

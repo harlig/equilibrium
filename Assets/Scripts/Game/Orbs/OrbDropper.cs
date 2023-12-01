@@ -21,8 +21,7 @@ public class DamageTaken
 
     public void SetDamageTakenTextOnTextElement(float maxHp)
     {
-        // format to two decimal places
-        TextElement.text = string.Format("{0:N0}", maxHp - TotalDamage());
+        TextElement.text = $"{Mathf.CeilToInt(maxHp - TotalDamage())}";
     }
 
     public void HideTextElement()

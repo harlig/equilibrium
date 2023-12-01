@@ -84,7 +84,7 @@ public class ProjectileBehavior : MonoBehaviour
             character.ApplyEffectsForDamageType(
                 DamageType,
                 elementalSystem.Duration,
-                elementalSystem.Damage
+                elementalSystem.Damage * CharacterFiredFrom.DamageDealtMultiplier
             );
         }
 

@@ -6,12 +6,12 @@ public class SpeedOffer : OfferData
 {
     public override void ApplyToPlayer(PlayerController player)
     {
-        player.AddToMovementSpeedModifier(Value * 0.0001f);
+        player.AddToMovementSpeedModifier(Value);
     }
 
     public override string GetHelpText()
     {
-        return $"Increases your speed by {Value}";
+        return $"Increases your speed by {GetValue()}";
     }
 
     public override string GetName()
@@ -21,6 +21,6 @@ public class SpeedOffer : OfferData
 
     public override string GetValue()
     {
-        return string.Format("{0:N0}", Value * 10000);
+        return string.Format("{0:N0}", Value * 100);
     }
 }

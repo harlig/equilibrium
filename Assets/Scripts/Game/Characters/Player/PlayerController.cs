@@ -42,10 +42,11 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
+    public const float MAX_HP = 10000;
 
-    public override float MaxHp => 10000;
+    public override float MaxHp => MAX_HP;
 
-    protected override float BaseMovementSpeed => 0.08f;
+    protected override float BaseMovementSpeed => 0.11f;
 
     public override float HpRemaining
     {
@@ -297,9 +298,6 @@ public class PlayerController : GenericCharacterController
         };
     }
 
-    private const float FROZEN_SPEED_MULTIPLICATIVE_MODIFIER = 0.5f;
-    private float speedRemovedFromFrozenState = 0f;
-
     public void SetEquilibriumState(EquilibriumManager.EquilibriumState newState)
     {
         var oldState = EquilibriumState;
@@ -316,16 +314,11 @@ public class PlayerController : GenericCharacterController
 
         if (newState == EquilibriumManager.EquilibriumState.FROZEN)
         {
-            // take speed down to 1/2 of what it is
-            var newSpeed = MovementSpeed * FROZEN_SPEED_MULTIPLICATIVE_MODIFIER;
-            var speedToRemove = MovementSpeed - newSpeed;
-            speedRemovedFromFrozenState = speedToRemove;
-            AddToMovementSpeedModifier(-speedToRemove);
+            MultiplyToMovementSpeedModifier(FROZEN_SPEED_MULTIPLIER);
         }
         else if (oldState == EquilibriumManager.EquilibriumState.INFERNO)
         {
-            AddToMovementSpeedModifier(speedRemovedFromFrozenState);
-            speedRemovedFromFrozenState = 0f;
+            MultiplyToMovementSpeedModifier(1 / FROZEN_SPEED_MULTIPLIER);
         }
         EquilibriumState = newState;
     }

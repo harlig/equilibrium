@@ -44,7 +44,10 @@ public class OrbiterData : MonoBehaviour
         if (other.TryGetComponent<EnemyController>(out var enemy))
         {
             // TODO: this should be replaced with something specific to the orbiter and probably a system per-type of orbiter
-            enemy.TakeDamage(damageType, BASE_DAMAGE_AMOUNT * damageMultiplier);
+            enemy.TakeDamage(
+                damageType,
+                BASE_DAMAGE_AMOUNT * player.DamageDealtMultiplier * damageMultiplier
+            );
 
             // TODO: knockback is broken
             if (!enemy.IsDead() && other.attachedRigidbody != null)
@@ -62,7 +65,11 @@ public class OrbiterData : MonoBehaviour
                 {
                     damage = 3f;
                 }
-                enemy.ApplyEffectsForDamageType(damageType, 3.0f, damage);
+                enemy.ApplyEffectsForDamageType(
+                    damageType,
+                    3.0f,
+                    damage * player.DamageDealtMultiplier * damageMultiplier
+                );
             }
         }
     }

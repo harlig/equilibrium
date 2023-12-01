@@ -7,6 +7,7 @@ public abstract class GenericCharacterController : MonoBehaviour
     private const float MIN_MOVEMENT_SPEED = 0.01f;
     private const float BASE_MOVEMENT_SPEED_MULTIPLIER = 1f;
     public const float BASE_DAMAGE_DEALT_MULTIPLIER = 1f;
+    protected const float FROZEN_SPEED_MULTIPLIER = 0.5f;
 
     // public api for move speed
     public float MovementSpeed
@@ -29,9 +30,14 @@ public abstract class GenericCharacterController : MonoBehaviour
     public float DamageDealtMultiplier { get; private set; } = BASE_DAMAGE_DEALT_MULTIPLIER;
 
     // TODO: update what uses this
-    public void AddToMovementSpeedModifier(float speedToMultiply)
+    public void AddToMovementSpeedModifier(float percSpeedToAdd)
     {
-        movementSpeedMultiplier += speedToMultiply;
+        movementSpeedMultiplier += percSpeedToAdd;
+    }
+
+    public void MultiplyToMovementSpeedModifier(float percSpeedToMultiply)
+    {
+        movementSpeedMultiplier *= percSpeedToMultiply;
     }
 
     // TODO: update what uses this
@@ -64,7 +70,8 @@ public abstract class GenericCharacterController : MonoBehaviour
     {
         if (totalDamage == null)
         {
-            return DamageOverTimeSystem.DOT_DEFAULT_DAMAGE_PER_TICK;
+            // damage .5% of player max hp every tick
+            return (float)(PlayerController.MAX_HP * 0.005);
         }
         return (float)(totalDamage / (duration / interval));
     }
@@ -92,7 +99,7 @@ public abstract class GenericCharacterController : MonoBehaviour
 
         if (state == EquilibriumManager.EquilibriumState.FROZEN)
         {
-            StartCoroutine(SlowMovementSpeedForDuration(duration, 0.50f));
+            StartCoroutine(SlowMovementSpeedForDuration(duration, FROZEN_SPEED_MULTIPLIER));
         }
 
         StartCoroutine(DoDamageOverTime(damageType, duration, totalDamage));
@@ -136,11 +143,8 @@ public abstract class GenericCharacterController : MonoBehaviour
         float speedToSlowPercentage
     )
     {
-        // take speed down to 1/2 of what it is
-        var newSpeed = MovementSpeed * speedToSlowPercentage;
-        var speedToRemove = MovementSpeed - newSpeed;
-        AddToMovementSpeedModifier(-speedToRemove);
+        MultiplyToMovementSpeedModifier(speedToSlowPercentage);
         yield return new WaitForSeconds(durationSeconds);
-        AddToMovementSpeedModifier(speedToRemove);
+        MultiplyToMovementSpeedModifier(1 / speedToSlowPercentage);
     }
 }
