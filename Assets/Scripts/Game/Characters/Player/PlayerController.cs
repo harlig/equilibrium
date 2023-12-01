@@ -220,6 +220,8 @@ public class PlayerController : GenericCharacterController
                     Mathf.Pow(PlayerLevel / (float)(totalLevels - 1), powerFactor)
                         * (finalModifier - 1f)
                     + 1f;
+                // heal 10% on level up
+                Heal(MaxHp * 0.1f);
 
                 // can't collect more orbs until we finish the level up
                 canCollectOrbs = false;
