@@ -11,7 +11,7 @@ public class DamageOffer : OfferData
 
     public override string GetHelpText()
     {
-        return $"Increases your damage multiplier by {GetValue()}%";
+        return $"Increases your damage multiplier for all damage sources by {GetValue()}%";
     }
 
     public override string GetName()
