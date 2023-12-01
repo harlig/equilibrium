@@ -35,7 +35,7 @@ public abstract class EnemyController : GenericCharacterController
         return localMaxHp;
     }
 
-    public const float BASE_HP = 20;
+    public const float BASE_HP = 15;
 
     protected float localMaxHp = BASE_HP;
 
