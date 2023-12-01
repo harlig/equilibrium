@@ -12,6 +12,9 @@ public abstract class FloorManager : MonoBehaviour
     [SerializeField]
     private RangedEnemy rangedEnemyPrefab;
 
+    [SerializeField]
+    private BossEnemy bossEnemyPrefab;
+
     public RoomManager startingRoom;
     private bool shouldSpawnEnemies = true;
     private PlayerController playerController;
@@ -27,16 +30,31 @@ public abstract class FloorManager : MonoBehaviour
     {
         public int MeleeEnemyCount { get; private set; }
         public int RangedEnemyCount { get; private set; }
+        public int BossEnemyCount { get; private set; }
+
+        public MeleeEnemy meleeEnemyPrefab;
+        public RangedEnemy rangedEnemyPrefab;
+
+        private EnemyConfiguration() { }
 
         public int TotalNumEnemies
         {
-            get => MeleeEnemyCount + RangedEnemyCount;
+            get => MeleeEnemyCount + RangedEnemyCount + BossEnemyCount;
         }
 
-        public static EnemyConfiguration Create(int numMeleeEnemies = 0, int numRangedEnemies = 0)
+        public static EnemyConfiguration Create(
+            int numMeleeEnemies = 0,
+            int numRangedEnemies = 0,
+            int numBossEnemies = 0
+        )
         {
             EnemyConfiguration config =
-                new() { MeleeEnemyCount = numMeleeEnemies, RangedEnemyCount = numRangedEnemies };
+                new()
+                {
+                    MeleeEnemyCount = numMeleeEnemies,
+                    RangedEnemyCount = numRangedEnemies,
+                    BossEnemyCount = numBossEnemies,
+                };
             return config;
         }
     }
@@ -88,6 +106,7 @@ public abstract class FloorManager : MonoBehaviour
                 : EnemyConfiguration.Create(),
             meleeEnemyPrefab,
             rangedEnemyPrefab,
+            bossEnemyPrefab,
             difficulty.GetRoomDifficulty()
         );
         playerController.CurrentRoom = newActiveRoom;

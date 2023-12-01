@@ -9,7 +9,8 @@ public abstract class EnemyController : GenericCharacterController
     {
         MeleeFollowing,
         MeleePatrolling,
-        Ranged
+        Ranged,
+        Boss
     }
 
     private enum MoveDirection

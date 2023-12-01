@@ -210,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 6063935873461095191, guid: ed98ceaf379ed461db612fea17489554, type: 3}
       propertyPath: startingFloorPrefab
       value: 
-      objectReference: {fileID: 8098758381604308694, guid: 99bba8b2459ff4cf081318403edb6d26, type: 3}
+      objectReference: {fileID: 5691798692857179281, guid: e2a0efc7ee1d94d11b9da170f93cfda3, type: 3}
     - target: {fileID: 7125827037179770698, guid: ed98ceaf379ed461db612fea17489554, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.7

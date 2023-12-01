@@ -3,14 +3,19 @@ using UnityEngine;
 public class BossEnemy : EnemyController
 {
     private float switchBehaviorTimer = 0f;
-    private bool isFollowingPlayer = true;
-    private const float SwitchBehaviorIntervalSeconds = 10f;
+    private bool isFollowingPlayer;
+    private const float SwitchBehaviorIntervalSeconds = 8f;
+
+    // TODO: add something that is like ExtraActions that can be called, so the boss can spawn other enemies in the room but it would be set by the room manager
 
     protected override void Start()
     {
         base.Start();
         CreateMeleeWeapon();
         CreateRangedWeapon();
+
+        FollowPlayer(player);
+        isFollowingPlayer = true;
     }
 
     protected override void FixedUpdate()
@@ -24,24 +29,33 @@ public class BossEnemy : EnemyController
         if (switchBehaviorTimer >= SwitchBehaviorIntervalSeconds)
         {
             isFollowingPlayer = !isFollowingPlayer;
+            if (isFollowingPlayer)
+            {
+                FollowPlayer(player);
+            }
+            else
+            {
+                Debug.LogFormat("Patrol time {0}", containingRoom);
+                PatrolArea(
+                    containingRoom.GenerateRandomEnemyWalkableNode(player).WorldPosition,
+                    // cannot detect player
+                    0f
+                );
+            }
             switchBehaviorTimer = 0f;
-        }
-
-        // Execute the appropriate behavior
-        if (isFollowingPlayer)
-        {
-            FollowPlayer(player);
-        }
-        else
-        {
-            PatrolArea(containingRoom.GenerateRandomEnemyWalkableNode().WorldPosition);
         }
 
         // Combat behavior
         if (!IsDead())
         {
-            MeleeEnemy.TryAttack(transform.position, weaponSlotController, player);
-            RangedEnemy.TryFireProjectile(weaponSlotController, player);
+            if (isFollowingPlayer)
+            {
+                MeleeEnemy.TryAttack(transform.position, weaponSlotController, player);
+            }
+            else
+            {
+                RangedEnemy.TryFireProjectile(weaponSlotController, player);
+            }
         }
     }
 }
