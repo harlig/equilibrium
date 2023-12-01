@@ -42,7 +42,7 @@ public class PlayerController : GenericCharacterController
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
-    public const float MAX_HP = 2000; //00;
+    public const float MAX_HP = 10000;
 
     public override float MaxHp => MAX_HP;
 
@@ -53,7 +53,7 @@ public class PlayerController : GenericCharacterController
         get { return hpRemaining; }
     }
 
-    public float HpDropOnKillChance = 1f;
+    public float HpDropOnKillChance = 0.05f;
 
     private Vector2? AutomoveLocation = null;
     private Rigidbody2D rigidBody;

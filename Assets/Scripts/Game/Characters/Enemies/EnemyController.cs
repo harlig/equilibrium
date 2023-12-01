@@ -273,7 +273,11 @@ public abstract class EnemyController : GenericCharacterController
         // TODO: maybe we should drop a number of orbs depending on how many hits the enemy took?
         orbDropper.DoOrbDrop(damageTaken, GetMaxHp(), containingRoom);
 
-        if (player.HpDropOnKillChance < Random.Range(0, 1f))
+        Debug.LogFormat(
+            "Checking if player with chance of {0} will make me drop hp",
+            player.HpDropOnKillChance
+        );
+        if (player.HpDropOnKillChance > Random.Range(0, 1f))
         {
             // drop HP interactable
             HealthDropController.Create(

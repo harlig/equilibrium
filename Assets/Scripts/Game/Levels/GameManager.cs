@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
             int xpRequired = CalculateXpForLevel(level);
             xpNeededPerLevel.Add(xpRequired);
         }
+
+        Debug.LogFormat("xp needed per level {0}", xpNeededPerLevel);
         return xpNeededPerLevel;
     }
 

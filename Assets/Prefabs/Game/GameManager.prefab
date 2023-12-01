@@ -119,10 +119,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1774260109746295843}
-  startingFloorPrefab: {fileID: 8098758381604308694, guid: 99bba8b2459ff4cf081318403edb6d26, type: 3}
+  startingFloorPrefab: {fileID: 2001460159357152637, guid: def484471f75347a2a94cef8b221edac, type: 3}
   ElementalDamageStatusEffectSystemPrefab: {fileID: 5757885070661142702, guid: 25f29a3f9f7944e58b1046bd97c9e5b9, type: 3}
   HudController: {fileID: 4116723785520815756}
   OfferSystem: {fileID: 2358424905142102649}
+  healthDropPrefab: {fileID: 9191318882843996298, guid: 496dd55b9898143a0ab883ba46b518c1, type: 3}
 --- !u!1001 &455351875302512444
 PrefabInstance:
   m_ObjectHideFlags: 0
