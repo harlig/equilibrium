@@ -215,11 +215,13 @@ public class PlayerController : GenericCharacterController
             {
                 PlayerLevel++;
 
-                // Apply power curve for HP scaling
-                LocalMaxHpModifier =
+                // Apply power curve for HP scaling with consideration of existing HP modifier
+                float newModifier =
                     Mathf.Pow(PlayerLevel / (float)(totalLevels - 1), powerFactor)
                         * (finalModifier - 1f)
                     + 1f;
+                LocalMaxHpModifier *= newModifier; // Apply the new modifier to the existing one
+
                 // heal 10% on level up
                 Heal(MaxHp * 0.1f);
 
